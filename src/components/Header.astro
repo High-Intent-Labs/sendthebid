@@ -1,0 +1,51 @@
+---
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = '' } = Astro.props;
+---
+
+<nav class="flex justify-between items-center px-6 md:px-12 py-5 max-w-[1280px] mx-auto">
+  <a href="/" class="font-heading font-extrabold text-[26px] tracking-tight text-text-primary no-underline">
+    Send<span class="text-accent">The</span>Bid
+  </a>
+
+  <!-- Mobile menu button -->
+  <button id="mobile-menu-btn" class="md:hidden text-text-secondary p-2" aria-label="Toggle menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Desktop nav -->
+  <div class="hidden md:flex gap-8 items-center">
+    <a href="/hvac/" class:list={[
+      "text-sm font-medium no-underline transition-colors",
+      currentPath.startsWith('/hvac') ? 'text-text-primary' : 'text-text-secondary hover:text-text-primary'
+    ]}>HVAC Tools</a>
+    <a href="/#trades" class="text-text-secondary text-sm font-medium no-underline hover:text-text-primary transition-colors">All Trades</a>
+    <span class="bg-[rgba(255,107,43,0.12)] text-accent text-[11px] font-semibold px-2.5 py-1 rounded-full tracking-wider uppercase">100% Free</span>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+  <div class="flex flex-col gap-4 border-t border-border pt-4">
+    <a href="/hvac/" class:list={[
+      "text-sm font-medium no-underline",
+      currentPath.startsWith('/hvac') ? 'text-text-primary' : 'text-text-secondary'
+    ]}>HVAC Tools</a>
+    <a href="/#trades" class="text-text-secondary text-sm font-medium no-underline">All Trades</a>
+    <span class="bg-[rgba(255,107,43,0.12)] text-accent text-[11px] font-semibold px-2.5 py-1 rounded-full tracking-wider uppercase w-fit">100% Free</span>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

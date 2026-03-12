@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { hvacTools, trades, categoryColors } from '../data/hvacTools';
+
+const popularTools = [
+  hvacTools.find(t => t.slug === 'btu-calculator')!,
+  hvacTools.find(t => t.slug === 'profit-margin-calculator')!,
+  hvacTools.find(t => t.slug === 'labor-rate-calculator')!,
+  hvacTools.find(t => t.slug === 'invoice-generator')!,
+  hvacTools.find(t => t.slug === 'load-calculator')!,
+  hvacTools.find(t => t.slug === 'flat-rate-price-builder')!,
+  hvacTools.find(t => t.slug === 'seer-savings-calculator')!,
+  hvacTools.find(t => t.slug === 'maintenance-checklist')!,
+];
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SendTheBid",
+  "url": "https://sendthebid.com",
+  "description": "100% free tools for home service pros."
+};
+---
+
+<BaseLayout
+  title="SendTheBid — Free Pro Tools for Every Trade"
+  description="Free calculators, templates, and pricing tools built for home service pros. HVAC, plumbing, electrical, and more. No login, no fees."
+  currentPath="/"
+  schema={[orgSchema]}
+>
+  <!-- Hero -->
+  <section class="text-center px-6 pt-16 md:pt-20 pb-10 max-w-[820px] mx-auto relative">
+    <div class="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,107,43,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+    <div class="inline-flex items-center gap-2 bg-[rgba(255,107,43,0.12)] border border-[rgba(255,107,43,0.2)] text-accent text-[13px] font-semibold px-4 py-1.5 rounded-full mb-7 tracking-wide relative">
+      <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+      HVAC Tools Live
+    </div>
+    <h1 class="font-heading font-extrabold text-5xl md:text-[64px] leading-[1.05] tracking-tight uppercase mb-5">
+      Free tools that <span class="text-accent">actually work</span> for your trade
+    </h1>
+    <p class="text-lg text-text-secondary leading-relaxed max-w-[560px] mx-auto">
+      Calculators, templates, and pricing tools built specifically for pros. Pick your trade, get to work.
+    </p>
+  </section>
+
+  <!-- Trade Picker -->
+  <section id="trades" class="scroll-mt-20">
+    <div class="text-center pt-12 pb-3">
+      <h2 class="font-heading font-bold text-[15px] tracking-[2.5px] uppercase text-text-muted">Select Your Trade</h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-[1080px] mx-auto px-6 md:px-12 mt-6">
+      {trades.map(trade => (
+        trade.status === 'live' ? (
+          <a href={`/${trade.slug}/`} class="group bg-bg-card border border-accent rounded-[14px] p-5 md:p-7 text-center no-underline relative transition-all hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(255,107,43,0.15)]" style="background: linear-gradient(180deg, rgba(255,107,43,0.08) 0%, #1A2029 100%);">
+            <span class="absolute -top-2 -right-2 bg-accent text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Live</span>
+            <div class="w-[52px] h-[52px] mx-auto mb-3 bg-[rgba(255,107,43,0.15)] rounded-xl flex items-center justify-center text-[26px]">{trade.icon}</div>
+            <div class="font-heading font-bold text-base text-text-primary">{trade.name}</div>
+            <div class="text-accent text-xs font-medium mt-1">{trade.toolCount} tools</div>
+          </a>
+        ) : (
+          <div class="bg-bg-card border border-border rounded-[14px] p-5 md:p-7 text-center opacity-45 relative">
+            <span class="absolute -top-2 -right-2 bg-border text-text-muted text-[10px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Soon</span>
+            <div class="w-[52px] h-[52px] mx-auto mb-3 bg-bg-dark rounded-xl flex items-center justify-center text-[26px]">{trade.icon}</div>
+            <div class="font-heading font-bold text-base text-text-muted">{trade.name}</div>
+            <div class="text-text-muted text-xs font-medium mt-1">Coming Soon</div>
+          </div>
+        )
+      ))}
+    </div>
+  </section>
+
+  <!-- Popular HVAC Tools -->
+  <section class="max-w-[1080px] mx-auto px-6 md:px-12 mt-16 md:mt-[72px]">
+    <div class="flex justify-between items-end mb-6">
+      <h3 class="font-heading font-bold text-[28px] tracking-tight">
+        Popular <span class="text-accent">HVAC</span> Tools
+      </h3>
+      <a href="/hvac/" class="text-accent text-sm font-semibold no-underline flex items-center gap-1 hover:gap-2 transition-all">
+        View all 24 tools &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {popularTools.map(tool => {
+        const cc = categoryColors[tool.category];
+        return (
+          <a href={`/hvac/${tool.slug}`} class="bg-bg-card border border-border rounded-xl p-6 no-underline hover:border-[#3A4755] hover:bg-bg-card-hover hover:-translate-y-0.5 transition-all">
+            <span class:list={["text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded inline-block mb-2.5", cc.text, cc.bg]}>
+              {cc.label}
+            </span>
+            <h4 class="font-heading font-bold text-lg text-text-primary mb-2">{tool.shortName}</h4>
+            <p class="text-text-secondary text-[13px] leading-relaxed">{tool.shortDescription}</p>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="flex flex-wrap justify-center gap-10 md:gap-16 py-14 mt-12 border-t border-border max-w-[1080px] mx-auto px-6">
+    <div class="text-center">
+      <div class="font-heading font-extrabold text-[42px] text-text-primary tracking-tight">24<span class="text-accent">+</span></div>
+      <div class="text-text-muted text-[13px] font-medium mt-1">HVAC-specific tools</div>
+    </div>
+    <div class="text-center">
+      <div class="font-heading font-extrabold text-[42px] text-text-primary tracking-tight"><span class="text-accent">$</span>0</div>
+      <div class="text-text-muted text-[13px] font-medium mt-1">Always free. No catch.</div>
+    </div>
+    <div class="text-center">
+      <div class="font-heading font-extrabold text-[42px] text-text-primary tracking-tight">0</div>
+      <div class="text-text-muted text-[13px] font-medium mt-1">Logins required</div>
+    </div>
+    <div class="text-center">
+      <div class="font-heading font-extrabold text-[42px] text-text-primary tracking-tight">10</div>
+      <div class="text-text-muted text-[13px] font-medium mt-1">Trades coming</div>
+    </div>
+  </div>
+
+  <!-- Value Props -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1080px] mx-auto px-6 md:px-12 pb-20" id="about">
+    <div class="p-8 bg-bg-card border border-border rounded-[14px]">
+      <div class="w-11 h-11 bg-[rgba(255,107,43,0.15)] rounded-[10px] flex items-center justify-center text-[22px] mb-4">&#9881;</div>
+      <h4 class="font-heading font-bold text-xl mb-2">Built for Your Trade</h4>
+      <p class="text-text-secondary text-sm leading-relaxed">Every tool uses your trade's terminology, benchmarks, and formulas. Not generic business tools with a logo swap.</p>
+    </div>
+    <div class="p-8 bg-bg-card border border-border rounded-[14px]">
+      <div class="w-11 h-11 bg-[rgba(255,107,43,0.15)] rounded-[10px] flex items-center justify-center text-[22px] mb-4">&#128274;</div>
+      <h4 class="font-heading font-bold text-xl mb-2">No Account Needed</h4>
+      <p class="text-text-secondary text-sm leading-relaxed">Open a tool, use it, get your answer. No signup, no email gate, no 14-day trial. Just tools that work.</p>
+    </div>
+    <div class="p-8 bg-bg-card border border-border rounded-[14px]">
+      <div class="w-11 h-11 bg-[rgba(255,107,43,0.15)] rounded-[10px] flex items-center justify-center text-[22px] mb-4">&#128241;</div>
+      <h4 class="font-heading font-bold text-xl mb-2">Works on the Job Site</h4>
+      <p class="text-text-secondary text-sm leading-relaxed">Every tool is mobile-first. Use them on your phone in the field, on the truck, or in front of the customer.</p>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section class="text-center py-16 bg-[linear-gradient(180deg,transparent_0%,rgba(255,107,43,0.04)_100%)]">
+    <h2 class="font-heading font-extrabold text-4xl uppercase tracking-tight mb-3">Ready to run the numbers?</h2>
+    <p class="text-text-secondary text-base mb-7">Pick your trade above, or jump straight into HVAC tools.</p>
+    <a href="/hvac/" class="inline-flex items-center gap-2 bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-9 py-3.5 rounded-lg no-underline hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all">
+      Open HVAC Tools &rarr;
+    </a>
+  </section>
+</BaseLayout>

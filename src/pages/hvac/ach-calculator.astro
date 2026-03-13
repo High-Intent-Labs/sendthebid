@@ -74,9 +74,6 @@ const faqSchema = {
       </div>
     </div>
 
-    <button id="calc-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
-      Calculate &rarr;
-    </button>
 
     <!-- Mode 1 Results: ACH from CFM -->
     <div id="results-ach" class="hidden mt-8 border-t border-border pt-8">
@@ -209,12 +206,10 @@ const faqSchema = {
     if (mode === 'ach') {
       btnAch.className = 'bg-accent text-white font-heading font-bold text-sm uppercase tracking-wider px-5 py-2.5 rounded-lg transition-all cursor-pointer';
       btnCfm.className = 'bg-bg-dark text-text-secondary border border-border font-heading font-bold text-sm uppercase tracking-wider px-5 py-2.5 rounded-lg hover:border-accent hover:text-text-primary transition-all cursor-pointer';
-      wrapCfm.classList.remove('hidden');
       wrapAch.classList.add('hidden');
     } else {
       btnCfm.className = 'bg-accent text-white font-heading font-bold text-sm uppercase tracking-wider px-5 py-2.5 rounded-lg transition-all cursor-pointer';
       btnAch.className = 'bg-bg-dark text-text-secondary border border-border font-heading font-bold text-sm uppercase tracking-wider px-5 py-2.5 rounded-lg hover:border-accent hover:text-text-primary transition-all cursor-pointer';
-      wrapAch.classList.remove('hidden');
       wrapCfm.classList.add('hidden');
     }
     calculate();
@@ -293,7 +288,6 @@ const faqSchema = {
         ashraeEl.className = 'font-heading font-extrabold text-lg text-[#F87171]';
       }
 
-      resultsAch.classList.remove('hidden');
       resultsCfm.classList.add('hidden');
     } else {
       const targetAch = parseFloat((document.getElementById('targetAch') as HTMLInputElement).value) || 6;
@@ -314,14 +308,12 @@ const faqSchema = {
         ashraeEl2.className = 'font-heading font-extrabold text-lg text-[#F87171]';
       }
 
-      resultsCfm.classList.remove('hidden');
       resultsAch.classList.add('hidden');
     }
   }
 
   document.getElementById('mode-ach')?.addEventListener('click', () => setMode('ach'));
   document.getElementById('mode-cfm')?.addEventListener('click', () => setMode('cfm'));
-  document.getElementById('calc-btn')?.addEventListener('click', calculate);
   document.querySelectorAll('#ach-calc input').forEach(el => {
     el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);

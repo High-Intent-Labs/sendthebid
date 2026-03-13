@@ -131,13 +131,8 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Calculate Button -->
-    <button id="calc-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
-      Calculate Valuation &rarr;
-    </button>
-
     <!-- Results -->
-    <div id="results" class="hidden mt-8 border-t border-border pt-8">
+    <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Estimated Business Value</h3>
 
       <!-- Valuation Range Bar -->
@@ -390,10 +385,7 @@ const faqSchema = {
 
     document.getElementById('adj-total')!.textContent = adjustedMultiple.toFixed(2) + 'x';
 
-    document.getElementById('results')!.classList.remove('hidden');
   }
-
-  document.getElementById('calc-btn')?.addEventListener('click', calculate);
 
   // Auto-calculate on input change
   document.querySelectorAll('#valuation-calc input, #valuation-calc select').forEach(el => {

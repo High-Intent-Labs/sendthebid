@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is the difference between markup and margin?",
+      "name": "How much do cleaning supplies cost per job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 200% markup means you charge 3x your cost. The resulting margin is 66.7% because two-thirds of the sell price is profit. Markup is based on cost, margin is based on sell price."
+        "text": "Most residential cleaning jobs use $5-$15 in supplies. This includes chemical cleaners ($2-$5 per job when buying concentrates), paper goods like trash bags and paper towels ($1-$3), equipment wear like microfiber cloth replacement and mop heads ($1-$3), and PPE like gloves ($0.50-$2). The exact amount depends on property size, job type, and whether you use concentrates or ready-to-use products."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should Cleaning companies use on parts?",
+      "name": "What percentage of revenue should go to cleaning supplies?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most Cleaning companies use 200-400% markup on small parts under $50, 100-200% on mid-range parts between $50 and $300, and 50-100% on major equipment over $300. Specialty chemicals typically get 100-300% markup. The target is a blended margin of around 65% across all parts."
+        "text": "Cleaning supply costs should stay between 3-8% of your job revenue. If you are spending more than 8%, you may be over-applying product, using expensive ready-to-use bottles instead of concentrates, or not tracking waste. If you are under 3%, double-check that you are using enough product to deliver quality results. The sweet spot for most residential cleaning companies is 5-6%."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I calculate sell price from wholesale cost and markup percentage?",
+      "name": "How do I reduce cleaning supply costs without sacrificing quality?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%."
+        "text": "Buy concentrates in bulk and dilute to the manufacturer's recommended ratio instead of using ready-to-use sprays. Use microfiber cloths instead of paper towels for most surfaces. Train your team on proper product application so they are not double-spraying. Track per-clean supply usage with a cost calculator so you can spot waste early. Switch to refillable spray bottles and buy cleaning chemicals by the gallon or case."
       }
     },
     {
       "@type": "Question",
-      "name": "Why do Cleaning companies mark up parts so much?",
+      "name": "What cleaning supplies should I stock for a residential cleaning business?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible."
+        "text": "Essential supplies include all-purpose cleaner, disinfectant, glass cleaner, floor cleaner, toilet bowl cleaner, trash bags, microfiber cloths, mop heads, vacuum bags, rubber gloves, scrub sponges, and dusting spray. For deep cleans and move-outs, add oven cleaner, grout cleaner, and heavy-duty degreaser. Buy the core chemicals as concentrates and the disposables in bulk to keep your per-clean cost as low as possible."
       }
     }
   ]
@@ -45,95 +45,237 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="markup-calc">
-    <!-- Quick Lookup -->
-    <div class="mb-6">
-      <label class="block text-sm font-medium text-text-secondary mb-2" for="quick-lookup">Quick Lookup &mdash; Common Cleaning Parts</label>
-      <select id="quick-lookup" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-        <option value="">Select a part to auto-fill cost...</option>
-        <option value="15">Capacitor &mdash; $15</option>
-        <option value="25">Contactor &mdash; $25</option>
-        <option value="150">Blower Motor &mdash; $150</option>
-        <option value="800">Compressor &mdash; $800</option>
-        <option value="100">TXV Valve &mdash; $100</option>
-        <option value="200">Control Board &mdash; $200</option>
-        <option value="25">Igniter &mdash; $25</option>
-        <option value="12">Flame Sensor &mdash; $12</option>
-        <option value="35">Dispenser (basic) &mdash; $35</option>
-        <option value="150">Dispenser (smart) &mdash; $150</option>
-        <option value="40">R-410A per lb &mdash; $40</option>
-        <option value="60">R-22 per lb &mdash; $60</option>
-      </select>
-    </div>
-
-    <!-- Input Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div id="supply-calc">
+    <!-- Revenue Input -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Revenue</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="part-name">Part Name (optional)</label>
-        <input type="text" id="part-name" placeholder="e.g. Capacitor" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="avg-job-revenue">Avg Revenue per Job ($)</label>
+        <input type="number" id="avg-job-revenue" value="175" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="wholesale-cost">Wholesale Cost ($)</label>
-        <input type="number" id="wholesale-cost" value="15" min="0.01" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobs-per-week">Jobs per Week</label>
+        <input type="number" id="jobs-per-week" value="15" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="weeks-per-year">Working Weeks per Year</label>
+        <input type="number" id="weeks-per-year" value="50" min="1" max="52" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <div class="mb-6">
-      <label class="block text-sm font-medium text-text-secondary mb-2" for="markup-pct">Desired Markup (%)</label>
-      <input type="number" id="markup-pct" value="200" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      <div class="flex flex-wrap gap-2 mt-3">
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="100">100%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="150">150%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-accent border-accent transition-colors cursor-pointer" data-markup="200">200%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="300">300%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="400">400%</button>
+    <!-- Supply Categories -->
+    <h3 class="font-heading font-bold text-lg mb-2 text-text-primary">Supply Costs per Clean</h3>
+    <p class="text-sm text-text-muted mb-4">Enter your estimated cost per cleaning job for each category. Use the quick-lookup table below for reference pricing.</p>
+
+    <!-- Chemicals & Cleaners -->
+    <div class="bg-bg-card border border-border rounded-lg p-5 mb-4">
+      <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">Chemicals &amp; Cleaners</h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-all-purpose">All-Purpose Cleaner</label>
+          <input type="number" id="cost-all-purpose" value="1.50" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-disinfectant">Disinfectant</label>
+          <input type="number" id="cost-disinfectant" value="1.25" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-glass-cleaner">Glass Cleaner</label>
+          <input type="number" id="cost-glass-cleaner" value="0.75" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-floor-cleaner">Floor Cleaner</label>
+          <input type="number" id="cost-floor-cleaner" value="1.00" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-toilet-cleaner">Toilet Bowl Cleaner</label>
+          <input type="number" id="cost-toilet-cleaner" value="0.60" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-dusting-spray">Dusting Spray</label>
+          <input type="number" id="cost-dusting-spray" value="0.50" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper Goods -->
+    <div class="bg-bg-card border border-border rounded-lg p-5 mb-4">
+      <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">Paper Goods &amp; Disposables</h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-trash-bags">Trash Bags</label>
+          <input type="number" id="cost-trash-bags" value="1.50" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-paper-towels">Paper Towels</label>
+          <input type="number" id="cost-paper-towels" value="0.75" min="0" step="0.25" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-scrub-sponges">Scrub Sponges</label>
+          <input type="number" id="cost-scrub-sponges" value="0.30" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipment Wear -->
+    <div class="bg-bg-card border border-border rounded-lg p-5 mb-4">
+      <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">Equipment Wear</h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-microfiber">Microfiber Cloths (per-clean wear)</label>
+          <input type="number" id="cost-microfiber" value="0.75" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-mop-heads">Mop Head Wear</label>
+          <input type="number" id="cost-mop-heads" value="0.50" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-vacuum-bags">Vacuum Bags / Filters</label>
+          <input type="number" id="cost-vacuum-bags" value="0.40" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- PPE -->
+    <div class="bg-bg-card border border-border rounded-lg p-5 mb-8">
+      <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">PPE (Personal Protective Equipment)</h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-gloves">Rubber Gloves</label>
+          <input type="number" id="cost-gloves" value="0.75" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-masks">Masks (if used)</label>
+          <input type="number" id="cost-masks" value="0" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1" for="cost-other-ppe">Other PPE</label>
+          <input type="number" id="cost-other-ppe" value="0" min="0" step="0.10" class="supply-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
       </div>
     </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <h3 class="font-heading font-bold text-xl mb-6">Per-Clean Cost Breakdown</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Sell Price</div>
-          <div id="result-sell" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total per Clean</div>
+          <div id="result-per-clean" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit Per Unit</div>
-          <div id="result-profit" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Chemicals</div>
+          <div id="result-chemicals" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Margin</div>
-          <div id="result-margin" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Paper Goods</div>
+          <div id="result-paper" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Markup</div>
-          <div id="result-markup" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Equipment</div>
+          <div id="result-equipment" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">PPE</div>
+          <div id="result-ppe" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
-      <!-- Benchmarks -->
+      <h3 class="font-heading font-bold text-xl mb-6">Annual Projection</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Weekly Supply Cost</div>
+          <div id="result-weekly" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Supply Cost</div>
+          <div id="result-monthly" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Supply Budget</div>
+          <div id="result-annual" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">% of Revenue</div>
+          <div id="result-pct-revenue" class="font-heading font-extrabold text-3xl">&mdash;</div>
+        </div>
+      </div>
+
+      <!-- Benchmark -->
       <div class="bg-bg-dark rounded-xl p-5 mt-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Industry Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Supply Cost as % of Revenue: 3% &ndash; 8%</h4>
+        <div class="relative h-6 bg-bg-card rounded-full overflow-hidden border border-border">
+          <div class="absolute inset-0 flex">
+            <div class="w-[30%] bg-[rgba(251,191,36,0.1)] border-r border-border"></div>
+            <div class="w-[50%] bg-[rgba(52,211,153,0.15)] border-r border-border"></div>
+            <div class="w-[20%] bg-[rgba(239,68,68,0.1)]"></div>
+          </div>
+          <div id="benchmark-marker" class="absolute top-0 h-full w-1 bg-accent rounded transition-all" style="left: 0%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-text-muted mt-2">
+          <span>0%</span>
+          <span>3%</span>
+          <span>5%</span>
+          <span>8%</span>
+          <span>12%+</span>
+        </div>
+        <p id="benchmark-text" class="text-text-secondary text-sm mt-3">Your supply cost: &mdash;</p>
+      </div>
+
+      <!-- Quick Lookup -->
+      <div class="bg-bg-dark rounded-xl p-5 mt-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Quick Lookup &mdash; Common Cleaning Supplies</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Small parts (&lt;$50)</span>
-            <span class="text-text-primary font-medium">200-400% markup &middot; 70-80% margin</span>
+            <span class="text-text-secondary">All-Purpose Cleaner (concentrate/gal)</span>
+            <span class="text-text-primary font-medium">$8 &ndash; $18</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Medium parts ($50-$300)</span>
-            <span class="text-text-primary font-medium">100-200% markup &middot; 50-67% margin</span>
+            <span class="text-text-secondary">Disinfectant (concentrate/gal)</span>
+            <span class="text-text-primary font-medium">$10 &ndash; $22</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Major equipment ($300+)</span>
-            <span class="text-text-primary font-medium">50-100% markup &middot; 33-50% margin</span>
+            <span class="text-text-secondary">Glass Cleaner (concentrate/gal)</span>
+            <span class="text-text-primary font-medium">$6 &ndash; $14</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Specialty Chemicals</span>
-            <span class="text-text-primary font-medium">100-300% markup &middot; 50-75% margin</span>
+            <span class="text-text-secondary">Floor Cleaner (concentrate/gal)</span>
+            <span class="text-text-primary font-medium">$10 &ndash; $25</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Toilet Bowl Cleaner (per bottle)</span>
+            <span class="text-text-primary font-medium">$2 &ndash; $5</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Trash Bags (per bag, 13-gal)</span>
+            <span class="text-text-primary font-medium">$0.15 &ndash; $0.40</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Microfiber Cloths (each)</span>
+            <span class="text-text-primary font-medium">$1 &ndash; $3</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Mop Heads (each)</span>
+            <span class="text-text-primary font-medium">$5 &ndash; $12</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Vacuum Bags (each)</span>
+            <span class="text-text-primary font-medium">$3 &ndash; $8</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Rubber Gloves (per pair)</span>
+            <span class="text-text-primary font-medium">$0.50 &ndash; $2</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Scrub Sponges (each)</span>
+            <span class="text-text-primary font-medium">$0.50 &ndash; $1.50</span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-border">
+            <span class="text-text-secondary">Dusting Spray (per can)</span>
+            <span class="text-text-primary font-medium">$3 &ndash; $7</span>
           </div>
         </div>
-        <p class="text-text-muted text-xs mt-3 italic">Target: 65% blended margin on all parts combined.</p>
+        <p class="text-text-muted text-xs mt-3 italic">Buying concentrates in bulk typically reduces per-clean chemical costs by 40-60% vs ready-to-use bottles.</p>
       </div>
     </div>
   </div>
@@ -145,27 +287,26 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Pick a part or enter the cost.</strong> Use the Quick Lookup dropdown to select a common Cleaning part and auto-fill the wholesale cost, or type your own cost directly.</p>
-          <p><strong class="text-text-primary">2. Set your markup percentage.</strong> Use the quick buttons for common markup levels or type any percentage. The industry standard for small parts is 200-300%.</p>
-          <p><strong class="text-text-primary">3. Read the results.</strong> The calculator instantly shows your sell price, profit per unit, margin percentage, and markup percentage. Compare against the benchmarks below to make sure you are in the right range.</p>
-          <p><strong class="text-text-primary">4. Adjust until it fits.</strong> Try different markups to see how they affect your margin. If you are building a flat rate price book, use this to set consistent pricing across your parts inventory.</p>
+          <p><strong class="text-text-primary">1. Enter your revenue and volume.</strong> Set your average revenue per job, how many jobs you complete per week, and working weeks per year. This establishes the baseline for calculating supply cost as a percentage of revenue.</p>
+          <p><strong class="text-text-primary">2. Fill in per-clean costs by category.</strong> For each supply item, enter your estimated cost per cleaning job. If you buy a gallon of all-purpose concentrate for $12 and it lasts 20 jobs, your per-clean cost is $0.60. Use the quick-lookup table at the bottom for reference pricing.</p>
+          <p><strong class="text-text-primary">3. Review the breakdown.</strong> The calculator shows your total per-clean supply cost, broken down by category. Below that, see your weekly, monthly, and annual supply budget alongside the percentage of revenue spent on supplies.</p>
+          <p><strong class="text-text-primary">4. Compare to the benchmark.</strong> The industry benchmark for cleaning supply costs is 3-8% of revenue. If you are above 8%, look for areas to cut. If below 3%, confirm you are using enough product to deliver quality results.</p>
         </div>
       </section>
 
-      <!-- Markup vs Margin -->
+      <!-- Understanding Supply Costs -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Markup vs Margin &mdash; What's the Difference</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Understanding Supply Costs for Cleaning Businesses</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Markup</strong> is the percentage added on top of your cost. <strong class="text-text-primary">Margin</strong> is the percentage of the final sell price that is profit. They use different denominators, which is why the numbers are always different.</p>
-          <p>Here is a concrete example. You buy a capacitor for <strong class="text-text-primary">$15</strong> and mark it up <strong class="text-text-primary">200%</strong>.</p>
+          <p>Supply costs are one of the most overlooked expenses in residential cleaning businesses. Most owners know their labor cost per hour, but very few track what they spend per clean on chemicals, paper goods, equipment replacement, and PPE. The result is that supply waste silently eats into profit margins.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Sell Price = $15 x (1 + 200/100) = $15 x 3 = <strong class="text-accent">$45</strong></p>
-            <p>Profit    = $45 - $15 = <strong class="text-text-primary">$30</strong></p>
-            <p>Markup %  = ($30 / $15) x 100 = <strong class="text-text-primary">200%</strong>  (profit / cost)</p>
-            <p>Margin %  = ($30 / $45) x 100 = <strong class="text-text-primary">66.7%</strong> (profit / sell price)</p>
+            <p>Per-Clean Supply Cost = Chemicals + Paper Goods + Equipment Wear + PPE</p>
+            <p>Annual Supply Budget = Per-Clean Cost x Jobs/Week x Working Weeks</p>
+            <p>Supply % of Revenue = (Annual Supply Budget / Annual Revenue) x 100</p>
           </div>
-          <p>The markup is 200% but the margin is only 66.7%. Markup will always be a larger number than margin for the same transaction. When someone says "we run 65% margins on parts," that translates to roughly a 186% markup. When someone says "we mark up 300%," that is a 75% margin.</p>
-          <p>The most common mistake is confusing the two. If you set your prices thinking 50% markup gives you 50% margin, you are actually only making a 33% margin. This calculator shows both numbers so you always know exactly where you stand.</p>
+          <p><strong class="text-text-primary">Chemicals are the biggest variable.</strong> The difference between using ready-to-use spray bottles at $4 each versus concentrate diluted at $0.60 per clean is enormous when multiplied across hundreds of jobs per year. A cleaning company doing 15 jobs per week saves over $2,500 annually by switching from ready-to-use to concentrates.</p>
+          <p><strong class="text-text-primary">Equipment wear adds up.</strong> Microfiber cloths last 200-300 washes but eventually lose effectiveness. Mop heads need replacement every 50-100 uses. Vacuum bags or filters have a per-use cost. These are easy to ignore because you pay for them infrequently, but the per-clean amortized cost should be tracked.</p>
+          <p><strong class="text-text-primary">PPE is non-negotiable.</strong> Rubber gloves protect your team from chemicals and biological hazards. Even disposable gloves at $0.50 per pair per clean add up to $375 per year at 15 jobs per week. Budget for them rather than skipping them.</p>
         </div>
       </section>
 
@@ -173,9 +314,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a flat rate price book.</strong> When you are setting up or updating your flat rate pricing, you need consistent markups across every part. Pull up this calculator, go through your parts list, and set a sell price for each one. Use the benchmarks to keep small parts at higher markups and major equipment at lower markups so your blended margin hits 65%.</p>
-          <p><strong class="text-text-primary">Quoting a repair on site.</strong> You diagnose a bad contactor and need to give the customer a price. Open the calculator on your phone, select the part from the dropdown, and you instantly see the sell price at your standard markup. No guessing, no mental math, no accidentally giving away margin.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> New technicians often undercharge on parts because they do not understand the difference between markup and margin. Walk them through this calculator to show why a 200% markup on a $15 capacitor results in a $45 charge, and why that $30 profit is necessary to cover truck inventory, overhead, and warranty.</p>
+          <p><strong class="text-text-primary">Setting your annual supply budget.</strong> At the start of each year or quarter, plug in your current costs and projected job volume. The annual budget number tells you exactly how much to allocate for supplies so you can plan purchasing, negotiate bulk discounts, and set aside the right amount of cash.</p>
+          <p><strong class="text-text-primary">Pricing new service types.</strong> When you add deep cleans or move-out cleans to your menu, supply costs per job increase. Run those jobs through this calculator to see the actual supply cost impact and make sure your pricing covers the extra product usage.</p>
+          <p><strong class="text-text-primary">Identifying waste.</strong> If your supply percentage is trending above 8% of revenue, this calculator helps you find where the money is going. Break down each category, compare to the quick-lookup ranges, and identify items where you are spending more than the market average.</p>
         </div>
       </section>
 
@@ -184,20 +325,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between markup and margin?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 200% markup means you charge 3x your cost. The resulting margin is 66.7% because two-thirds of the sell price is profit. Markup is based on cost, margin is based on sell price.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much do cleaning supplies cost per job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most residential cleaning jobs use $5-$15 in supplies. This includes chemical cleaners ($2-$5 per job when buying concentrates), paper goods like trash bags and paper towels ($1-$3), equipment wear like microfiber cloth replacement and mop heads ($1-$3), and PPE like gloves ($0.50-$2). The exact amount depends on property size, job type, and whether you use concentrates or ready-to-use products.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should Cleaning companies use on parts?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Cleaning companies use 200-400% markup on small parts under $50, 100-200% on mid-range parts between $50 and $300, and 50-100% on major equipment over $300. Specialty chemicals typically get 100-300% markup. The target is a blended margin of around 65% across all parts.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What percentage of revenue should go to cleaning supplies?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Cleaning supply costs should stay between 3-8% of your job revenue. If you are spending more than 8%, you may be over-applying product, using expensive ready-to-use bottles instead of concentrates, or not tracking waste. If you are under 3%, double-check that you are using enough product to deliver quality results. The sweet spot for most residential cleaning companies is 5-6%.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate sell price from wholesale cost and markup percentage?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I reduce cleaning supply costs without sacrificing quality?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Buy concentrates in bulk and dilute to the manufacturer's recommended ratio instead of using ready-to-use sprays. Use microfiber cloths instead of paper towels for most surfaces. Train your team on proper product application so they are not double-spraying. Track per-clean supply usage with a cost calculator so you can spot waste early. Switch to refillable spray bottles and buy cleaning chemicals by the gallon or case.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do Cleaning companies mark up parts so much?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What cleaning supplies should I stock for a residential cleaning business?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Essential supplies include all-purpose cleaner, disinfectant, glass cleaner, floor cleaner, toilet bowl cleaner, trash bags, microfiber cloths, mop heads, vacuum bags, rubber gloves, scrub sponges, and dusting spray. For deep cleans and move-outs, add oven cleaner, grout cleaner, and heavy-duty degreaser. Buy the core chemicals as concentrates and the disposables in bulk to keep your per-clean cost as low as possible.</div>
           </details>
         </div>
       </section>
@@ -207,58 +348,100 @@ const faqSchema = {
 
 <script>
   function calculate() {
-    const cost = parseFloat((document.getElementById('wholesale-cost') as HTMLInputElement).value) || 0;
-    const markupPct = parseFloat((document.getElementById('markup-pct') as HTMLInputElement).value) || 0;
+    // Revenue inputs
+    const avgRevenue = parseFloat((document.getElementById('avg-job-revenue') as HTMLInputElement).value) || 0;
+    const jobsPerWeek = parseFloat((document.getElementById('jobs-per-week') as HTMLInputElement).value) || 0;
+    const weeksPerYear = parseFloat((document.getElementById('weeks-per-year') as HTMLInputElement).value) || 0;
 
-    const sellPrice = cost * (1 + markupPct / 100);
-    const profit = sellPrice - cost;
-    const marginPct = sellPrice > 0 ? ((sellPrice - cost) / sellPrice) * 100 : 0;
-    const actualMarkup = cost > 0 ? ((sellPrice - cost) / cost) * 100 : 0;
+    // Chemicals
+    const chemicals =
+      (parseFloat((document.getElementById('cost-all-purpose') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-disinfectant') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-glass-cleaner') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-floor-cleaner') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-toilet-cleaner') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-dusting-spray') as HTMLInputElement).value) || 0);
 
-    document.getElementById('result-sell')!.textContent = `$${sellPrice.toFixed(2)}`;
-    document.getElementById('result-profit')!.textContent = `$${profit.toFixed(2)}`;
-    document.getElementById('result-margin')!.textContent = `${marginPct.toFixed(1)}%`;
-    document.getElementById('result-markup')!.textContent = `${actualMarkup.toFixed(0)}%`;
+    // Paper goods
+    const paper =
+      (parseFloat((document.getElementById('cost-trash-bags') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-paper-towels') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-scrub-sponges') as HTMLInputElement).value) || 0);
+
+    // Equipment wear
+    const equipment =
+      (parseFloat((document.getElementById('cost-microfiber') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-mop-heads') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-vacuum-bags') as HTMLInputElement).value) || 0);
+
+    // PPE
+    const ppe =
+      (parseFloat((document.getElementById('cost-gloves') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-masks') as HTMLInputElement).value) || 0) +
+      (parseFloat((document.getElementById('cost-other-ppe') as HTMLInputElement).value) || 0);
+
+    const perClean = chemicals + paper + equipment + ppe;
+    const weeklyCost = perClean * jobsPerWeek;
+    const monthlyCost = weeklyCost * (weeksPerYear / 12);
+    const annualCost = perClean * jobsPerWeek * weeksPerYear;
+    const annualRevenue = avgRevenue * jobsPerWeek * weeksPerYear;
+    const pctRevenue = annualRevenue > 0 ? (annualCost / annualRevenue) * 100 : 0;
+
+    // Update per-clean breakdown
+    document.getElementById('result-per-clean')!.textContent = `$${perClean.toFixed(2)}`;
+    document.getElementById('result-chemicals')!.textContent = `$${chemicals.toFixed(2)}`;
+    document.getElementById('result-paper')!.textContent = `$${paper.toFixed(2)}`;
+    document.getElementById('result-equipment')!.textContent = `$${equipment.toFixed(2)}`;
+    document.getElementById('result-ppe')!.textContent = `$${ppe.toFixed(2)}`;
+
+    // Update projections
+    document.getElementById('result-weekly')!.textContent = `$${weeklyCost.toFixed(0)}`;
+    document.getElementById('result-monthly')!.textContent = `$${monthlyCost.toFixed(0)}`;
+    document.getElementById('result-annual')!.textContent = `$${annualCost.toFixed(0)}`;
+
+    // Revenue percentage with color coding
+    const pctEl = document.getElementById('result-pct-revenue')!;
+    pctEl.textContent = `${pctRevenue.toFixed(1)}%`;
+    pctEl.className = 'font-heading font-extrabold text-3xl';
+    if (pctRevenue > 8) {
+      pctEl.classList.add('text-red-400');
+    } else if (pctRevenue > 5) {
+      pctEl.classList.add('text-yellow-400');
+    } else if (pctRevenue >= 3) {
+      pctEl.classList.add('text-[#34D399]');
+    } else if (pctRevenue > 0) {
+      pctEl.classList.add('text-yellow-400');
+    } else {
+      pctEl.classList.add('text-text-primary');
+    }
+
+    // Benchmark bar (range 0% - 12%+)
+    const maxBenchmark = 12;
+    const markerPct = Math.min((pctRevenue / maxBenchmark) * 100, 100);
+    const marker = document.getElementById('benchmark-marker')!;
+    marker.style.left = `${markerPct}%`;
+
+    let benchmarkNote = '';
+    if (pctRevenue < 3) {
+      benchmarkNote = 'Below typical range. Confirm you are using enough product for quality results.';
+    } else if (pctRevenue <= 8) {
+      benchmarkNote = 'Within the healthy range for cleaning businesses.';
+    } else {
+      benchmarkNote = 'Above average. Look for areas to reduce waste or switch to concentrates.';
+    }
+    document.getElementById('benchmark-text')!.textContent = `Supply cost: ${pctRevenue.toFixed(1)}% of revenue \u2014 ${benchmarkNote}`;
   }
 
-  // Quick Lookup dropdown - auto-fill cost and part name
-  document.getElementById('quick-lookup')?.addEventListener('change', (e) => {
-    const select = e.target as HTMLSelectElement;
-    const value = select.value;
-    if (value) {
-      (document.getElementById('wholesale-cost') as HTMLInputElement).value = value;
-      // Extract part name from the selected option text
-      const optionText = select.options[select.selectedIndex].text;
-      const partName = optionText.split(' \u2014 ')[0];
-      (document.getElementById('part-name') as HTMLInputElement).value = partName;
-      calculate();
-    }
-  });
-
-  // Markup quick buttons
-  document.querySelectorAll('.markup-quick-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLButtonElement;
-      const markup = target.dataset.markup;
-      (document.getElementById('markup-pct') as HTMLInputElement).value = markup!;
-
-      // Update active state on buttons
-      document.querySelectorAll('.markup-quick-btn').forEach(b => {
-        b.classList.remove('text-accent', 'border-accent');
-        b.classList.add('text-text-secondary');
-      });
-      target.classList.remove('text-text-secondary');
-      target.classList.add('text-accent', 'border-accent');
-
-      calculate();
-    });
-  });
-
-  // Auto-calculate on input change
-  document.querySelectorAll('#markup-calc input[type="number"]').forEach(el => {
+  // Auto-calculate on any supply input change
+  document.querySelectorAll('.supply-input').forEach(el => {
     el.addEventListener('input', calculate);
   });
 
-  // Calculate on load with defaults
+  // Also listen to revenue inputs
+  document.getElementById('avg-job-revenue')?.addEventListener('input', calculate);
+  document.getElementById('jobs-per-week')?.addEventListener('input', calculate);
+  document.getElementById('weeks-per-year')?.addEventListener('input', calculate);
+
+  // Calculate on load
   calculate();
 </script>

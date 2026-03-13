@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should a Cleaning estimate include?",
+      "name": "What should a cleaning estimate include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional cleaning estimate should include company information and business license or bonding/insurance details, customer details, property assessment, service specifications with property size, number of rooms, and frequency, itemized costs for labor, supplies, and any add-ons, applicable discounts, scope of work, satisfaction guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+        "text": "A professional cleaning estimate should include company information and bonding/insurance details, customer and property details (address, square footage, bedrooms, bathrooms, flooring types, pets), a property condition assessment, service recommendations with Good/Better/Best options and pricing, an add-ons checklist, recurring service pricing with discounts, payment terms, satisfaction guarantee, and a validity period. Presenting tiered options increases close rates."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I present Good/Better/Best options?",
+      "name": "How do I present Good/Better/Best cleaning options?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the Good option as a basic standard clean that covers the essentials. The Better option adds extras like inside appliances, baseboards, or window sills. The Best option is the premium choice with a deep clean, inside cabinets, and detailed attention to every surface. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+        "text": "Good is a maintenance clean covering the essentials: floors, counters, bathrooms, and kitchen surfaces. Better is a deep clean adding inside appliances, baseboards, window sills, and detailed scrubbing. Best is a move-out or premium clean with inside cabinets, light fixtures, walls, and every surface addressed. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
       }
     },
     {
       "@type": "Question",
-      "name": "How long should a Cleaning estimate be valid?",
+      "name": "Should I offer recurring service discounts on cleaning estimates?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days due to limited crew availability. Always include a clear expiration date on the estimate."
+        "text": "Yes. Offering 5% off for weekly service, 10% off for biweekly, and 15% off for monthly recurring cleans is standard in the industry. Recurring discounts lock in long-term revenue and reduce your customer acquisition costs. Show the per-visit recurring price alongside the one-time price so customers can see the value of committing to a schedule."
       }
     },
     {
       "@type": "Question",
-      "name": "Should Cleaning estimates include financing?",
+      "name": "How long should a cleaning estimate be valid?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For recurring cleaning contracts, showing per-visit pricing alongside monthly totals significantly increases close rates. Customers focus on the per-visit value rather than the annual total. Even if you bill monthly, breaking it down per visit helps the customer see the value. Offering a discount for recurring service compared to one-time pricing reduces hesitation and locks in long-term revenue."
+        "text": "Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days due to limited crew availability. Always include a clear expiration date on the estimate so there is no ambiguity."
       }
     }
   ]
@@ -63,7 +63,7 @@ const faqSchema = {
           <input type="text" id="companyEmail" placeholder="info@yourcleaning.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License / Insurance #</label>
           <input type="text" id="licenseNum" placeholder="CLN-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
@@ -81,9 +81,9 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Customer Info -->
+    <!-- Customer / Property Info -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Customer Information</h3>
+      <h3 class="font-heading font-bold text-xl mb-4">Customer &amp; Property Info</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
@@ -94,52 +94,85 @@ const faqSchema = {
           <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Property Address</label>
           <input type="text" id="customerAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft">Square Footage</label>
+          <input type="number" id="sqft" value="1500" min="200" max="10000" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2" for="bedrooms">Bedrooms</label>
+            <input type="number" id="bedrooms" value="3" min="0" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2" for="bathrooms">Bathrooms</label>
+            <input type="number" id="bathrooms" value="2" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="flooringType">Primary Flooring</label>
+          <select id="flooringType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="Hardwood">Hardwood</option>
+            <option value="Tile">Tile</option>
+            <option value="Carpet">Carpet</option>
+            <option value="Laminate">Laminate</option>
+            <option value="Mixed">Mixed</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2" for="hasPets">Pets?</label>
+            <select id="hasPets" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+          <div id="petCountWrap" class="hidden">
+            <label class="block text-sm font-medium text-text-secondary mb-2" for="petCount">How Many</label>
+            <input type="number" id="petCount" value="1" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Current System Assessment -->
+    <!-- Property Condition Assessment -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Current System Assessment</h3>
+      <h3 class="font-heading font-bold text-xl mb-4">Property Condition Assessment</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
-          <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Office Space</option>
-            <option value="Heat Pump">Retail Space</option>
-            <option value="Furnace">Equipment</option>
-            <option value="Mini Split">Warehouse</option>
-            <option value="Boiler">Medical</option>
-            <option value="Package Unit">Restaurant</option>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="cleanlinessRating">Current Cleanliness (1-5)</label>
+          <select id="cleanlinessRating" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="1">1 - Very Dirty (heavy buildup)</option>
+            <option value="2">2 - Below Average (noticeable grime)</option>
+            <option value="3" selected>3 - Average (normal lived-in)</option>
+            <option value="4">4 - Above Average (mostly tidy)</option>
+            <option value="5">5 - Very Clean (light touch-up needed)</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="systemAge">Current System Age (years)</label>
-          <input type="number" id="systemAge" value="15" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-sm font-medium text-text-secondary mb-2">Special Concerns</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="concernMold" class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" /><span class="text-text-secondary text-sm">Mold / Mildew</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="concernAllergens" class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" /><span class="text-text-secondary text-sm">Allergens (dust mites, pollen)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="concernPetDamage" class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" /><span class="text-text-secondary text-sm">Pet Damage (stains, odor)</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="concernHoarding" class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" /><span class="text-text-secondary text-sm">Hoarding / Heavy Clutter</span></label>
+          </div>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentCondition">Current Condition</label>
-          <select id="currentCondition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Working - needs replacement soon">Working - needs replacement soon</option>
-            <option value="Failing - intermittent issues">Failing - intermittent issues</option>
-            <option value="Failed - not operational">Failed - not operational</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="issuesNotes">Issues / Notes</label>
-          <textarea id="issuesNotes" rows="3" placeholder="Describe current issues..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="conditionNotes">Condition Notes</label>
+          <textarea id="conditionNotes" rows="3" placeholder="Notes from walkthrough: areas needing extra attention, stains, damage..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
         </div>
       </div>
     </div>
 
     <!-- Good / Better / Best Options -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Good / Better / Best Options</h3>
+      <h3 class="font-heading font-bold text-xl mb-4">Service Recommendations</h3>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- GOOD -->
+        <!-- GOOD: Maintenance Clean -->
         <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-good">
           <div class="h-1.5 bg-[#60A5FA]"></div>
           <div class="p-5">
@@ -148,45 +181,28 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Equipment Description</label>
-                <input type="text" id="goodDesc" value="14 efficiency2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Service Description</label>
+                <input type="text" id="goodDesc" value="Maintenance Clean" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRating">efficiency / efficiency Rating</label>
-                <input type="text" id="goodRating" value="14 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodScope">Scope of Work</label>
+                <textarea id="goodScope" rows="3" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Vacuum & mop all floors, clean bathrooms, wipe kitchen counters & appliance exteriors, dust surfaces, empty trash</textarea>
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodEquip">Equipment Cost ($)</label>
-                <input type="number" id="goodEquip" value="3200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodLabor">Labor Cost ($)</label>
-                <input type="number" id="goodLabor" value="2200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodMaterials">Materials ($)</label>
-                <input type="number" id="goodMaterials" value="350" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodPermits">Permits ($)</label>
-                <input type="number" id="goodPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRebates">Rebates ($)</label>
-                <input type="number" id="goodRebates" value="0" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodPrice">Price ($)</label>
+                <input type="number" id="goodPrice" value="175" min="0" step="5" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div class="border-t border-border pt-3">
                 <div class="flex justify-between items-center">
                   <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="goodTotal" class="font-heading font-extrabold text-2xl text-[#60A5FA]">$6,000</span>
+                  <span id="goodTotal" class="font-heading font-extrabold text-2xl text-[#60A5FA]">$175</span>
                 </div>
-                <div id="goodMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- BETTER -->
+        <!-- BETTER: Deep Clean -->
         <div class="bg-bg-dark border-2 border-[#34D399] rounded-xl overflow-hidden relative" id="card-better">
           <div class="h-1.5 bg-[#34D399]"></div>
           <div class="absolute top-3 right-4">
@@ -198,45 +214,28 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Equipment Description</label>
-                <input type="text" id="betterDesc" value="16 efficiency2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Service Description</label>
+                <input type="text" id="betterDesc" value="Deep Clean" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRating">efficiency / efficiency Rating</label>
-                <input type="text" id="betterRating" value="16 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterScope">Scope of Work</label>
+                <textarea id="betterScope" rows="3" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Everything in Maintenance plus: inside appliances (fridge & oven), baseboards, window sills, ceiling fans, detailed bathroom scrub, behind furniture</textarea>
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterEquip">Equipment Cost ($)</label>
-                <input type="number" id="betterEquip" value="4800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterLabor">Labor Cost ($)</label>
-                <input type="number" id="betterLabor" value="2400" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterMaterials">Materials ($)</label>
-                <input type="number" id="betterMaterials" value="350" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterPermits">Permits ($)</label>
-                <input type="number" id="betterPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRebates">Rebates ($)</label>
-                <input type="number" id="betterRebates" value="500" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterPrice">Price ($)</label>
+                <input type="number" id="betterPrice" value="325" min="0" step="5" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div class="border-t border-border pt-3">
                 <div class="flex justify-between items-center">
                   <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="betterTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$7,300</span>
+                  <span id="betterTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$325</span>
                 </div>
-                <div id="betterMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- BEST -->
+        <!-- BEST: Move-Out Clean -->
         <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-best">
           <div class="h-1.5 bg-[#FBBF24]"></div>
           <div class="p-5">
@@ -245,39 +244,22 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Equipment Description</label>
-                <input type="text" id="bestDesc" value="20 efficiency2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Service Description</label>
+                <input type="text" id="bestDesc" value="Move-Out / Premium Deep Clean" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRating">efficiency / efficiency Rating</label>
-                <input type="text" id="bestRating" value="20 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestScope">Scope of Work</label>
+                <textarea id="bestScope" rows="3" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Everything in Deep Clean plus: inside cabinets & drawers, light switches & outlets, interior windows, wall spot-cleaning, light fixtures, closet shelving</textarea>
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestEquip">Equipment Cost ($)</label>
-                <input type="number" id="bestEquip" value="7200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestLabor">Labor Cost ($)</label>
-                <input type="number" id="bestLabor" value="2800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestMaterials">Materials ($)</label>
-                <input type="number" id="bestMaterials" value="400" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestPermits">Permits ($)</label>
-                <input type="number" id="bestPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRebates">Rebates ($)</label>
-                <input type="number" id="bestRebates" value="1500" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestPrice">Price ($)</label>
+                <input type="number" id="bestPrice" value="500" min="0" step="5" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div class="border-t border-border pt-3">
                 <div class="flex justify-between items-center">
                   <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="bestTotal" class="font-heading font-extrabold text-2xl text-[#FBBF24]">$9,150</span>
+                  <span id="bestTotal" class="font-heading font-extrabold text-2xl text-[#FBBF24]">$500</span>
                 </div>
-                <div id="bestMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
               </div>
             </div>
           </div>
@@ -286,34 +268,67 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Scope of Work -->
+    <!-- Recurring Service Upsell -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Scope of Work</h3>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
-        <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Remove and dispose of existing equipment
-&bull; Install new equipment per manufacturer specifications
-&bull; Set up equipment and cleaning zones
-&bull; Chemical and supply connections
-&bull; System startup and performance test
-&bull; Final inspection and walkthrough with client
-&bull; Pull permit and schedule inspection</textarea>
+      <h3 class="font-heading font-bold text-xl mb-4">Recurring Service Options</h3>
+      <p class="text-text-muted text-sm mb-4">Show the customer per-visit pricing for recurring service. Discounts are applied to the selected tier above.</p>
+      <div class="flex items-center gap-3 mb-4">
+        <input type="checkbox" id="showRecurring" class="w-5 h-5 rounded border-border bg-bg-dark accent-accent cursor-pointer" checked />
+        <label class="text-sm font-medium text-text-secondary cursor-pointer" for="showRecurring">Show recurring pricing on estimate</label>
+      </div>
+      <div id="recurringFields">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-bg-dark border border-border rounded-xl p-5 text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Weekly (5% off)</div>
+            <div id="recurringWeekly" class="font-heading font-bold text-xl text-text-primary">--</div>
+            <div class="text-text-muted text-xs mt-1">per visit</div>
+          </div>
+          <div class="bg-bg-dark border border-border rounded-xl p-5 text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Biweekly (10% off)</div>
+            <div id="recurringBiweekly" class="font-heading font-bold text-xl text-accent">--</div>
+            <div class="text-text-muted text-xs mt-1">per visit</div>
+          </div>
+          <div class="bg-bg-dark border border-border rounded-xl p-5 text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly (15% off)</div>
+            <div id="recurringMonthly" class="font-heading font-bold text-xl text-text-primary">--</div>
+            <div class="text-text-muted text-xs mt-1">per visit</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Financing -->
+    <!-- Add-Ons Checklist -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Financing</h3>
-      <div class="flex items-center gap-3 mb-4">
-        <input type="checkbox" id="showFinancing" class="w-5 h-5 rounded border-border bg-bg-dark accent-accent cursor-pointer" />
-        <label class="text-sm font-medium text-text-secondary cursor-pointer" for="showFinancing">Show financing options on estimate</label>
+      <h3 class="font-heading font-bold text-xl mb-4">Add-Ons</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="addons-list">
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="35" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Inside Fridge <span class="text-accent">+$35</span></span>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="35" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Inside Oven <span class="text-accent">+$35</span></span>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="25" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Laundry (per load) <span class="text-accent">+$25</span></span>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="50" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Interior Windows <span class="text-accent">+$50</span></span>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="50" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Garage Sweep <span class="text-accent">+$50</span></span>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" data-addon="40" class="addon-item w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-primary text-sm">Organize Pantry <span class="text-accent">+$40</span></span>
+        </label>
       </div>
-      <div id="financingFields" class="hidden">
-        <div class="max-w-xs">
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="financeTerm">Term (months)</label>
-          <input type="number" id="financeTerm" value="60" min="12" max="240" step="12" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          <p class="text-text-muted text-xs mt-1">Monthly payments calculated at 7.99% APR</p>
-        </div>
+      <div class="mt-3 flex justify-between items-center">
+        <span class="text-text-muted text-sm">Add-ons total:</span>
+        <span id="addonsTotal" class="font-heading font-bold text-lg text-text-primary">$0</span>
       </div>
     </div>
 
@@ -323,39 +338,36 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
-          <textarea id="paymentTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">50% deposit required. Balance due on completion.</textarea>
+          <textarea id="paymentTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Payment due upon completion of service. We accept cash, check, Venmo, Zelle, and all major credit cards.</textarea>
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="warrantyTerms">Warranty</label>
-          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">100% satisfaction guarantee. We will re-clean any area you are not happy with within 24 hours at no additional charge.</textarea>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="guaranteeTerms">Satisfaction Guarantee</label>
+          <textarea id="guaranteeTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">100% satisfaction guarantee. If you are not happy with any area, we will re-clean it within 24 hours at no additional charge.</textarea>
         </div>
       </div>
     </div>
 
-    <!-- Live Preview -->
+    <!-- Estimate Summary -->
     <div class="mb-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-4">Estimate Summary</h3>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
           <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
-          <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$6,000</div>
-          <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">Standard Clean — Kitchen, Bathrooms, Floors</div>
+          <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$175</div>
+          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">Maintenance Clean</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#34D399] bg-bg-dark border border-[#34D399] px-2.5 py-0.5 rounded-full">Most Popular</span>
           </div>
           <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
-          <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$7,300</div>
-          <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">Deep Clean — Inside Appliances, Baseboards</div>
+          <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$325</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">Deep Clean</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
           <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
-          <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$9,150</div>
-          <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">Premium Deep Clean — Inside Cabinets, Windows</div>
+          <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$500</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">Move-Out / Premium Deep Clean</div>
         </div>
       </div>
     </div>
@@ -364,6 +376,7 @@ const faqSchema = {
     <button id="generate-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
       Generate Estimate PDF &rarr;
     </button>
+    <p class="text-text-muted text-sm italic mt-3">Opens a print-ready estimate in a new window. Use your browser's print dialog to save as PDF.</p>
   </div>
 
   <!-- Content sections -->
@@ -373,11 +386,11 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license number. These appear in the header of your estimate. The estimate number auto-generates but you can change it to match your numbering system.</p>
-          <p><strong class="text-text-primary">2. Add the customer details.</strong> Enter the customer name, address, and phone. This information populates the estimate header so the customer knows exactly who it was prepared for.</p>
-          <p><strong class="text-text-primary">3. Assess the current situation.</strong> Document the property type, current condition, and any special needs. This builds credibility and gives the customer context for your recommended service level. Add notes about specific areas that need extra attention from your walkthrough.</p>
-          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter service descriptions and costs for each tier. The Good option should be a basic standard clean. Better adds extras like inside appliances and baseboards. Best is the premium deep clean package. Totals calculate automatically as you type.</p>
-          <p><strong class="text-text-primary">5. Generate and print.</strong> Click "Generate Estimate PDF" to open a clean, print-ready estimate in a new window. Use your browser's print function to save as PDF or print directly. The estimate includes all three options, scope of work, and terms.</p>
+          <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license or insurance number. These appear in the header of your estimate and build professional credibility.</p>
+          <p><strong class="text-text-primary">2. Add customer and property details.</strong> Enter the customer name, address, square footage, bedrooms, bathrooms, flooring types, and pet information. This documents the property specifics that drive your pricing.</p>
+          <p><strong class="text-text-primary">3. Assess the property condition.</strong> Rate the current cleanliness on a 1-5 scale and note any special concerns like mold, allergens, pet damage, or heavy clutter. Add walkthrough notes about areas needing extra attention.</p>
+          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Set the service description, scope of work, and price for each tier. Good is a maintenance clean, Better is a deep clean, and Best is a move-out or premium clean. The summary updates as you type.</p>
+          <p><strong class="text-text-primary">5. Add recurring pricing and extras.</strong> Check add-on services the customer wants, and show recurring pricing discounts to encourage long-term commitment. Generate the PDF when ready.</p>
         </div>
       </section>
 
@@ -385,10 +398,10 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Why Good/Better/Best Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals across every study in the home services industry.</p>
-          <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect, also known as the center-stage bias. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
-          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major cleaning franchise trains their sales team on this method.</p>
-          <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive service. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
+          <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This reframe is why tiered pricing consistently outperforms single-option proposals in home services.</p>
+          <p><strong class="text-text-primary">The middle option wins most of the time.</strong> When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. Expect 50 to 60 percent of customers to pick the middle tier.</p>
+          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even customers who pick Good are choosing from a menu rather than haggling on price. The 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less friction.</p>
+          <p><strong class="text-text-primary">Recurring pricing locks in long-term revenue.</strong> Showing per-visit discounts for weekly, biweekly, or monthly service alongside one-time pricing plants the seed for recurring revenue. Even if the customer starts with a one-time clean, seeing the recurring option makes them more likely to convert later.</p>
         </div>
       </section>
 
@@ -396,9 +409,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">New client walkthroughs.</strong> After doing a walkthrough of the property, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the differences in scope, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
-          <p><strong class="text-text-primary">Move-out cleans and deep cleans.</strong> When a tenant is moving out or a homeowner needs a one-time deep clean, they need to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them add extras like inside appliances and windows. Include recurring contract pricing to make the decision even easier.</p>
-          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of service without going back and forth on revisions.</p>
+          <p><strong class="text-text-primary">New client walkthroughs.</strong> After walking through the property, fill this out on your tablet or laptop. Walk the customer through each option, explain the differences in scope, and show the totals. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates.</p>
+          <p><strong class="text-text-primary">Move-out cleans and deep cleans.</strong> When a tenant is moving out or a homeowner needs a deep clean, they need to make a fast decision. Having a clean template ready means you can present professional numbers within minutes.</p>
+          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval. The tiered format works especially well for commercial because it lets the decision maker choose the service level without multiple rounds of revisions.</p>
         </div>
       </section>
 
@@ -407,20 +420,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Cleaning estimate include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional cleaning estimate should include company information and business license or bonding/insurance details, customer details, property assessment, service specifications with property size, number of rooms, and frequency, itemized costs for labor, supplies, and any add-ons, applicable discounts, scope of work, satisfaction guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a cleaning estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional cleaning estimate should include company information and bonding/insurance details, customer and property details (address, square footage, bedrooms, bathrooms, flooring types, pets), a property condition assessment, service recommendations with Good/Better/Best options and pricing, an add-ons checklist, recurring service pricing with discounts, payment terms, satisfaction guarantee, and a validity period. Presenting tiered options increases close rates.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as a basic standard clean that covers the essentials. The Better option adds extras like inside appliances, baseboards, or window sills. The Best option is the premium choice with a deep clean, inside cabinets, and detailed attention to every surface. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best cleaning options?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Good is a maintenance clean covering the essentials: floors, counters, bathrooms, and kitchen surfaces. Better is a deep clean adding inside appliances, baseboards, window sills, and detailed scrubbing. Best is a move-out or premium clean with inside cabinets, light fixtures, walls, and every surface addressed. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a Cleaning estimate be valid?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate. For recurring service contracts, consider offering a per-visit price that locks in for the contract term.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I offer recurring service discounts on cleaning estimates?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Offering 5% off for weekly service, 10% off for biweekly, and 15% off for monthly recurring cleans is standard in the industry. Recurring discounts lock in long-term revenue and reduce your customer acquisition costs. Show the per-visit recurring price alongside the one-time price so customers can see the value of committing to a schedule.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should cleaning estimates include recurring pricing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including per-visit pricing for recurring contracts significantly increases close rates, especially for deep cleans and move-out cleans where the one-time price feels high. Customers focus on the per-visit cost rather than the one-time total. Show them what bi-weekly or monthly service would cost per visit alongside the one-time price. Even if they start with a one-time clean, showing the recurring option plants the seed for long-term revenue.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a cleaning estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days due to limited crew availability. Always include a clear expiration date on the estimate so there is no ambiguity.</div>
           </details>
         </div>
       </section>
@@ -451,71 +464,76 @@ const faqSchema = {
     (document.getElementById('validUntil') as HTMLInputElement).value = valid.toISOString().split('T')[0];
   }
 
-  // --- Calculate option total ---
-  function calcOption(prefix: string): number {
-    const equip = getNum(prefix + 'Equip');
-    const labor = getNum(prefix + 'Labor');
-    const materials = getNum(prefix + 'Materials');
-    const permits = getNum(prefix + 'Permits');
-    const rebates = getNum(prefix + 'Rebates');
-    return equip + labor + materials + permits - rebates;
-  }
-
-  // --- Calculate monthly payment (simple amortization) ---
-  function calcMonthly(total: number, termMonths: number, apr: number): number {
-    const r = apr / 100 / 12;
-    if (r === 0) return total / termMonths;
-    return total * (r * Math.pow(1 + r, termMonths)) / (Math.pow(1 + r, termMonths) - 1);
+  // --- Calculate add-ons total ---
+  function calcAddons(): number {
+    let total = 0;
+    document.querySelectorAll('.addon-item:checked').forEach(el => {
+      total += parseFloat((el as HTMLInputElement).dataset.addon || '0');
+    });
+    return total;
   }
 
   // --- Update all totals and preview ---
   function updateAll() {
-    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const term = getNum('financeTerm') || 60;
-    const apr = 7.99;
+    const goodPrice = getNum('goodPrice');
+    const betterPrice = getNum('betterPrice');
+    const bestPrice = getNum('bestPrice');
+    const addonsTotal = calcAddons();
 
-    const tiers = ['good', 'better', 'best'] as const;
-    tiers.forEach(tier => {
-      const total = calcOption(tier);
-      const totalEl = document.getElementById(tier + 'Total')!;
-      totalEl.textContent = fmt(total);
+    // Update option card totals (price + addons)
+    document.getElementById('goodTotal')!.textContent = fmt(goodPrice + addonsTotal);
+    document.getElementById('betterTotal')!.textContent = fmt(betterPrice + addonsTotal);
+    document.getElementById('bestTotal')!.textContent = fmt(bestPrice + addonsTotal);
 
-      // Preview totals
-      const previewTotalEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Total')!;
-      previewTotalEl.textContent = fmt(total);
+    // Update add-ons total display
+    document.getElementById('addonsTotal')!.textContent = fmt(addonsTotal);
 
-      // Preview descriptions
-      const previewDescEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Desc')!;
-      previewDescEl.textContent = getVal(tier + 'Desc');
+    // Update preview totals
+    document.getElementById('previewGoodTotal')!.textContent = fmt(goodPrice + addonsTotal);
+    document.getElementById('previewBetterTotal')!.textContent = fmt(betterPrice + addonsTotal);
+    document.getElementById('previewBestTotal')!.textContent = fmt(bestPrice + addonsTotal);
 
-      // Monthly payments
-      const monthlyEl = document.getElementById(tier + 'Monthly')!;
-      const previewMonthlyEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Monthly')!;
+    // Update preview descriptions
+    document.getElementById('previewGoodDesc')!.textContent = getVal('goodDesc');
+    document.getElementById('previewBetterDesc')!.textContent = getVal('betterDesc');
+    document.getElementById('previewBestDesc')!.textContent = getVal('bestDesc');
 
-      if (financing && total > 0) {
-        const monthly = calcMonthly(total, term, apr);
-        const monthlyStr = fmt(Math.round(monthly)) + '/mo';
-        monthlyEl.textContent = monthlyStr + ' for ' + term + ' months';
-        monthlyEl.classList.remove('hidden');
-        previewMonthlyEl.textContent = 'or ' + monthlyStr;
-        previewMonthlyEl.classList.remove('hidden');
-      } else {
-        monthlyEl.classList.add('hidden');
-        previewMonthlyEl.classList.add('hidden');
-      }
-    });
+    // Update recurring pricing (based on Better tier as reference)
+    const showRecurring = (document.getElementById('showRecurring') as HTMLInputElement).checked;
+    const recurringFields = document.getElementById('recurringFields')!;
+    recurringFields.classList.toggle('hidden', !showRecurring);
+
+    if (showRecurring) {
+      const baseRecurring = betterPrice + addonsTotal;
+      document.getElementById('recurringWeekly')!.textContent = fmt(Math.round(baseRecurring * 0.95));
+      document.getElementById('recurringBiweekly')!.textContent = fmt(Math.round(baseRecurring * 0.90));
+      document.getElementById('recurringMonthly')!.textContent = fmt(Math.round(baseRecurring * 0.85));
+    }
+
+    // Toggle pet count field
+    const hasPets = getVal('hasPets') === 'Yes';
+    document.getElementById('petCountWrap')!.classList.toggle('hidden', !hasPets);
   }
 
-  // --- Toggle financing fields ---
-  function toggleFinancing() {
-    const checked = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const fields = document.getElementById('financingFields')!;
-    if (checked) {
-      fields.classList.remove('hidden');
-    } else {
-      fields.classList.add('hidden');
-    }
-    updateAll();
+  // --- Escape HTML ---
+  function escHtml(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // --- Format date ---
+  function fmtDate(d: string): string {
+    if (!d) return '';
+    const parts = d.split('-');
+    return parts[1] + '/' + parts[2] + '/' + parts[0];
+  }
+
+  // --- Scope to HTML ---
+  function scopeToHtml(s: string): string {
+    return s.split('\n').map(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return '';
+      return '<div style="margin-bottom:4px;">' + escHtml(trimmed) + '</div>';
+    }).join('');
   }
 
   // --- Generate print-ready estimate ---
@@ -531,45 +549,43 @@ const faqSchema = {
     const customerName = getVal('customerName') || 'Customer';
     const customerPhone = getVal('customerPhone');
     const customerAddress = getVal('customerAddress');
+    const sqft = getVal('sqft');
+    const bedrooms = getVal('bedrooms');
+    const bathrooms = getVal('bathrooms');
+    const flooringType = getVal('flooringType');
+    const hasPets = getVal('hasPets');
+    const petCount = getVal('petCount');
 
-    const currentType = getVal('currentType');
-    const systemAge = getVal('systemAge');
-    const currentCondition = getVal('currentCondition');
-    const issuesNotes = getVal('issuesNotes');
+    const cleanlinessRating = getVal('cleanlinessRating');
+    const conditionNotes = getVal('conditionNotes');
 
-    const scopeOfWork = getVal('scopeOfWork');
+    const concerns: string[] = [];
+    if ((document.getElementById('concernMold') as HTMLInputElement).checked) concerns.push('Mold/Mildew');
+    if ((document.getElementById('concernAllergens') as HTMLInputElement).checked) concerns.push('Allergens');
+    if ((document.getElementById('concernPetDamage') as HTMLInputElement).checked) concerns.push('Pet Damage');
+    if ((document.getElementById('concernHoarding') as HTMLInputElement).checked) concerns.push('Heavy Clutter');
+
     const paymentTerms = getVal('paymentTerms');
-    const warrantyTerms = getVal('warrantyTerms');
+    const guaranteeTerms = getVal('guaranteeTerms');
 
-    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const term = getNum('financeTerm') || 60;
-    const apr = 7.99;
+    const addonsTotal = calcAddons();
+    const goodPrice = getNum('goodPrice') + addonsTotal;
+    const betterPrice = getNum('betterPrice') + addonsTotal;
+    const bestPrice = getNum('bestPrice') + addonsTotal;
 
-    const goodTotal = calcOption('good');
-    const betterTotal = calcOption('better');
-    const bestTotal = calcOption('best');
+    const showRecurring = (document.getElementById('showRecurring') as HTMLInputElement).checked;
 
-    const goodMonthly = financing ? calcMonthly(goodTotal, term, apr) : 0;
-    const betterMonthly = financing ? calcMonthly(betterTotal, term, apr) : 0;
-    const bestMonthly = financing ? calcMonthly(bestTotal, term, apr) : 0;
+    const cleanlinessLabels: Record<string, string> = {
+      '1': 'Very Dirty', '2': 'Below Average', '3': 'Average',
+      '4': 'Above Average', '5': 'Very Clean'
+    };
 
-    function fmtDate(d: string): string {
-      if (!d) return '';
-      const parts = d.split('-');
-      return parts[1] + '/' + parts[2] + '/' + parts[0];
-    }
-
-    function escHtml(s: string): string {
-      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    function scopeToHtml(s: string): string {
-      return s.split('\n').map(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return '';
-        return '<div style="margin-bottom:4px;">' + escHtml(trimmed) + '</div>';
-      }).join('');
-    }
+    // Collect add-on labels
+    const selectedAddons: string[] = [];
+    document.querySelectorAll('.addon-item:checked').forEach(el => {
+      const label = (el as HTMLInputElement).closest('label')?.querySelector('span')?.textContent?.trim() || '';
+      if (label) selectedAddons.push(label);
+    });
 
     const optionRow = (label: string, good: string, better: string, best: string, isBold?: boolean) => {
       const weight = isBold ? 'font-weight:700;' : '';
@@ -613,8 +629,13 @@ const faqSchema = {
   .sig-block { font-size: 13px; color: #6b7280; }
   .sig-block .line { border-bottom: 1px solid #9ca3af; height: 40px; margin-bottom: 4px; }
   .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 12px; color: #9ca3af; }
-  .financing-row td { font-size: 13px; color: #6b7280; font-style: italic; }
   .badge-popular { display: inline-block; background: #dcfce7; color: #059669; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+  .recurring-box { background: #fefce8; border: 1px solid #fde68a; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+  .recurring-box h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #92400e; margin: 0 0 8px 0; }
+  .recurring-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: center; font-size: 14px; }
+  .recurring-grid .freq { font-weight: 700; color: #92400e; }
+  .recurring-grid .price { font-size: 18px; font-weight: 800; color: #111827; }
+  .recurring-grid .note { font-size: 11px; color: #6b7280; }
 </style>
 </head>
 <body>
@@ -627,7 +648,7 @@ const faqSchema = {
       <div class="company-name">${escHtml(companyName)}</div>
       ${companyPhone ? '<div class="company-detail">' + escHtml(companyPhone) + '</div>' : ''}
       ${companyEmail ? '<div class="company-detail">' + escHtml(companyEmail) + '</div>' : ''}
-      ${licenseNum ? '<div class="company-detail">License: ' + escHtml(licenseNum) + '</div>' : ''}
+      ${licenseNum ? '<div class="company-detail">License/Insurance: ' + escHtml(licenseNum) + '</div>' : ''}
     </div>
     <div class="estimate-meta">
       <div style="margin-bottom:8px;"><div class="label">Estimate</div><div class="value">${escHtml(estimateNum)}</div></div>
@@ -636,22 +657,25 @@ const faqSchema = {
     </div>
   </div>
 
-  <div class="section-title">Customer</div>
+  <div class="section-title">Customer &amp; Property</div>
   <div class="info-grid">
     <div><span class="label">Name:</span> <span class="value">${escHtml(customerName)}</span></div>
     <div><span class="label">Phone:</span> <span class="value">${escHtml(customerPhone)}</span></div>
     <div style="grid-column:1/-1;"><span class="label">Address:</span> <span class="value">${escHtml(customerAddress)}</span></div>
+    <div><span class="label">Sq Ft:</span> <span class="value">${escHtml(sqft)}</span></div>
+    <div><span class="label">Beds / Baths:</span> <span class="value">${escHtml(bedrooms)} bed / ${escHtml(bathrooms)} bath</span></div>
+    <div><span class="label">Flooring:</span> <span class="value">${escHtml(flooringType)}</span></div>
+    <div><span class="label">Pets:</span> <span class="value">${hasPets === 'Yes' ? 'Yes (' + escHtml(petCount) + ')' : 'No'}</span></div>
   </div>
 
-  <div class="section-title">Current System Assessment</div>
+  <div class="section-title">Property Condition</div>
   <div class="info-grid">
-    <div><span class="label">System Type:</span> <span class="value">${escHtml(currentType)}</span></div>
-    <div><span class="label">System Age:</span> <span class="value">${escHtml(systemAge)} years</span></div>
-    <div style="grid-column:1/-1;"><span class="label">Condition:</span> <span class="value">${escHtml(currentCondition)}</span></div>
-    ${issuesNotes ? '<div style="grid-column:1/-1;"><span class="label">Notes:</span> <span class="value">' + escHtml(issuesNotes) + '</span></div>' : ''}
+    <div><span class="label">Cleanliness:</span> <span class="value">${escHtml(cleanlinessRating)}/5 - ${cleanlinessLabels[cleanlinessRating] || 'Average'}</span></div>
+    ${concerns.length > 0 ? '<div><span class="label">Concerns:</span> <span class="value">' + concerns.join(', ') + '</span></div>' : ''}
+    ${conditionNotes ? '<div style="grid-column:1/-1;"><span class="label">Notes:</span> <span class="value">' + escHtml(conditionNotes) + '</span></div>' : ''}
   </div>
 
-  <div class="section-title">Replacement Options</div>
+  <div class="section-title">Service Options</div>
   <table>
     <thead>
       <tr>
@@ -662,30 +686,42 @@ const faqSchema = {
       </tr>
     </thead>
     <tbody>
-      ${optionRow('Equipment', escHtml(getVal('goodDesc')), escHtml(getVal('betterDesc')), escHtml(getVal('bestDesc')))}
-      ${optionRow('Efficiency Rating', escHtml(getVal('goodRating')), escHtml(getVal('betterRating')), escHtml(getVal('bestRating')))}
-      ${optionRow('Equipment Cost', fmt(getNum('goodEquip')), fmt(getNum('betterEquip')), fmt(getNum('bestEquip')))}
-      ${optionRow('Labor', fmt(getNum('goodLabor')), fmt(getNum('betterLabor')), fmt(getNum('bestLabor')))}
-      ${optionRow('Materials', fmt(getNum('goodMaterials')), fmt(getNum('betterMaterials')), fmt(getNum('bestMaterials')))}
-      ${optionRow('Permits', fmt(getNum('goodPermits')), fmt(getNum('betterPermits')), fmt(getNum('bestPermits')))}
-      ${optionRow('Rebates', getNum('goodRebates') > 0 ? '-' + fmt(getNum('goodRebates')) : '$0', getNum('betterRebates') > 0 ? '-' + fmt(getNum('betterRebates')) : '$0', getNum('bestRebates') > 0 ? '-' + fmt(getNum('bestRebates')) : '$0')}
-      ${optionRow('Total', fmt(goodTotal), fmt(betterTotal), fmt(bestTotal), true)}
-      ${financing ? '<tr class="financing-row"><td style="padding:8px 12px;">Monthly Payment (' + term + ' mo @ ' + apr + '% APR)</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(goodMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;background:#f0fdf4;">' + fmt(Math.round(betterMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(bestMonthly)) + '/mo</td></tr>' : ''}
+      ${optionRow('Service', escHtml(getVal('goodDesc')), escHtml(getVal('betterDesc')), escHtml(getVal('bestDesc')))}
+      ${optionRow('Base Price', fmt(getNum('goodPrice')), fmt(getNum('betterPrice')), fmt(getNum('bestPrice')))}
+      ${addonsTotal > 0 ? optionRow('Add-Ons', fmt(addonsTotal), fmt(addonsTotal), fmt(addonsTotal)) : ''}
+      ${optionRow('Total', fmt(goodPrice), fmt(betterPrice), fmt(bestPrice), true)}
     </tbody>
   </table>
 
-  <div class="section-title">Scope of Work</div>
-  <div class="scope-box">${scopeToHtml(scopeOfWork)}</div>
+  ${selectedAddons.length > 0 ? '<div style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:16px;">Add-ons included: ' + selectedAddons.join(', ') + '</div>' : ''}
 
-  <div class="section-title">Terms &amp; Warranty</div>
+  <div class="section-title">Scope of Work</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+    <div class="scope-box"><div style="font-weight:700;color:#3b82f6;font-size:12px;text-transform:uppercase;margin-bottom:8px;">Good</div>${scopeToHtml(getVal('goodScope'))}</div>
+    <div class="scope-box" style="border-color:#34d399;"><div style="font-weight:700;color:#059669;font-size:12px;text-transform:uppercase;margin-bottom:8px;">Better</div>${scopeToHtml(getVal('betterScope'))}</div>
+    <div class="scope-box"><div style="font-weight:700;color:#f59e0b;font-size:12px;text-transform:uppercase;margin-bottom:8px;">Best</div>${scopeToHtml(getVal('bestScope'))}</div>
+  </div>
+
+  ${showRecurring ? `
+  <div class="recurring-box">
+    <h4>Recurring Service Pricing (based on Better tier)</h4>
+    <div class="recurring-grid">
+      <div><div class="freq">Weekly</div><div class="price">${fmt(Math.round(betterPrice * 0.95))}</div><div class="note">5% discount per visit</div></div>
+      <div><div class="freq">Biweekly</div><div class="price">${fmt(Math.round(betterPrice * 0.90))}</div><div class="note">10% discount per visit</div></div>
+      <div><div class="freq">Monthly</div><div class="price">${fmt(Math.round(betterPrice * 0.85))}</div><div class="note">15% discount per visit</div></div>
+    </div>
+  </div>
+  ` : ''}
+
+  <div class="section-title">Terms &amp; Guarantee</div>
   <div class="terms-grid">
     <div>
       <h4>Payment Terms</h4>
       <p style="margin:0;white-space:pre-line;">${escHtml(paymentTerms)}</p>
     </div>
     <div>
-      <h4>Warranty</h4>
-      <p style="margin:0;white-space:pre-line;">${escHtml(warrantyTerms)}</p>
+      <h4>Satisfaction Guarantee</h4>
+      <p style="margin:0;white-space:pre-line;">${escHtml(guaranteeTerms)}</p>
     </div>
   </div>
 
@@ -702,7 +738,7 @@ const faqSchema = {
 
   <div class="footer">
     This estimate is valid for 30 days from the date above. Prices subject to change after expiration.
-    ${companyName ? '<br>' + escHtml(companyName) : ''}${licenseNum ? ' &bull; License ' + escHtml(licenseNum) : ''}${companyPhone ? ' &bull; ' + escHtml(companyPhone) : ''}
+    ${companyName ? '<br>' + escHtml(companyName) : ''}${licenseNum ? ' &bull; ' + escHtml(licenseNum) : ''}${companyPhone ? ' &bull; ' + escHtml(companyPhone) : ''}
   </div>
 </body>
 </html>`;
@@ -717,7 +753,7 @@ const faqSchema = {
   // --- Event listeners ---
   setDefaultDates();
 
-  document.getElementById('showFinancing')?.addEventListener('change', toggleFinancing);
+  document.getElementById('showRecurring')?.addEventListener('change', updateAll);
   document.getElementById('generate-btn')?.addEventListener('click', generateEstimate);
 
   // Auto-calculate on any input change

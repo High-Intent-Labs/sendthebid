@@ -7,10 +7,10 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What should a Cleaning maintenance visit include?", "acceptedAnswer": { "@type": "Answer", "text": "A complete Cleaning maintenance visit should include controls and settings check, filter replacement, electrical component testing (capacitor, contactor, amp draws), a thorough inspection of all components, testing of all safety systems, cleaning and adjustment of key parts, and documentation of current conditions versus previous service records. Address any issues found immediately or note them for follow-up." } },
-    { "@type": "Question", "name": "How often should Cleaning systems be serviced?", "acceptedAnswer": { "@type": "Answer", "text": "Cleaning systems should be serviced twice a year — at least once a year, or more frequently for high-use properties. Regular inspections catch small issues before they become expensive problems. Properties in harsh climates or with heavy usage may benefit from quarterly check-ins." } },
-    { "@type": "Question", "name": "What is a normal superheat and subcooling?", "acceptedAnswer": { "@type": "Answer", "text": "For a standard TXV system, target superheat is 10-15 degrees F and target subcooling is 10-12 degrees F. For fixed orifice systems, superheat varies by indoor and outdoor conditions — use the manufacturer charging chart. Readings outside these ranges indicate issues: low superheat suggests flooding, high superheat suggests starved evaporator, low subcooling suggests undercharge, and high subcooling suggests overcharge or restriction." } },
-    { "@type": "Question", "name": "What is a safe operating condition?", "acceptedAnswer": { "@type": "Answer", "text": "Safety systems should be tested and verified to be functioning properly when measured in the undiluted air-free sample. Readings above 9 PPM indicate combustion problems such as a equipment malfunction or safety hazard. Any CO above 35 PPM in ambient air is an immediate safety hazard requiring system shutdown." } }
+    { "@type": "Question", "name": "What should a maintenance cleaning checklist include?", "acceptedAnswer": { "@type": "Answer", "text": "A maintenance cleaning checklist should cover every room in the home with specific tasks for each. Kitchen tasks include wiping counters, cleaning appliances, and sanitizing the sink. Bathrooms need toilet scrubbing, mirror cleaning, and fixture polishing. Bedrooms cover dusting surfaces, vacuuming floors, and changing linens if requested. Living areas include dusting, vacuuming or mopping, and wiping electronics. A good checklist also covers laundry rooms, entryways, and hallways." } },
+    { "@type": "Question", "name": "How often should a maintenance clean be performed?", "acceptedAnswer": { "@type": "Answer", "text": "Most residential clients schedule maintenance cleans weekly or bi-weekly. Weekly cleaning is ideal for families with children or pets and keeps the home consistently clean. Bi-weekly is the most popular frequency for working professionals and couples. Monthly cleans work for smaller homes or clients who maintain the property themselves between visits. The right frequency depends on household size, pets, and the client's cleanliness standards." } },
+    { "@type": "Question", "name": "What is the difference between a maintenance clean and a deep clean?", "acceptedAnswer": { "@type": "Answer", "text": "A maintenance clean covers routine tasks that keep a home looking and smelling fresh between deeper services. It includes wiping surfaces, vacuuming and mopping floors, cleaning bathrooms and kitchens, and emptying trash. A deep clean goes further with tasks like scrubbing grout, cleaning inside appliances, washing baseboards, detailing light fixtures, and cleaning behind furniture. Deep cleans are typically done quarterly or as a first-time service before starting a recurring maintenance schedule." } },
+    { "@type": "Question", "name": "How do I track cleaning progress across a large home?", "acceptedAnswer": { "@type": "Answer", "text": "Use a room-by-room checklist that your cleaners check off as they complete each task. Digital checklists with progress tracking are ideal because they save automatically, show completion percentage at a glance, and can be referenced on future visits. This ensures nothing gets missed and gives the client confidence that every area was addressed. Many cleaning companies also photograph completed rooms as additional documentation." } }
   ]
 };
 ---
@@ -28,511 +28,310 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Tab Toggle -->
-    <div class="flex gap-2 mb-8">
-      <button id="tab-cooling" class="flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-accent text-white" data-tab="cooling">
-        Cooling Season
+    <!-- Actions -->
+    <div class="flex flex-wrap gap-3 mb-8">
+      <button id="reset-btn" class="bg-bg-dark border border-border text-text-secondary text-sm font-medium px-4 py-2 rounded-lg hover:border-red-400 hover:text-red-400 transition-colors cursor-pointer">
+        Reset All
       </button>
-      <button id="tab-heating" class="flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-bg-dark text-text-muted border border-border hover:border-accent hover:text-text-primary" data-tab="heating">
-        Heating Season
-      </button>
-    </div>
-
-    <!-- ============ COOLING SEASON ============ -->
-    <div id="panel-cooling">
-
-      <!-- Controls -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Thermostat
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test all modes (heat, cool, auto, fan)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Verify calibration (&plusmn;1&deg;F)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check programming / schedule</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Air Distribution -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Air Distribution
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Replace / clean filter</span>
-            </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Size:</label>
-              <input type="text" data-field="filter-size-cool" placeholder="e.g. 20x25x1" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-28 focus:border-accent focus:outline-none" />
-              <label class="text-xs text-text-muted">Condition:</label>
-              <select data-field="filter-condition-cool" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm focus:border-accent focus:outline-none">
-                <option value="">Select</option>
-                <option value="New">New</option>
-                <option value="Clean">Clean</option>
-                <option value="Dirty">Dirty</option>
-                <option value="Clogged">Clogged</option>
-              </select>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect all systems for damage or issues</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check supply and return registers (open, clean)</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Electrical -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Electrical
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test capacitor</span>
-            </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Reading:</label>
-              <input type="number" data-field="cap-reading" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&mu;F</span>
-              <label class="text-xs text-text-muted ml-2">Rated:</label>
-              <input type="number" data-field="cap-rated" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&mu;F</span>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect contactor (pitting, arcing)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check all electrical connections</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Measure amp draws</span>
-            </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Compressor:</label>
-              <input type="number" data-field="amp-compressor" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-              <label class="text-xs text-text-muted ml-2">Blower:</label>
-              <input type="number" data-field="amp-blower" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-              <label class="text-xs text-text-muted ml-2">Condenser fan:</label>
-              <input type="number" data-field="amp-condenser" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sanitation Systems -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Refrigerant System
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Suction Pressure</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="suction-psi" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-24 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PSI</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Liquid / Head Pressure</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="head-psi" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-24 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PSI</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Superheat</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="superheat" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1">Target: 10-15&deg;F</span>
-              <span id="ind-superheat" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Subcooling</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="subcooling" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1">Target: 10-12&deg;F</span>
-              <span id="ind-subcooling" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Leak inspection performed</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Outdoor Unit -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Outdoor Unit
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean condenser coil</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clear debris (2 ft clearance)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Level check</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Fan blade condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Service valves accessible</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Indoor Unit -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Indoor Unit
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean evaporator coil</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clear condensate drain</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test float switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect blower wheel</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Performance (Cooling) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Performance
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Supply Air Temp</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="supply-temp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Return Air Temp</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="return-temp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-center gap-3 ml-8">
-            <span class="text-text-secondary text-sm">Temperature Split:</span>
-            <span id="temp-split" class="font-heading font-bold text-lg text-text-primary">--</span>
-            <span class="text-xs text-text-muted">&deg;F</span>
-            <span class="text-xs text-text-muted ml-1">Target: 15-20&deg;F</span>
-            <span id="ind-split" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ============ HEATING SEASON ============ -->
-    <div id="panel-heating" class="hidden">
-
-      <!-- Heat Exchanger -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Heat Exchanger
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Visual inspection (cracks, rust, holes)</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">CO test</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Reading:</label>
-              <input type="number" data-field="co-reading" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PPM</span>
-              <span class="text-xs text-text-muted ml-1">Must be &lt; 9 PPM</span>
-              <span id="ind-co" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Burner Assembly -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Burner Assembly
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect burners (clean, aligned)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean flame sensor</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test igniter</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Gas pressure</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="gas-pressure" step="0.1" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">"WC</span>
-              <span class="text-xs text-text-muted ml-1">Target: 3.5" WC</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Safety Controls -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Safety Controls
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">High-limit switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Pressure switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Rollout switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Flue pipe condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">CO detector present</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Electrical (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Electrical
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wiring condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All connections tight</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Amp draw</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="heat-amp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Air Distribution (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Air Distribution
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Filter replaced / cleaned</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Blower motor condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Surface inspection</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Performance (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Performance
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Temperature rise</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="temp-rise" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1 italic">Check nameplate for range</span>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Verify proper cycling</span>
-          </label>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Results Summary -->
-    <div id="results-summary" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">System Health Summary</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Items Checked</div>
-          <div id="summary-checked" class="font-heading font-extrabold text-3xl text-accent">0 / 0</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Completion</div>
-          <div id="summary-pct" class="font-heading font-extrabold text-3xl text-text-primary">0%</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flagged Readings</div>
-          <div id="summary-flags" class="font-heading font-extrabold text-3xl text-text-primary">0</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Health Grade</div>
-          <div id="summary-grade" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
-        </div>
-      </div>
-      <div id="flag-list" class="hidden mb-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-3">Flagged Items</h4>
-        <div id="flag-items" class="space-y-2"></div>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex flex-wrap gap-3 mt-6">
-      <button id="generate-report" class="bg-accent text-white font-heading font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
-        Generate Report &rarr;
-      </button>
-      <button id="reset-checklist" class="bg-bg-dark text-text-secondary border border-border font-heading font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg hover:border-accent hover:text-text-primary transition-all cursor-pointer">
-        Reset Checklist
+      <button id="print-btn" class="bg-bg-dark border border-border text-text-secondary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">
+        Print Checklist
       </button>
     </div>
+
+    <!-- Kitchen -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Kitchen
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe down all countertops and backsplash</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean stovetop and exterior of range hood</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe exterior of microwave, oven, and dishwasher</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean and sanitize sink and faucet</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe exterior of refrigerator and handles</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe cabinet fronts and hardware</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean dining table and chairs</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Sweep and mop kitchen floor</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Empty trash and replace liner</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Bathrooms -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Bathrooms
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Scrub and sanitize toilet (bowl, seat, base, handle)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean and sanitize sink, faucet, and countertop</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean mirrors and glass surfaces</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe down shower/tub surfaces and fixtures</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean shower door or curtain</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Polish chrome fixtures and towel bars</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe light switches and door handles</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Sweep and mop bathroom floor</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Empty trash and replace liner</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Bedrooms -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Bedrooms
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dust all surfaces (nightstands, dressers, shelves)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Make beds and straighten linens</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe mirrors and glass surfaces</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe light switches, door handles, and outlets</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Vacuum carpet or dust mop hard floors</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Vacuum under bed edges (if accessible)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Empty trash and replace liner</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Living Areas -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Living Areas
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dust all surfaces (coffee table, end tables, TV stand, shelves)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe down electronics and screens (dry cloth)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Fluff and straighten couch cushions and pillows</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe light switches, door handles, and remotes</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dust ceiling fan blades and light fixtures (reachable)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Vacuum carpet or sweep and mop hard floors</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Vacuum area rugs and under furniture edges</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Empty trash and replace liner</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Laundry Room -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Laundry Room
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe exterior of washer and dryer</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean lint trap area and surrounding surfaces</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe down counters, shelves, and folding area</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean laundry sink (if applicable)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Sweep and mop floor</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Entryway / Hallways -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Entryway &amp; Hallways
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe front door, handle, and lockset</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dust console table, shoe rack, and coat hooks</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean mirrors and wall art glass</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wipe light switches, handrails, and banisters</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Vacuum or sweep hallway floors and entry mat</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dust stairway treads and risers</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Notes
+      </h3>
+      <textarea id="checklist-notes" rows="3" placeholder="Add notes about issues found, client requests, areas needing extra attention..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+    </div>
+
   </div>
 
+  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Checklist</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Choose your season.</strong> Toggle between Cooling and Heating tabs at the top. Each tab has its own checklist tailored to the equipment and procedures for that season.</p>
-          <p><strong class="text-text-primary">2. Work through each section.</strong> Check off items as you complete them. Enter readings directly into the fields — superheat, subcooling, amp draws, CO levels — and the tool will flag anything outside normal range.</p>
-          <p><strong class="text-text-primary">3. Monitor your progress.</strong> The progress bar updates in real time. The summary section shows your completion percentage and a health grade based on items checked and flagged readings.</p>
-          <p><strong class="text-text-primary">4. Generate a report.</strong> When finished, hit Generate Report to create a printable summary of everything checked, every reading recorded, and any items that need attention. Your progress auto-saves so you never lose work.</p>
+          <p><strong class="text-text-primary">1. Work room by room.</strong> Start at the top of the list and move through each room in order. This prevents backtracking and ensures you cover every area in the home systematically.</p>
+          <p><strong class="text-text-primary">2. Check off tasks as you go.</strong> Tap or click each checkbox as you complete a task. The progress bar at the top updates automatically so you always know how far along you are.</p>
+          <p><strong class="text-text-primary">3. Your progress saves automatically.</strong> The checklist saves to your browser so you can close the page and come back without losing progress. This is useful for larger homes or if you need to take a break between rooms.</p>
+          <p><strong class="text-text-primary">4. Add notes for anything unusual.</strong> Use the notes section at the bottom to document issues, client requests, or areas that need extra attention on the next visit. These notes help you or your team prepare for the next appointment.</p>
+          <p><strong class="text-text-primary">5. Reset when done.</strong> After completing the clean and reviewing with the client, hit Reset All to clear the checklist for the next job. Use the Print button if you need a paper copy for your records.</p>
         </div>
       </section>
 
+      <!-- Why Use a Checklist -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete Cleaning Service Covers</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Every Cleaner Needs a Checklist</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Controls verification.</strong> Checking all controls and settings ensures the system responds correctly. Testing confirms proper operation and helps catch issues before they affect performance.</p>
-          <p><strong class="text-text-primary">System condition.</strong> Regular cleaning and maintenance of all components is essential for optimal performance. Neglected systems lose efficiency over time and develop problems that cost more to fix later.</p>
-          <p><strong class="text-text-primary">Electrical components.</strong> Capacitors weaken over time and contactors pit from arcing. Measuring actual amp draws against rated values catches motors that are overworking before they fail, saving the customer an emergency call.</p>
-          <p><strong class="text-text-primary">Supplies system.</strong> Superheat and subcooling are the two most important measurements in cooling diagnostics. They reveal charge level, metering device function, and airflow problems that pressures alone cannot identify.</p>
-          <p><strong class="text-text-primary">Heat exchanger and combustion.</strong> A cracked component can leak carbon monoxide into living spaces. CO testing is not optional — it is the single most important safety check on any gas system maintenance visit.</p>
-          <p><strong class="text-text-primary">Safety controls.</strong> High-limit switches, pressure switches, and rollout switches exist to prevent fires and CO poisoning. Verifying each one operates correctly protects both the homeowner and your liability.</p>
-          <p><strong class="text-text-primary">Performance verification.</strong> Temperature split (return minus supply) confirms the system is actually doing its job. A split outside the 15-20 degree range on cooling points to airflow, charge, or equipment problems.</p>
+          <p>Consistency is what separates a reliable cleaning company from one that loses clients after the third visit. A maintenance checklist ensures every room gets the same attention on every visit, regardless of which team member is on the job. Without a checklist, it is easy to forget tasks, especially in larger homes where you are juggling multiple rooms and client-specific preferences.</p>
+          <p>Checklists also reduce callbacks and disputes. When a client says the guest bathroom was missed, you can reference the completed checklist. When training a new cleaner, the checklist becomes their roadmap. They know exactly what is expected in each room without constant supervision.</p>
+          <p>For owners and managers, a consistent checklist is the foundation of quality control. You can review completed checklists during walkthroughs, identify cleaners who regularly skip tasks, and maintain service standards as you scale. The best cleaning companies treat their checklist as a non-negotiable part of every job.</p>
         </div>
       </section>
 
+      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Routine maintenance visits.</strong> Use this as your standard operating procedure for every service visit. It ensures nothing gets skipped, readings get recorded, and the customer sees a professional report documenting every step.</p>
-          <p><strong class="text-text-primary">New technician training.</strong> Hand this checklist to every new hire. It teaches them the complete process for a thorough maintenance visit and builds consistent habits from day one. The reading targets and color indicators help them learn what normal looks like.</p>
-          <p><strong class="text-text-primary">Maintenance agreement visits.</strong> If you sell maintenance plans, this checklist is your proof of value. Customers paying for a plan expect thoroughness. Generate the report, hand it to them, and show exactly what their money bought.</p>
+          <p><strong class="text-text-primary">Recurring residential cleans.</strong> Pull up this checklist on your phone or tablet at the start of every maintenance visit. Work through each room, check off tasks, and hand the client a fully documented clean before you leave. It replaces the paper checklists that get crumpled, lost, or left in the truck.</p>
+          <p><strong class="text-text-primary">Training new cleaners.</strong> When onboarding a new team member, this checklist sets clear expectations for what a complete maintenance clean includes. They see exactly which tasks are expected in each room, eliminating the guesswork and reducing the chance of missed areas.</p>
+          <p><strong class="text-text-primary">Quality control walkthroughs.</strong> Supervisors and managers can use this checklist during random quality checks. Walk the home after the clean and verify each task against the list. Consistent use over time builds accountability and keeps your service standards high.</p>
         </div>
       </section>
 
+      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Cleaning maintenance visit include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete visit should include controls and settings check, filter replacement, electrical component testing (capacitor, contactor, amp draws), a thorough inspection of all components, testing of all safety systems, cleaning and adjustment of key parts, and documentation of current conditions. Address any issues found immediately or note them for follow-up.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a maintenance cleaning checklist include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A maintenance cleaning checklist should cover every room in the home with specific tasks for each. Kitchen tasks include wiping counters, cleaning appliances, and sanitizing the sink. Bathrooms need toilet scrubbing, mirror cleaning, and fixture polishing. Bedrooms cover dusting surfaces, vacuuming floors, and changing linens if requested. Living areas include dusting, vacuuming or mopping, and wiping electronics. A good checklist also covers laundry rooms, entryways, and hallways.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should Cleaning systems be serviced?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Twice a year — once in spring before cooling season and once in fall before heating season. Systems older than 10 years or in harsh climates may benefit from quarterly check-ins. At minimum, filters should be checked monthly during heavy use seasons.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should a maintenance clean be performed?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most residential clients schedule maintenance cleans weekly or bi-weekly. Weekly cleaning is ideal for families with children or pets and keeps the home consistently clean. Bi-weekly is the most popular frequency for working professionals and couples. Monthly cleans work for smaller homes or clients who maintain the property themselves between visits. The right frequency depends on household size, pets, and the client's cleanliness standards.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a normal superheat and subcooling?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For a standard TXV system, target superheat is 10-15 degrees F and target subcooling is 10-12 degrees F. Readings outside these ranges indicate charge problems, metering device issues, or airflow restrictions. For fixed orifice systems, use the manufacturer charging chart as superheat varies by conditions.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between a maintenance clean and a deep clean?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A maintenance clean covers routine tasks that keep a home looking and smelling fresh between deeper services. It includes wiping surfaces, vacuuming and mopping floors, cleaning bathrooms and kitchens, and emptying trash. A deep clean goes further with tasks like scrubbing grout, cleaning inside appliances, washing baseboards, detailing light fixtures, and cleaning behind furniture. Deep cleans are typically done quarterly or as a first-time service before starting a recurring maintenance schedule.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a safe operating condition?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Safety systems should be tested and verified to be functioning properly. Readings above 9 PPM indicate combustion problems. Any ambient CO above 35 PPM is an immediate safety hazard requiring system shutdown and investigation. Common causes include cracked components, dirty burners, and improper gas pressure.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I track cleaning progress across a large home?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a room-by-room checklist that your cleaners check off as they complete each task. Digital checklists with progress tracking are ideal because they save automatically, show completion percentage at a glance, and can be referenced on future visits. This ensures nothing gets missed and gives the client confidence that every area was addressed. Many cleaning companies also photograph completed rooms as additional documentation.</div>
           </details>
         </div>
       </section>
@@ -541,358 +340,95 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // ===== STATE =====
-  const STORAGE_KEY = 'hvac-maintenance-checklist';
-  let activeTab: 'cooling' | 'heating' = 'cooling';
+  document.addEventListener('DOMContentLoaded', () => {
+    const STORAGE_KEY = 'cleaning-maintenance-checklist';
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('.cl-check');
+    const progressBar = document.getElementById('progress-bar') as HTMLElement;
+    const progressText = document.getElementById('progress-text') as HTMLElement;
+    const notesField = document.getElementById('checklist-notes') as HTMLTextAreaElement;
 
-  interface SavedState {
-    activeTab: string;
-    checks: Record<string, boolean>;
-    fields: Record<string, string>;
-  }
-
-  // ===== PERSISTENCE =====
-  function saveState(): void {
-    const checks: Record<string, boolean> = {};
-    document.querySelectorAll('.cl-check').forEach((cb, i) => {
-      checks[`check-${i}`] = (cb as HTMLInputElement).checked;
-    });
-    const fields: Record<string, string> = {};
-    document.querySelectorAll('[data-field]').forEach(el => {
-      const key = (el as HTMLElement).dataset.field!;
-      fields[key] = (el as HTMLInputElement | HTMLSelectElement).value;
-    });
-    const state: SavedState = { activeTab, checks, fields };
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
-  }
-
-  function loadState(): void {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const state: SavedState = JSON.parse(raw);
-      if (state.activeTab === 'heating') switchTab('heating');
-      if (state.checks) {
-        document.querySelectorAll('.cl-check').forEach((cb, i) => {
-          (cb as HTMLInputElement).checked = !!state.checks[`check-${i}`];
-        });
-      }
-      if (state.fields) {
-        document.querySelectorAll('[data-field]').forEach(el => {
-          const key = (el as HTMLElement).dataset.field!;
-          if (state.fields[key] !== undefined) {
-            (el as HTMLInputElement | HTMLSelectElement).value = state.fields[key];
+    // Load saved state
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          if (state.checks && Array.isArray(state.checks)) {
+            checkboxes.forEach((cb, i) => {
+              if (i < state.checks.length) {
+                cb.checked = state.checks[i];
+              }
+            });
           }
-        });
+          if (state.notes && notesField) {
+            notesField.value = state.notes;
+          }
+        }
+      } catch (e) {
+        // ignore parse errors
       }
-    } catch {}
-  }
-
-  // ===== TABS =====
-  function switchTab(tab: 'cooling' | 'heating'): void {
-    activeTab = tab;
-    const coolingPanel = document.getElementById('panel-cooling')!;
-    const heatingPanel = document.getElementById('panel-heating')!;
-    const coolingBtn = document.getElementById('tab-cooling')!;
-    const heatingBtn = document.getElementById('tab-heating')!;
-
-    if (tab === 'cooling') {
-      coolingPanel.classList.remove('hidden');
-      heatingPanel.classList.add('hidden');
-      coolingBtn.className = 'flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-accent text-white';
-      heatingBtn.className = 'flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-bg-dark text-text-muted border border-border hover:border-accent hover:text-text-primary';
-    } else {
-      coolingPanel.classList.add('hidden');
-      heatingPanel.classList.remove('hidden');
-      heatingBtn.className = 'flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-accent text-white';
-      coolingBtn.className = 'flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-bg-dark text-text-muted border border-border hover:border-accent hover:text-text-primary';
-    }
-    updateProgress();
-    saveState();
-  }
-
-  document.getElementById('tab-cooling')?.addEventListener('click', () => switchTab('cooling'));
-  document.getElementById('tab-heating')?.addEventListener('click', () => switchTab('heating'));
-
-  // ===== PROGRESS & SUMMARY =====
-  function getActiveChecks(): NodeListOf<HTMLInputElement> {
-    const panel = activeTab === 'cooling' ? '#panel-cooling' : '#panel-heating';
-    return document.querySelectorAll(`${panel} .cl-check`);
-  }
-
-  function evaluateFlags(): { count: number; items: string[] } {
-    const flags: string[] = [];
-    const sh = parseFloat((document.querySelector('[data-field="superheat"]') as HTMLInputElement)?.value);
-    if (!isNaN(sh) && sh > 0 && (sh < 10 || sh > 15)) flags.push(`Superheat: ${sh}\u00B0F (target 10-15\u00B0F)`);
-    const sc = parseFloat((document.querySelector('[data-field="subcooling"]') as HTMLInputElement)?.value);
-    if (!isNaN(sc) && sc > 0 && (sc < 10 || sc > 12)) flags.push(`Subcooling: ${sc}\u00B0F (target 10-12\u00B0F)`);
-    const supply = parseFloat((document.querySelector('[data-field="supply-temp"]') as HTMLInputElement)?.value);
-    const ret = parseFloat((document.querySelector('[data-field="return-temp"]') as HTMLInputElement)?.value);
-    if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-      const split = Math.abs(ret - supply);
-      if (split < 15 || split > 20) flags.push(`Temp Split: ${split.toFixed(1)}\u00B0F (target 15-20\u00B0F)`);
-    }
-    const co = parseFloat((document.querySelector('[data-field="co-reading"]') as HTMLInputElement)?.value);
-    if (!isNaN(co) && co > 0 && co >= 9) flags.push(`CO Reading: ${co} PPM (must be < 9 PPM)`);
-    return { count: flags.length, items: flags };
-  }
-
-  function getGrade(pct: number, flagCount: number): string {
-    if (pct === 0) return '--';
-    const penalty = flagCount * 10;
-    const score = Math.max(0, pct - penalty);
-    if (score >= 90) return 'A';
-    if (score >= 80) return 'B';
-    if (score >= 70) return 'C';
-    if (score >= 60) return 'D';
-    return 'F';
-  }
-
-  function gradeColor(grade: string): string {
-    if (grade === 'A') return 'text-[#34D399]';
-    if (grade === 'B') return 'text-[#60A5FA]';
-    if (grade === 'C') return 'text-[#FBBF24]';
-    if (grade === 'D') return 'text-[#FB923C]';
-    if (grade === 'F') return 'text-[#F87171]';
-    return 'text-text-primary';
-  }
-
-  function updateProgress(): void {
-    const checks = getActiveChecks();
-    const total = checks.length;
-    const checked = Array.from(checks).filter(c => c.checked).length;
-    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
-
-    document.getElementById('progress-text')!.textContent = `${checked} of ${total} items checked`;
-    (document.getElementById('progress-bar') as HTMLElement).style.width = `${pct}%`;
-
-    const flags = evaluateFlags();
-    const grade = getGrade(pct, flags.count);
-
-    document.getElementById('summary-checked')!.textContent = `${checked} / ${total}`;
-    document.getElementById('summary-pct')!.textContent = `${pct}%`;
-    document.getElementById('summary-flags')!.textContent = flags.count.toString();
-
-    const gradeEl = document.getElementById('summary-grade')!;
-    gradeEl.textContent = grade;
-    gradeEl.className = `font-heading font-extrabold text-3xl ${gradeColor(grade)}`;
-
-    if (flags.count > 0) {
-      document.getElementById('summary-flags')!.className = 'font-heading font-extrabold text-3xl text-[#FBBF24]';
-    } else {
-      document.getElementById('summary-flags')!.className = 'font-heading font-extrabold text-3xl text-[#34D399]';
+      updateProgress();
     }
 
-    const flagList = document.getElementById('flag-list')!;
-    const flagItems = document.getElementById('flag-items')!;
-    if (flags.count > 0) {
-      flagList.classList.remove('hidden');
-      flagItems.innerHTML = flags.items.map(f => `<div class="bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg px-4 py-2 text-sm text-[#FBBF24]">${f}</div>`).join('');
-    } else {
-      flagList.classList.add('hidden');
-      flagItems.innerHTML = '';
-    }
-  }
-
-  // ===== COLOR INDICATORS =====
-  function updateIndicators(): void {
-    const sh = parseFloat((document.querySelector('[data-field="superheat"]') as HTMLInputElement)?.value);
-    const indSH = document.getElementById('ind-superheat');
-    if (indSH) {
-      if (isNaN(sh) || sh === 0) indSH.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (sh >= 10 && sh <= 15) indSH.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else if (sh >= 7 && sh <= 18) indSH.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-      else indSH.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    // Save state
+    function saveState() {
+      const checks: boolean[] = [];
+      checkboxes.forEach(cb => checks.push(cb.checked));
+      const state = {
+        checks,
+        notes: notesField ? notesField.value : ''
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
 
-    const sc = parseFloat((document.querySelector('[data-field="subcooling"]') as HTMLInputElement)?.value);
-    const indSC = document.getElementById('ind-subcooling');
-    if (indSC) {
-      if (isNaN(sc) || sc === 0) indSC.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (sc >= 10 && sc <= 12) indSC.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else if (sc >= 7 && sc <= 15) indSC.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-      else indSC.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
-    }
+    // Update progress bar
+    function updateProgress() {
+      const total = checkboxes.length;
+      let checked = 0;
+      checkboxes.forEach(cb => { if (cb.checked) checked++; });
+      const pct = total > 0 ? (checked / total) * 100 : 0;
 
-    const supply = parseFloat((document.querySelector('[data-field="supply-temp"]') as HTMLInputElement)?.value);
-    const ret = parseFloat((document.querySelector('[data-field="return-temp"]') as HTMLInputElement)?.value);
-    const splitEl = document.getElementById('temp-split');
-    const indSplit = document.getElementById('ind-split');
-    if (splitEl && indSplit) {
-      if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-        const split = Math.abs(ret - supply);
-        splitEl.textContent = split.toFixed(1);
-        if (split >= 15 && split <= 20) indSplit.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-        else if (split >= 12 && split <= 23) indSplit.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-        else indSplit.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+      progressBar.style.width = pct + '%';
+      progressText.textContent = checked + ' of ' + total + ' items checked';
+
+      // Change bar color based on completion
+      progressBar.classList.remove('bg-accent', 'bg-[#34D399]');
+      if (pct >= 100) {
+        progressBar.classList.add('bg-[#34D399]');
       } else {
-        splitEl.textContent = '--';
-        indSplit.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+        progressBar.classList.add('bg-accent');
       }
     }
 
-    const co = parseFloat((document.querySelector('[data-field="co-reading"]') as HTMLInputElement)?.value);
-    const indCO = document.getElementById('ind-co');
-    if (indCO) {
-      if (isNaN(co) || co === 0) indCO.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (co < 9) indCO.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else indCO.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
-    }
-  }
-
-  // ===== EVENT LISTENERS =====
-  document.querySelectorAll('.cl-check').forEach(cb => {
-    cb.addEventListener('change', () => {
-      updateProgress();
-      saveState();
-    });
-  });
-
-  document.querySelectorAll('[data-field]').forEach(el => {
-    el.addEventListener('input', () => {
-      updateIndicators();
-      updateProgress();
-      saveState();
-    });
-    el.addEventListener('change', () => {
-      updateIndicators();
-      updateProgress();
-      saveState();
-    });
-  });
-
-  // ===== RESET =====
-  document.getElementById('reset-checklist')?.addEventListener('click', () => {
-    if (!confirm('Reset all checked items and readings? This cannot be undone.')) return;
-    document.querySelectorAll('.cl-check').forEach(cb => { (cb as HTMLInputElement).checked = false; });
-    document.querySelectorAll('[data-field]').forEach(el => { (el as HTMLInputElement | HTMLSelectElement).value = ''; });
-    try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    updateIndicators();
-    updateProgress();
-  });
-
-  // ===== REPORT GENERATION =====
-  document.getElementById('generate-report')?.addEventListener('click', () => {
-    const seasonLabel = activeTab === 'cooling' ? 'Cooling Season' : 'Heating Season';
-    const panel = activeTab === 'cooling' ? '#panel-cooling' : '#panel-heating';
-    const checks = document.querySelectorAll(`${panel} .cl-check`);
-    const total = checks.length;
-    const checked = Array.from(checks).filter(c => (c as HTMLInputElement).checked).length;
-    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
-    const flags = evaluateFlags();
-    const grade = getGrade(pct, flags.count);
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-    // Gather field readings
-    const fields: Record<string, string> = {};
-    document.querySelectorAll('[data-field]').forEach(el => {
-      const key = (el as HTMLElement).dataset.field!;
-      const val = (el as HTMLInputElement | HTMLSelectElement).value;
-      if (val) fields[key] = val;
-    });
-
-    // Build sections from the active panel
-    const sections: { title: string; items: { text: string; checked: boolean }[] }[] = [];
-    const sectionEls = document.querySelectorAll(`${panel} > .mb-8`);
-    sectionEls.forEach(sec => {
-      const h3 = sec.querySelector('h3');
-      if (!h3) return;
-      const title = h3.textContent?.trim().replace(/^\u25CF\s*/, '') || '';
-      const items: { text: string; checked: boolean }[] = [];
-      sec.querySelectorAll('.cl-check').forEach(cb => {
-        const label = (cb as HTMLElement).closest('label') || (cb as HTMLElement).closest('.flex');
-        const span = label?.querySelector('span');
-        const text = span?.textContent?.trim() || '';
-        items.push({ text, checked: (cb as HTMLInputElement).checked });
+    // Checkbox change handler
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        updateProgress();
+        saveState();
       });
-      sections.push({ title, items });
     });
 
-    // Build HTML for print
-    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cleaning Maintenance Report - ${seasonLabel}</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; padding: 40px; max-width: 800px; margin: 0 auto; font-size: 13px; line-height: 1.5; }
-      h1 { font-size: 22px; margin-bottom: 4px; }
-      h2 { font-size: 16px; margin: 20px 0 8px; border-bottom: 2px solid #e5e7eb; padding-bottom: 4px; }
-      .meta { color: #6b7280; font-size: 12px; margin-bottom: 20px; }
-      .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-      .summary-box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
-      .summary-box .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280; margin-bottom: 4px; }
-      .summary-box .value { font-size: 22px; font-weight: 700; }
-      .grade-A { color: #10b981; } .grade-B { color: #3b82f6; } .grade-C { color: #f59e0b; } .grade-D { color: #f97316; } .grade-F { color: #ef4444; }
-      .item { padding: 3px 0; display: flex; align-items: center; gap: 8px; }
-      .check { width: 14px; height: 14px; border: 1.5px solid #d1d5db; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
-      .check.done { background: #10b981; border-color: #10b981; color: white; }
-      .readings { margin: 8px 0 8px 22px; padding: 8px 12px; background: #f9fafb; border-radius: 6px; font-size: 12px; }
-      .readings span { margin-right: 16px; }
-      .flag { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 6px 12px; margin: 4px 0; font-size: 12px; color: #92400e; }
-      @media print { body { padding: 20px; } }
-    </style></head><body>`;
-
-    html += `<h1>Cleaning Maintenance Report</h1>`;
-    html += `<div class="meta">${seasonLabel} &mdash; ${dateStr} at ${timeStr}</div>`;
-
-    html += `<div class="summary-grid">`;
-    html += `<div class="summary-box"><div class="label">Checked</div><div class="value">${checked}/${total}</div></div>`;
-    html += `<div class="summary-box"><div class="label">Completion</div><div class="value">${pct}%</div></div>`;
-    html += `<div class="summary-box"><div class="label">Flags</div><div class="value">${flags.count}</div></div>`;
-    html += `<div class="summary-box"><div class="label">Grade</div><div class="value grade-${grade}">${grade}</div></div>`;
-    html += `</div>`;
-
-    if (flags.count > 0) {
-      html += `<h2>Flagged Readings</h2>`;
-      flags.items.forEach(f => { html += `<div class="flag">${f}</div>`; });
+    // Notes change handler
+    if (notesField) {
+      notesField.addEventListener('input', saveState);
     }
 
-    sections.forEach(sec => {
-      html += `<h2>${sec.title}</h2>`;
-      sec.items.forEach(item => {
-        html += `<div class="item"><span class="check ${item.checked ? 'done' : ''}">${item.checked ? '&#10003;' : ''}</span> ${item.text}</div>`;
-      });
-    });
-
-    // Add readings section if any
-    const readingLabels: Record<string, string> = {
-      'filter-size-cool': 'Filter Size', 'filter-condition-cool': 'Filter Condition',
-      'cap-reading': 'Capacitor Reading (\u00B5F)', 'cap-rated': 'Capacitor Rated (\u00B5F)',
-      'amp-compressor': 'Compressor Amps', 'amp-blower': 'Blower Amps', 'amp-condenser': 'Condenser Fan Amps',
-      'suction-psi': 'Suction Pressure (PSI)', 'head-psi': 'Head Pressure (PSI)',
-      'superheat': 'Superheat (\u00B0F)', 'subcooling': 'Subcooling (\u00B0F)',
-      'supply-temp': 'Supply Air Temp (\u00B0F)', 'return-temp': 'Return Air Temp (\u00B0F)',
-      'co-reading': 'CO Reading (PPM)', 'gas-pressure': 'Gas Pressure ("WC)',
-      'heat-amp': 'Amp Draw (A)', 'temp-rise': 'Temperature Rise (\u00B0F)',
-    };
-    const activeFields = Object.entries(fields).filter(([_, v]) => v);
-    if (activeFields.length > 0) {
-      html += `<h2>Recorded Readings</h2><div class="readings">`;
-      activeFields.forEach(([k, v]) => {
-        const label = readingLabels[k] || k;
-        html += `<span><strong>${label}:</strong> ${v}</span>`;
-      });
-
-      const supply = parseFloat(fields['supply-temp']);
-      const ret = parseFloat(fields['return-temp']);
-      if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-        html += `<span><strong>Temperature Split:</strong> ${Math.abs(ret - supply).toFixed(1)}\u00B0F</span>`;
+    // Reset button
+    document.getElementById('reset-btn')?.addEventListener('click', () => {
+      if (confirm('Reset all checkboxes and notes? This cannot be undone.')) {
+        checkboxes.forEach(cb => { cb.checked = false; });
+        if (notesField) notesField.value = '';
+        localStorage.removeItem(STORAGE_KEY);
+        updateProgress();
       }
-      html += `</div>`;
-    }
+    });
 
-    html += `</body></html>`;
+    // Print button
+    document.getElementById('print-btn')?.addEventListener('click', () => {
+      window.print();
+    });
 
-    const printWin = window.open('', '_blank');
-    if (printWin) {
-      printWin.document.write(html);
-      printWin.document.close();
-      setTimeout(() => printWin.print(), 400);
-    }
+    // Initialize
+    loadState();
   });
-
-  // ===== INIT =====
-  loadState();
-  updateIndicators();
-  updateProgress();
 </script>

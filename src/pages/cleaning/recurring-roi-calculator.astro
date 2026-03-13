@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much can I save with a new Cleaning system?",
+      "name": "Is hiring a professional cleaner worth the money?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 efficiency / 80% efficiency system with a 16 efficiency / 96% efficiency system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the system upgrade."
+        "text": "For most homeowners, yes. When you factor in the value of your time, the cost of cleaning supplies and equipment, and the health benefits of a professionally cleaned home, hiring a cleaner often produces a positive return on investment. If your hourly earning potential exceeds the hourly rate of the cleaning service, you come out ahead financially by working or spending time on higher-value activities."
       }
     },
     {
       "@type": "Question",
-      "name": "What efficiency rating should I get?",
+      "name": "How much time does a professional cleaner save me?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For most homeowners, 16 efficiency hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 efficiency can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 efficiency is usually sufficient. Always compare the payback period at different efficiency levels before deciding."
+        "text": "The average homeowner spends 2 to 4 hours per cleaning session. If you clean weekly, that is 100 to 200 hours per year spent on housework. Biweekly cleaning saves roughly 50 to 100 hours per year. Monthly cleaning saves 24 to 48 hours per year. That reclaimed time can be spent on work, family, hobbies, or rest."
       }
     },
     {
       "@type": "Question",
-      "name": "Is a higher efficiency always worth it?",
+      "name": "What are the health benefits of professional cleaning?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not always. Each efficiency point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 efficiency cuts cooling costs by 37%, but going from 16 to 20 efficiency only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ efficiency unit may never pay back. Run the comparison to see exact payback for your situation."
+        "text": "Professional cleaning reduces allergens like dust mites, pet dander, and pollen that accumulate on surfaces and in carpets. It also reduces mold risk in bathrooms and kitchens, lowers stress levels associated with living in a cluttered or dirty environment, and improves indoor air quality. Studies have shown that a clean home is associated with reduced anxiety and better sleep quality."
       }
     },
     {
       "@type": "Question",
-      "name": "How long does a new AC take to pay for itself?",
+      "name": "How much do cleaning supplies cost if I clean myself?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 efficiency to 16 efficiency on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly."
+        "text": "The average homeowner spends $50 to $150 per year on cleaning supplies including all-purpose cleaners, disinfectants, glass cleaner, floor cleaner, sponges, paper towels, trash bags, and vacuum bags or filters. Add in equipment depreciation for a vacuum ($30 to $60 per year), mop, and other tools, and DIY cleaning costs $100 to $250 per year in supplies and equipment alone, before accounting for your time."
       }
     }
   ]
@@ -45,128 +45,113 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="energy-comp">
-    <!-- Two-column system inputs -->
+  <div id="roi-calc">
+    <!-- Two-column inputs -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <!-- Left Column: Current System -->
+      <!-- Left Column: Your Time -->
       <div class="bg-bg-card border border-border rounded-xl p-6">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">Your Current System</h3>
-        <p class="text-text-muted text-xs mb-5">Enter your existing equipment specs</p>
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-1">Your DIY Cleaning</h3>
+        <p class="text-text-muted text-xs mb-5">How much time and money do you spend cleaning?</p>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-seer">efficiency Rating</label>
-            <input type="number" id="old-seer" value="10" min="8" max="26" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-            <p class="text-text-muted text-xs mt-1">Don't know? Use 10 for 15+ year old systems</p>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="hoursPerSession">Hours Per Cleaning Session</label>
+            <input type="number" id="hoursPerSession" value="3" min="0.5" max="12" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <p class="text-text-muted text-xs mt-1">Average homeowner: 2-4 hours per session</p>
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-afue">efficiency %</label>
-            <input type="number" id="old-afue" value="80" min="50" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-            <p class="text-text-muted text-xs mt-1">Don't know? Use 80% for older systems</p>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="cleaningFrequency">How Often You Clean</label>
+            <select id="cleaningFrequency" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+              <option value="4.33">Weekly (4.33x/month)</option>
+              <option value="2.17" selected>Biweekly (2.17x/month)</option>
+              <option value="1">Monthly (1x/month)</option>
+            </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="system-age">System Age (years)</label>
-            <input type="number" id="system-age" value="15" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="earningPotential">Your Hourly Earning Potential ($)</label>
+            <input type="number" id="earningPotential" value="50" min="10" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <p class="text-text-muted text-xs mt-1">What you could earn or what your free time is worth to you</p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="supplyCost">Annual Supply Cost ($)</label>
+            <input type="number" id="supplyCost" value="100" min="0" max="500" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <p class="text-text-muted text-xs mt-1">Cleaning products, trash bags, equipment wear: $50-$150/yr typical</p>
           </div>
         </div>
       </div>
 
-      <!-- Right Column: Proposed New System -->
+      <!-- Right Column: Professional Service -->
       <div class="bg-bg-card border border-border rounded-xl p-6" style="border-color: rgba(255,107,43,0.3);">
-        <h3 class="font-heading font-bold text-lg text-accent mb-1">Proposed New System</h3>
-        <p class="text-text-muted text-xs mb-5">Enter the equipment you're quoting</p>
+        <h3 class="font-heading font-bold text-lg text-accent mb-1">Professional Cleaning</h3>
+        <p class="text-text-muted text-xs mb-5">What a professional service would cost</p>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-seer">efficiency Rating</label>
-            <input type="number" id="new-seer" value="16" min="13" max="26" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="proCostPerVisit">Cost Per Visit ($)</label>
+            <input type="number" id="proCostPerVisit" value="175" min="50" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <p class="text-text-muted text-xs mt-1">Avg: $150-$250 for biweekly standard clean</p>
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-afue">efficiency %</label>
-            <input type="number" id="new-afue" value="96" min="50" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="proFrequency">Service Frequency</label>
+            <select id="proFrequency" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+              <option value="4.33">Weekly</option>
+              <option value="2.17" selected>Biweekly</option>
+              <option value="1">Monthly</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="healthValue">Health Benefit Value ($/month)</label>
+            <input type="number" id="healthValue" value="50" min="0" max="500" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <p class="text-text-muted text-xs mt-1">Allergen reduction, stress relief, better air quality</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Shared Inputs -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tons">System Size (Tons)</label>
-        <select id="tons" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1.5">1.5 Ton</option>
-          <option value="2">2 Ton</option>
-          <option value="2.5">2.5 Ton</option>
-          <option value="3" selected>3 Ton</option>
-          <option value="3.5">3.5 Ton</option>
-          <option value="4">4 Ton</option>
-          <option value="5">5 Ton</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="elec-rate">Electricity Rate ($/kWh)</label>
-        <input type="number" id="elec-rate" value="0.16" min="0.01" max="1" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="gas-rate">Gas Rate ($/therm)</label>
-        <input type="number" id="gas-rate" value="1.20" min="0.10" max="5" step="0.05" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region</label>
-        <select id="region" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="2500,600">South (2500 / 600 hrs)</option>
-          <option value="2200,800">Southeast (2200 / 800 hrs)</option>
-          <option value="1400,2000">Midwest (1400 / 2000 hrs)</option>
-          <option value="1200,2200">Northeast (1200 / 2200 hrs)</option>
-          <option value="2800,400">Southwest (2800 / 400 hrs)</option>
-          <option value="800,1800">Northwest (800 / 1800 hrs)</option>
-          <option value="2100,1500" selected>National Avg (2100 / 1500 hrs)</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="upgrade-cost">Upgrade Cost ($)</label>
-        <input type="number" id="upgrade-cost" value="8000" min="0" max="100000" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
+    <!-- View Toggle -->
+    <div class="flex items-center gap-4 mb-6">
+      <span class="text-text-muted text-sm font-medium">View:</span>
+      <button id="btn-monthly" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-accent text-white cursor-pointer">Monthly</button>
+      <button id="btn-annual" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-bg-dark border border-border text-text-secondary hover:border-accent hover:text-accent cursor-pointer">Annual</button>
     </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <!-- Side-by-side cost comparison -->
-      <h3 class="font-heading font-bold text-xl mb-6">Annual Cost Comparison</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Cost Comparison</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <!-- Current System Card -->
+        <!-- DIY Card -->
         <div class="bg-bg-card border border-border rounded-xl p-6">
-          <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Current System</h4>
+          <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">DIY Cleaning</h4>
           <div class="space-y-3">
             <div class="flex justify-between items-center">
-              <span class="text-text-secondary text-sm">Annual Cooling Cost</span>
-              <span id="result-old-cooling" class="font-heading font-bold text-lg text-text-primary">--</span>
+              <span class="text-text-secondary text-sm">Time Value (opportunity cost)</span>
+              <span id="result-diy-time" class="font-heading font-bold text-lg text-text-primary">--</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-text-secondary text-sm">Annual Heating Cost</span>
-              <span id="result-old-heating" class="font-heading font-bold text-lg text-text-primary">--</span>
+              <span class="text-text-secondary text-sm">Supplies &amp; Equipment</span>
+              <span id="result-diy-supplies" class="font-heading font-bold text-lg text-text-primary">--</span>
             </div>
             <div class="border-t border-border pt-3 flex justify-between items-center">
-              <span class="text-text-primary font-medium">Total Annual Cost</span>
-              <span id="result-old-total" class="font-heading font-extrabold text-2xl text-text-primary">--</span>
+              <span class="text-text-primary font-medium">Total DIY Cost</span>
+              <span id="result-diy-total" class="font-heading font-extrabold text-2xl text-text-primary">--</span>
             </div>
           </div>
         </div>
 
-        <!-- New System Card -->
+        <!-- Pro Card -->
         <div class="bg-bg-card border rounded-xl p-6" style="border-color: rgba(255,107,43,0.3);">
-          <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">New System</h4>
+          <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-accent mb-4">Professional Cleaning</h4>
           <div class="space-y-3">
             <div class="flex justify-between items-center">
-              <span class="text-text-secondary text-sm">Annual Cooling Cost</span>
-              <span id="result-new-cooling" class="font-heading font-bold text-lg text-text-primary">--</span>
+              <span class="text-text-secondary text-sm">Service Cost</span>
+              <span id="result-pro-service" class="font-heading font-bold text-lg text-text-primary">--</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-text-secondary text-sm">Annual Heating Cost</span>
-              <span id="result-new-heating" class="font-heading font-bold text-lg text-text-primary">--</span>
+              <span class="text-text-secondary text-sm">Health &amp; Wellness Value</span>
+              <span id="result-pro-health" class="font-heading font-bold text-lg text-green-400">--</span>
             </div>
             <div class="border-t border-border pt-3 flex justify-between items-center">
-              <span class="text-text-primary font-medium">Total Annual Cost</span>
-              <span id="result-new-total" class="font-heading font-extrabold text-2xl text-accent">--</span>
+              <span class="text-text-primary font-medium">Net Cost (after benefits)</span>
+              <span id="result-pro-total" class="font-heading font-extrabold text-2xl text-accent">--</span>
             </div>
           </div>
         </div>
@@ -174,72 +159,72 @@ const faqSchema = {
 
       <!-- Visual bar chart comparison -->
       <div class="bg-bg-card border border-border rounded-xl p-6 mb-8">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Annual Cost Comparison</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Visual Comparison</h4>
         <div class="space-y-4">
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Current System</span>
-              <span id="bar-old-label" class="text-text-primary font-medium">--</span>
+              <span class="text-text-secondary">DIY (time + supplies)</span>
+              <span id="bar-diy-label" class="text-text-primary font-medium">--</span>
             </div>
             <div class="w-full bg-bg-dark rounded-full h-8 overflow-hidden">
-              <div id="bar-old" class="h-full rounded-full transition-all duration-700 ease-out flex items-center justify-end pr-3" style="width: 100%; background: linear-gradient(90deg, #dc2626, #ef4444);">
-                <span class="text-white text-xs font-bold whitespace-nowrap"></span>
-              </div>
+              <div id="bar-diy" class="h-full rounded-full transition-all duration-700 ease-out" style="width: 100%; background: linear-gradient(90deg, #dc2626, #ef4444);"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">New System</span>
-              <span id="bar-new-label" class="text-text-primary font-medium">--</span>
+              <span class="text-text-secondary">Professional Service</span>
+              <span id="bar-pro-label" class="text-text-primary font-medium">--</span>
             </div>
             <div class="w-full bg-bg-dark rounded-full h-8 overflow-hidden">
-              <div id="bar-new" class="h-full rounded-full transition-all duration-700 ease-out flex items-center justify-end pr-3" style="width: 50%; background: linear-gradient(90deg, #16a34a, #22c55e);">
-                <span class="text-white text-xs font-bold whitespace-nowrap"></span>
-              </div>
+              <div id="bar-pro" class="h-full rounded-full transition-all duration-700 ease-out" style="width: 50%; background: linear-gradient(90deg, #16a34a, #22c55e);"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Savings summary cards -->
-      <h3 class="font-heading font-bold text-xl mb-6">Your Savings</h3>
+      <!-- ROI summary cards -->
+      <h3 class="font-heading font-bold text-xl mb-6">Your ROI</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center border-2" style="border-color: rgba(255,107,43,0.4);">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Savings</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Net Savings</div>
           <div class="flex items-center justify-center gap-2">
-            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-            <span id="result-annual" class="font-heading font-extrabold text-3xl text-accent">--</span>
+            <svg id="savings-arrow" class="w-5 h-5 text-green-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+            <span id="result-net-savings" class="font-heading font-extrabold text-3xl text-accent">--</span>
           </div>
+          <div id="result-net-label" class="text-text-muted text-xs mt-1">vs DIY cleaning</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Savings</div>
-          <div id="result-monthly" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Time Reclaimed</div>
+          <div id="result-time-saved" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">hours back</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Payback Period</div>
-          <div id="result-payback" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Time Value</div>
+          <div id="result-time-value" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">at your earning potential</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">10-Year Net Savings</div>
-          <div id="result-tenyear" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supply Savings</div>
+          <div id="result-supply-savings" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">no more buying products</div>
         </div>
       </div>
 
-      <!-- Environmental impact -->
+      <!-- Wellness impact -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">CO2 Reduction</div>
-          <div id="result-co2" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">lbs/year</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Health &amp; Wellness Value</div>
+          <div id="result-health-total" class="font-heading font-extrabold text-2xl text-green-500">--</div>
+          <div class="text-text-muted text-xs mt-1">allergen reduction, stress relief, better air</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Environmental Impact</div>
-          <div id="result-trees" class="font-heading font-extrabold text-2xl text-green-500">--</div>
-          <div class="text-text-muted text-xs mt-1">equivalent trees planted per year</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total ROI</div>
+          <div id="result-roi-pct" class="font-heading font-extrabold text-2xl text-accent">--</div>
+          <div class="text-text-muted text-xs mt-1">(total value - pro cost) / pro cost</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Estimates based on average usage patterns. Actual savings depend on equipment condition, surface condition, cleaning protocol, and facility type. Consult with a licensed Cleaning contractor for a detailed energy audit.</p>
+      <p class="text-text-muted text-sm italic">Estimates based on average values. Your actual ROI depends on your specific earning potential, cleaning habits, and home size. Health benefit values are estimated based on published research on indoor air quality and stress reduction.</p>
     </div>
   </div>
 
@@ -248,26 +233,28 @@ const faqSchema = {
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
       <!-- How to Use -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter the current system specs.</strong> Check the nameplate on the outdoor condenser for efficiency and the system data plate for efficiency. If the customer doesn't know, use 10 efficiency and 80% efficiency as safe defaults for systems over 15 years old.</p>
-          <p><strong class="text-text-primary">2. Enter the proposed system specs.</strong> Use the efficiency and efficiency ratings from the equipment you're quoting. A 16 efficiency / 96% efficiency combination is a common mid-tier upgrade that shows strong savings.</p>
-          <p><strong class="text-text-primary">3. Set the shared parameters.</strong> Select the system size in tons, enter the customer's electricity and gas rates from their utility bill, choose their region to auto-fill typical cooling and heating hours, and enter your quoted upgrade cost.</p>
-          <p><strong class="text-text-primary">4. Review the side-by-side comparison.</strong> Show the customer the annual cost difference, payback period, and 10-year net savings. The visual bar chart makes the savings immediately obvious during a sales presentation.</p>
+          <p><strong class="text-text-primary">1. Enter your DIY cleaning details.</strong> How many hours do you spend cleaning each session? How often do you clean? Be honest about the time -- include setup, breaking out supplies, actual cleaning, and cleanup. Most people underestimate by 30 to 50 percent.</p>
+          <p><strong class="text-text-primary">2. Set your hourly earning potential.</strong> This is what you could earn (or what your free time is worth to you) if you were not cleaning. If you are self-employed, use your billing rate. If you are salaried, divide your annual salary by 2,080 hours. If time with family or hobbies has value to you, factor that in.</p>
+          <p><strong class="text-text-primary">3. Enter professional cleaning costs.</strong> Input what a cleaning service charges per visit and how often they would come. Most homeowners use biweekly service. Set the health benefit value based on how much you value reduced allergens, lower stress, and a consistently clean home.</p>
+          <p><strong class="text-text-primary">4. Toggle between monthly and annual views.</strong> Use the view buttons to see the comparison on a monthly or annual basis. The annual view makes the cumulative impact of time savings and supply costs more visible.</p>
         </div>
       </section>
 
-      <!-- Understanding efficiency and efficiency Ratings -->
+      <!-- Understanding the ROI -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Understanding efficiency and efficiency Ratings</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Understanding the ROI of Professional Cleaning</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">efficiency (Seasonal Energy Efficiency Ratio)</strong> measures cooling efficiency. It's the total BTU of heat removed per watt-hour of electricity consumed over a typical cooling season. A 10 efficiency system uses 60% more electricity than a 16 efficiency system to deliver the same cooling. The federal minimum is now 14 efficiency in northern states and 15 efficiency in the South. Higher efficiency means lower electric bills every summer.</p>
-          <p><strong class="text-text-primary">efficiency (Annual Fuel Utilization Efficiency)</strong> measures how efficiently a gas system converts fuel to heat. An 80% efficiency system loses 20 cents of every dollar as exhaust waste. A 96% efficiency system captures nearly all of that energy, reducing gas consumption by 20% compared to the older unit. Standard-efficiency systems run at 80% efficiency, while high-efficiency condensing systems reach 95-98%.</p>
-          <p><strong class="text-text-primary">Why higher is better:</strong> Both ratings work like miles per gallon for your Cleaning system. Higher numbers mean more output per unit of energy consumed. The difference compounds every month the system runs. In a hot climate, the efficiency upgrade drives most of the savings. In a cold climate, the efficiency improvement often matters more. This tool models both sides so you can show the customer exactly where their money goes.</p>
-          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm">
-            <p>Cooling: kWh = (Tons x 12,000 x Cooling_Hours) / (efficiency x 1,000)</p>
-            <p>Heating: Therms = (Tons x 12,000 x Heating_Hours) / (efficiency/100 x 100,000)</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
+            <p>Time_Value = Hours_Per_Session x Frequency x Earning_Potential</p>
+            <p>DIY_Cost = Time_Value + Supply_Cost</p>
+            <p>Pro_Cost = Cost_Per_Visit x Frequency</p>
+            <p>Total_Value = Time_Value + Supply_Savings + Health_Value</p>
+            <p>ROI = (Total_Value - Pro_Cost) / Pro_Cost x 100</p>
           </div>
+          <p><strong class="text-text-primary">The hidden cost of DIY cleaning is your time.</strong> Most homeowners think of cleaning as "free" because they do not write a check. But if you spend 3 hours cleaning biweekly and your time is worth $50 per hour, that is $325 per month in opportunity cost. Add $8 per month in supplies, and your DIY cleaning actually costs $333 per month -- often more than hiring a professional.</p>
+          <p><strong class="text-text-primary">Health benefits are real and measurable.</strong> Professional cleaning reduces allergens, mold risk, and the stress of maintaining a home. Studies have linked clean living environments to better sleep, reduced anxiety, and fewer respiratory issues. Even a conservative estimate of $50 per month in health value adds up to $600 per year.</p>
         </div>
       </section>
 
@@ -275,9 +262,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Sales presentations at the kitchen table.</strong> Pull this up on your tablet while sitting with the homeowner. Enter their current system specs on the left, your proposed equipment on the right, and let the visual comparison make the case. The side-by-side layout and bar chart are designed to be shown to customers, not just used behind the scenes.</p>
-          <p><strong class="text-text-primary">Proposal support for premium equipment.</strong> When you're quoting a 16 efficiency system against a competitor's 14 efficiency bid, this tool proves the long-term value. Show the customer that paying more upfront saves thousands over 10 years. Screenshot the results and attach them to your written proposal for added credibility.</p>
-          <p><strong class="text-text-primary">Customer education on repair vs. replace.</strong> When a customer asks whether to repair their 18-year-old system or replace it, run the comparison. If the annual savings alone cover a significant portion of the repair cost, replacement makes financial sense even before factoring in reliability improvements and reduced breakdown risk.</p>
+          <p><strong class="text-text-primary">Deciding whether to hire a cleaner.</strong> If you have been on the fence about hiring a professional cleaning service, run the numbers. Most people are surprised to find that the ROI is positive once they account for the true value of their time. This calculator makes that comparison concrete and visual.</p>
+          <p><strong class="text-text-primary">Justifying the expense to a partner or household.</strong> Money conversations are easier with data. Show your partner the side-by-side comparison of DIY versus professional cleaning. When they see that your combined time value exceeds the cost of the service, the decision becomes straightforward.</p>
+          <p><strong class="text-text-primary">If you are a cleaning business owner.</strong> Use this tool as a sales aid. Send the link to prospective customers or walk them through it during a consultation. When homeowners see the ROI calculation with their own numbers, objections about price tend to evaporate. It reframes cleaning from an expense to an investment.</p>
         </div>
       </section>
 
@@ -286,20 +273,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much can I save with a new Cleaning system?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 efficiency / 80% efficiency system with a 16 efficiency / 96% efficiency system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the system upgrade.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is hiring a professional cleaner worth the money?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For most homeowners, yes. When you factor in the value of your time, the cost of cleaning supplies and equipment, and the health benefits of a professionally cleaned home, hiring a cleaner often produces a positive return on investment. If your hourly earning potential exceeds the hourly rate of the cleaning service, you come out ahead financially by working or spending time on higher-value activities.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What efficiency rating should I get?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For most homeowners, 16 efficiency hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 efficiency can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 efficiency is usually sufficient. Always compare the payback period at different efficiency levels before deciding.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much time does a professional cleaner save me?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average homeowner spends 2 to 4 hours per cleaning session. If you clean weekly, that is 100 to 200 hours per year spent on housework. Biweekly cleaning saves roughly 50 to 100 hours per year. Monthly cleaning saves 24 to 48 hours per year. That reclaimed time can be spent on work, family, hobbies, or rest.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is a higher efficiency always worth it?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Not always. Each efficiency point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 efficiency cuts cooling costs by 37%, but going from 16 to 20 efficiency only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ efficiency unit may never pay back. Run the comparison to see exact payback for your situation.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are the health benefits of professional cleaning?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Professional cleaning reduces allergens like dust mites, pet dander, and pollen that accumulate on surfaces and in carpets. It also reduces mold risk in bathrooms and kitchens, lowers stress levels associated with living in a cluttered or dirty environment, and improves indoor air quality. Studies have shown that a clean home is associated with reduced anxiety and better sleep quality.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does a new AC take to pay for itself?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 efficiency to 16 efficiency on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much do cleaning supplies cost if I clean myself?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average homeowner spends $50 to $150 per year on cleaning supplies including all-purpose cleaners, disinfectants, glass cleaner, floor cleaner, sponges, paper towels, trash bags, and vacuum bags or filters. Add in equipment depreciation for a vacuum ($30 to $60 per year), mop, and other tools, and DIY cleaning costs $100 to $250 per year in supplies and equipment alone, before accounting for your time.</div>
           </details>
         </div>
       </section>
@@ -308,97 +295,138 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  const regions: Record<string, [number, number]> = {
-    '2500,600': [2500, 600],
-    '2200,800': [2200, 800],
-    '1400,2000': [1400, 2000],
-    '1200,2200': [1200, 2200],
-    '2800,400': [2800, 400],
-    '800,1800': [800, 1800],
-    '2100,1500': [2100, 1500],
-  };
+  let viewMode: 'monthly' | 'annual' = 'monthly';
 
   function formatCurrency(val: number): string {
-    return '$' + val.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const abs = Math.abs(val);
+    const formatted = '$' + abs.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return val < 0 ? '-' + formatted : formatted;
   }
 
   function calculate() {
-    // Current system inputs
-    const oldSeer = parseFloat((document.getElementById('old-seer') as HTMLInputElement).value) || 10;
-    const oldAfue = parseFloat((document.getElementById('old-afue') as HTMLInputElement).value) || 80;
+    // DIY inputs
+    const hoursPerSession = parseFloat((document.getElementById('hoursPerSession') as HTMLInputElement).value) || 3;
+    const cleaningFrequency = parseFloat((document.getElementById('cleaningFrequency') as HTMLSelectElement).value) || 2.17;
+    const earningPotential = parseFloat((document.getElementById('earningPotential') as HTMLInputElement).value) || 50;
+    const annualSupplyCost = parseFloat((document.getElementById('supplyCost') as HTMLInputElement).value) || 100;
 
-    // New system inputs
-    const newSeer = parseFloat((document.getElementById('new-seer') as HTMLInputElement).value) || 16;
-    const newAfue = parseFloat((document.getElementById('new-afue') as HTMLInputElement).value) || 96;
+    // Pro inputs
+    const proCostPerVisit = parseFloat((document.getElementById('proCostPerVisit') as HTMLInputElement).value) || 175;
+    const proFrequency = parseFloat((document.getElementById('proFrequency') as HTMLSelectElement).value) || 2.17;
+    const monthlyHealthValue = parseFloat((document.getElementById('healthValue') as HTMLInputElement).value) || 50;
 
-    // Shared inputs
-    const tons = parseFloat((document.getElementById('tons') as HTMLSelectElement).value) || 3;
-    const elecRate = parseFloat((document.getElementById('elec-rate') as HTMLInputElement).value) || 0.16;
-    const gasRate = parseFloat((document.getElementById('gas-rate') as HTMLInputElement).value) || 1.20;
-    const upgradeCost = parseFloat((document.getElementById('upgrade-cost') as HTMLInputElement).value) || 8000;
+    // Monthly calculations
+    const monthlyHoursSaved = hoursPerSession * cleaningFrequency;
+    const monthlyTimeValue = monthlyHoursSaved * earningPotential;
+    const monthlySupplyCost = annualSupplyCost / 12;
+    const monthlyDiyCost = monthlyTimeValue + monthlySupplyCost;
+    const monthlyProCost = proCostPerVisit * proFrequency;
+    const monthlyProNet = monthlyProCost - monthlyHealthValue;
+    const monthlyNetSavings = monthlyDiyCost - monthlyProNet;
 
-    // Get hours from region
-    const regionVal = (document.getElementById('region') as HTMLSelectElement).value;
-    const hours = regions[regionVal] || [2100, 1500];
-    const coolHours = hours[0];
-    const heatHours = hours[1];
+    // Annual calculations
+    const annualHoursSaved = monthlyHoursSaved * 12;
+    const annualTimeValue = monthlyTimeValue * 12;
+    const annualDiyCost = monthlyDiyCost * 12;
+    const annualProCost = monthlyProCost * 12;
+    const annualHealthValue = monthlyHealthValue * 12;
+    const annualProNet = annualProCost - annualHealthValue;
+    const annualNetSavings = annualDiyCost - annualProNet;
+    const annualSupply = annualSupplyCost;
 
-    // Cooling calculations
-    const oldCoolingKwh = (tons * 12000 * coolHours) / (oldSeer * 1000);
-    const newCoolingKwh = (tons * 12000 * coolHours) / (newSeer * 1000);
-    const oldCoolingCost = oldCoolingKwh * elecRate;
-    const newCoolingCost = newCoolingKwh * elecRate;
+    // ROI percentage
+    const totalValue = annualTimeValue + annualSupplyCost + annualHealthValue;
+    const roiPct = annualProCost > 0 ? ((totalValue - annualProCost) / annualProCost) * 100 : 0;
 
-    // Heating calculations (gas)
-    const btuOutput = tons * 12000;
-    const oldHeatCost = (btuOutput * heatHours) / ((oldAfue / 100) * 100000) * gasRate;
-    const newHeatCost = (btuOutput * heatHours) / ((newAfue / 100) * 100000) * gasRate;
+    // Select values based on view mode
+    const multiplier = viewMode === 'annual' ? 12 : 1;
+    const suffix = viewMode === 'annual' ? '/year' : '/month';
 
-    // Totals
-    const oldTotalCost = oldCoolingCost + oldHeatCost;
-    const newTotalCost = newCoolingCost + newHeatCost;
-    const annualSavings = oldTotalCost - newTotalCost;
-    const monthlySavings = annualSavings / 12;
-    const paybackYears = annualSavings > 0 ? upgradeCost / annualSavings : 0;
-    const tenYearNet = (annualSavings * 10) - upgradeCost;
+    const diyCost = viewMode === 'annual' ? annualDiyCost : monthlyDiyCost;
+    const diyTime = viewMode === 'annual' ? annualTimeValue : monthlyTimeValue;
+    const diySupply = viewMode === 'annual' ? annualSupply : monthlySupplyCost;
+    const proCost = viewMode === 'annual' ? annualProCost : monthlyProCost;
+    const proHealth = viewMode === 'annual' ? annualHealthValue : monthlyHealthValue;
+    const proNet = viewMode === 'annual' ? annualProNet : monthlyProNet;
+    const netSavings = viewMode === 'annual' ? annualNetSavings : monthlyNetSavings;
+    const timeSaved = viewMode === 'annual' ? annualHoursSaved : monthlyHoursSaved;
+    const timeValue = viewMode === 'annual' ? annualTimeValue : monthlyTimeValue;
+    const supplySavings = viewMode === 'annual' ? annualSupply : monthlySupplyCost;
+    const healthTotal = viewMode === 'annual' ? annualHealthValue : monthlyHealthValue;
 
-    // Environmental
-    const co2Reduction = (oldCoolingKwh - newCoolingKwh) * 0.92;
-    const treesEquivalent = co2Reduction / 48;
+    // Update DIY card
+    document.getElementById('result-diy-time')!.textContent = formatCurrency(Math.round(diyTime));
+    document.getElementById('result-diy-supplies')!.textContent = formatCurrency(Math.round(diySupply));
+    document.getElementById('result-diy-total')!.textContent = formatCurrency(Math.round(diyCost));
 
-    // Update side-by-side cost cards
-    document.getElementById('result-old-cooling')!.textContent = formatCurrency(Math.round(oldCoolingCost));
-    document.getElementById('result-old-heating')!.textContent = formatCurrency(Math.round(oldHeatCost));
-    document.getElementById('result-old-total')!.textContent = formatCurrency(Math.round(oldTotalCost));
-    document.getElementById('result-new-cooling')!.textContent = formatCurrency(Math.round(newCoolingCost));
-    document.getElementById('result-new-heating')!.textContent = formatCurrency(Math.round(newHeatCost));
-    document.getElementById('result-new-total')!.textContent = formatCurrency(Math.round(newTotalCost));
+    // Update Pro card
+    document.getElementById('result-pro-service')!.textContent = formatCurrency(Math.round(proCost));
+    document.getElementById('result-pro-health')!.textContent = '-' + formatCurrency(Math.round(proHealth));
+    document.getElementById('result-pro-total')!.textContent = formatCurrency(Math.round(proNet));
 
     // Update bar chart
-    const maxCost = Math.max(oldTotalCost, newTotalCost, 1);
-    const oldBarPct = (oldTotalCost / maxCost) * 100;
-    const newBarPct = (newTotalCost / maxCost) * 100;
-    (document.getElementById('bar-old') as HTMLElement).style.width = oldBarPct + '%';
-    (document.getElementById('bar-new') as HTMLElement).style.width = newBarPct + '%';
-    document.getElementById('bar-old-label')!.textContent = formatCurrency(Math.round(oldTotalCost));
-    document.getElementById('bar-new-label')!.textContent = formatCurrency(Math.round(newTotalCost));
+    const maxCost = Math.max(diyCost, proCost, 1);
+    const diyBarPct = (diyCost / maxCost) * 100;
+    const proBarPct = (proCost / maxCost) * 100;
+    (document.getElementById('bar-diy') as HTMLElement).style.width = diyBarPct + '%';
+    (document.getElementById('bar-pro') as HTMLElement).style.width = proBarPct + '%';
+    document.getElementById('bar-diy-label')!.textContent = formatCurrency(Math.round(diyCost));
+    document.getElementById('bar-pro-label')!.textContent = formatCurrency(Math.round(proCost));
 
-    // Update savings summary
-    document.getElementById('result-annual')!.textContent = formatCurrency(Math.round(annualSavings));
-    document.getElementById('result-monthly')!.textContent = formatCurrency(Math.round(monthlySavings));
-    document.getElementById('result-payback')!.textContent = paybackYears > 0 ? paybackYears.toFixed(1) + ' yrs' : 'N/A';
-    document.getElementById('result-tenyear')!.textContent = formatCurrency(Math.round(tenYearNet));
+    // Update ROI summary
+    const savingsEl = document.getElementById('result-net-savings')!;
+    savingsEl.textContent = formatCurrency(Math.round(Math.abs(netSavings)));
+    const arrowEl = document.getElementById('savings-arrow')!;
+    if (netSavings > 0) {
+      savingsEl.classList.remove('text-[#EF4444]');
+      savingsEl.classList.add('text-accent');
+      arrowEl.classList.remove('hidden');
+      document.getElementById('result-net-label')!.textContent = 'you save vs DIY';
+    } else {
+      savingsEl.classList.remove('text-accent');
+      savingsEl.classList.add('text-[#EF4444]');
+      arrowEl.classList.add('hidden');
+      document.getElementById('result-net-label')!.textContent = 'more than DIY';
+    }
 
-    // Update environmental impact
-    document.getElementById('result-co2')!.textContent = Math.round(co2Reduction).toLocaleString();
-    document.getElementById('result-trees')!.textContent = Math.round(treesEquivalent).toLocaleString();
+    document.getElementById('result-time-saved')!.textContent = timeSaved.toFixed(1) + ' hrs';
+    document.getElementById('result-time-value')!.textContent = formatCurrency(Math.round(timeValue));
+    document.getElementById('result-supply-savings')!.textContent = formatCurrency(Math.round(supplySavings));
+    document.getElementById('result-health-total')!.textContent = formatCurrency(Math.round(healthTotal));
+    document.getElementById('result-roi-pct')!.textContent = roiPct.toFixed(0) + '%';
 
+    // Color the ROI percentage
+    const roiEl = document.getElementById('result-roi-pct')!;
+    roiEl.classList.remove('text-accent', 'text-[#34D399]', 'text-[#EF4444]');
+    if (roiPct >= 50) roiEl.classList.add('text-[#34D399]');
+    else if (roiPct >= 0) roiEl.classList.add('text-accent');
+    else roiEl.classList.add('text-[#EF4444]');
   }
 
+  // View toggle
+  function setView(mode: 'monthly' | 'annual') {
+    viewMode = mode;
+    const btnMonthly = document.getElementById('btn-monthly')!;
+    const btnAnnual = document.getElementById('btn-annual')!;
 
-  // Auto-calculate on any input change
-  document.querySelectorAll('#energy-comp input, #energy-comp select').forEach(el => {
+    if (mode === 'monthly') {
+      btnMonthly.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-accent text-white cursor-pointer';
+      btnAnnual.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-bg-dark border border-border text-text-secondary hover:border-accent hover:text-accent cursor-pointer';
+    } else {
+      btnAnnual.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-accent text-white cursor-pointer';
+      btnMonthly.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-bg-dark border border-border text-text-secondary hover:border-accent hover:text-accent cursor-pointer';
+    }
+
+    calculate();
+  }
+
+  // Event listeners
+  document.getElementById('btn-monthly')?.addEventListener('click', () => setView('monthly'));
+  document.getElementById('btn-annual')?.addEventListener('click', () => setView('annual'));
+
+  document.querySelectorAll('#roi-calc input, #roi-calc select').forEach(el => {
     el.addEventListener('change', calculate);
+    el.addEventListener('input', calculate);
   });
 
   // Calculate on load with defaults

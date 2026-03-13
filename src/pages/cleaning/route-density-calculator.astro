@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I price a Cleaning installation?",
+      "name": "How many cleaning jobs can I fit in a day?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
+        "text": "The number of cleaning jobs per day depends on service type, drive time, and working hours. Most solo cleaners fit 3-5 maintenance cleans, 2-3 deep cleans, or 1-2 move-out cleans per day in an 8-hour window. The key limiting factor is drive time between stops. Reducing average drive time from 30 minutes to 15 minutes can add one full job per day, which over a year adds tens of thousands in additional revenue."
       }
     },
     {
       "@type": "Question",
-      "name": "What profit margin should I target on installs?",
+      "name": "What is a good utilization rate for a cleaning business?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most successful Cleaning companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
+        "text": "A good utilization rate for a cleaning business is 75-85%. Utilization measures the percentage of your working hours spent actually cleaning versus driving, waiting, or on breaks. Below 65% means too much windshield time and not enough billable work. Above 85% is excellent but hard to sustain without very tight geographic clustering. Track this metric weekly and aim to improve it by grouping jobs in the same neighborhood on the same day."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a good price per ton for Cleaning?",
+      "name": "How do I optimize my cleaning route for more revenue?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Price per ton varies by system type and region. For a standard residential primary systems install, $2,500 to $4,000 per ton is typical. High-efficiency option systems run $3,000 to $5,000 per ton. Premium options can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors."
+        "text": "Cluster jobs geographically so you clean multiple homes in the same neighborhood on the same day. Schedule longer jobs like deep cleans and move-out cleans at the start or end of your day to avoid splitting your route. Book recurring clients on fixed days to build predictable route density over time. Use mapping tools to sequence stops efficiently. Even small improvements in drive time add up to thousands in extra annual revenue."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up Cleaning equipment?",
+      "name": "What is the average drive time between cleaning jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 30-50% markup on equipment is standard in the Cleaning industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor."
+        "text": "The average drive time between residential cleaning jobs is 15-30 minutes in suburban areas and 20-45 minutes in rural or spread-out metro areas. Urban cleaners with tight routes can achieve 10-15 minutes between stops. Every minute of drive time is a minute you are not earning revenue. Aim to keep average drive time under 20 minutes by clustering jobs and building route density in specific neighborhoods or zip codes."
       }
     }
   ]
@@ -45,209 +45,119 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="install-calc">
-    <!-- Equipment Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Equipment</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div id="route-calc">
+    <!-- Route Inputs -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Daily Route Settings</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-type">System Type</label>
-        <select id="system-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="standard-system" selected>Standard System</option>
-          <option value="heat-pump">Premium Option</option>
-          <option value="premium option">Mini-Split</option>
-          <option value="package-unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobs-per-day">Jobs per Day</label>
+        <input type="number" id="jobs-per-day" value="5" min="1" max="15" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="service-type">Primary Service Type</label>
+        <select id="service-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="maintenance" selected>Maintenance Clean (1.5 hrs avg)</option>
+          <option value="deep">Deep Clean (3 hrs avg)</option>
+          <option value="moveout">Move-Out Clean (4 hrs avg)</option>
+          <option value="custom">Custom</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Equipment Cost ($)</label>
-        <input type="number" id="equipment-cost" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="avg-service-time">Avg Service Time (hours)</label>
+        <input type="number" id="avg-service-time" value="1.5" min="0.5" max="8" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Auto-fills based on service type</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-markup">Equipment Markup (%)</label>
-        <input type="number" id="equipment-markup" value="40" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="avg-drive-time">Avg Drive Time Between Stops (min)</label>
+        <input type="number" id="avg-drive-time" value="20" min="5" max="60" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="avg-revenue">Avg Revenue per Job ($)</label>
+        <input type="number" id="avg-revenue" value="150" min="25" max="2000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="working-hours">Available Working Hours / Day</label>
+        <input type="number" id="working-hours" value="8" min="4" max="12" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Labor Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- Work Week Settings -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Work Week</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="crew-size">Crew Size</label>
-        <input type="number" id="crew-size" value="2" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="days-per-week">Working Days per Week</label>
+        <input type="number" id="days-per-week" value="5" min="1" max="7" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-hours">Install Hours</label>
-        <input type="number" id="install-hours" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Auto-fills based on system type</p>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Tech ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="weeks-per-month">Working Weeks per Month</label>
+        <input type="number" id="weeks-per-month" value="4.3" min="1" max="5" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
-
-    <!-- Materials Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials Cost ($)</label>
-        <input type="number" id="materials-cost" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
-        <input type="number" id="materials-markup" value="100" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-    </div>
-
-    <!-- Materials Checklist -->
-    <div class="bg-bg-dark border border-border rounded-lg p-4 mb-8">
-      <p class="text-sm font-medium text-text-secondary mb-3">Common Material Items <span class="text-text-muted">(check to include in materials cost)</span></p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="125" checked />
-          Copper line set &mdash; $125
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="50" checked />
-          Concrete pad &mdash; $50
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
-          Electrical disconnect &mdash; $30
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Electrical whip &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Control wire &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="15" checked />
-          PVC drain line &mdash; $15
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="40" checked />
-          Duct transitions &mdash; $40
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Pipe insulation &mdash; $25
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Misc &mdash; $25
-        </label>
-      </div>
-    </div>
-
-    <!-- Other Costs Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Other Costs</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit ($)</label>
-        <input type="number" id="permit-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal Fee ($)</label>
-        <input type="number" id="disposal-fee" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-fee">Misc ($)</label>
-        <input type="number" id="misc-fee" value="100" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-tons">System Tons</label>
-        <input type="number" id="system-tons" value="3" min="0.5" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">For price-per-ton calculation</p>
-      </div>
-    </div>
-
-    <!-- Reverse Calculator Toggle -->
-    <div class="bg-bg-dark border border-border rounded-lg p-5 mb-8">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="checkbox" id="reverse-toggle" class="accent-accent w-4 h-4" />
-        <span class="text-sm font-medium text-text-primary">I want to hit a target price</span>
-      </label>
-      <div id="reverse-section" class="hidden mt-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2" for="target-price">Target Sell Price ($)</label>
-            <input type="number" id="target-price" value="7500" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-end">
-            <div class="bg-bg-card border border-border rounded-lg p-4 w-full">
-              <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">That Target Gives You</div>
-              <div id="reverse-margin" class="font-heading font-extrabold text-2xl text-text-primary">&mdash;</div>
-              <div class="text-text-muted text-xs mt-1">gross margin</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Install Pricing Summary</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Daily Route Summary</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Install Price</div>
-          <div id="result-total-sell" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Productive Hours</div>
+          <div id="result-productive-hours" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit</div>
-          <div id="result-gross-profit" class="font-heading font-extrabold text-3xl text-[#34D399]">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Drive Hours</div>
+          <div id="result-drive-hours" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit Margin</div>
-          <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Utilization %</div>
+          <div id="result-utilization" class="font-heading font-extrabold text-3xl">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Ton</div>
-          <div id="result-price-per-ton" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Daily Revenue</div>
+          <div id="result-daily-revenue" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
       </div>
 
-      <!-- Breakdown -->
+      <!-- Feasibility Check -->
+      <div id="feasibility-warning" class="hidden mb-6 bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg p-4">
+        <p class="text-[#FBBF24] text-sm font-medium" id="feasibility-text">&#9888; Warning</p>
+      </div>
+
+      <h3 class="font-heading font-bold text-xl mb-6">Revenue Projections</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Weekly Revenue</div>
+          <div id="result-weekly-revenue" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Revenue</div>
+          <div id="result-monthly-revenue" class="font-heading font-extrabold text-3xl text-[#34D399]">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Revenue</div>
+          <div id="result-annual-revenue" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+        </div>
+      </div>
+
+      <!-- Optimization Tips -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Cost &amp; Sell Breakdown</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Route Optimization Impact</h4>
         <div class="space-y-3">
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Equipment</span>
+            <span class="text-text-secondary">If you reduce drive time by 5 min/stop</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-equip-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-equip-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted">Saves: <span id="opt-time-saved" class="text-text-primary">0 min</span></span>
+              <span class="text-text-muted">Extra/month: <span id="opt-extra-monthly" class="text-[#34D399]">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Labor</span>
+            <span class="text-text-secondary">If you add 1 more job per day</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-labor-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-labor-sell" class="text-accent">$0</span></span>
-            </div>
-          </div>
-          <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Materials</span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-mat-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-mat-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted">Extra/month: <span id="opt-extra-job-monthly" class="text-[#34D399]">$0</span></span>
+              <span class="text-text-muted">Extra/year: <span id="opt-extra-job-annual" class="text-[#34D399]">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2">
-            <span class="text-text-secondary">Other <span class="text-text-muted text-xs">(permit + disposal + misc)</span></span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-other-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-other-sell" class="text-accent">$0</span></span>
-            </div>
-          </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-border flex justify-between items-center font-heading font-bold">
-          <span class="text-text-primary">Totals</span>
-          <div class="flex gap-6">
-            <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-total-cost" class="text-text-primary">$0</span></span>
-            <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-total-sell" class="text-accent">$0</span></span>
+            <span class="text-text-secondary">Max jobs at current drive time</span>
+            <span class="text-accent font-medium" id="opt-max-jobs">&mdash;</span>
           </div>
         </div>
       </div>
@@ -261,29 +171,21 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the system type.</strong> Choose the type of Cleaning system you are installing. The calculator auto-fills typical install hours based on your selection: Standard System defaults to 8 hours, high-efficiency options to 10, premium options to 4, and package units to 6.</p>
-          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the distributor. A 40% markup is a common starting point, but adjust based on your market and competition. The calculator shows what the customer pays for equipment.</p>
-          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per technician. The billable rate is what you charge the customer per tech per hour, not the tech's wage.</p>
-          <p><strong class="text-text-primary">4. Configure materials.</strong> Use the checklist to toggle common material items on or off. The total auto-fills the materials cost field. Set your materials markup percentage to calculate the customer-facing price.</p>
-          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the system tonnage so the calculator can show your price per ton. Hit calculate to see the full breakdown, profit, and margin.</p>
+          <p><strong class="text-text-primary">1. Set your daily route.</strong> Enter the number of jobs you want to fit in a day and select your primary service type. The calculator auto-fills average service time: 1.5 hours for maintenance cleans, 3 hours for deep cleans, and 4 hours for move-out cleans. Select "Custom" to enter your own average.</p>
+          <p><strong class="text-text-primary">2. Enter your drive time and revenue.</strong> Set the average minutes you spend driving between stops and your average revenue per job. Be honest about drive time — most cleaners underestimate it. Include loading, unloading, and parking time in your estimate.</p>
+          <p><strong class="text-text-primary">3. Review your daily results.</strong> The calculator shows your total productive hours (time spent cleaning), total drive hours, utilization percentage, and daily revenue. If your route exceeds available working hours, you will see a warning.</p>
+          <p><strong class="text-text-primary">4. Check revenue projections.</strong> See your estimated weekly, monthly, and annual revenue based on your working days per week. Use the optimization section to see how reducing drive time or adding one more job impacts your bottom line.</p>
         </div>
       </section>
 
-      <!-- How Install Pricing Works -->
+      <!-- Route Optimization Tips -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Install Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Optimize Your Cleaning Route</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for equipment, labor, and materials, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
-          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Equipment_Sell = Equipment_Cost x (1 + Markup / 100)</p>
-            <p>Labor_Sell = Crew_Size x Hours x Billable_Rate</p>
-            <p>Materials_Sell = Materials_Cost x (1 + Materials_Markup / 100)</p>
-            <p>Total_Sell = Equipment_Sell + Labor_Sell + Materials_Sell + Permit + Disposal + Misc</p>
-            <p>Gross_Profit = Total_Sell - Total_Cost</p>
-            <p>Margin = (Gross_Profit / Total_Sell) x 100</p>
-          </div>
-          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most Cleaning install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
-          <p><strong class="text-text-primary">Price per ton is a quick benchmark.</strong> Dividing total sell price by system tonnage gives you a per-ton number you can compare across jobs and against competitors. Residential AC installs typically run $2,500 to $4,000 per ton. High-efficiency option systems tend toward $3,000 to $5,000 per ton. If your number is significantly outside these ranges, investigate why.</p>
+          <p><strong class="text-text-primary">Cluster jobs geographically.</strong> The single most impactful thing you can do is group clients by neighborhood. If you clean three homes in the same subdivision on Tuesday instead of driving across town between each one, you can cut 30-45 minutes of drive time out of your day. Over a month, that recovered time translates directly into additional billable jobs.</p>
+          <p><strong class="text-text-primary">Schedule deep cleans at the start or end of your day.</strong> Deep cleans and move-out cleans take 3-4 hours and anchor your schedule. Place them first thing in the morning or as your last stop so they do not split your route and force backtracking. Fill the remaining time slots with shorter maintenance cleans that are geographically close together.</p>
+          <p><strong class="text-text-primary">Build recurring density over time.</strong> When a new lead comes in, check if they are near your existing Tuesday or Wednesday route before booking them on a random day. Over months, this discipline builds tight route clusters where you clean 4-5 homes within a few miles of each other. The financial impact compounds as your utilization rate climbs toward 80% or higher.</p>
+          <p><strong class="text-text-primary">Track your actual drive time.</strong> Use your phone GPS or a simple mileage tracker to log real drive times for a week. Most cleaners are surprised to find they spend 25-35% of their day driving. Once you have real data, you can identify which routes are efficient and which ones need restructuring.</p>
         </div>
       </section>
 
@@ -291,9 +193,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the distributor, set your standard markups, and adjust the hours based on the difficulty of the install. Walk the customer through the price with confidence because you know the margin is healthy.</p>
-          <p><strong class="text-text-primary">Comparing system options for the customer.</strong> Run the calculator for a standard primary systems, then again for a high-efficiency option. Show the customer both price points side by side. The tonnage, hours, and equipment cost change, so the total and price per ton shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
-          <p><strong class="text-text-primary">Training your sales team on pricing.</strong> New salespeople often discount too aggressively to close deals. Have them use this calculator to see exactly what happens to profit margin when they knock $500 off the price. When they see the margin drop from 32% to 22%, they learn to protect the price or find other ways to add value.</p>
+          <p><strong class="text-text-primary">Planning your weekly schedule.</strong> Before booking new clients into your calendar, run this calculator to see if another job fits in your day at the current drive time. If adding a sixth stop pushes you past 8 hours, you know you need to either tighten your route or push that client to a different day with more room.</p>
+          <p><strong class="text-text-primary">Setting revenue goals.</strong> When budgeting for the quarter, use the projections to see what realistic revenue looks like based on your current job count, service mix, and drive time. This is far more accurate than guessing because it accounts for the time you actually spend driving between jobs.</p>
+          <p><strong class="text-text-primary">Deciding where to market.</strong> If your current routes cluster in the north side of town, this calculator shows you what happens if you pick up clients on the south side — your drive time goes up and utilization drops. Use this to justify focusing your marketing spend on neighborhoods near your existing clients rather than chasing leads across town.</p>
         </div>
       </section>
 
@@ -302,20 +204,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price a Cleaning installation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How many cleaning jobs can I fit in a day?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The number of cleaning jobs per day depends on service type, drive time, and working hours. Most solo cleaners fit 3-5 maintenance cleans, 2-3 deep cleans, or 1-2 move-out cleans per day in an 8-hour window. The key limiting factor is drive time between stops. Reducing average drive time from 30 minutes to 15 minutes can add one full job per day, which over a year adds tens of thousands in additional revenue.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on installs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful Cleaning companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good utilization rate for a cleaning business?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A good utilization rate for a cleaning business is 75-85%. Utilization measures the percentage of your working hours spent actually cleaning versus driving, waiting, or on breaks. Below 65% means too much windshield time and not enough billable work. Above 85% is excellent but hard to sustain without very tight geographic clustering. Track this metric weekly and aim to improve it by grouping jobs in the same neighborhood on the same day.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per ton for Cleaning?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per ton varies by system type and region. For a standard residential primary systems install, $2,500 to $4,000 per ton is typical. High-efficiency option systems run $3,000 to $5,000 per ton. Premium options can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I optimize my cleaning route for more revenue?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Cluster jobs geographically so you clean multiple homes in the same neighborhood on the same day. Schedule longer jobs like deep cleans and move-out cleans at the start or end of your day to avoid splitting your route. Book recurring clients on fixed days to build predictable route density over time. Use mapping tools to sequence stops efficiently. Even small improvements in drive time add up to thousands in extra annual revenue.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up Cleaning equipment?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-50% markup on equipment is standard in the Cleaning industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the average drive time between cleaning jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average drive time between residential cleaning jobs is 15-30 minutes in suburban areas and 20-45 minutes in rural or spread-out metro areas. Urban cleaners with tight routes can achieve 10-15 minutes between stops. Every minute of drive time is a minute you are not earning revenue. Aim to keep average drive time under 20 minutes by clustering jobs and building route density in specific neighborhoods or zip codes.</div>
           </details>
         </div>
       </section>
@@ -324,162 +226,118 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Typical install hours by system type
-  const systemHours: Record<string, number> = {
-    'standard-system': 8,
-    'heat-pump': 10,
-    'premium option': 4,
-    'package-unit': 6,
+  // Service type average hours
+  const serviceHours: Record<string, number> = {
+    'maintenance': 1.5,
+    'deep': 3,
+    'moveout': 4,
+    'custom': 1.5,
   };
 
-  // Assumed loaded wage for cost calculation (internal cost per tech per hour)
-  const LOADED_WAGE = 45;
-
-  // Update materials cost from checklist
-  function updateMaterialsFromChecklist() {
-    let total = 0;
-    document.querySelectorAll('.material-item').forEach(cb => {
-      const checkbox = cb as HTMLInputElement;
-      if (checkbox.checked) {
-        total += parseFloat(checkbox.dataset.cost || '0');
-      }
-    });
-    (document.getElementById('materials-cost') as HTMLInputElement).value = String(total);
-  }
-
-  // System type change: auto-fill install hours
-  document.getElementById('system-type')?.addEventListener('change', () => {
-    const systemType = (document.getElementById('system-type') as HTMLSelectElement).value;
-    const hours = systemHours[systemType] || 8;
-    (document.getElementById('install-hours') as HTMLInputElement).value = String(hours);
-    calculate();
-  });
-
-  // Reverse calculator toggle
-  document.getElementById('reverse-toggle')?.addEventListener('change', () => {
-    const checked = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    const section = document.getElementById('reverse-section')!;
-    if (checked) {
-    } else {
-      section.classList.add('hidden');
+  // Service type change: auto-fill hours
+  document.getElementById('service-type')?.addEventListener('change', () => {
+    const serviceType = (document.getElementById('service-type') as HTMLSelectElement).value;
+    if (serviceType !== 'custom') {
+      const hours = serviceHours[serviceType] || 1.5;
+      (document.getElementById('avg-service-time') as HTMLInputElement).value = String(hours);
     }
     calculate();
-  });
-
-  // Material checklist changes
-  document.querySelectorAll('.material-item').forEach(cb => {
-    cb.addEventListener('change', () => {
-      updateMaterialsFromChecklist();
-      calculate();
-    });
   });
 
   function calculate() {
-    // Equipment
-    const equipmentCost = parseFloat((document.getElementById('equipment-cost') as HTMLInputElement).value) || 0;
-    const equipmentMarkup = parseFloat((document.getElementById('equipment-markup') as HTMLInputElement).value) || 0;
-    const equipmentSell = equipmentCost * (1 + equipmentMarkup / 100);
+    const jobsPerDay = parseFloat((document.getElementById('jobs-per-day') as HTMLInputElement).value) || 0;
+    const avgServiceTime = parseFloat((document.getElementById('avg-service-time') as HTMLInputElement).value) || 0;
+    const avgDriveTime = parseFloat((document.getElementById('avg-drive-time') as HTMLInputElement).value) || 0;
+    const avgRevenue = parseFloat((document.getElementById('avg-revenue') as HTMLInputElement).value) || 0;
+    const workingHours = parseFloat((document.getElementById('working-hours') as HTMLInputElement).value) || 8;
+    const daysPerWeek = parseFloat((document.getElementById('days-per-week') as HTMLInputElement).value) || 5;
+    const weeksPerMonth = parseFloat((document.getElementById('weeks-per-month') as HTMLInputElement).value) || 4.3;
 
-    // Labor
-    const crewSize = parseFloat((document.getElementById('crew-size') as HTMLInputElement).value) || 0;
-    const installHours = parseFloat((document.getElementById('install-hours') as HTMLInputElement).value) || 0;
-    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
-    const laborSell = crewSize * installHours * billableRate;
-    const laborCost = crewSize * installHours * LOADED_WAGE;
+    // Daily calculations
+    const totalProductiveHours = jobsPerDay * avgServiceTime;
+    const driveSegments = jobsPerDay > 0 ? jobsPerDay - 1 : 0;
+    const totalDriveMinutes = driveSegments * avgDriveTime;
+    const totalDriveHours = totalDriveMinutes / 60;
+    const totalHoursNeeded = totalProductiveHours + totalDriveHours;
+    const utilization = totalHoursNeeded > 0 ? (totalProductiveHours / totalHoursNeeded) * 100 : 0;
+    const dailyRevenue = jobsPerDay * avgRevenue;
 
-    // Materials
-    const materialsCost = parseFloat((document.getElementById('materials-cost') as HTMLInputElement).value) || 0;
-    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 0;
-    const materialsSell = materialsCost * (1 + materialsMarkup / 100);
+    // Projections
+    const weeklyRevenue = dailyRevenue * daysPerWeek;
+    const monthlyRevenue = weeklyRevenue * weeksPerMonth;
+    const annualRevenue = monthlyRevenue * 12;
 
-    // Other costs (pass-through, no markup)
-    const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
-    const disposalFee = parseFloat((document.getElementById('disposal-fee') as HTMLInputElement).value) || 0;
-    const miscFee = parseFloat((document.getElementById('misc-fee') as HTMLInputElement).value) || 0;
-    const otherTotal = permitFee + disposalFee + miscFee;
-
-    // Tonnage
-    const systemTons = parseFloat((document.getElementById('system-tons') as HTMLInputElement).value) || 1;
-
-    // Totals
-    const totalCost = equipmentCost + laborCost + materialsCost + otherTotal;
-    const totalSell = equipmentSell + laborSell + materialsSell + otherTotal;
-    const grossProfit = totalSell - totalCost;
-    const margin = totalSell > 0 ? (grossProfit / totalSell) * 100 : 0;
-    const pricePerTon = totalSell / systemTons;
-
-    // Format currency
+    // Format helpers
     const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
+    const fmtDec = (n: number) => n.toFixed(1);
 
-    // Main results
-    document.getElementById('result-total-sell')!.textContent = fmt(totalSell);
-    document.getElementById('result-gross-profit')!.textContent = fmt(grossProfit);
-    document.getElementById('result-price-per-ton')!.textContent = fmt(pricePerTon);
+    // Daily results
+    document.getElementById('result-productive-hours')!.textContent = fmtDec(totalProductiveHours) + ' hrs';
+    document.getElementById('result-drive-hours')!.textContent = fmtDec(totalDriveHours) + ' hrs';
+    document.getElementById('result-daily-revenue')!.textContent = fmt(dailyRevenue);
 
-    // Profit color
-    const profitEl = document.getElementById('result-gross-profit')!;
-    profitEl.className = 'font-heading font-extrabold text-3xl';
-    if (grossProfit >= 0) {
-      profitEl.classList.add('text-[#34D399]');
+    // Utilization with color coding
+    const utilEl = document.getElementById('result-utilization')!;
+    utilEl.textContent = fmtDec(utilization) + '%';
+    utilEl.className = 'font-heading font-extrabold text-3xl';
+    if (utilization >= 75) {
+      utilEl.classList.add('text-[#34D399]');
+    } else if (utilization >= 65) {
+      utilEl.classList.add('text-[#FBBF24]');
     } else {
-      profitEl.classList.add('text-[#EF4444]');
+      utilEl.classList.add('text-[#EF4444]');
     }
 
-    // Margin with color coding
-    const marginEl = document.getElementById('result-margin')!;
-    marginEl.textContent = margin.toFixed(1) + '%';
-    marginEl.className = 'font-heading font-extrabold text-3xl';
-    if (margin >= 30) {
-      marginEl.classList.add('text-[#34D399]');
-    } else if (margin >= 20) {
-      marginEl.classList.add('text-[#FBBF24]');
+    // Feasibility check
+    const warningEl = document.getElementById('feasibility-warning')!;
+    const warningText = document.getElementById('feasibility-text')!;
+    if (totalHoursNeeded > workingHours) {
+      warningEl.classList.remove('hidden');
+      const overBy = (totalHoursNeeded - workingHours).toFixed(1);
+      warningText.textContent = `\u26A0 This route needs ${fmtDec(totalHoursNeeded)} hours but you only have ${fmtDec(workingHours)} available. You are over by ${overBy} hours. Reduce jobs, shorten drive time, or extend your work day.`;
     } else {
-      marginEl.classList.add('text-[#EF4444]');
+      warningEl.classList.add('hidden');
     }
 
-    // Breakdown
-    document.getElementById('breakdown-equip-cost')!.textContent = fmt(equipmentCost);
-    document.getElementById('breakdown-equip-sell')!.textContent = fmt(equipmentSell);
-    document.getElementById('breakdown-labor-cost')!.textContent = fmt(laborCost);
-    document.getElementById('breakdown-labor-sell')!.textContent = fmt(laborSell);
-    document.getElementById('breakdown-mat-cost')!.textContent = fmt(materialsCost);
-    document.getElementById('breakdown-mat-sell')!.textContent = fmt(materialsSell);
-    document.getElementById('breakdown-other-cost')!.textContent = fmt(otherTotal);
-    document.getElementById('breakdown-other-sell')!.textContent = fmt(otherTotal);
-    document.getElementById('breakdown-total-cost')!.textContent = fmt(totalCost);
-    document.getElementById('breakdown-total-sell')!.textContent = fmt(totalSell);
+    // Revenue projections
+    document.getElementById('result-weekly-revenue')!.textContent = fmt(weeklyRevenue);
+    document.getElementById('result-monthly-revenue')!.textContent = fmt(monthlyRevenue);
+    document.getElementById('result-annual-revenue')!.textContent = fmt(annualRevenue);
 
-    // Reverse calculator
-    const reverseToggle = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    if (reverseToggle) {
-      const targetPrice = parseFloat((document.getElementById('target-price') as HTMLInputElement).value) || 0;
-      const targetProfit = targetPrice - totalCost;
-      const targetMargin = targetPrice > 0 ? (targetProfit / targetPrice) * 100 : 0;
+    // Optimization calculations
+    // 1. Reducing drive time by 5 min/stop
+    const savedMinutes = driveSegments * 5;
+    const savedMonthlyJobs = (savedMinutes / 60) / avgServiceTime * daysPerWeek * weeksPerMonth;
+    const extraMonthlyFromDrive = savedMonthlyJobs * avgRevenue;
+    document.getElementById('opt-time-saved')!.textContent = savedMinutes + ' min/day';
+    document.getElementById('opt-extra-monthly')!.textContent = fmt(extraMonthlyFromDrive);
 
-      const reverseMarginEl = document.getElementById('reverse-margin')!;
-      reverseMarginEl.textContent = targetMargin.toFixed(1) + '% margin';
-      reverseMarginEl.className = 'font-heading font-extrabold text-2xl';
-      if (targetMargin >= 30) {
-        reverseMarginEl.classList.add('text-[#34D399]');
-      } else if (targetMargin >= 20) {
-        reverseMarginEl.classList.add('text-[#FBBF24]');
-      } else {
-        reverseMarginEl.classList.add('text-[#EF4444]');
-      }
+    // 2. Adding 1 more job per day
+    const extraJobMonthly = avgRevenue * daysPerWeek * weeksPerMonth;
+    const extraJobAnnual = extraJobMonthly * 12;
+    document.getElementById('opt-extra-job-monthly')!.textContent = fmt(extraJobMonthly);
+    document.getElementById('opt-extra-job-annual')!.textContent = fmt(extraJobAnnual);
+
+    // 3. Max jobs at current drive time
+    if (avgServiceTime > 0 && avgDriveTime >= 0) {
+      // totalHours = jobs * serviceTime + (jobs - 1) * driveTime/60
+      // workingHours = jobs * serviceTime + (jobs - 1) * driveTime/60
+      // workingHours = jobs * (serviceTime + driveTime/60) - driveTime/60
+      // jobs = (workingHours + driveTime/60) / (serviceTime + driveTime/60)
+      const driveHrs = avgDriveTime / 60;
+      const maxJobs = Math.floor((workingHours + driveHrs) / (avgServiceTime + driveHrs));
+      document.getElementById('opt-max-jobs')!.textContent = maxJobs + ' jobs';
+    } else {
+      document.getElementById('opt-max-jobs')!.textContent = '--';
     }
-
-    // Show results
   }
 
-  // Calculate button
-
   // Auto-calculate on any input change
-  document.querySelectorAll('#install-calc input[type="number"], #install-calc select').forEach(el => {
+  document.querySelectorAll('#route-calc input[type="number"], #route-calc select').forEach(el => {
     el.addEventListener('input', calculate);
     el.addEventListener('change', calculate);
   });
 
-  // Initialize materials from checklist and run initial calculation
-  updateMaterialsFromChecklist();
+  // Initial calculation
   calculate();
 </script>

@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much should I charge for a Cleaning service call?",
+      "name": "How do I price a one-time cleaning job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most Cleaning service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
+        "text": "Start with your minimum service fee ($75-$150 depending on your market), then add labor hours multiplied by your hourly rate, estimated supply costs for the job, and a travel fee if the property is outside your core service area. A typical one-time standard clean for a 1,500 sq ft home runs $150-$250 total. Use a job pricing calculator to build the total from your actual costs and confirm you are hitting at least a 40-50% profit margin."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I put on Cleaning parts?",
+      "name": "What hourly rate should a cleaning business charge?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead."
+        "text": "Most residential cleaning businesses charge $35-$60 per cleaner per hour as their billable rate. Your billable rate must cover your loaded labor cost (wages plus taxes, insurance, and benefits), supplies, vehicle costs, and overhead, plus leave room for profit. If your loaded wage is $18-$22 per hour, a $40-$50 billable rate gives you roughly 50-55% labor margin before supplies and overhead."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on Cleaning labor?",
+      "name": "How much should I budget for cleaning supplies per job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional."
+        "text": "Plan for $5-$15 in supply costs per residential cleaning job. This covers all-purpose cleaner, disinfectant, glass cleaner, floor cleaner, toilet bowl cleaner, trash bags, microfiber cloth wear, and gloves. Supply costs should stay between 3-8% of your job revenue. Buying concentrates in bulk and tracking per-clean usage keeps costs at the low end."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I calculate profit margin on a service call?",
+      "name": "Should I charge a travel fee for cleaning jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy Cleaning service call margin is 40-60%."
+        "text": "If the property is within your core service area (typically a 15-20 minute drive), travel is usually built into your base pricing. For jobs outside that radius, charge a travel fee of $0.50-$1.00 per mile or a flat $15-$30 surcharge. This covers fuel, vehicle wear, and the lost productivity of extra drive time. Be upfront about travel fees when quoting."
       }
     }
   ]
@@ -45,82 +45,76 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="service-calc">
-    <!-- Service Details -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Details</h3>
+  <div id="job-pricing-calc">
+    <!-- Base Pricing -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Base Pricing</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnostic-fee">Diagnostic Fee ($)</label>
-        <input type="number" id="diagnostic-fee" value="89" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="minimum-fee">Minimum Service Fee ($)</label>
+        <input type="number" id="minimum-fee" value="100" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1.5">Typical range: $75 &ndash; $150</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Labor Hours</label>
-        <input type="number" id="labor-hours" value="1.5" min="0" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="job-type">Job Type</label>
+        <select id="job-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="standard">Standard Clean</option>
+          <option value="deep">Deep Clean</option>
+          <option value="moveout">Move-Out Clean</option>
+          <option value="post-construction">Post-Construction</option>
+          <option value="commercial">Commercial Clean</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Labor -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="num-cleaners">Number of Cleaners</label>
+        <input type="number" id="num-cleaners" value="1" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Hours per Cleaner</label>
+        <input type="number" id="labor-hours" value="2" min="0.25" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="billable-rate" value="45" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1.5">Typical: $35 &ndash; $60 per cleaner/hr</p>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">
           Your Loaded Wage ($/hr)
-          <span class="inline-block ml-1 text-text-muted cursor-help" title="Your actual cost per hour including benefits, insurance, workers comp, payroll taxes">&#9432;</span>
+          <span class="inline-block ml-1 text-text-muted cursor-help" title="Your actual cost per hour per cleaner including wages, payroll taxes, insurance, workers comp, and benefits">&#9432;</span>
         </label>
-        <input type="number" id="loaded-wage" value="45" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="loaded-wage" value="20" min="0" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Parts Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts</h3>
-    <div class="mb-2 text-sm text-text-muted">Add parts used on this service call. Select a preset or enter custom values.</div>
-    <div id="parts-table" class="space-y-3 mb-4">
-      <!-- Part rows inserted here by JS -->
+    <!-- Supplies -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Supplies</h3>
+    <div class="mb-2 text-sm text-text-muted">Select supplies used on this job. Costs are per-unit estimates &mdash; adjust to match your actual costs.</div>
+    <div id="supplies-table" class="space-y-3 mb-4">
+      <!-- Supply rows inserted by JS -->
     </div>
-    <button id="add-part-btn" class="bg-bg-dark border border-border rounded-lg px-5 py-2.5 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer">
-      + Add Part
+    <button id="add-supply-btn" class="bg-bg-dark border border-border rounded-lg px-5 py-2.5 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer">
+      + Add Supply
     </button>
 
-    <!-- Supplies Section -->
-    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Supplies (optional)</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Supply Type</label>
-        <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="none">None</option>
-          <option value="r410a">R-410A</option>
-          <option value="r22">R-22</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-lbs">Quantity Added</label>
-        <input type="number" id="refrigerant-lbs" value="0" min="0" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-cost">Your Cost per Unit ($)</label>
-        <input type="number" id="refrigerant-cost" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-price">Customer Price per Unit ($)</label>
-        <input type="number" id="refrigerant-price" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
-      </div>
-    </div>
-
-    <!-- Other -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Other</h3>
+    <!-- Travel -->
+    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Travel</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit Fee ($)</label>
-        <input type="number" id="permit-fee" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="travel-fee">Travel Fee ($)</label>
+        <input type="number" id="travel-fee" value="0" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1.5">$0 for jobs in your core area. $15 &ndash; $30 for distant properties.</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tax-rate">
-          Tax Rate (%)
-        </label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tax-rate">Tax Rate (%)</label>
         <input type="number" id="tax-rate" value="0" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1.5">Applied to parts and materials only &mdash; labor is typically not taxed.</p>
+        <p class="text-text-muted text-xs mt-1.5">Applied to entire invoice &mdash; check your state rules.</p>
       </div>
     </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
@@ -131,16 +125,16 @@ const faqSchema = {
           <div id="result-customer-total" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
-          <div id="result-parts-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Base + Labor</div>
           <div id="result-labor-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supply Revenue</div>
-          <div id="result-refrigerant-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supplies</div>
+          <div id="result-supplies-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Travel + Tax</div>
+          <div id="result-other-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
@@ -166,7 +160,7 @@ const faqSchema = {
 
       <!-- Benchmark Bar -->
       <div class="bg-bg-dark rounded-xl p-5 mt-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average Cleaning Service Call: $200 &ndash; $600</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average Residential Cleaning Job: $100 &ndash; $300</h4>
         <div class="relative h-6 bg-bg-card rounded-full overflow-hidden border border-border">
           <div class="absolute inset-0 flex">
             <div class="w-1/3 bg-[rgba(52,211,153,0.15)] border-r border-border"></div>
@@ -177,10 +171,10 @@ const faqSchema = {
         </div>
         <div class="flex justify-between text-xs text-text-muted mt-2">
           <span>$0</span>
+          <span>$100</span>
           <span>$200</span>
-          <span>$400</span>
-          <span>$600</span>
-          <span>$800+</span>
+          <span>$300</span>
+          <span>$400+</span>
         </div>
         <p id="benchmark-text" class="text-text-secondary text-sm mt-3">Your price: &mdash;</p>
       </div>
@@ -194,26 +188,26 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your service details.</strong> Set your diagnostic fee, estimated labor hours, your billable hourly rate, and your loaded wage (your true cost per hour including benefits, insurance, and workers comp).</p>
-          <p><strong class="text-text-primary">2. Add parts.</strong> Use the preset dropdown to quickly add common Cleaning parts with typical wholesale costs, or enter custom parts and costs. Set your markup percentage for each part individually.</p>
-          <p><strong class="text-text-primary">3. Add supplies if applicable.</strong> Select the type and quantity. The calculator provides typical cost and pricing guidance.</p>
-          <p><strong class="text-text-primary">4. Review the breakdown.</strong> The calculator shows the customer's total price, your total cost, gross profit, profit margin, and profit per hour. Compare your price to the industry benchmark range.</p>
+          <p><strong class="text-text-primary">1. Set your base fee.</strong> Enter your minimum service fee and select the job type. The minimum fee covers your show-up cost including drive time, setup, and the overhead of having a cleaner on site.</p>
+          <p><strong class="text-text-primary">2. Configure labor.</strong> Enter the number of cleaners, estimated hours per cleaner, your billable rate per hour, and your loaded wage. The loaded wage should include wages plus payroll taxes, insurance, workers comp, and benefits.</p>
+          <p><strong class="text-text-primary">3. Add supplies.</strong> Select supplies from the preset dropdown or enter custom items. Adjust quantities and unit costs to match your actual usage per job.</p>
+          <p><strong class="text-text-primary">4. Add travel and tax.</strong> Include a travel fee for distant properties and your local tax rate. Then review the full price breakdown and profit margin below.</p>
         </div>
       </section>
 
       <!-- How Pricing Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Service Call Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Cleaning Job Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A service call price is built from four components: <strong class="text-text-primary">diagnostic fee, labor, parts, and materials</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
+          <p>A cleaning job price is built from four components: <strong class="text-text-primary">base fee, labor, supplies, and travel</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Customer Total = Diagnostic + (Hours x Rate) + Parts Revenue + Supply Revenue + Permit + Tax</p>
-            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Parts + Materials Cost + Permit</p>
+            <p>Customer Total = Base Fee + (Cleaners x Hours x Rate) + Supplies + Travel + Tax</p>
+            <p>Your Cost = (Cleaners x Hours x Loaded Wage) + Supply Cost + Travel Cost</p>
             <p>Gross Profit = Customer Total - Your Cost</p>
           </div>
-          <p><strong class="text-text-primary">Why parts markup matters.</strong> Parts are often the highest-margin component of a service call. A 200% markup on a $25 contactor means you charge $75 and keep $50. That $50 covers the cost of stocking the part on your truck, the warehouse overhead, and your diagnostic expertise. Without healthy parts margins, it is very difficult to run a profitable service department.</p>
-          <p><strong class="text-text-primary">Labor vs parts profitability.</strong> Labor revenue depends on how fast you work. If you bill 1.5 hours at $125/hr but the job takes 2 hours, your effective rate drops. Parts profit is locked in the moment you set the price. The most profitable service companies maximize both: fast techs with strong parts margins.</p>
-          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to parts and materials but not to labor for repair services. Materials are typically taxable. Always check your local tax rules because some states tax all services and some tax none.</p>
+          <p><strong class="text-text-primary">Why the base fee matters.</strong> Your minimum service fee guarantees you cover the fixed costs of every job: drive time, vehicle wear, scheduling overhead, and setup time. Without a base fee, small jobs become money losers. Even a quick 45-minute touchup should never go out the door below your minimum.</p>
+          <p><strong class="text-text-primary">Labor is your biggest cost.</strong> For most cleaning companies, labor represents 40-55% of revenue. Keeping your billable rate at least 2x your loaded wage gives you enough margin to cover supplies, overhead, and profit. If your loaded wage is $20/hr, your billable rate should be at least $40/hr.</p>
+          <p><strong class="text-text-primary">Supplies should be small but tracked.</strong> Supply costs typically run 3-8% of job revenue. Buying concentrates in bulk, tracking per-clean usage, and not over-applying product keeps supply costs at the low end. Many cleaners underestimate supply costs because they never track them per job.</p>
         </div>
       </section>
 
@@ -221,9 +215,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">On-the-fly pricing in the field.</strong> You have diagnosed the problem, you know the parts needed, and you need to give the customer a price before you start work. Pull up this calculator on your phone, plug in the parts and labor, and present a confident total. No guessing, no calling the office, no accidentally undercharging.</p>
-          <p><strong class="text-text-primary">Training new technicians on pricing.</strong> New techs often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how diagnostic fees, labor, parts markup, and materials all add up. Show them what happens to profit margin when they discount the diagnostic fee or undercharge on parts.</p>
-          <p><strong class="text-text-primary">Comparing time-and-materials to flat rate.</strong> Enter a few common repair scenarios in this calculator and compare the totals to your flat rate price book. If your flat rate prices are consistently lower than what this calculator produces, you may be leaving money on the table. If they are higher, you have room to be competitive.</p>
+          <p><strong class="text-text-primary">Quoting a new customer.</strong> A potential client calls asking for a price on a deep clean. Pull up this calculator, enter their property details, and build the price from your actual costs. You present a confident, itemized quote instead of guessing or lowballing to win the job.</p>
+          <p><strong class="text-text-primary">Training new team members on pricing.</strong> New cleaners often do not understand why jobs cost what they do. Walk them through the calculator to show how base fee, labor rate, supplies, and travel all add up. Show them what happens to profit when they take too long on a job or when supply waste creeps up.</p>
+          <p><strong class="text-text-primary">Comparing job types.</strong> Enter a standard clean, a deep clean, and a move-out clean side by side. Compare the labor hours, supply costs, and resulting margins. This helps you decide which job types to pursue and which ones to price higher because they eat more time and supplies.</p>
         </div>
       </section>
 
@@ -232,20 +226,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a Cleaning service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Cleaning service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price a one-time cleaning job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your minimum service fee ($75-$150 depending on your market), then add labor hours multiplied by your hourly rate, estimated supply costs for the job, and a travel fee if the property is outside your core service area. A typical one-time standard clean for a 1,500 sq ft home runs $150-$250 total. Use this calculator to build the total from your actual costs and confirm you are hitting at least a 40-50% profit margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on Cleaning parts?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What hourly rate should a cleaning business charge?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most residential cleaning businesses charge $35-$60 per cleaner per hour as their billable rate. Your billable rate must cover your loaded labor cost (wages plus taxes, insurance, and benefits), supplies, vehicle costs, and overhead, plus leave room for profit. If your loaded wage is $18-$22 per hour, a $40-$50 billable rate gives you roughly 50-55% labor margin before supplies and overhead.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on Cleaning labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I budget for cleaning supplies per job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Plan for $5-$15 in supply costs per residential cleaning job. This covers all-purpose cleaner, disinfectant, glass cleaner, floor cleaner, toilet bowl cleaner, trash bags, microfiber cloth wear, and gloves. Supply costs should stay between 3-8% of your job revenue. Buying concentrates in bulk and tracking per-clean usage keeps costs at the low end.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit margin on a service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy Cleaning service call margin is 40-60%.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge a travel fee for cleaning jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">If the property is within your core service area (typically a 15-20 minute drive), travel is usually built into your base pricing. For jobs outside that radius, charge a travel fee of $0.50-$1.00 per mile or a flat $15-$30 surcharge. This covers fuel, vehicle wear, and the lost productivity of extra drive time. Be upfront about travel fees when quoting.</div>
           </details>
         </div>
       </section>
@@ -254,70 +248,70 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Preset parts with wholesale costs
-  const presetParts: Record<string, number> = {
-    'Capacitor': 18,
-    'Contactor': 25,
-    'Blower Motor': 175,
-    'TXV Valve': 85,
-    'Compressor': 650,
-    'Control Board': 175,
-    'Dispenser': 35,
+  // Preset supplies with typical per-unit costs
+  const presetSupplies: Record<string, number> = {
+    'All-Purpose Cleaner': 5,
+    'Disinfectant': 6,
+    'Glass Cleaner': 4,
+    'Floor Cleaner': 7,
+    'Toilet Bowl Cleaner': 3,
+    'Trash Bags (each)': 0.75,
+    'Microfiber Cloths (each)': 2,
+    'Mop Head': 8,
+    'Vacuum Bags (each)': 5,
+    'Rubber Gloves (pair)': 1.50,
+    'Scrub Sponges (each)': 1,
+    'Dusting Spray': 4,
   };
 
-  const refrigerantPricing: Record<string, { cost: number; price: number }> = {
-    'r410a': { cost: 40, price: 85 },
-    'r22': { cost: 60, price: 175 },
-  };
+  let supplyCounter = 0;
 
-  let partCounter = 0;
-
-  function addPartRow(name = '', cost = 0, markup = 200) {
-    const id = partCounter++;
-    const table = document.getElementById('parts-table')!;
+  function addSupplyRow(name = '', cost = 0, qty = 1) {
+    const id = supplyCounter++;
+    const table = document.getElementById('supplies-table')!;
     const row = document.createElement('div');
-    row.className = 'grid grid-cols-1 md:grid-cols-[1fr_1fr_120px_120px_40px] gap-3 items-end part-row';
-    row.dataset.partId = String(id);
+    row.className = 'grid grid-cols-1 md:grid-cols-[1fr_120px_80px_120px_40px] gap-3 items-end supply-row';
+    row.dataset.supplyId = String(id);
 
-    const presetOptions = Object.entries(presetParts).map(([n, c]) =>
-      `<option value="${n}" ${n === name ? 'selected' : ''}>${n} &mdash; $${c}</option>`
+    const presetOptions = Object.entries(presetSupplies).map(([n, c]) =>
+      `<option value="${n}" ${n === name ? 'selected' : ''}>${n} &mdash; $${c.toFixed(2)}</option>`
     ).join('');
 
     row.innerHTML = `
       <div>
-        <label class="block text-xs font-medium text-text-muted mb-1">Part</label>
-        <select class="part-preset w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
-          <option value="">Custom part...</option>
+        <label class="block text-xs font-medium text-text-muted mb-1">Supply Item</label>
+        <select class="supply-preset w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
+          <option value="">Custom item...</option>
           ${presetOptions}
         </select>
       </div>
       <div>
-        <label class="block text-xs font-medium text-text-muted mb-1">Wholesale Cost ($)</label>
-        <input type="number" class="part-cost w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" value="${cost}" min="0" step="0.01" />
+        <label class="block text-xs font-medium text-text-muted mb-1">Unit Cost ($)</label>
+        <input type="number" class="supply-cost w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" value="${cost}" min="0" step="0.01" />
       </div>
       <div>
-        <label class="block text-xs font-medium text-text-muted mb-1">Markup %</label>
-        <input type="number" class="part-markup w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" value="${markup}" min="0" step="1" />
+        <label class="block text-xs font-medium text-text-muted mb-1">Qty</label>
+        <input type="number" class="supply-qty w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm text-center focus:border-accent focus:outline-none transition-colors" value="${qty}" min="0" step="1" />
       </div>
       <div>
-        <label class="block text-xs font-medium text-text-muted mb-1">Sell Price</label>
-        <div class="part-sell-price bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-accent text-sm font-medium">&mdash;</div>
+        <label class="block text-xs font-medium text-text-muted mb-1">Subtotal</label>
+        <div class="supply-subtotal bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-accent text-sm font-medium">&mdash;</div>
       </div>
       <div>
-        <button class="remove-part-btn mt-5 text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove part">&times;</button>
+        <button class="remove-supply-btn mt-5 text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove supply">&times;</button>
       </div>
     `;
 
     table.appendChild(row);
 
     // Preset dropdown change
-    const presetSelect = row.querySelector('.part-preset') as HTMLSelectElement;
-    const costInput = row.querySelector('.part-cost') as HTMLInputElement;
+    const presetSelect = row.querySelector('.supply-preset') as HTMLSelectElement;
+    const costInput = row.querySelector('.supply-cost') as HTMLInputElement;
 
     presetSelect.addEventListener('change', () => {
       const selected = presetSelect.value;
-      if (selected && presetParts[selected] !== undefined) {
-        costInput.value = String(presetParts[selected]);
+      if (selected && presetSupplies[selected] !== undefined) {
+        costInput.value = String(presetSupplies[selected]);
       }
       calculate();
     });
@@ -328,80 +322,70 @@ const faqSchema = {
     });
 
     // Remove button
-    row.querySelector('.remove-part-btn')!.addEventListener('click', () => {
+    row.querySelector('.remove-supply-btn')!.addEventListener('click', () => {
       row.remove();
       calculate();
     });
 
-    // If a name was passed and it matches a preset, auto-fill cost
-    if (name && presetParts[name] !== undefined && cost === 0) {
-      costInput.value = String(presetParts[name]);
+    // Auto-fill cost if preset name passed
+    if (name && presetSupplies[name] !== undefined && cost === 0) {
+      costInput.value = String(presetSupplies[name]);
     }
 
-    updatePartSellPrice(row);
+    updateSupplySubtotal(row);
     calculate();
   }
 
-  function updatePartSellPrice(row: Element) {
-    const cost = parseFloat((row.querySelector('.part-cost') as HTMLInputElement).value) || 0;
-    const markup = parseFloat((row.querySelector('.part-markup') as HTMLInputElement).value) || 0;
-    const sellPrice = cost * (1 + markup / 100);
-    (row.querySelector('.part-sell-price') as HTMLElement).textContent = `$${sellPrice.toFixed(2)}`;
+  function updateSupplySubtotal(row: Element) {
+    const cost = parseFloat((row.querySelector('.supply-cost') as HTMLInputElement).value) || 0;
+    const qty = parseFloat((row.querySelector('.supply-qty') as HTMLInputElement).value) || 0;
+    const subtotal = cost * qty;
+    (row.querySelector('.supply-subtotal') as HTMLElement).textContent = `$${subtotal.toFixed(2)}`;
   }
 
   function calculate() {
-    // Service details
-    const diagnosticFee = parseFloat((document.getElementById('diagnostic-fee') as HTMLInputElement).value) || 0;
+    // Base pricing
+    const minimumFee = parseFloat((document.getElementById('minimum-fee') as HTMLInputElement).value) || 0;
+
+    // Labor
+    const numCleaners = parseFloat((document.getElementById('num-cleaners') as HTMLInputElement).value) || 1;
     const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
     const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
     const loadedWage = parseFloat((document.getElementById('loaded-wage') as HTMLInputElement).value) || 0;
 
-    // Labor calculations
-    const laborRevenue = laborHours * billableRate;
-    const laborCost = laborHours * loadedWage;
+    const totalLaborHours = numCleaners * laborHours;
+    const laborRevenue = totalLaborHours * billableRate;
+    const laborCost = totalLaborHours * loadedWage;
 
-    // Parts calculations
-    let partsRevenue = 0;
-    let partsCost = 0;
-    document.querySelectorAll('.part-row').forEach(row => {
-      updatePartSellPrice(row);
-      const cost = parseFloat((row.querySelector('.part-cost') as HTMLInputElement).value) || 0;
-      const markup = parseFloat((row.querySelector('.part-markup') as HTMLInputElement).value) || 0;
-      const sellPrice = cost * (1 + markup / 100);
-      partsCost += cost;
-      partsRevenue += sellPrice;
+    // Supplies
+    let suppliesCost = 0;
+    document.querySelectorAll('.supply-row').forEach(row => {
+      updateSupplySubtotal(row);
+      const cost = parseFloat((row.querySelector('.supply-cost') as HTMLInputElement).value) || 0;
+      const qty = parseFloat((row.querySelector('.supply-qty') as HTMLInputElement).value) || 0;
+      suppliesCost += cost * qty;
     });
 
-    // Materials calculations
-    const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
-    const refLbs = parseFloat((document.getElementById('refrigerant-lbs') as HTMLInputElement).value) || 0;
-    const refCostPerLb = parseFloat((document.getElementById('refrigerant-cost') as HTMLInputElement).value) || 0;
-    const refPricePerLb = parseFloat((document.getElementById('refrigerant-price') as HTMLInputElement).value) || 0;
-    const refrigerantCost = refLbs * refCostPerLb;
-    const refrigerantRevenue = refLbs * refPricePerLb;
-
-    // Other
-    const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
+    // Travel and tax
+    const travelFee = parseFloat((document.getElementById('travel-fee') as HTMLInputElement).value) || 0;
     const taxRate = parseFloat((document.getElementById('tax-rate') as HTMLInputElement).value) || 0;
 
-    // Tax applies to parts and materials only
-    const taxableAmount = partsRevenue + refrigerantRevenue;
-    const taxAmount = taxableAmount * (taxRate / 100);
-
-    // Totals
-    const customerTotal = diagnosticFee + laborRevenue + partsRevenue + refrigerantRevenue + permitFee + taxAmount;
-    const totalCost = laborCost + partsCost + refrigerantCost + permitFee;
+    // Calculate totals
+    const subtotal = minimumFee + laborRevenue + suppliesCost + travelFee;
+    const taxAmount = subtotal * (taxRate / 100);
+    const customerTotal = subtotal + taxAmount;
+    const totalCost = laborCost + suppliesCost;
     const grossProfit = customerTotal - totalCost;
     const profitMargin = customerTotal > 0 ? (grossProfit / customerTotal) * 100 : 0;
-    const profitPerHour = laborHours > 0 ? grossProfit / laborHours : 0;
+    const profitPerHour = totalLaborHours > 0 ? grossProfit / totalLaborHours : 0;
 
-    // Update customer side results
+    // Update customer breakdown
     document.getElementById('result-customer-total')!.textContent = `$${customerTotal.toFixed(0)}`;
-    document.getElementById('result-parts-revenue')!.textContent = `$${partsRevenue.toFixed(0)}`;
-    document.getElementById('result-labor-revenue')!.textContent = `$${(diagnosticFee + laborRevenue).toFixed(0)}`;
-    document.getElementById('result-refrigerant-revenue')!.textContent = `$${refrigerantRevenue.toFixed(0)}`;
+    document.getElementById('result-labor-revenue')!.textContent = `$${(minimumFee + laborRevenue).toFixed(0)}`;
+    document.getElementById('result-supplies-revenue')!.textContent = `$${suppliesCost.toFixed(2)}`;
+    document.getElementById('result-other-revenue')!.textContent = `$${(travelFee + taxAmount).toFixed(0)}`;
 
-    // Update profitability results
+    // Update profitability
     document.getElementById('result-gross-profit')!.textContent = `$${grossProfit.toFixed(0)}`;
     document.getElementById('result-total-cost')!.textContent = `$${totalCost.toFixed(0)}`;
     document.getElementById('result-profit-per-hour')!.textContent = `$${profitPerHour.toFixed(0)}/hr`;
@@ -418,64 +402,35 @@ const faqSchema = {
       marginEl.classList.add('text-[#34D399]');
     }
 
-    // Benchmark bar (range $0 - $800+)
-    const maxBenchmark = 800;
+    // Benchmark bar (range $0 - $400+)
+    const maxBenchmark = 400;
     const markerPct = Math.min((customerTotal / maxBenchmark) * 100, 100);
     const marker = document.getElementById('benchmark-marker')!;
     marker.style.left = `${markerPct}%`;
 
     let benchmarkNote = '';
-    if (customerTotal < 200) {
-      benchmarkNote = 'Below average range. Make sure your margins are healthy.';
-    } else if (customerTotal <= 600) {
-      benchmarkNote = 'Within the typical range for Cleaning service calls.';
+    if (customerTotal < 100) {
+      benchmarkNote = 'Below average range. Confirm your margins are healthy at this price point.';
+    } else if (customerTotal <= 300) {
+      benchmarkNote = 'Within the typical range for residential cleaning jobs.';
     } else {
-      benchmarkNote = 'Above average. Justified for major repairs or premium service.';
+      benchmarkNote = 'Above average. Typical for deep cleans, move-outs, or larger properties.';
     }
     document.getElementById('benchmark-text')!.textContent = `Your price: $${customerTotal.toFixed(0)} \u2014 ${benchmarkNote}`;
-
-    // Show results
   }
 
-  // Materials type change handler
-  document.getElementById('refrigerant-type')?.addEventListener('change', () => {
-    const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
-    const costInput = document.getElementById('refrigerant-cost') as HTMLInputElement;
-    const priceInput = document.getElementById('refrigerant-price') as HTMLInputElement;
+  // Add Supply button
+  document.getElementById('add-supply-btn')?.addEventListener('click', () => addSupplyRow());
 
-    if (refType === 'none') {
-      costInput.value = '0';
-      priceInput.value = '0';
-      costInput.disabled = true;
-      priceInput.disabled = true;
-      (document.getElementById('refrigerant-lbs') as HTMLInputElement).value = '0';
-    } else {
-      const pricing = refrigerantPricing[refType];
-      costInput.value = String(pricing.cost);
-      priceInput.value = String(pricing.price);
-      costInput.disabled = false;
-      priceInput.disabled = false;
-    }
-    calculate();
-  });
-
-  // Calculate button
-
-  // Add Part button
-  document.getElementById('add-part-btn')?.addEventListener('click', () => addPartRow());
-
-  // Auto-calculate on any input/select change within the calculator
-  document.querySelectorAll('#service-calc > .grid input, #service-calc > .grid select, #service-calc input[id="permit-fee"], #service-calc input[id="tax-rate"]').forEach(el => {
+  // Auto-calculate on any input/select change within main sections
+  document.querySelectorAll('#job-pricing-calc > .grid input, #job-pricing-calc > .grid select').forEach(el => {
     el.addEventListener('input', calculate);
     el.addEventListener('change', calculate);
   });
 
-  // Also listen on materials inputs
-  document.getElementById('refrigerant-lbs')?.addEventListener('input', calculate);
-  document.getElementById('refrigerant-cost')?.addEventListener('input', calculate);
-  document.getElementById('refrigerant-price')?.addEventListener('input', calculate);
-
-  // Initialize with one empty part row and run initial calculation
-  addPartRow('Capacitor', 18, 200);
+  // Initialize with common default supplies and run calculation
+  addSupplyRow('All-Purpose Cleaner', 5, 1);
+  addSupplyRow('Trash Bags (each)', 0.75, 3);
+  addSupplyRow('Rubber Gloves (pair)', 1.50, 1);
   calculate();
 </script>

@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much does a new Cleaning system cost?",
+      "name": "How much does professional house cleaning cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A new Cleaning system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency primary systems for a average home averages around $6,500, while a high-efficiency high-efficiency system can run $11,500 or more before regional and complexity adjustments."
+        "text": "Professional house cleaning typically costs $100 to $400 for a standard to deep clean, depending on home size, number of rooms, clutter level, and your region. A standard clean for a 1,500 sq ft home averages $150 to $200 in most markets. Deep cleans, move-out cleans, and post-construction cleans cost more due to the additional time and effort involved."
       }
     },
     {
       "@type": "Question",
-      "name": "What size Cleaning system do I need?",
+      "name": "What factors affect the cost of a house cleaning?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "System size is measured in tons and depends on your home's square footage, insulation, climate, and layout. A rough rule of thumb is 1 ton per 500-600 square feet, but a proper Manual J load calculation is required for accurate sizing. Oversized systems short-cycle and waste energy, while undersized systems can't keep up on extreme days."
+        "text": "The biggest factors are home size (square footage), service type (standard, deep, move-out, or post-construction), clutter level, number of bedrooms and bathrooms, add-on services like inside appliances or windows, and your geographic region. Homes with pets, heavy clutter, or that have not been cleaned recently will cost more due to additional labor time."
       }
     },
     {
       "@type": "Question",
-      "name": "Are there tax credits for new Cleaning systems?",
+      "name": "How much extra do cleaning add-ons cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying high-efficiency systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and systems may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details."
+        "text": "Common add-ons include inside fridge cleaning ($35), inside oven cleaning ($35), laundry service ($25 per load), interior window cleaning ($5 per window), and garage sweeping ($50). Add-ons are priced separately because they require specialized attention and extra time beyond the standard cleaning scope."
       }
     },
     {
       "@type": "Question",
-      "name": "How long does Cleaning installation take?",
+      "name": "Does home size affect cleaning cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new system work is required, expect 2-3 days. Converting from one system type to another (e.g., system to high-efficiency option) may take 1-2 days. Complex multi-zone premium installations can take 2-4 days depending on the number of indoor units and line set routing."
+        "text": "Yes. Square footage is one of the primary cost drivers. Larger homes take more time to clean, which means more labor hours. A home under 1,000 sq ft may take 1.5 to 2 hours for a standard clean, while a 3,000 sq ft home could take 4 to 5 hours. Most cleaning companies use square footage brackets or per-square-foot pricing to scale their rates accordingly."
       }
     }
   ]
@@ -49,72 +49,113 @@ const faqSchema = {
     <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="systemType">System Type</label>
-        <select id="systemType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="standard-system">Standard System</option>
-          <option value="heat-pump">Premium Option</option>
-          <option value="mini-1">Option 1-Zone</option>
-          <option value="mini-2">Option 2-Zone</option>
-          <option value="mini-3">Option 3-Zone</option>
-          <option value="mini-4">Option 4-Zone</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="serviceType">Service Type</label>
+        <select id="serviceType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="standard">Standard Clean ($100 - $200)</option>
+          <option value="deep">Deep Clean ($200 - $400)</option>
+          <option value="moveout">Move-Out Clean ($300 - $600)</option>
+          <option value="postconstruction">Post-Construction ($400 - $800)</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="efficiency">Efficiency Level</label>
-        <select id="efficiency" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="standard">Standard (14 efficiency / 80% efficiency)</option>
-          <option value="mid" selected>Mid-Range (16 efficiency / 96% efficiency)</option>
-          <option value="high">High Efficiency (high-efficiency)</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft">Home Square Footage</label>
+        <input type="range" id="sqft" min="500" max="5000" step="100" value="1500" class="w-full h-2 bg-bg-dark rounded-lg appearance-none cursor-pointer accent-accent" />
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-text-muted text-xs">500</span>
+          <span id="sqftDisplay" class="text-text-primary text-sm font-bold">1,500 sq ft</span>
+          <span class="text-text-muted text-xs">5,000</span>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bedrooms">Bedrooms</label>
+        <select id="bedrooms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1">1 Bedroom</option>
+          <option value="2">2 Bedrooms</option>
+          <option value="3" selected>3 Bedrooms</option>
+          <option value="4">4 Bedrooms</option>
+          <option value="5">5+ Bedrooms</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tons">System Size (Tons)</label>
-        <select id="tons" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1.5">1.5 Ton</option>
-          <option value="2">2 Ton</option>
-          <option value="2.5">2.5 Ton</option>
-          <option value="3" selected>3 Ton</option>
-          <option value="3.5">3.5 Ton</option>
-          <option value="4">4 Ton</option>
-          <option value="5">5 Ton</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bathrooms">Bathrooms</label>
+        <select id="bathrooms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1">1 Bathroom</option>
+          <option value="2" selected>2 Bathrooms</option>
+          <option value="3">3 Bathrooms</option>
+          <option value="4">4+ Bathrooms</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="clutter">Clutter Level</label>
+        <select id="clutter" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1.0" selected>Minimal (tidy, surfaces clear)</option>
+          <option value="1.2">Moderate (some items to move)</option>
+          <option value="1.5">Heavy (lots of items, cluttered surfaces)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region / Cost of Living</label>
         <select id="region" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="0.85">Southeast</option>
-          <option value="0.90">Midwest</option>
-          <option value="0.95">South</option>
-          <option value="1.00" selected>National Average</option>
-          <option value="1.05">Mountain</option>
-          <option value="1.10">Northeast</option>
-          <option value="1.10">Pacific NW</option>
-          <option value="1.15">West</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="homeType">Home Type</label>
-        <select id="homeType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1.0" selected>Single Story</option>
-          <option value="1.1">Multi-Story</option>
-          <option value="1.15">Attic Installation</option>
-          <option value="1.1">Crawlspace</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ductwork">Project Complexity</label>
-        <select id="ductwork" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1.0" selected>Existing (good condition)</option>
-          <option value="1.15">Partial Modification Needed</option>
-          <option value="1.5">Major Renovation Required</option>
+          <option value="0.8">Low COL (rural, smaller cities)</option>
+          <option value="1.0" selected>Average COL (most metro areas)</option>
+          <option value="1.3">High COL (NYC, SF, LA, Boston)</option>
         </select>
       </div>
     </div>
 
+    <!-- Add-Ons -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4">Add-On Services</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" id="addon-fridge" value="35" class="addon-check w-5 h-5 rounded border-border bg-bg-dark accent-accent" />
+          <div>
+            <span class="text-text-primary text-sm font-medium">Inside Fridge</span>
+            <span class="text-accent text-sm ml-1">+$35</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" id="addon-oven" value="35" class="addon-check w-5 h-5 rounded border-border bg-bg-dark accent-accent" />
+          <div>
+            <span class="text-text-primary text-sm font-medium">Inside Oven</span>
+            <span class="text-accent text-sm ml-1">+$35</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" id="addon-laundry" class="addon-check w-5 h-5 rounded border-border bg-bg-dark accent-accent" />
+          <div>
+            <span class="text-text-primary text-sm font-medium">Laundry</span>
+            <span class="text-accent text-sm ml-1">+$25/load</span>
+          </div>
+        </label>
+        <div id="laundryLoadsWrap" class="hidden sm:col-span-2 lg:col-span-1">
+          <label class="block text-xs text-text-muted mb-1" for="laundryLoads">Number of Loads</label>
+          <input type="number" id="laundryLoads" value="1" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" id="addon-windows" class="addon-check w-5 h-5 rounded border-border bg-bg-dark accent-accent" />
+          <div>
+            <span class="text-text-primary text-sm font-medium">Interior Windows</span>
+            <span class="text-accent text-sm ml-1">+$5/window</span>
+          </div>
+        </label>
+        <div id="windowCountWrap" class="hidden">
+          <label class="block text-xs text-text-muted mb-1" for="windowCount">Number of Windows</label>
+          <input type="number" id="windowCount" value="10" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent transition-colors">
+          <input type="checkbox" id="addon-garage" value="50" class="addon-check w-5 h-5 rounded border-border bg-bg-dark accent-accent" />
+          <div>
+            <span class="text-text-primary text-sm font-medium">Garage Sweep</span>
+            <span class="text-accent text-sm ml-1">+$50</span>
+          </div>
+        </label>
+      </div>
+    </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Your Estimated Cost</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Your Estimated Cleaning Cost</h3>
 
       <!-- Cost Range Bar -->
       <div class="bg-bg-dark rounded-xl p-6 mb-6">
@@ -139,26 +180,39 @@ const faqSchema = {
         </div>
       </div>
 
-      <!-- Monthly Financing + Tax Credit -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <!-- Breakdown -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">60-Month Financing</div>
-          <div id="result-monthly60" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">per month</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Base Price</div>
+          <div id="result-base" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">from service type</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">120-Month Financing</div>
-          <div id="result-monthly120" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">per month</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Size Adjustment</div>
+          <div id="result-sizefactor" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">sq ft factor</div>
         </div>
-        <div id="tax-credit-card" class="hidden bg-bg-dark rounded-xl p-5 text-center border border-green-500/30">
-          <div class="text-green-400 text-xs font-medium uppercase tracking-wider mb-2">Federal Tax Credit</div>
-          <div class="font-heading font-extrabold text-2xl text-green-400">Up to $2,000</div>
-          <div class="text-text-muted text-xs mt-1">25C credit for qualifying high-efficiency options</div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Add-Ons Total</div>
+          <div id="result-addons" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">extra services</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Region Multiplier</div>
+          <div id="result-region" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">cost of living adj.</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">This is a ballpark estimate based on national averages. Actual costs vary by contractor, equipment brand, and job-specific conditions. Get exact pricing from a licensed Cleaning contractor in your area.</p>
+      <!-- Formula display -->
+      <div class="bg-bg-dark rounded-xl p-4 mb-6">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">How We Calculate</div>
+        <div class="font-mono text-sm text-text-secondary">
+          (Base Price x Sq Ft Factor x Clutter Multiplier x Regional Factor) + Add-Ons
+        </div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">This is a ballpark estimate based on national cleaning industry averages. Actual costs vary by provider, home condition, and specific requirements. Get exact pricing from a licensed and insured cleaning professional in your area.</p>
     </div>
   </div>
 
@@ -169,22 +223,21 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select your system type.</strong> Choose between a traditional primary systems combo, a high-efficiency option, or a premium system. Premium options are priced by the number of indoor zones.</p>
-          <p><strong class="text-text-primary">2. Pick your efficiency level.</strong> Standard efficiency costs less upfront but more to operate. High-efficiency systems cost more to install but lower monthly energy bills and may qualify for federal tax credits.</p>
-          <p><strong class="text-text-primary">3. Set the system size and your region.</strong> Tonnage should match your home's load calculation. Regional labor and material costs vary significantly, with the Southeast being most affordable and the West Coast being most expensive.</p>
-          <p><strong class="text-text-primary">4. Adjust for complexity.</strong> Multi-story homes, difficult access, and special requirements add labor time. Major system changes can add 50% to the total project cost.</p>
+          <p><strong class="text-text-primary">1. Select your service type.</strong> Choose between a standard clean for regular maintenance, a deep clean for more thorough work, a move-out clean for rental turnovers, or a post-construction clean for new builds and renovations. Each service type has a different base price range.</p>
+          <p><strong class="text-text-primary">2. Set your home size.</strong> Use the slider to enter your home's approximate square footage. Larger homes take more time to clean, which increases the cost. The estimator scales the base price proportionally.</p>
+          <p><strong class="text-text-primary">3. Select bedrooms, bathrooms, and clutter level.</strong> More rooms mean more surfaces to clean. Heavy clutter adds time because cleaners need to move items before they can wipe, vacuum, and mop. The clutter multiplier adjusts your estimate accordingly.</p>
+          <p><strong class="text-text-primary">4. Choose your region and add extras.</strong> Cost of living significantly affects cleaning prices. High-cost cities like New York and San Francisco run 30% higher than average. Check any add-on services you want included, and the total updates in real time.</p>
         </div>
       </section>
 
       <!-- What Affects Cost -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Affects Cleaning Replacement Cost</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Affects House Cleaning Cost</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">System type and efficiency.</strong> The biggest cost driver is the equipment itself. A basic standard efficiency system is the most affordable option. High-efficiency options cost slightly less for the equipment but provide both heating and cooling. High-efficiency units (high-efficiency) can cost double the standard models.</p>
-          <p><strong class="text-text-primary">System size.</strong> Larger homes need larger systems. The cost scales roughly proportionally with tonnage. A 5-ton system costs significantly more than a 2-ton system in both equipment and labor.</p>
-          <p><strong class="text-text-primary">Regional pricing.</strong> Labor rates, permit costs, and material availability vary by region. Southeastern states tend to have the lowest installation costs, while the West Coast and Northeast are the most expensive markets.</p>
-          <p><strong class="text-text-primary">Home complexity.</strong> Multi-story homes require more additional materials, longer runs, and difficult access. Work in tight spaces, at height, or in extreme weather adds difficulty and time. Complex jobs with multiple components take longer and cost more.</p>
-          <p><strong class="text-text-primary">System condition.</strong> If your existing existing systems are in good shape, the contractor simply connects the new system. Partial modifications (adding a return, resizing a trunk line) add moderate cost. A full system overhaul is a major project that can increase the total price by 50%.</p>
+          <p><strong class="text-text-primary">Service type is the biggest factor.</strong> A standard clean covers the basics: vacuuming, mopping, wiping counters, cleaning bathrooms, and tidying the kitchen. A deep clean adds baseboards, inside cabinets, detailed scrubbing, and areas that get skipped in regular maintenance. Move-out and post-construction cleans are the most labor-intensive because every surface must be spotless.</p>
+          <p><strong class="text-text-primary">Square footage drives time.</strong> More space means more floors to mop, more surfaces to dust, and more rooms to vacuum. A 2,500 sq ft home will take roughly twice as long as a 1,200 sq ft apartment. Cleaning companies price by the hour or by size bracket for this reason.</p>
+          <p><strong class="text-text-primary">Clutter and condition matter.</strong> A tidy home with clear counters and organized rooms cleans faster than a cluttered home where the crew has to move piles of items, clear surfaces, and work around obstacles. If your home has not been professionally cleaned in a long time, expect the first visit to cost more than ongoing maintenance visits.</p>
+          <p><strong class="text-text-primary">Add-on services increase the total.</strong> Inside-appliance cleaning (fridge, oven), laundry, interior windows, and garage sweeping are priced separately because they require specialized attention and extra time beyond the base cleaning scope. Choose only what you need.</p>
         </div>
       </section>
 
@@ -192,9 +245,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">During sales visits.</strong> Pull this up on your tablet while sitting at the kitchen table with a homeowner. Walk through the options together, show them how efficiency level and system condition affect the price, and set realistic expectations before running your detailed proposal.</p>
-          <p><strong class="text-text-primary">Phone estimates.</strong> When a homeowner calls asking "how much for a new AC?" you can walk them through a few questions and give a ballpark range on the spot. This builds trust and qualifies the lead before scheduling an in-home visit.</p>
-          <p><strong class="text-text-primary">Website lead generation.</strong> Embed this calculator on your website so homeowners can self-educate on pricing. Visitors who use the tool and then call you are better-informed and more likely to convert because they already have realistic price expectations.</p>
+          <p><strong class="text-text-primary">Before calling a cleaning company.</strong> Use this estimator to get a realistic price range before you start requesting quotes. Knowing the ballpark helps you identify fair pricing and avoid overpaying. If a quote comes in significantly above or below this range, ask questions.</p>
+          <p><strong class="text-text-primary">Budgeting for recurring service.</strong> If you are considering hiring a regular cleaning service, use this tool to estimate per-visit costs. Multiply by the number of visits per month to get your monthly cleaning budget. Most recurring customers pay less per visit than one-time customers.</p>
+          <p><strong class="text-text-primary">Comparing service levels.</strong> Run the calculator at different service types to see the price difference between a standard clean and a deep clean for your home. This helps you decide which level of service gives you the best value for your situation.</p>
         </div>
       </section>
 
@@ -203,20 +256,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a new Cleaning system cost?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A new Cleaning system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency primary systems for a average home averages around $6,500, while a high-efficiency high-efficiency system can run $11,500 or more before regional and complexity adjustments.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does professional house cleaning cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Professional house cleaning typically costs $100 to $400 for a standard to deep clean, depending on home size, number of rooms, clutter level, and your region. A standard clean for a 1,500 sq ft home averages $150 to $200 in most markets. Deep cleans, move-out cleans, and post-construction cleans cost more due to the additional time and effort involved.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size Cleaning system do I need?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">System size is measured in tons and depends on your home's square footage, insulation, climate, and layout. A rough rule of thumb is 1 ton per 500-600 square feet, but a proper Manual J load calculation is required for accurate sizing. Oversized systems short-cycle and waste energy, while undersized systems can't keep up on extreme days.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What factors affect the cost of a house cleaning?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The biggest factors are home size (square footage), service type (standard, deep, move-out, or post-construction), clutter level, number of bedrooms and bathrooms, add-on services like inside appliances or windows, and your geographic region. Homes with pets, heavy clutter, or that have not been cleaned recently will cost more due to additional labor time.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Are there tax credits for new Cleaning systems?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying high-efficiency systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and systems may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much extra do cleaning add-ons cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common add-ons include inside fridge cleaning ($35), inside oven cleaning ($35), laundry service ($25 per load), interior window cleaning ($5 per window), and garage sweeping ($50). Add-ons are priced separately because they require specialized attention and extra time beyond the standard cleaning scope.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does Cleaning installation take?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new system work is required, expect 2-3 days. Converting from one system type to another (e.g., system to high-efficiency option) may take 1-2 days. Complex multi-zone premium installations can take 2-4 days depending on the number of indoor units and line set routing.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Does home size affect cleaning cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Square footage is one of the primary cost drivers. Larger homes take more time to clean, which means more labor hours. A home under 1,000 sq ft may take 1.5 to 2 hours for a standard clean, while a 3,000 sq ft home could take 4 to 5 hours. Most cleaning companies use square footage brackets or per-square-foot pricing to scale their rates accordingly.</div>
           </details>
         </div>
       </section>
@@ -226,54 +279,78 @@ const faqSchema = {
 
 <script>
   function calculate() {
-    const systemType = (document.getElementById('systemType') as HTMLSelectElement).value;
-    const efficiency = (document.getElementById('efficiency') as HTMLSelectElement).value;
-    const tons = parseFloat((document.getElementById('tons') as HTMLSelectElement).value);
-    const region = parseFloat((document.getElementById('region') as HTMLSelectElement).value);
-    const homeType = parseFloat((document.getElementById('homeType') as HTMLSelectElement).value);
-    const ductwork = parseFloat((document.getElementById('ductwork') as HTMLSelectElement).value);
+    const serviceType = (document.getElementById('serviceType') as HTMLSelectElement).value;
+    const sqft = parseFloat((document.getElementById('sqft') as HTMLInputElement).value) || 1500;
+    const bedrooms = parseInt((document.getElementById('bedrooms') as HTMLSelectElement).value) || 3;
+    const bathrooms = parseInt((document.getElementById('bathrooms') as HTMLSelectElement).value) || 2;
+    const clutter = parseFloat((document.getElementById('clutter') as HTMLSelectElement).value) || 1.0;
+    const region = parseFloat((document.getElementById('region') as HTMLSelectElement).value) || 1.0;
 
-    // Base prices by system type and efficiency
-    const basePrices: Record<string, Record<string, number>> = {
-      'standard-system': { standard: 6500, mid: 9000, high: 13000 },
-      'heat-pump': { standard: 5500, mid: 8000, high: 11500 },
-      'mini-1': { standard: 4500, mid: 4500, high: 4500 },
-      'mini-2': { standard: 7000, mid: 7000, high: 7000 },
-      'mini-3': { standard: 10000, mid: 10000, high: 10000 },
-      'mini-4': { standard: 13000, mid: 13000, high: 13000 },
+    // Update sqft display
+    document.getElementById('sqftDisplay')!.textContent = sqft.toLocaleString() + ' sq ft';
+
+    // Base price ranges by service type (low, high)
+    const basePrices: Record<string, [number, number]> = {
+      'standard': [100, 200],
+      'deep': [200, 400],
+      'moveout': [300, 600],
+      'postconstruction': [400, 800],
     };
 
-    const basePrice = basePrices[systemType]?.[efficiency] ?? 9000;
+    const [baseLow, baseHigh] = basePrices[serviceType] || [100, 200];
+    const baseMid = (baseLow + baseHigh) / 2;
 
-    // Formula: Base_Price x Regional x (Tons/3.0) x Complexity x Complexity
-    const estimatedCost = basePrice * region * (size / 1.0) * homeType * ductwork;
+    // Sq ft factor: normalized to 1500 sq ft as baseline
+    const sqftFactor = sqft / 1500;
 
-    const low = Math.round(estimatedCost * 0.8);
-    const mid = Math.round(estimatedCost);
-    const high = Math.round(estimatedCost * 1.2);
-    const monthly60 = Math.round(mid / 60);
-    const monthly120 = Math.round(mid / 120);
+    // Room adjustment: small bump for extra bedrooms/bathrooms beyond baseline (3 bed/2 bath)
+    const roomAdjust = 1 + ((bedrooms - 3) * 0.03) + ((bathrooms - 2) * 0.05);
+
+    // Calculate add-ons
+    let addons = 0;
+    if ((document.getElementById('addon-fridge') as HTMLInputElement).checked) addons += 35;
+    if ((document.getElementById('addon-oven') as HTMLInputElement).checked) addons += 35;
+    if ((document.getElementById('addon-laundry') as HTMLInputElement).checked) {
+      const loads = parseInt((document.getElementById('laundryLoads') as HTMLInputElement).value) || 1;
+      addons += 25 * loads;
+    }
+    if ((document.getElementById('addon-windows') as HTMLInputElement).checked) {
+      const windows = parseInt((document.getElementById('windowCount') as HTMLInputElement).value) || 10;
+      addons += 5 * windows;
+    }
+    if ((document.getElementById('addon-garage') as HTMLInputElement).checked) addons += 50;
+
+    // Formula: base_price x sqft_factor x room_adjust x clutter x region + addons
+    const estimatedLow = Math.round(baseLow * sqftFactor * roomAdjust * clutter * region + addons);
+    const estimatedMid = Math.round(baseMid * sqftFactor * roomAdjust * clutter * region + addons);
+    const estimatedHigh = Math.round(baseHigh * sqftFactor * roomAdjust * clutter * region + addons);
 
     // Format currency
     const fmt = (n: number) => '$' + n.toLocaleString();
 
-    document.getElementById('result-low')!.textContent = fmt(low);
-    document.getElementById('result-mid')!.textContent = fmt(mid);
-    document.getElementById('result-high')!.textContent = fmt(high);
-    document.getElementById('result-monthly60')!.textContent = fmt(monthly60);
-    document.getElementById('result-monthly120')!.textContent = fmt(monthly120);
+    document.getElementById('result-low')!.textContent = fmt(estimatedLow);
+    document.getElementById('result-mid')!.textContent = fmt(estimatedMid);
+    document.getElementById('result-high')!.textContent = fmt(estimatedHigh);
 
-    // Show/hide tax credit for high-efficiency option and premium option systems
-    const taxCreditCard = document.getElementById('tax-credit-card')!;
-    const isHeatPump = systemType === 'heat-pump' || systemType.startsWith('mini-');
-    taxCreditCard.classList.toggle('hidden', !isHeatPump);
+    // Breakdown cards
+    document.getElementById('result-base')!.textContent = fmt(baseLow) + ' - ' + fmt(baseHigh);
+    document.getElementById('result-sizefactor')!.textContent = sqftFactor.toFixed(2) + 'x';
+    document.getElementById('result-addons')!.textContent = fmt(addons);
+    document.getElementById('result-region')!.textContent = region.toFixed(1) + 'x';
 
+    // Toggle laundry loads visibility
+    const laundryChecked = (document.getElementById('addon-laundry') as HTMLInputElement).checked;
+    document.getElementById('laundryLoadsWrap')!.classList.toggle('hidden', !laundryChecked);
+
+    // Toggle window count visibility
+    const windowsChecked = (document.getElementById('addon-windows') as HTMLInputElement).checked;
+    document.getElementById('windowCountWrap')!.classList.toggle('hidden', !windowsChecked);
   }
 
-
   // Auto-calculate on input change
-  document.querySelectorAll('#cost-calc select').forEach(el => {
+  document.querySelectorAll('#cost-calc select, #cost-calc input').forEach(el => {
     el.addEventListener('change', calculate);
+    el.addEventListener('input', calculate);
   });
 
   // Calculate on load with defaults

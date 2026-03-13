@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should a Cleaning service agreement include?",
+      "name": "What should a recurring cleaning service agreement include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A cleaning service agreement should include company and customer information, covered properties with address, property size, and special instructions, the coverage tier detailing what is included (scheduled cleanings, add-on discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties."
+        "text": "A recurring cleaning service agreement should include company and customer information, the property address with size and special instructions, the service tier detailing cleaning type and frequency (biweekly standard, weekly deep, etc.), access arrangements (key, lockbox code, or garage code), pricing and payment terms, satisfaction guarantee details, cancellation policy with required notice period, and a clear scope of work describing what is included in each cleaning visit."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I charge for a maintenance agreement?",
+      "name": "How much should I charge for a recurring cleaning agreement?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most cleaning companies charge between $100 and $400 per property per month depending on the coverage tier and cleaning frequency. A basic plan with one visit per month typically runs $100 to $150. A standard plan with bi-weekly visits and add-on discounts runs $200 to $300. Premium plans with weekly visits, priority scheduling, and deeper discounts run $300 to $400. Price to cover your costs plus a healthy margin — aim for 50% or higher gross profit on agreement revenue."
+        "text": "Most cleaning companies charge between $149 and $399 per month for recurring residential agreements depending on the service tier and frequency. A basic biweekly standard clean runs $149 to $199 per month. A mid-tier plan with weekly standard cleans plus a monthly deep clean runs $249 to $299. Premium plans with weekly deep cleans and quarterly move-out level service run $349 to $449. Price to cover your labor, supplies, drive time, and overhead plus a 40-60% gross margin."
       }
     },
     {
       "@type": "Question",
-      "name": "How do maintenance agreements increase business value?",
+      "name": "How do recurring cleaning agreements increase business value?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cleaning service agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $250 per month each has $1.5 million in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during scheduled cleaning visits."
+        "text": "Recurring cleaning agreements create predictable monthly revenue that business buyers and lenders value at a higher multiple than one-time service revenue. A company with 100 active agreements at $249 per month has nearly $300,000 in predictable annual revenue. This recurring revenue stabilizes cash flow, improves customer retention since agreement clients are far less likely to shop competitors, and generates consistent route density that reduces drive time and increases daily productivity."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the difference between a service agreement and a warranty?",
+      "name": "What cancellation policy should a cleaning agreement have?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A satisfaction guarantee is a company promise that covers the quality of a specific cleaning visit — typically a re-clean within 24 to 48 hours if the client is unhappy. A service agreement is a contract between the cleaning company and the customer for ongoing scheduled cleanings and service benefits like recurring visits, add-on discounts, and priority scheduling. Satisfaction guarantees cover individual visit quality while service agreements cover the ongoing cleaning relationship and service perks. Many cleaning companies offer both to build long-term client trust."
+        "text": "A 30-day written notice cancellation policy is standard for residential cleaning agreements. This gives you time to fill the schedule gap and protects against last-minute cancellations. Some companies use 15-day notice for month-to-month plans and 30-day for longer commitments. Always include language about how prepaid services are handled at cancellation. Offering a satisfaction guarantee with a free re-clean within 24 hours reduces cancellations significantly because clients feel protected."
       }
     }
   ]
@@ -62,7 +62,7 @@ const faqSchema = {
         <input type="email" id="companyEmail" placeholder="service@yourcleaning.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyLicense">License #</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyLicense">License / Insurance #</label>
         <input type="text" id="companyLicense" placeholder="CLN-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -76,9 +76,9 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="agreementTerm">Term</label>
         <select id="agreementTerm" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1">1 Year</option>
-          <option value="2">2 Years</option>
-          <option value="3">3 Years</option>
+          <option value="6">6 Months</option>
+          <option value="12" selected>12 Months</option>
+          <option value="24">24 Months</option>
         </select>
       </div>
     </div>
@@ -91,7 +91,7 @@ const faqSchema = {
         <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Property Address</label>
         <input type="text" id="customerAddress" placeholder="123 Main St, City, State ZIP" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -104,192 +104,122 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Properties Covered -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Properties Covered</h3>
-    <div id="systemsList" class="space-y-4 mb-4">
-      <div class="system-entry bg-bg-dark border border-border rounded-lg p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
-            <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-              <option value="Central AC">Office Space</option>
-              <option value="Heat Pump">Retail Space</option>
-              <option value="Furnace">Equipment</option>
-              <option value="Mini Split">Warehouse</option>
-              <option value="Boiler">Medical</option>
-              <option value="Package Unit">Restaurant</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
-            <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Carrier" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
-            <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="24ACC636A003" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
-            <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
-            <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-end">
-            <button type="button" class="remove-system-btn text-red-400 hover:text-red-300 text-sm font-medium transition-colors hidden">Remove</button>
-          </div>
-        </div>
+    <!-- Property Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Property Details</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="propertySqft">Property Size (sq ft)</label>
+        <input type="number" id="propertySqft" value="1500" min="200" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="propertyBedBath">Bed / Bath</label>
+        <input type="text" id="propertyBedBath" placeholder="3 bed / 2 bath" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="accessMethod">Access Method</label>
+        <select id="accessMethod" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Client home">Client home</option>
+          <option value="Key provided">Key provided</option>
+          <option value="Lockbox">Lockbox</option>
+          <option value="Garage code">Garage code</option>
+          <option value="Door code">Door code</option>
+        </select>
+      </div>
+      <div class="md:col-span-2 lg:col-span-3">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="specialNotes">Special Instructions</label>
+        <input type="text" id="specialNotes" placeholder="Pets, allergies, no-go areas, alarm codes..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
-    <button id="addSystemBtn" type="button" class="text-accent hover:text-accent-hover text-sm font-semibold transition-colors mb-8">
-      + Add Another System
-    </button>
 
     <!-- Coverage Tiers -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Coverage Tier</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Tier</h3>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
-      <!-- Basic - Comfort Plan -->
-      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="basic">
+      <!-- Clean Essentials -->
+      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="essentials">
         <div class="flex items-center gap-3 mb-3">
-          <input type="radio" name="tier" id="tierBasic" value="basic" class="accent-accent w-4 h-4" />
-          <label for="tierBasic" class="font-heading font-bold text-base text-text-primary cursor-pointer">Comfort Plan</label>
+          <input type="radio" name="tier" id="tierEssentials" value="essentials" class="accent-accent w-4 h-4" />
+          <label for="tierEssentials" class="font-heading font-bold text-base text-text-primary cursor-pointer">Clean Essentials</label>
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
-            <input type="number" id="basicPrice" value="179" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-xs font-medium text-text-muted mb-1">Monthly Price ($)</label>
+            <input type="number" id="essentialsPrice" value="149" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
-            <input type="number" id="basicTuneups" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="basicPriority" checked class="accent-accent w-4 h-4" />
-            <label for="basicPriority" class="text-sm text-text-secondary cursor-pointer">Priority Scheduling</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
-            <input type="number" id="basicDiscount" value="10" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="basicNoOvertime" checked class="accent-accent w-4 h-4" />
-            <label for="basicNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Charges</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="basicNoDiag" class="accent-accent w-4 h-4" />
-            <label for="basicNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Supplies Included (lbs)</label>
-            <input type="number" id="basicRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          <div class="text-xs text-text-secondary space-y-1 pt-2 border-t border-border">
+            <p>Biweekly standard maintenance clean</p>
+            <p>Kitchen, bathrooms, floors, dusting</p>
+            <p>Satisfaction guarantee (re-clean in 24 hrs)</p>
           </div>
         </div>
       </div>
 
-      <!-- Standard - Comfort Plus -->
-      <div class="tier-card bg-bg-dark border-2 border-accent rounded-xl p-5 cursor-pointer transition-all relative" data-tier="standard">
+      <!-- Clean Plus -->
+      <div class="tier-card bg-bg-dark border-2 border-accent rounded-xl p-5 cursor-pointer transition-all relative" data-tier="plus">
         <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full">Most Popular</div>
         <div class="flex items-center gap-3 mb-3">
-          <input type="radio" name="tier" id="tierStandard" value="standard" checked class="accent-accent w-4 h-4" />
-          <label for="tierStandard" class="font-heading font-bold text-base text-text-primary cursor-pointer">Comfort Plus</label>
+          <input type="radio" name="tier" id="tierPlus" value="plus" checked class="accent-accent w-4 h-4" />
+          <label for="tierPlus" class="font-heading font-bold text-base text-text-primary cursor-pointer">Clean Plus</label>
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
-            <input type="number" id="standardPrice" value="299" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-xs font-medium text-text-muted mb-1">Monthly Price ($)</label>
+            <input type="number" id="plusPrice" value="249" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
-            <input type="number" id="standardTuneups" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="standardSameDay" checked class="accent-accent w-4 h-4" />
-            <label for="standardSameDay" class="text-sm text-text-secondary cursor-pointer">Same-Day Scheduling</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
-            <input type="number" id="standardDiscount" value="15" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="standardNoOvertime" checked class="accent-accent w-4 h-4" />
-            <label for="standardNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Charges</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="standardNoDiag" checked class="accent-accent w-4 h-4" />
-            <label for="standardNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Supplies Included (lbs)</label>
-            <input type="number" id="standardRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          <div class="text-xs text-text-secondary space-y-1 pt-2 border-t border-border">
+            <p>Weekly standard maintenance clean</p>
+            <p>Monthly deep clean included</p>
+            <p>Inside oven and fridge monthly</p>
+            <p>Priority scheduling</p>
+            <p>Satisfaction guarantee (re-clean in 24 hrs)</p>
           </div>
         </div>
       </div>
 
-      <!-- Premium - Total Comfort -->
-      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="premium">
+      <!-- Total Clean -->
+      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="total">
         <div class="flex items-center gap-3 mb-3">
-          <input type="radio" name="tier" id="tierPremium" value="premium" class="accent-accent w-4 h-4" />
-          <label for="tierPremium" class="font-heading font-bold text-base text-text-primary cursor-pointer">Total Comfort</label>
+          <input type="radio" name="tier" id="tierTotal" value="total" class="accent-accent w-4 h-4" />
+          <label for="tierTotal" class="font-heading font-bold text-base text-text-primary cursor-pointer">Total Clean</label>
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
-            <input type="number" id="premiumPrice" value="449" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <label class="block text-xs font-medium text-text-muted mb-1">Monthly Price ($)</label>
+            <input type="number" id="totalPrice" value="399" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
-            <input type="number" id="premiumTuneups" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="premiumSameDay" checked class="accent-accent w-4 h-4" />
-            <label for="premiumSameDay" class="text-sm text-text-secondary cursor-pointer">Same-Day Guarantee</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
-            <input type="number" id="premiumDiscount" value="20" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="premiumNoOvertime" checked class="accent-accent w-4 h-4" />
-            <label for="premiumNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Charges</label>
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="premiumNoDiag" checked class="accent-accent w-4 h-4" />
-            <label for="premiumNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Supplies Included (lbs)</label>
-            <input type="number" id="premiumRefrigerant" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-center gap-2">
-            <input type="checkbox" id="premiumIAQ" checked class="accent-accent w-4 h-4" />
-            <label for="premiumIAQ" class="text-sm text-text-secondary cursor-pointer">IAQ Check Included</label>
+          <div class="text-xs text-text-secondary space-y-1 pt-2 border-t border-border">
+            <p>Weekly deep clean</p>
+            <p>Quarterly move-out level clean</p>
+            <p>All appliances included every visit</p>
+            <p>Interior windows monthly</p>
+            <p>Same-day scheduling guarantee</p>
+            <p>Satisfaction guarantee (re-clean in 24 hrs)</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Payment Terms -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Payment Terms</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Payment &amp; Terms</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentFreq">Payment Frequency</label>
-        <select id="paymentFreq" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Annual">Annual</option>
-          <option value="Semi-Annual">Semi-Annual</option>
-          <option value="Monthly">Monthly</option>
-        </select>
-      </div>
-      <div class="flex items-center gap-3 pt-8">
+      <div class="flex items-center gap-3 pt-2">
         <input type="checkbox" id="autoRenew" checked class="accent-accent w-5 h-5" />
         <label for="autoRenew" class="text-text-primary font-medium cursor-pointer">Auto-Renew</label>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="cancelNotice">Cancellation Notice</label>
         <select id="cancelNotice" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="30">30 Days</option>
+          <option value="15">15 Days</option>
+          <option value="30" selected>30 Days</option>
           <option value="60">60 Days</option>
-          <option value="90">90 Days</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentMethod">Payment Method</label>
+        <select id="paymentMethod" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Credit card on file">Credit card on file</option>
+          <option value="ACH / Bank transfer">ACH / Bank transfer</option>
+          <option value="Check">Check</option>
+          <option value="Cash">Cash</option>
         </select>
       </div>
     </div>
@@ -300,37 +230,37 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div>
           <label class="block text-xs font-medium text-text-muted mb-1">Number of Agreements</label>
-          <input type="number" id="numAgreements" value="50" min="1" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="numAgreements" value="25" min="1" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-text-muted mb-1">Avg Price / Agreement ($)</label>
-          <input type="text" id="avgPrice" value="299" readonly class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-muted text-sm cursor-not-allowed" />
+          <label class="block text-xs font-medium text-text-muted mb-1">Avg Monthly Price ($)</label>
+          <input type="text" id="avgPrice" value="249" readonly class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-muted text-sm cursor-not-allowed" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-text-muted mb-1">Tech Cost / Hour ($)</label>
-          <input type="number" id="techCost" value="45" min="0" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs font-medium text-text-muted mb-1">Labor Cost / Visit ($)</label>
+          <input type="number" id="laborCostPerVisit" value="45" min="0" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-text-muted mb-1">Hours / Tune-Up</label>
-          <input type="number" id="hoursPerTuneup" value="1.5" min="0" step="0.25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs font-medium text-text-muted mb-1">Supply Cost / Visit ($)</label>
+          <input type="number" id="supplyCostPerVisit" value="8" min="0" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-bg-card rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Revenue</div>
-          <div id="profitRevenue" class="font-heading font-extrabold text-2xl text-accent">$14,950</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Revenue</div>
+          <div id="profitRevenue" class="font-heading font-extrabold text-2xl text-accent">$6,225</div>
         </div>
         <div class="bg-bg-card rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost to Service</div>
-          <div id="profitCost" class="font-heading font-extrabold text-2xl text-text-primary">$6,750</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Cost</div>
+          <div id="profitCost" class="font-heading font-extrabold text-2xl text-text-primary">$2,650</div>
         </div>
         <div class="bg-bg-card rounded-xl p-4 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit / Agreement</div>
-          <div id="profitPerAgreement" class="font-heading font-extrabold text-2xl text-text-primary">$164</div>
+          <div id="profitPerAgreement" class="font-heading font-extrabold text-2xl text-text-primary">$143</div>
         </div>
         <div class="bg-bg-card rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Annual Profit</div>
-          <div id="profitTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$8,200</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Profit</div>
+          <div id="profitTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$42,900</div>
         </div>
       </div>
     </div>
@@ -339,6 +269,7 @@ const faqSchema = {
     <button id="generateBtn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
       Generate Service Agreement &rarr;
     </button>
+    <p class="text-text-muted text-sm italic mt-3">Opens a print-ready agreement in a new window. Use your browser's print dialog to save as PDF.</p>
   </div>
 
   <!-- Content sections -->
@@ -348,21 +279,21 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your company and customer details.</strong> Fill in your company name, license number, and contact info. Then add the customer's name, address, and contact information. The agreement number auto-generates but you can customize it to match your numbering system.</p>
-          <p><strong class="text-text-primary">2. Add the covered systems.</strong> List every piece of equipment the agreement covers. Include the equipment type, make, model, serial number, and install date. Click "Add Another System" for homes with multiple units. More systems means more revenue per agreement.</p>
-          <p><strong class="text-text-primary">3. Select and customize a coverage tier.</strong> Choose Basic, Standard, or Premium. Each tier comes pre-loaded with industry-standard pricing and benefits. Adjust the price, service visit count, repair discount, and included perks to match what your company offers.</p>
-          <p><strong class="text-text-primary">4. Generate and print.</strong> Click Generate to create a professional, printable service agreement. It includes all the details you entered, the selected coverage tier, payment terms, cancellation policy, and signature lines for both parties.</p>
+          <p><strong class="text-text-primary">1. Enter your company and customer details.</strong> Fill in your company name, license or insurance number, and contact info. Then add the customer's name, property address, and contact information. The agreement number auto-generates but you can customize it to match your numbering system.</p>
+          <p><strong class="text-text-primary">2. Add property details.</strong> Enter the property size, bed and bath count, and the access method your team will use (key, lockbox, garage code). Note any special instructions like pets, allergies, or areas to avoid.</p>
+          <p><strong class="text-text-primary">3. Select and customize a service tier.</strong> Choose Clean Essentials, Clean Plus, or Total Clean. Each tier comes pre-loaded with competitive pricing and service descriptions. Adjust the monthly price to match what your company offers in your market.</p>
+          <p><strong class="text-text-primary">4. Generate and print.</strong> Click Generate to create a professional, printable service agreement. It includes all property details, the selected service tier with scope of work, payment terms, cancellation policy, satisfaction guarantee, and signature lines for both parties.</p>
         </div>
       </section>
 
-      <!-- Why Service Agreements Are Essential -->
+      <!-- Why Recurring Agreements Matter -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Why Service Agreements Are Essential for Cleaning</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Recurring Agreements Are Essential for Cleaning</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>Service agreements transform a Cleaning business from a reactive, seasonal operation into one with <strong class="text-text-primary">predictable recurring revenue</strong>. Instead of waiting for the phone to ring when something breaks, agreements guarantee scheduled work throughout the year and build a backlog of committed revenue before the season even starts.</p>
-          <p><strong class="text-text-primary">Customer retention skyrockets.</strong> A customer with an active agreement is 5 to 8 times more likely to call you for their next repair or replacement than a one-time service customer. They are already paying you, they know your technicians, and they trust your company. That loyalty means fewer leads you need to buy and a lower cost of acquisition for every job.</p>
-          <p><strong class="text-text-primary">Agreements increase business value.</strong> When buyers or investors evaluate a Cleaning company, recurring revenue from maintenance agreements is valued at a significantly higher multiple than one-time service revenue. A company with 500 active agreements is worth materially more than one without — even if total revenue is similar. Agreements also smooth out seasonal cash flow, making it easier to manage payroll, inventory, and growth investments year-round.</p>
-          <p>Every service visit visit is also a <strong class="text-text-primary">sales opportunity</strong>. Technicians identify aging capacitors, corroded coils, and inefficient systems during routine maintenance. Agreement customers trust your recommendations because they already have a relationship with your company, leading to higher close rates on repairs and replacements.</p>
+          <p>Recurring service agreements transform a cleaning business from a one-off gig operation into one with <strong class="text-text-primary">predictable monthly revenue</strong>. Instead of chasing new leads every week, agreements guarantee scheduled work and committed income before the month even starts.</p>
+          <p><strong class="text-text-primary">Customer retention dramatically improves.</strong> A client with an active agreement is far less likely to shop competitors or cancel on short notice. They have committed to a schedule, they know your team, and they trust your work. That loyalty means fewer leads you need to buy and a lower cost of acquisition for every job.</p>
+          <p><strong class="text-text-primary">Agreements increase business value.</strong> When buyers or investors evaluate a cleaning company, recurring agreement revenue is valued at a significantly higher multiple than one-time job revenue. Agreements also smooth out cash flow, making it easier to manage payroll, supplies, and growth investments month to month.</p>
+          <p>Every recurring visit is also a <strong class="text-text-primary">sales opportunity</strong>. Your team can identify needs for deep cleans, window washing, carpet cleaning, or other add-ons during routine maintenance visits. Agreement customers trust your recommendations because they already have a relationship with your company, leading to higher close rates on upsells.</p>
         </div>
       </section>
 
@@ -370,9 +301,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Launching a maintenance agreement program.</strong> You know you need recurring revenue but have never offered agreements before. Use this template to design your tier structure, set competitive pricing, and generate professional contracts. The profitability calculator helps you price tiers that actually make money after accounting for technician labor and materials.</p>
-          <p><strong class="text-text-primary">Closing new installs.</strong> After completing a system installation, present the customer with a service agreement before you leave the job site. Offer a first-year discount or include the first year with the installation. This is the highest-conversion moment — the customer just invested thousands of dollars and wants to protect their new equipment.</p>
-          <p><strong class="text-text-primary">Renewing and upgrading existing agreements.</strong> At renewal time, generate an updated agreement with the customer's current equipment details. Use the tier comparison to show customers the value of upgrading from Basic to Standard or Standard to Premium. The incremental revenue from tier upgrades adds up fast across your entire agreement base.</p>
+          <p><strong class="text-text-primary">Launching a recurring service program.</strong> You know you need predictable revenue but have never offered formal agreements. Use this template to design your tier structure, set competitive pricing, and generate professional contracts. The profitability calculator helps you price tiers that actually make money after accounting for labor and supplies.</p>
+          <p><strong class="text-text-primary">Converting one-time clients to recurring.</strong> After completing a one-time deep clean or move-out clean, present the customer with a recurring agreement before you leave. Offer a first-month discount to close them on the spot. This is the highest-conversion moment because the customer just saw the quality of your work and the home is spotless.</p>
+          <p><strong class="text-text-primary">Renewing and upgrading existing clients.</strong> At renewal time, generate an updated agreement with the customer's current property details. Use the tier comparison to show clients the value of upgrading from Clean Essentials to Clean Plus or from Clean Plus to Total Clean. The incremental revenue from tier upgrades adds up fast across your entire client base.</p>
         </div>
       </section>
 
@@ -381,20 +312,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Cleaning service agreement include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A Cleaning service agreement should include company and customer information, covered equipment with make, model, and serial numbers, the coverage tier detailing what is included (service visits, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a recurring cleaning service agreement include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A recurring cleaning service agreement should include company and customer information, the property address with size and special instructions, the service tier detailing cleaning type and frequency (biweekly standard, weekly deep, etc.), access arrangements (key, lockbox code, or garage code), pricing and payment terms, satisfaction guarantee details, cancellation policy with required notice period, and a clear scope of work describing what is included in each cleaning visit.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a maintenance agreement?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Cleaning companies charge between $150 and $500 per service per year depending on the coverage tier. A basic plan with one service visit typically runs $150 to $200. A standard plan with two service visits and a repair discount runs $250 to $350. Premium plans with priority service, included materials, and deeper discounts run $400 to $500. Price to cover your costs plus a healthy margin.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a recurring cleaning agreement?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most cleaning companies charge between $149 and $399 per month for recurring residential agreements depending on the service tier and frequency. A basic biweekly standard clean runs $149 to $199 per month. A mid-tier plan with weekly standard cleans plus a monthly deep clean runs $249 to $299. Premium plans with weekly deep cleans and quarterly move-out level service run $349 to $449. Price to cover your labor, supplies, drive time, and overhead plus a 40-60% gross margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do maintenance agreements increase business value?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $300 each has $150,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during service visit visits.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do recurring cleaning agreements increase business value?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Recurring cleaning agreements create predictable monthly revenue that business buyers and lenders value at a higher multiple than one-time service revenue. A company with 100 active agreements at $249 per month has nearly $300,000 in predictable annual revenue. This recurring revenue stabilizes cash flow, improves customer retention since agreement clients are far less likely to shop competitors, and generates consistent route density that reduces drive time and increases daily productivity.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between a service agreement and a warranty?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A warranty is a manufacturer guarantee that covers defects in equipment or workmanship for a set period — typically 5 to 10 years on parts. A service agreement is a contract between the Cleaning company and the customer for ongoing maintenance and service benefits like service visits, repair discounts, and priority scheduling. Warranties cover equipment failure while service agreements cover preventive maintenance and service perks.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What cancellation policy should a cleaning agreement have?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-day written notice cancellation policy is standard for residential cleaning agreements. This gives you time to fill the schedule gap and protects against last-minute cancellations. Some companies use 15-day notice for month-to-month plans and 30-day for longer commitments. Always include language about how prepaid services are handled at cancellation. Offering a satisfaction guarantee with a free re-clean within 24 hours reduces cancellations significantly because clients feel protected.</div>
           </details>
         </div>
       </section>
@@ -413,75 +344,10 @@ const faqSchema = {
   const today = new Date().toISOString().split('T')[0];
   $('agreementDate').value = today;
 
-  // ---- Dynamic Systems ----
-  function createSystemEntry(): HTMLDivElement {
-    const div = document.createElement('div');
-    div.className = 'system-entry bg-bg-dark border border-border rounded-lg p-4';
-    div.innerHTML = `
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
-          <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Office Space</option>
-            <option value="Heat Pump">Retail Space</option>
-            <option value="Furnace">Equipment</option>
-            <option value="Mini Split">Warehouse</option>
-            <option value="Boiler">Medical</option>
-            <option value="Package Unit">Restaurant</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
-          <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Carrier" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
-          <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="24ACC636A003" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
-          <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
-          <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div class="flex items-end">
-          <button type="button" class="remove-system-btn text-red-400 hover:text-red-300 text-sm font-medium transition-colors">Remove</button>
-        </div>
-      </div>
-    `;
-    return div;
-  }
-
-  document.getElementById('addSystemBtn')?.addEventListener('click', () => {
-    const list = document.getElementById('systemsList')!;
-    list.appendChild(createSystemEntry());
-    updateRemoveButtons();
-  });
-
-  document.getElementById('systemsList')?.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('remove-system-btn')) {
-      target.closest('.system-entry')?.remove();
-      updateRemoveButtons();
-      updateProfitability();
-    }
-  });
-
-  function updateRemoveButtons() {
-    const entries = document.querySelectorAll('.system-entry');
-    entries.forEach((entry, i) => {
-      const btn = entry.querySelector('.remove-system-btn') as HTMLElement;
-      if (btn) btn.classList.toggle('hidden', entries.length <= 1);
-    });
-  }
-
   // ---- Tier card selection ----
   document.querySelectorAll('.tier-card').forEach(card => {
     card.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
-      // Don't intercept clicks on inputs themselves
       if (target.tagName === 'INPUT' || target.tagName === 'LABEL') return;
       const radio = card.querySelector('input[type="radio"]') as HTMLInputElement;
       if (radio) {
@@ -512,115 +378,115 @@ const faqSchema = {
     });
   });
 
+  // ---- Tier configs for visits/month ----
+  const tierVisits: Record<string, number> = {
+    'essentials': 2,   // biweekly = 2/month
+    'plus': 5,         // 4 weekly + 1 deep
+    'total': 5,        // 4 weekly deep + quarterly
+  };
+
   // ---- Profitability Calculator ----
-  function getSelectedTierData() {
-    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'standard';
-    const prefix = tier === 'basic' ? 'basic' : tier === 'premium' ? 'premium' : 'standard';
-    return {
-      price: val(`${prefix}Price`),
-      tuneups: val(`${prefix}Tuneups`),
-    };
+  function getSelectedTierPrice(): number {
+    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'plus';
+    if (tier === 'essentials') return val('essentialsPrice');
+    if (tier === 'total') return val('totalPrice');
+    return val('plusPrice');
+  }
+
+  function getSelectedTierVisits(): number {
+    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'plus';
+    return tierVisits[tier] || 4;
   }
 
   function updateProfitability() {
-    const tierData = getSelectedTierData();
-    const numAgreements = val('numAgreements') || 50;
-    const numSystems = document.querySelectorAll('.system-entry').length || 1;
-    const techCost = val('techCost') || 45;
-    const hours = val('hoursPerTuneup') || 1.5;
+    const monthlyPrice = getSelectedTierPrice();
+    const visitsPerMonth = getSelectedTierVisits();
+    const numAgreements = val('numAgreements') || 25;
+    const laborCost = val('laborCostPerVisit') || 45;
+    const supplyCost = val('supplyCostPerVisit') || 8;
 
-    // Update avg price field
-    $('avgPrice').value = tierData.price.toString();
+    $('avgPrice').value = monthlyPrice.toString();
 
-    const annualRevenue = numAgreements * tierData.price;
-    const costPerTuneup = techCost * hours;
-    const totalTuneupsPerAgreement = tierData.tuneups;
-    const totalCost = numAgreements * totalTuneupsPerAgreement * costPerTuneup;
-    const profitPerAgreement = tierData.price - (totalTuneupsPerAgreement * costPerTuneup);
-    const totalProfit = annualRevenue - totalCost;
+    const monthlyRevenue = numAgreements * monthlyPrice;
+    const costPerVisit = laborCost + supplyCost;
+    const monthlyCost = numAgreements * visitsPerMonth * costPerVisit;
+    const monthlyProfit = monthlyRevenue - monthlyCost;
+    const profitPerAgreement = monthlyPrice - (visitsPerMonth * costPerVisit);
+    const annualProfit = monthlyProfit * 12;
 
-    document.getElementById('profitRevenue')!.textContent = `$${fmt(annualRevenue)}`;
-    document.getElementById('profitCost')!.textContent = `$${fmt(totalCost)}`;
+    document.getElementById('profitRevenue')!.textContent = `$${fmt(monthlyRevenue)}`;
+    document.getElementById('profitCost')!.textContent = `$${fmt(monthlyCost)}`;
     document.getElementById('profitPerAgreement')!.textContent = `$${fmt(profitPerAgreement)}`;
-    document.getElementById('profitTotal')!.textContent = `$${fmt(totalProfit)}`;
+    document.getElementById('profitTotal')!.textContent = `$${fmt(annualProfit)}`;
 
-    // Color code profit
     const profitEl = document.getElementById('profitTotal')!;
-    if (totalProfit > 0) {
+    if (annualProfit > 0) {
       profitEl.className = 'font-heading font-extrabold text-2xl text-[#34D399]';
     } else {
       profitEl.className = 'font-heading font-extrabold text-2xl text-red-400';
     }
   }
 
-  // Listen to profitability inputs
-  ['numAgreements', 'techCost', 'hoursPerTuneup'].forEach(id => {
+  ['numAgreements', 'laborCostPerVisit', 'supplyCostPerVisit'].forEach(id => {
     $(id)?.addEventListener('input', updateProfitability);
   });
 
-  // Listen to tier price/tuneup changes
   document.querySelectorAll('.tier-input').forEach(input => {
     input.addEventListener('input', updateProfitability);
   });
 
-  // ---- Generate Agreement ----
-  function getSystems() {
-    const systems: Array<{type: string; make: string; model: string; serial: string; install: string}> = [];
-    document.querySelectorAll('.system-entry').forEach(entry => {
-      systems.push({
-        type: (entry.querySelector('.sys-type') as HTMLSelectElement)?.value || '',
-        make: (entry.querySelector('.sys-make') as HTMLInputElement)?.value || '',
-        model: (entry.querySelector('.sys-model') as HTMLInputElement)?.value || '',
-        serial: (entry.querySelector('.sys-serial') as HTMLInputElement)?.value || '',
-        install: (entry.querySelector('.sys-install') as HTMLInputElement)?.value || '',
-      });
-    });
-    return systems;
-  }
-
+  // ---- Tier details for PDF ----
   function getSelectedTierDetails() {
-    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'standard';
-    if (tier === 'basic') {
+    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'plus';
+    if (tier === 'essentials') {
       return {
-        name: 'Comfort Plan',
-        tier: 'Basic',
-        price: val('basicPrice'),
-        tuneups: val('basicTuneups'),
-        scheduling: checked('basicPriority') ? 'Priority Scheduling' : 'Standard Scheduling',
-        discount: val('basicDiscount'),
-        noOvertime: checked('basicNoOvertime'),
-        noDiag: checked('basicNoDiag'),
-        refrigerant: val('basicRefrigerant'),
-        iaq: false,
+        name: 'Clean Essentials',
+        price: val('essentialsPrice'),
+        frequency: 'Biweekly',
+        scope: [
+          'Biweekly standard maintenance clean',
+          'Kitchen: counters, sink, stovetop, exterior appliances',
+          'Bathrooms: toilet, shower/tub, sink, mirror, floor',
+          'All rooms: vacuum, mop hard floors, dust surfaces',
+          'Trash removal from all rooms',
+          'Satisfaction guarantee: free re-clean within 24 hours',
+        ],
       };
-    } else if (tier === 'premium') {
+    } else if (tier === 'total') {
       return {
-        name: 'Total Comfort',
-        tier: 'Premium',
-        price: val('premiumPrice'),
-        tuneups: val('premiumTuneups'),
-        scheduling: checked('premiumSameDay') ? 'Same-Day Guarantee' : 'Standard Scheduling',
-        discount: val('premiumDiscount'),
-        noOvertime: checked('premiumNoOvertime'),
-        noDiag: checked('premiumNoDiag'),
-        refrigerant: val('premiumRefrigerant'),
-        iaq: checked('premiumIAQ'),
+        name: 'Total Clean',
+        price: val('totalPrice'),
+        frequency: 'Weekly',
+        scope: [
+          'Weekly deep clean',
+          'All standard clean tasks plus:',
+          'Baseboards, light switches, door frames every visit',
+          'Inside oven, microwave, and fridge every visit',
+          'Interior windows cleaned monthly',
+          'Quarterly move-out level clean (walls, inside cabinets, fixtures)',
+          'Same-day scheduling guarantee',
+          'Satisfaction guarantee: free re-clean within 24 hours',
+        ],
       };
     }
     return {
-      name: 'Comfort Plus',
-      tier: 'Standard',
-      price: val('standardPrice'),
-      tuneups: val('standardTuneups'),
-      scheduling: checked('standardSameDay') ? 'Same-Day Scheduling' : 'Standard Scheduling',
-      discount: val('standardDiscount'),
-      noOvertime: checked('standardNoOvertime'),
-      noDiag: checked('standardNoDiag'),
-      refrigerant: val('standardRefrigerant'),
-      iaq: false,
+      name: 'Clean Plus',
+      price: val('plusPrice'),
+      frequency: 'Weekly',
+      scope: [
+        'Weekly standard maintenance clean',
+        'Monthly deep clean included',
+        'Inside oven and fridge cleaned monthly',
+        'Kitchen: counters, sink, stovetop, exterior appliances, backsplash',
+        'Bathrooms: toilet, shower/tub, sink, mirror, floor, fixtures',
+        'All rooms: vacuum, mop, dust, cobweb removal',
+        'Priority scheduling',
+        'Satisfaction guarantee: free re-clean within 24 hours',
+      ],
     };
   }
 
+  // ---- Generate Agreement PDF ----
   document.getElementById('generateBtn')?.addEventListener('click', () => {
     const companyName = $('companyName').value || 'Your Cleaning Company';
     const companyPhone = $('companyPhone').value || '';
@@ -633,47 +499,23 @@ const faqSchema = {
     const customerAddress = $('customerAddress').value || '';
     const customerPhone = $('customerPhone').value || '';
     const customerEmail = $('customerEmail').value || '';
-    const systems = getSystems();
+    const propertySqft = $('propertySqft').value || '';
+    const propertyBedBath = $('propertyBedBath').value || '';
+    const accessMethod = ($('accessMethod') as HTMLSelectElement).value;
+    const specialNotes = $('specialNotes').value || '';
     const tier = getSelectedTierDetails();
-    const paymentFreq = ($('paymentFreq') as HTMLSelectElement).value;
     const autoRenew = checked('autoRenew');
     const cancelNotice = ($('cancelNotice') as HTMLSelectElement).value;
-    const numSystems = systems.length;
-    const totalAnnual = tier.price * numSystems;
-
-    let paymentAmount = totalAnnual;
-    let paymentLabel = 'Annually';
-    if (paymentFreq === 'Semi-Annual') { paymentAmount = totalAnnual / 2; paymentLabel = 'Semi-Annually'; }
-    else if (paymentFreq === 'Monthly') { paymentAmount = totalAnnual / 12; paymentLabel = 'Monthly'; }
+    const paymentMethod = ($('paymentMethod') as HTMLSelectElement).value;
+    const monthlyPrice = tier.price;
+    const annualPrice = monthlyPrice * 12;
 
     const formattedDate = new Date(agreementDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
     const endDate = new Date(agreementDate + 'T00:00:00');
-    endDate.setFullYear(endDate.getFullYear() + parseInt(agreementTerm));
+    endDate.setMonth(endDate.getMonth() + parseInt(agreementTerm));
     const formattedEnd = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-    const systemsRows = systems.map((s, i) => `
-      <tr>
-        <td style="border:1px solid #ddd;padding:8px;">${i + 1}</td>
-        <td style="border:1px solid #ddd;padding:8px;">${s.type}</td>
-        <td style="border:1px solid #ddd;padding:8px;">${s.make}</td>
-        <td style="border:1px solid #ddd;padding:8px;">${s.model}</td>
-        <td style="border:1px solid #ddd;padding:8px;">${s.serial}</td>
-        <td style="border:1px solid #ddd;padding:8px;">${s.install ? new Date(s.install + 'T00:00:00').toLocaleDateString('en-US') : 'N/A'}</td>
-      </tr>
-    `).join('');
-
-    const benefitsList = [
-      `${tier.tuneups} comprehensive service visit${tier.tuneups > 1 ? 's' : ''} per service per year`,
-      tier.scheduling,
-      `${tier.discount}% discount on all repairs`,
-      tier.noOvertime ? 'No overtime charges on service calls' : null,
-      tier.noDiag ? 'No diagnostic fee' : null,
-      tier.refrigerant > 0 ? `Up to ${tier.refrigerant} lb${tier.refrigerant > 1 ? 's' : ''} of materials included per visit` : null,
-      tier.iaq ? 'Indoor air quality check included with each service visit' : null,
-    ].filter(Boolean);
-
-    const benefitsHtml = benefitsList.map(b => `<li style="margin-bottom:6px;">${b}</li>`).join('');
+    const scopeHtml = tier.scope.map(s => `<li style="margin-bottom:6px;">${s}</li>`).join('');
 
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
@@ -699,24 +541,21 @@ const faqSchema = {
           .tier-banner { background: #1a1a1a; color: #fff; padding: 14px 20px; border-radius: 6px; margin: 16px 0; display: flex; justify-content: space-between; align-items: center; }
           .tier-banner .tier-name { font-size: 18px; font-weight: 700; }
           .tier-banner .tier-price { font-size: 20px; font-weight: 700; }
-          .benefits-list { list-style: none; padding: 0; }
-          .benefits-list li { padding-left: 22px; position: relative; }
-          .benefits-list li::before { content: "\\2713"; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+          .scope-list { list-style: none; padding: 0; }
+          .scope-list li { padding-left: 22px; position: relative; }
+          .scope-list li::before { content: "\\2713"; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
           .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
           .sig-block { border-top: 1px solid #222; padding-top: 8px; margin-top: 50px; }
           .sig-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
           .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 11px; color: #999; }
-          @media print {
-            body { padding: 20px; }
-            @page { margin: 0.5in; }
-          }
+          @media print { body { padding: 20px; } @page { margin: 0.5in; } }
         </style>
       </head>
       <body>
         <div class="header">
           <div class="header-left">
             <h1>${companyName}</h1>
-            <div style="font-size:13px;color:#555;margin-top:4px;">Cleaning Service Agreement</div>
+            <div style="font-size:13px;color:#555;margin-top:4px;">Recurring Cleaning Service Agreement</div>
           </div>
           <div class="header-right">
             ${companyPhone ? `<div>${companyPhone}</div>` : ''}
@@ -727,8 +566,8 @@ const faqSchema = {
 
         <div style="display:flex;justify-content:space-between;margin-bottom:20px;font-size:13px;">
           <div><strong>Agreement #:</strong> ${agreementNumber}</div>
-          <div><strong>Date:</strong> ${formattedDate}</div>
-          <div><strong>Term:</strong> ${agreementTerm} Year${parseInt(agreementTerm) > 1 ? 's' : ''}</div>
+          <div><strong>Start:</strong> ${formattedDate}</div>
+          <div><strong>Term:</strong> ${agreementTerm} months</div>
           <div><strong>Expires:</strong> ${formattedEnd}</div>
         </div>
 
@@ -738,7 +577,6 @@ const faqSchema = {
             <div>${companyName}</div>
             ${companyPhone ? `<div>${companyPhone}</div>` : ''}
             ${companyEmail ? `<div>${companyEmail}</div>` : ''}
-            ${companyLicense ? `<div>License: ${companyLicense}</div>` : ''}
           </div>
           <div class="info-box">
             <strong>Customer</strong>
@@ -749,78 +587,51 @@ const faqSchema = {
           </div>
         </div>
 
-        <h2>Covered Equipment</h2>
+        <h2>Property Details</h2>
         <table>
-          <thead>
-            <tr style="background:#f0f0f0;">
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">#</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Type</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Make</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Model</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Serial #</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Installed</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${systemsRows}
-          </tbody>
+          <tr><td style="border:1px solid #ddd;padding:8px;width:35%;background:#f8f8f8;font-weight:600;">Address</td><td style="border:1px solid #ddd;padding:8px;">${customerAddress || 'N/A'}</td></tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Size</td><td style="border:1px solid #ddd;padding:8px;">${propertySqft ? propertySqft + ' sq ft' : 'N/A'}${propertyBedBath ? ' &mdash; ' + propertyBedBath : ''}</td></tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Access Method</td><td style="border:1px solid #ddd;padding:8px;">${accessMethod}</td></tr>
+          ${specialNotes ? `<tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Special Instructions</td><td style="border:1px solid #ddd;padding:8px;">${specialNotes}</td></tr>` : ''}
         </table>
 
         <div class="tier-banner">
           <div>
             <div class="tier-name">${tier.name}</div>
-            <div style="font-size:12px;opacity:0.8;">${tier.tier} Coverage &middot; ${numSystems} System${numSystems > 1 ? 's' : ''}</div>
+            <div style="font-size:12px;opacity:0.8;">${tier.frequency} Service</div>
           </div>
-          <div class="tier-price">$${fmt(totalAnnual)}<span style="font-size:12px;font-weight:400;opacity:0.8;">/year</span></div>
+          <div class="tier-price">$${fmt(monthlyPrice)}<span style="font-size:12px;font-weight:400;opacity:0.8;">/month</span></div>
         </div>
 
-        <h2>Coverage Benefits</h2>
-        <ul class="benefits-list">
-          ${benefitsHtml}
-        </ul>
+        <h2>Scope of Work</h2>
+        <ul class="scope-list">${scopeHtml}</ul>
 
         <h2>Payment Terms</h2>
         <table>
-          <tr>
-            <td style="border:1px solid #ddd;padding:8px;width:40%;background:#f8f8f8;font-weight:600;">Price per System per Year</td>
-            <td style="border:1px solid #ddd;padding:8px;">$${fmt(tier.price)}</td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Number of Systems</td>
-            <td style="border:1px solid #ddd;padding:8px;">${numSystems}</td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Total Annual Cost</td>
-            <td style="border:1px solid #ddd;padding:8px;font-weight:700;">$${fmt(totalAnnual)}</td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Payment Frequency</td>
-            <td style="border:1px solid #ddd;padding:8px;">${paymentLabel} &mdash; $${paymentAmount.toFixed(2)} per payment</td>
-          </tr>
-          <tr>
-            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Auto-Renewal</td>
-            <td style="border:1px solid #ddd;padding:8px;">${autoRenew ? 'Yes — agreement renews automatically unless cancelled' : 'No — customer must opt in to renew'}</td>
-          </tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;width:35%;background:#f8f8f8;font-weight:600;">Monthly Price</td><td style="border:1px solid #ddd;padding:8px;font-weight:700;">$${fmt(monthlyPrice)}</td></tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Annual Value</td><td style="border:1px solid #ddd;padding:8px;">$${fmt(annualPrice)}</td></tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Payment Method</td><td style="border:1px solid #ddd;padding:8px;">${paymentMethod}</td></tr>
+          <tr><td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Auto-Renewal</td><td style="border:1px solid #ddd;padding:8px;">${autoRenew ? 'Yes &mdash; agreement renews automatically unless cancelled' : 'No &mdash; customer must opt in to renew'}</td></tr>
         </table>
 
         <h2>Terms &amp; Conditions</h2>
         <h3>1. Scope of Service</h3>
-        <p>This agreement covers scheduled preventive maintenance for the equipment listed above. The Service Provider will perform ${tier.tuneups} comprehensive service visit${tier.tuneups > 1 ? 's' : ''} per covered system per year. Tune-ups include inspection, cleaning, calibration, and safety checks per manufacturer specifications.</p>
+        <p>This agreement covers recurring cleaning services for the property listed above. The Service Provider will perform cleaning visits at the frequency specified by the selected service tier. Each visit includes the tasks listed under Scope of Work.</p>
 
-        <h3>2. Scheduling</h3>
-        <p>The Service Provider will contact the Customer to schedule service visits at mutually convenient times. ${tier.scheduling === 'Same-Day Guarantee' ? 'For service calls, the Customer is guaranteed same-day service when the call is placed before noon.' : tier.scheduling === 'Same-Day Scheduling' ? 'For service calls, the Service Provider will make every reasonable effort to provide same-day scheduling.' : 'Agreement customers receive priority scheduling ahead of non-agreement customers.'}</p>
+        <h3>2. Access &amp; Scheduling</h3>
+        <p>The Customer agrees to provide reliable access to the property via the agreed method (${accessMethod}). If the Service Provider cannot access the property at the scheduled time, the visit will be marked as completed and the monthly rate will not be adjusted. The Customer may reschedule a visit with at least 24 hours notice.</p>
 
-        <h3>3. Repair Discounts</h3>
-        <p>The Customer receives a ${tier.discount}% discount on all repair labor and parts for covered equipment during the agreement term. Discounts do not apply to new equipment installation or equipment replacement.</p>
+        <h3>3. Satisfaction Guarantee</h3>
+        <p>If the Customer is not satisfied with any cleaning visit, the Service Provider will re-clean the specified areas at no additional charge within 24 hours of notification. The Customer must notify the Service Provider within 24 hours of the completed visit to qualify for a re-clean.</p>
 
-        <h3>4. Exclusions</h3>
-        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; duct cleaning or modification; new equipment installation; code upgrades required by local authorities; or cosmetic damage. Pre-existing conditions identified during the first service visit may be excluded at the Service Provider's discretion.</p>
+        <h3>4. Supplies &amp; Equipment</h3>
+        <p>The Service Provider supplies all cleaning products, tools, and equipment unless otherwise agreed. If the Customer requires specific products due to allergies or preferences, the Customer will provide those products at their own expense.</p>
 
         <h3>5. Cancellation</h3>
-        <p>Either party may cancel this agreement with ${cancelNotice} days written notice. If the Customer cancels before the agreement term expires, a pro-rated refund will be issued less the retail value of any services already performed. The Service Provider reserves the right to cancel with ${cancelNotice} days notice and a full refund of unused services.</p>
+        <p>Either party may cancel this agreement with ${cancelNotice} days written notice. If the Customer cancels before the agreement term expires, no refund is due for the current month. The Service Provider reserves the right to cancel with ${cancelNotice} days notice if access or safety issues cannot be resolved.</p>
 
         <h3>6. Limitation of Liability</h3>
-        <p>The Service Provider's total liability under this agreement shall not exceed the annual agreement price. The Service Provider is not liable for incidental or consequential damages, including but not limited to property damage, lost income, or discomfort resulting from equipment failure.</p>
+        <p>The Service Provider carries general liability insurance and is bonded. Liability for property damage is limited to the cost of repair or replacement of the damaged item. The Service Provider is not liable for pre-existing damage, normal wear and tear, or items of extraordinary value not disclosed in advance.</p>
 
         <div class="sig-grid">
           <div>
@@ -828,18 +639,14 @@ const faqSchema = {
               <div style="font-weight:600;margin-bottom:2px;">${companyName}</div>
               <div class="sig-label">Authorized Representative</div>
             </div>
-            <div class="sig-block">
-              <div class="sig-label">Date</div>
-            </div>
+            <div class="sig-block"><div class="sig-label">Date</div></div>
           </div>
           <div>
             <div class="sig-block">
               <div style="font-weight:600;margin-bottom:2px;">${customerName}</div>
               <div class="sig-label">Customer Signature</div>
             </div>
-            <div class="sig-block">
-              <div class="sig-label">Date</div>
-            </div>
+            <div class="sig-block"><div class="sig-label">Date</div></div>
           </div>
         </div>
 
@@ -858,5 +665,4 @@ const faqSchema = {
   // ---- Init ----
   updateTierBorders();
   updateProfitability();
-  updateRemoveButtons();
 </script>

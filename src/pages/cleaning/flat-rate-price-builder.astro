@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is flat rate pricing in Cleaning?",
+      "name": "What is flat rate pricing for cleaning services?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful Cleaning companies use flat rate pricing for common repairs like floor stripping, carpet extraction, and sanitizer installs."
+        "text": "Flat rate pricing means charging a fixed price per cleaning job based on property size and service type, rather than billing hourly. The customer knows the total cost upfront, which builds trust and increases booking rates. Most successful cleaning companies use flat rate pricing for standard services like maintenance cleans, deep cleans, and move-out cleans, with add-on pricing for extras like carpet cleaning, window washing, and appliance deep cleans."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I build a flat rate price book?",
+      "name": "How do I build a flat rate cleaning price list?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change."
+        "text": "Start by defining your service categories: maintenance clean, deep clean, and move-out clean. For each category, create square footage tiers (under 1,000, 1,000-2,000, 2,000-3,000, and 3,000+). Calculate your labor cost per tier based on average time and hourly wage, add supply costs, then apply your target margin. Deep cleans typically run about 2x maintenance pricing, and move-out cleans about 2.5x. Add a separate add-on menu for extras like carpet cleaning, window washing, and appliance deep cleans."
       }
     },
     {
       "@type": "Question",
-      "name": "Is flat rate better than time and material?",
+      "name": "How much should I charge per square foot for cleaning?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing outperforms time and material billing for most Cleaning service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable."
+        "text": "National averages for residential cleaning range from $0.05 to $0.15 per square foot for maintenance cleans, $0.10 to $0.25 for deep cleans, and $0.15 to $0.35 for move-out cleans. Smaller homes cost more per square foot because fixed time like setup and travel is spread across fewer square feet. Larger homes cost less per square foot but more total. Always compare your per-square-foot rate to local competitors to stay competitive."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I use for Cleaning flat rate?",
+      "name": "What profit margin should a cleaning company target?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the Cleaning industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly."
+        "text": "Most profitable cleaning companies target 40-60% gross margin on individual jobs. This means if you charge $200 for a clean, your direct costs for labor and supplies should be $80-$120, leaving $80-$120 in gross profit. Net profit after overhead like insurance, marketing, and vehicle costs typically runs 15-25% for well-managed companies. If your margins are below 35%, review your pricing or look for ways to reduce labor time through better processes and route optimization."
       }
     }
   ]
@@ -46,50 +46,66 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="flat-rate-calc">
-    <!-- Input Section -->
+    <!-- Service Selector -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="repair-type">Repair Type</label>
-        <select id="repair-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="capacitor">Capacitor replacement</option>
-          <option value="contactor">Contactor replacement</option>
-          <option value="blower-motor">Blower motor replacement</option>
-          <option value="compressor">Compressor replacement</option>
-          <option value="txv">TXV replacement</option>
-          <option value="thermostat">Dispenser install</option>
-          <option value="coil-cleaning">Coil cleaning</option>
-          <option value="drain-line">Drain line clearing</option>
-          <option value="duct-sealing">Duct sealing (per duct)</option>
-          <option value="custom">Custom (enter your own)</option>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="service-category">Service Category</label>
+        <select id="service-category" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="maintenance">Maintenance Clean</option>
+          <option value="deep">Deep Clean</option>
+          <option value="moveout">Move-Out / Move-In Clean</option>
+          <option value="addon">Add-On Service</option>
         </select>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-cost">Parts Cost ($)</label>
-        <input type="number" id="parts-cost" value="20" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      <div id="sqft-tier-wrap">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft-tier">Square Footage Tier</label>
+        <select id="sqft-tier" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="small">Under 1,000 sq ft</option>
+          <option value="medium" selected>1,000 - 2,000 sq ft</option>
+          <option value="large">2,000 - 3,000 sq ft</option>
+          <option value="xlarge">3,000+ sq ft</option>
+        </select>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-markup">Parts Markup (%)</label>
-        <input type="number" id="parts-markup" value="200" min="0" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Estimated Labor Hours</label>
-        <input type="number" id="labor-hours" value="0.75" min="0" max="40" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-materials">Misc Materials ($)</label>
-        <input type="number" id="misc-materials" value="15" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">Your Loaded Wage ($/hr)</label>
-        <input type="number" id="loaded-wage" value="35" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Tech hourly cost including burden (taxes, insurance, benefits)</p>
+      <div id="addon-type-wrap" class="hidden">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="addon-type">Add-On Type</label>
+        <select id="addon-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="carpet">Carpet Cleaning (per sq ft)</option>
+          <option value="window-int">Window Cleaning - Interior (per window)</option>
+          <option value="window-ext">Window Cleaning - Exterior (per window)</option>
+          <option value="oven">Oven Deep Clean</option>
+          <option value="fridge">Fridge Deep Clean</option>
+          <option value="laundry">Laundry Service (per load)</option>
+          <option value="garage">Garage Sweep &amp; Clean</option>
+          <option value="custom">Custom Add-On</option>
+        </select>
       </div>
     </div>
 
+    <!-- Pricing Inputs -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Your Pricing</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="your-price">Your Price ($)</label>
+        <input type="number" id="your-price" value="150" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Estimated Labor Hours</label>
+        <input type="number" id="labor-hours" value="2" min="0" max="12" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">Your Loaded Wage ($/hr)</label>
+        <input type="number" id="loaded-wage" value="25" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Hourly cost including wages, taxes, insurance</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-cost">Supply Cost ($)</label>
+        <input type="number" id="supply-cost" value="8" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="drive-cost">Drive / Travel Cost ($)</label>
+        <input type="number" id="drive-cost" value="10" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
@@ -98,61 +114,56 @@ const faqSchema = {
       <!-- Primary Result -->
       <div class="bg-bg-dark rounded-xl p-6 text-center mb-6 border border-accent/30">
         <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flat Rate Price</div>
-        <div id="result-flat-rate" class="font-heading font-extrabold text-5xl text-accent">--</div>
-        <div id="result-repair-label" class="text-text-muted text-sm mt-2">--</div>
+        <div id="result-flat-rate" class="font-heading font-extrabold text-5xl text-accent">$150</div>
+        <div id="result-service-label" class="text-text-muted text-sm mt-2">Maintenance Clean &mdash; 1,000-2,000 sq ft</div>
       </div>
 
       <!-- National Average Comparison -->
       <div id="national-avg-section" class="mb-6">
         <div class="flex justify-between items-center mb-2">
           <span class="text-text-secondary text-sm font-medium">National Average Range</span>
-          <span id="result-national-range" class="text-text-secondary text-sm font-medium">--</span>
+          <span id="result-national-range" class="text-text-secondary text-sm font-medium">$100 - $175</span>
         </div>
         <div class="relative h-8 bg-bg-dark rounded-full overflow-hidden border border-border">
           <div id="avg-range-bar" class="absolute top-0 h-full bg-[rgba(96,165,250,0.2)] rounded-full border border-[rgba(96,165,250,0.4)]"></div>
           <div id="your-price-marker" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg z-10" style="left: 50%"></div>
         </div>
         <div class="flex justify-between mt-1">
-          <span id="bar-low" class="text-text-muted text-xs">--</span>
+          <span id="bar-low" class="text-text-muted text-xs">$100</span>
           <span class="text-accent text-xs font-medium">Your Price</span>
-          <span id="bar-high" class="text-text-muted text-xs">--</span>
+          <span id="bar-high" class="text-text-muted text-xs">$175</span>
         </div>
-      </div>
-
-      <!-- Warning -->
-      <div id="undercharge-warning" class="hidden mb-6 bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg p-4">
-        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this repair. Your price is more than 20% below the national average low end.</p>
       </div>
 
       <!-- Breakdown Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
-          <div id="result-parts-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Price</div>
+          <div id="result-price" class="font-heading font-extrabold text-xl text-accent">$150</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
-          <div id="result-labor-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Cost</div>
+          <div id="result-labor-cost" class="font-heading font-extrabold text-xl text-text-primary">$50</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Misc</div>
-          <div id="result-misc" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supply Cost</div>
+          <div id="result-supply-cost" class="font-heading font-extrabold text-xl text-text-primary">$8</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Cost</div>
-          <div id="result-cost" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Cost</div>
+          <div id="result-total-cost" class="font-heading font-extrabold text-xl text-text-primary">$68</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit</div>
-          <div id="result-profit" class="font-heading font-extrabold text-xl text-[#34D399]">--</div>
+          <div id="result-profit" class="font-heading font-extrabold text-xl text-[#34D399]">$82</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit Margin</div>
-          <div id="result-margin" class="font-heading font-extrabold text-xl text-[#34D399]">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Margin</div>
+          <div id="result-margin" class="font-heading font-extrabold text-xl text-[#34D399]">54.7%</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Prices are estimates. Adjust parts cost and markup to match your local supplier pricing. Compare to national averages to stay competitive.</p>
+      <p class="text-text-muted text-sm italic">Prices are estimates. Adjust based on your local market, competition, and cost structure. National averages are based on industry surveys.</p>
     </div>
   </div>
 
@@ -163,20 +174,20 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the repair type.</strong> Choose from the pre-built task library. Parts cost and labor hours auto-fill based on industry averages. Pick "Custom" to enter your own values from scratch.</p>
-          <p><strong class="text-text-primary">2. Adjust parts cost and markup.</strong> Override the default parts cost with your actual supplier pricing. Small commodity parts like capacitors typically carry 200% markup. Major components like compressors use 75-100%.</p>
-          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover tech wages, overhead, truck costs, and profit. Adjust labor hours based on your team's average completion time for this repair.</p>
-          <p><strong class="text-text-primary">4. Review your flat rate against the national average.</strong> The comparison bar shows where your price falls relative to the national range. If you are more than 20% below the low end, you are likely leaving money on the table.</p>
+          <p><strong class="text-text-primary">1. Select the service category.</strong> Choose Maintenance Clean, Deep Clean, Move-Out Clean, or Add-On. For the main service types, also select the square footage tier. For add-ons, pick the specific service from the dropdown.</p>
+          <p><strong class="text-text-primary">2. Enter your pricing.</strong> The tool auto-fills a typical price based on national averages. Override it with your actual price. Enter your labor hours, loaded hourly wage, supply cost, and drive cost for this service.</p>
+          <p><strong class="text-text-primary">3. Review your margin.</strong> The tool calculates your profit and margin for this service. Compare your price to the national average range. If your margin is below 40%, consider raising your price or finding ways to reduce labor time.</p>
+          <p><strong class="text-text-primary">4. Build your full price list.</strong> Cycle through each service category and sqft tier to set prices for your entire menu. Use this as the basis for your flat rate price book that your team quotes from in the field.</p>
         </div>
       </section>
 
-      <!-- Why Flat Rate Pricing Works -->
+      <!-- Why Flat Rate Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works for Cleaning</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>Hourly billing penalizes your best technicians. A senior tech who replaces a contactor in 30 minutes earns your company half the revenue of a slower tech who takes an hour. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the repair</strong>, not the speed of the technician.</p>
-          <p>Customers prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $125 an hour plus parts," their anxiety spikes. Every minute the tech spends on the phone or walking to the truck feels like money burning. A flat rate quote of $325 to replace the capacitor removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
-          <p>Flat rate also makes your business predictable. You know exactly what revenue each service call will generate before the tech leaves the shop. That makes dispatching, payroll forecasting, and profit tracking dramatically simpler. Most Cleaning companies that switch from hourly to flat rate see revenue increase 15-30% within the first year with no additional marketing spend.</p>
+          <p>Hourly billing creates anxiety for customers. When a homeowner hears "we charge $40 an hour," they immediately start worrying about how long the job will take and whether the cleaner is working slowly. A flat rate quote removes that uncertainty. The customer knows exactly what they will pay, which builds trust and dramatically increases booking rates.</p>
+          <p>Flat rate also rewards your fastest, most efficient cleaners. If your team finishes a 2-hour job in 90 minutes, the revenue stays the same — and the effective hourly rate goes up. This motivates efficiency instead of penalizing it. Most cleaning companies that switch from hourly to flat rate see revenue increase within the first few months with no additional marketing spend.</p>
+          <p>For your business, flat rate pricing makes everything predictable. You know what every job on the schedule will generate before anyone leaves the house. That makes payroll, supply budgeting, and profit forecasting dramatically simpler.</p>
         </div>
       </section>
 
@@ -184,9 +195,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new Cleaning company or transitioning from time-and-material to flat rate. Use this tool to price out every common repair, compare to national averages, and build a complete price book your techs can use in the field.</p>
-          <p><strong class="text-text-primary">Quarterly price updates.</strong> Parts costs change with supply chain shifts. Run your top 10 repairs through the builder each quarter with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> Show a new hire exactly how the flat rate breaks down: parts revenue, labor revenue, cost, and profit. When techs understand the math, they present prices with more confidence and close more jobs.</p>
+          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new cleaning company or transitioning from hourly to flat rate. Use this tool to price out every service tier, compare to national averages, and build a complete price list your team can quote from confidently.</p>
+          <p><strong class="text-text-primary">Quarterly price reviews.</strong> Supply costs and labor rates shift over time. Run your top services through the builder each quarter with updated costs to make sure your flat rates still hit your profit margin targets.</p>
+          <p><strong class="text-text-primary">Training new team members on pricing.</strong> Show a new hire exactly how the flat rate breaks down: revenue, labor cost, supply cost, profit. When your team understands the math, they present prices with more confidence and close more jobs.</p>
         </div>
       </section>
 
@@ -195,20 +206,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing in Cleaning?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful Cleaning companies use flat rate pricing for common repairs like floor stripping, carpet extraction, and sanitizer installs.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing for cleaning services?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per cleaning job based on property size and service type, rather than billing hourly. The customer knows the total cost upfront, which builds trust and increases booking rates. Most successful cleaning companies use flat rate pricing for standard services like maintenance cleans, deep cleans, and move-out cleans, with add-on pricing for extras like carpet cleaning, window washing, and appliance deep cleans.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate price book?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate cleaning price list?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by defining your service categories: maintenance clean, deep clean, and move-out clean. For each category, create square footage tiers (under 1,000, 1,000-2,000, 2,000-3,000, and 3,000+). Calculate your labor cost per tier based on average time and hourly wage, add supply costs, then apply your target margin. Deep cleans typically run about 2x maintenance pricing, and move-out cleans about 2.5x. Add a separate add-on menu for extras like carpet cleaning, window washing, and appliance deep cleans.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than time and material?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms time and material billing for most Cleaning service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge per square foot for cleaning?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">National averages for residential cleaning range from $0.05 to $0.15 per square foot for maintenance cleans, $0.10 to $0.25 for deep cleans, and $0.15 to $0.35 for move-out cleans. Smaller homes cost more per square foot because fixed time like setup and travel is spread across fewer square feet. Larger homes cost less per square foot but more total. Always compare your per-square-foot rate to local competitors to stay competitive.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I use for Cleaning flat rate?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the Cleaning industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should a cleaning company target?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most profitable cleaning companies target 40-60% gross margin on individual jobs. This means if you charge $200 for a clean, your direct costs for labor and supplies should be $80-$120, leaving $80-$120 in gross profit. Net profit after overhead like insurance, marketing, and vehicle costs typically runs 15-25% for well-managed companies. If your margins are below 35%, review your pricing or look for ways to reduce labor time through better processes and route optimization.</div>
           </details>
         </div>
       </section>
@@ -217,72 +228,106 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Task library data
-  const taskLibrary: Record<string, { partsCost: number; laborHours: number; markup: number; avgLow: number; avgHigh: number; label: string }> = {
-    'capacitor':      { partsCost: 20,  laborHours: 0.75, markup: 200, avgLow: 250,  avgHigh: 400,  label: 'Capacitor replacement' },
-    'contactor':      { partsCost: 30,  laborHours: 0.75, markup: 200, avgLow: 200,  avgHigh: 350,  label: 'Contactor replacement' },
-    'blower-motor':   { partsCost: 250, laborHours: 2,    markup: 75,  avgLow: 500,  avgHigh: 1500, label: 'Blower motor replacement' },
-    'compressor':     { partsCost: 650, laborHours: 4,    markup: 75,  avgLow: 1800, avgHigh: 2800, label: 'Compressor replacement' },
-    'txv':            { partsCost: 85,  laborHours: 2,    markup: 75,  avgLow: 400,  avgHigh: 700,  label: 'TXV replacement' },
-    'thermostat':     { partsCost: 75,  laborHours: 0.75, markup: 200, avgLow: 150,  avgHigh: 350,  label: 'Dispenser install' },
-    'coil-cleaning':  { partsCost: 15,  laborHours: 1.5,  markup: 200, avgLow: 100,  avgHigh: 250,  label: 'Coil cleaning' },
-    'drain-line':     { partsCost: 8,   laborHours: 0.75, markup: 200, avgLow: 75,   avgHigh: 200,  label: 'Drain line clearing' },
-    'duct-sealing':   { partsCost: 35,  laborHours: 1.5,  markup: 200, avgLow: 200,  avgHigh: 400,  label: 'Duct sealing (per duct)' },
-    'custom':         { partsCost: 0,   laborHours: 0,    markup: 200, avgLow: 0,    avgHigh: 0,    label: 'Custom repair' },
+  // Task library: category -> sqft tier -> { price, hours, avgLow, avgHigh, label }
+  const taskLibrary: Record<string, Record<string, { price: number; hours: number; avgLow: number; avgHigh: number; label: string }>> = {
+    'maintenance': {
+      'small':  { price: 100, hours: 1.5, avgLow: 75,  avgHigh: 130, label: 'Maintenance Clean — Under 1,000 sq ft' },
+      'medium': { price: 150, hours: 2,   avgLow: 100, avgHigh: 175, label: 'Maintenance Clean — 1,000-2,000 sq ft' },
+      'large':  { price: 200, hours: 2.5, avgLow: 150, avgHigh: 250, label: 'Maintenance Clean — 2,000-3,000 sq ft' },
+      'xlarge': { price: 275, hours: 3.5, avgLow: 200, avgHigh: 350, label: 'Maintenance Clean — 3,000+ sq ft' },
+    },
+    'deep': {
+      'small':  { price: 200, hours: 3,   avgLow: 150, avgHigh: 250, label: 'Deep Clean — Under 1,000 sq ft' },
+      'medium': { price: 300, hours: 4,   avgLow: 200, avgHigh: 350, label: 'Deep Clean — 1,000-2,000 sq ft' },
+      'large':  { price: 400, hours: 5,   avgLow: 300, avgHigh: 500, label: 'Deep Clean — 2,000-3,000 sq ft' },
+      'xlarge': { price: 550, hours: 7,   avgLow: 400, avgHigh: 700, label: 'Deep Clean — 3,000+ sq ft' },
+    },
+    'moveout': {
+      'small':  { price: 250, hours: 4,   avgLow: 200, avgHigh: 350, label: 'Move-Out Clean — Under 1,000 sq ft' },
+      'medium': { price: 375, hours: 5,   avgLow: 275, avgHigh: 450, label: 'Move-Out Clean — 1,000-2,000 sq ft' },
+      'large':  { price: 500, hours: 6.5, avgLow: 375, avgHigh: 600, label: 'Move-Out Clean — 2,000-3,000 sq ft' },
+      'xlarge': { price: 700, hours: 8,   avgLow: 500, avgHigh: 850, label: 'Move-Out Clean — 3,000+ sq ft' },
+    },
+  };
+
+  const addonLibrary: Record<string, { price: number; hours: number; avgLow: number; avgHigh: number; label: string; unit: string }> = {
+    'carpet':     { price: 75,  hours: 1,    avgLow: 50,  avgHigh: 150, label: 'Carpet Cleaning',           unit: 'per room avg' },
+    'window-int': { price: 8,   hours: 0.1,  avgLow: 5,   avgHigh: 10,  label: 'Window Cleaning - Interior', unit: 'per window' },
+    'window-ext': { price: 12,  hours: 0.15, avgLow: 8,   avgHigh: 15,  label: 'Window Cleaning - Exterior', unit: 'per window' },
+    'oven':       { price: 55,  hours: 0.75, avgLow: 35,  avgHigh: 75,  label: 'Oven Deep Clean',            unit: 'each' },
+    'fridge':     { price: 45,  hours: 0.5,  avgLow: 35,  avgHigh: 60,  label: 'Fridge Deep Clean',          unit: 'each' },
+    'laundry':    { price: 30,  hours: 0.5,  avgLow: 25,  avgHigh: 40,  label: 'Laundry Service',            unit: 'per load' },
+    'garage':     { price: 75,  hours: 1,    avgLow: 50,  avgHigh: 100, label: 'Garage Sweep & Clean',       unit: 'each' },
+    'custom':     { price: 0,   hours: 0,    avgLow: 0,   avgHigh: 0,   label: 'Custom Add-On',              unit: 'each' },
   };
 
   const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-  const fmtDec = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  function onRepairTypeChange() {
-    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
-    const task = taskLibrary[repairType];
-    if (!task) return;
+  function getTaskData() {
+    const category = (document.getElementById('service-category') as HTMLSelectElement).value;
+    if (category === 'addon') {
+      const addonType = (document.getElementById('addon-type') as HTMLSelectElement).value;
+      return addonLibrary[addonType] || addonLibrary['custom'];
+    }
+    const sqftTier = (document.getElementById('sqft-tier') as HTMLSelectElement).value;
+    return (taskLibrary[category] || {})[sqftTier] || taskLibrary['maintenance']['medium'];
+  }
 
-    (document.getElementById('parts-cost') as HTMLInputElement).value = String(task.partsCost);
-    (document.getElementById('parts-markup') as HTMLInputElement).value = String(task.markup);
-    (document.getElementById('labor-hours') as HTMLInputElement).value = String(task.laborHours);
+  function onCategoryChange() {
+    const category = (document.getElementById('service-category') as HTMLSelectElement).value;
+    const sqftWrap = document.getElementById('sqft-tier-wrap')!;
+    const addonWrap = document.getElementById('addon-type-wrap')!;
+    if (category === 'addon') {
+      sqftWrap.classList.add('hidden');
+      addonWrap.classList.remove('hidden');
+    } else {
+      sqftWrap.classList.remove('hidden');
+      addonWrap.classList.add('hidden');
+    }
+    fillDefaults();
+  }
+
+  function fillDefaults() {
+    const task = getTaskData();
+    (document.getElementById('your-price') as HTMLInputElement).value = String(task.price);
+    (document.getElementById('labor-hours') as HTMLInputElement).value = String(task.hours);
+    calculate();
   }
 
   function calculate() {
-    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
-    const partsCost = parseFloat((document.getElementById('parts-cost') as HTMLInputElement).value) || 0;
-    const partsMarkup = parseFloat((document.getElementById('parts-markup') as HTMLInputElement).value) || 0;
+    const task = getTaskData();
+    const yourPrice = parseFloat((document.getElementById('your-price') as HTMLInputElement).value) || 0;
     const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
-    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
-    const miscMaterials = parseFloat((document.getElementById('misc-materials') as HTMLInputElement).value) || 0;
     const loadedWage = parseFloat((document.getElementById('loaded-wage') as HTMLInputElement).value) || 0;
+    const supplyCost = parseFloat((document.getElementById('supply-cost') as HTMLInputElement).value) || 0;
+    const driveCost = parseFloat((document.getElementById('drive-cost') as HTMLInputElement).value) || 0;
 
-    const task = taskLibrary[repairType];
+    const laborCost = laborHours * loadedWage;
+    const totalCost = laborCost + supplyCost + driveCost;
+    const profit = yourPrice - totalCost;
+    const margin = yourPrice > 0 ? (profit / yourPrice) * 100 : 0;
 
-    // Formula: Flat_Rate = (Parts_Cost x (1 + Parts_Markup/100)) + (Labor_Hours x Billable_Rate) + Misc_Materials
-    const partsRevenue = partsCost * (1 + partsMarkup / 100);
-    const laborRevenue = laborHours * billableRate;
-    const flatRate = partsRevenue + laborRevenue + miscMaterials;
-
-    // Cost: actual parts + loaded wage * hours
-    const totalCost = partsCost + (loadedWage * laborHours);
-    const profit = flatRate - totalCost;
-    const margin = flatRate > 0 ? (profit / flatRate) * 100 : 0;
-
-    // Display primary result
-    document.getElementById('result-flat-rate')!.textContent = fmt(Math.round(flatRate));
-    document.getElementById('result-repair-label')!.textContent = task ? task.label : 'Custom repair';
+    // Primary result
+    document.getElementById('result-flat-rate')!.textContent = fmt(Math.round(yourPrice));
+    document.getElementById('result-service-label')!.textContent = task.label;
 
     // Breakdown
-    document.getElementById('result-parts-rev')!.textContent = fmtDec(partsRevenue);
-    document.getElementById('result-labor-rev')!.textContent = fmtDec(laborRevenue);
-    document.getElementById('result-misc')!.textContent = fmtDec(miscMaterials);
-    document.getElementById('result-cost')!.textContent = fmtDec(totalCost);
-    document.getElementById('result-profit')!.textContent = fmtDec(profit);
+    document.getElementById('result-price')!.textContent = fmt(Math.round(yourPrice));
+    document.getElementById('result-labor-cost')!.textContent = fmt(Math.round(laborCost));
+    document.getElementById('result-supply-cost')!.textContent = fmt(Math.round(supplyCost + driveCost));
+    document.getElementById('result-total-cost')!.textContent = fmt(Math.round(totalCost));
+    document.getElementById('result-profit')!.textContent = fmt(Math.round(profit));
     document.getElementById('result-margin')!.textContent = margin.toFixed(1) + '%';
 
-    // Color profit/margin based on positive/negative
+    // Color code profit/margin
     const profitEl = document.getElementById('result-profit')!;
     const marginEl = document.getElementById('result-margin')!;
     if (profit < 0) {
       profitEl.className = 'font-heading font-extrabold text-xl text-red-400';
       marginEl.className = 'font-heading font-extrabold text-xl text-red-400';
+    } else if (margin < 40) {
+      profitEl.className = 'font-heading font-extrabold text-xl text-[#FBBF24]';
+      marginEl.className = 'font-heading font-extrabold text-xl text-[#FBBF24]';
     } else {
       profitEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
       marginEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
@@ -290,63 +335,41 @@ const faqSchema = {
 
     // National average comparison
     const avgSection = document.getElementById('national-avg-section')!;
-    const warning = document.getElementById('undercharge-warning')!;
+    if (task.avgLow > 0) {
+      avgSection.classList.remove('hidden');
+      document.getElementById('result-national-range')!.textContent = fmt(task.avgLow) + ' - ' + fmt(task.avgHigh);
 
-    if (task && task.avgLow > 0) {
-
-      const avgLow = task.avgLow;
-      const avgHigh = task.avgHigh;
-
-      document.getElementById('result-national-range')!.textContent = fmt(avgLow) + ' - ' + fmt(avgHigh);
-
-      // Bar visualization
-      // Scale: bar goes from 60% of avgLow to 140% of avgHigh
-      const barMin = avgLow * 0.6;
-      const barMax = avgHigh * 1.4;
+      const barMin = task.avgLow * 0.6;
+      const barMax = task.avgHigh * 1.4;
       const barRange = barMax - barMin;
 
-      // Position the average range band
-      const rangeLeftPct = ((avgLow - barMin) / barRange) * 100;
-      const rangeWidthPct = ((avgHigh - avgLow) / barRange) * 100;
-      const rangeBar = document.getElementById('avg-range-bar')!;
-      rangeBar.style.left = rangeLeftPct + '%';
-      rangeBar.style.width = rangeWidthPct + '%';
+      const rangeLeftPct = ((task.avgLow - barMin) / barRange) * 100;
+      const rangeWidthPct = ((task.avgHigh - task.avgLow) / barRange) * 100;
+      document.getElementById('avg-range-bar')!.style.left = rangeLeftPct + '%';
+      document.getElementById('avg-range-bar')!.style.width = rangeWidthPct + '%';
 
-      // Position the user's price marker
-      const pricePct = Math.max(2, Math.min(98, ((flatRate - barMin) / barRange) * 100));
+      const pricePct = Math.max(2, Math.min(98, ((yourPrice - barMin) / barRange) * 100));
       const marker = document.getElementById('your-price-marker')!;
       marker.style.left = pricePct + '%';
       marker.style.transform = 'translate(-50%, -50%)';
 
-      // Bar labels
-      document.getElementById('bar-low')!.textContent = fmt(avgLow);
-      document.getElementById('bar-high')!.textContent = fmt(avgHigh);
-
-      // Undercharge warning: >20% below national avg low
-      if (flatRate < avgLow * 0.8) {
-      } else {
-        warning.classList.add('hidden');
-      }
+      document.getElementById('bar-low')!.textContent = fmt(task.avgLow);
+      document.getElementById('bar-high')!.textContent = fmt(task.avgHigh);
     } else {
       avgSection.classList.add('hidden');
-      warning.classList.add('hidden');
     }
-
   }
 
-  // Wire up event listeners
-  document.getElementById('repair-type')?.addEventListener('change', () => {
-    onRepairTypeChange();
-    calculate();
-  });
+  // Wire up events
+  document.getElementById('service-category')?.addEventListener('change', onCategoryChange);
+  document.getElementById('sqft-tier')?.addEventListener('change', fillDefaults);
+  document.getElementById('addon-type')?.addEventListener('change', fillDefaults);
 
-
-  // Auto-calculate on any input change
   document.querySelectorAll('#flat-rate-calc input, #flat-rate-calc select').forEach(el => {
-    el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
   });
 
-  // Calculate on load with defaults
+  // Init
   calculate();
 </script>

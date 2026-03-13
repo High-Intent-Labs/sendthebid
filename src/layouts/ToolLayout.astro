@@ -20,6 +20,7 @@ const tradeModules: Record<string, () => Promise<{ getRelatedTools: (slug: strin
   handyman: () => import('../data/handymanTools'),
   'pest-control': () => import('../data/pestControlTools'),
   cleaning: () => import('../data/cleaningTools'),
+  plumbing: () => import('../data/plumbingTools'),
 };
 
 let relatedTools: Tool[] = [];

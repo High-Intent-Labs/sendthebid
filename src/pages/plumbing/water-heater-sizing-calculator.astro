@@ -1,0 +1,260 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('water-heater-sizing-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate what size water heater I need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For tank water heaters, calculate the First Hour Rating (FHR) by adding up the hot water demand of every fixture you'd use during the busiest hour. Match that number to a tank with an equal or higher FHR. For tankless units, add the GPM of every fixture that may run simultaneously and multiply by 500 times the required temperature rise to get the BTU rating." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is First Hour Rating and why does it matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "First Hour Rating (FHR) is the number of gallons a tank water heater can deliver in the first hour starting with a full tank of hot water. It combines the stored hot water with the recovery rate. FHR is the single most important sizing metric for tank water heaters per the DOE EnergyGuide label." }
+    },
+    {
+      "@type": "Question",
+      "name": "What size tankless water heater do I need for a 3-bathroom house?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A 3-bathroom home typically needs a tankless unit rated for 7-8 GPM with a 60-70 degree temperature rise. That translates to roughly 150,000-200,000 BTU for natural gas. The exact size depends on inlet water temperature and how many fixtures run at once." }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I choose a tank or tankless water heater?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tank heaters cost less upfront and work well for most homes. Tankless units save energy (no standby loss), last longer (20+ years vs 10-12), and provide endless hot water, but cost 2-3x more to install and may need gas line or electrical upgrades. Choose based on household size, budget, and hot water demand patterns." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="wh-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="heaterType">Heater Type</label>
+        <select id="heaterType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="tank" selected>Tank (Storage)</option>
+          <option value="tankless">Tankless (On-Demand)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bathrooms">Number of Bathrooms</label>
+        <input type="number" id="bathrooms" value="2" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bedrooms">Number of Bedrooms</label>
+        <input type="number" id="bedrooms" value="3" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="occupants">Number of Occupants</label>
+        <input type="number" id="occupants" value="4" min="1" max="15" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="dishwasher">Dishwasher?</label>
+        <select id="dishwasher" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="clothesWasher">Clothes Washer (hot)?</label>
+        <select id="clothesWasher" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inletTemp">Inlet Water Temperature (&deg;F)</label>
+        <input type="number" id="inletTemp" value="50" min="35" max="80" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div id="tankResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Recommended Tank</div>
+          <div id="r-tank" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Peak Demand (FHR)</div>
+          <div id="r-fhr" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">BTU Input Required</div>
+          <div id="r-btu" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Temperature Rise</div>
+          <div id="r-rise" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <div id="tanklessResults" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 hidden">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Required Flow Rate</div>
+          <div id="r-gpm" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">BTU Required</div>
+          <div id="r-btu2" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Temperature Rise</div>
+          <div id="r-rise2" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Size Recommendation</div>
+          <div id="r-size2" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p class="text-text-muted text-sm italic">Sizing is based on typical residential usage patterns. Actual demand may vary by household habits.</p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Choose tank or tankless.</strong> Tank mode calculates the First Hour Rating and recommends a storage tank size. Tankless mode calculates required GPM and BTU input for on-demand heating.</p>
+          <p><strong class="text-text-primary">2. Enter your household details.</strong> Bathrooms, bedrooms, and occupants determine peak-hour hot water demand. More people means more simultaneous showers and faucet use.</p>
+          <p><strong class="text-text-primary">3. Select appliances.</strong> Dishwashers add about 7 gallons and clothes washers add about 8 gallons to peak-hour demand for tank sizing, or 1.5 and 2.0 GPM for tankless sizing.</p>
+          <p><strong class="text-text-primary">4. Enter your inlet water temperature.</strong> Colder inlet water (northern states, 40-50 deg F) requires more BTU to heat. Warmer groundwater (southern states, 60-70 deg F) reduces heating demand significantly.</p>
+          <p><strong class="text-text-primary">5. Read the recommendation.</strong> For tanks, match the recommended size to available models. For tankless, ensure the unit meets both the GPM and BTU requirements at your temperature rise.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Water Heater Sizing Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>This calculator uses two different methods depending on heater type.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p class="font-bold text-text-primary">Tank Mode (First Hour Rating):</p>
+            <p>Peak_Demand = Sum of fixture gallons used in busiest hour</p>
+            <p>Fixture usage: Shower 12 gal, Bath 9, Shaving 2, Hand/face 2, Dishes 6, Dishwasher 7, Clothes washer 8</p>
+            <p>BTU_Input = (Peak_Gallons x 8.33 x Temp_Rise) / (Recovery_Efficiency x 60)</p>
+            <p class="mt-3 font-bold text-text-primary">Tankless Mode:</p>
+            <p>Required_GPM = Number of simultaneous fixtures x Fixture GPM</p>
+            <p>Fixture GPM: Shower 2.0, Faucet 1.5, Dishwasher 1.5, Clothes washer 2.0</p>
+            <p>Temp_Rise = 120 deg F - Inlet_Temp</p>
+            <p>BTU_Required = GPM x 500 x Temp_Rise</p>
+          </div>
+          <p>The tank method sizes based on the worst-case hour of hot water use — typically morning showers plus dishes. The tankless method sizes for simultaneous flow since there is no stored hot water to draw from.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Replacement sizing.</strong> When replacing an existing water heater, verify the old unit was properly sized before installing the same capacity. Many homes have undersized units that never delivered adequate hot water.</p>
+          <p><strong class="text-text-primary">New construction.</strong> Size the water heater during the plumbing rough-in phase so gas line, venting, and electrical are spec'd correctly from the start.</p>
+          <p><strong class="text-text-primary">Tank-to-tankless conversion quotes.</strong> Show the customer exactly what GPM and BTU they need, and why the upgrade makes sense for their usage pattern.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate what size water heater I need?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For tank water heaters, calculate the First Hour Rating (FHR) by adding up the hot water demand of every fixture you'd use during the busiest hour. Match that number to a tank with an equal or higher FHR. For tankless units, add the GPM of every fixture that may run simultaneously and multiply by 500 times the required temperature rise to get the BTU rating.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is First Hour Rating and why does it matter?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">First Hour Rating (FHR) is the number of gallons a tank water heater can deliver in the first hour starting with a full tank of hot water. It combines the stored hot water with the recovery rate. FHR is the single most important sizing metric for tank water heaters per the DOE EnergyGuide label.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size tankless water heater do I need for a 3-bathroom house?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 3-bathroom home typically needs a tankless unit rated for 7-8 GPM with a 60-70 degree temperature rise. That translates to roughly 150,000-200,000 BTU for natural gas. The exact size depends on inlet water temperature and how many fixtures run at once.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I choose a tank or tankless water heater?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tank heaters cost less upfront and work well for most homes. Tankless units save energy (no standby loss), last longer (20+ years vs 10-12), and provide endless hot water, but cost 2-3x more to install and may need gas line or electrical upgrades. Choose based on household size, budget, and hot water demand patterns.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const heaterType = (document.getElementById('heaterType') as HTMLSelectElement).value;
+    const bathrooms = parseInt((document.getElementById('bathrooms') as HTMLInputElement).value) || 2;
+    const occupants = parseInt((document.getElementById('occupants') as HTMLInputElement).value) || 4;
+    const hasDishwasher = (document.getElementById('dishwasher') as HTMLSelectElement).value === 'yes';
+    const hasClothesWasher = (document.getElementById('clothesWasher') as HTMLSelectElement).value === 'yes';
+    const inletTemp = parseFloat((document.getElementById('inletTemp') as HTMLInputElement).value) || 50;
+
+    const tankResults = document.getElementById('tankResults') as HTMLDivElement;
+    const tanklessResults = document.getElementById('tanklessResults') as HTMLDivElement;
+    const tempRise = 120 - inletTemp;
+
+    if (heaterType === 'tank') {
+      tankResults.classList.remove('hidden');
+      tanklessResults.classList.add('hidden');
+
+      // Calculate peak hour demand in gallons
+      // Assume: each bathroom gets 1 shower in peak hour, plus shaving/hand wash
+      const showers = Math.min(bathrooms, occupants);
+      let peakGallons = showers * 12; // showers
+      peakGallons += occupants * 2; // hand/face washing
+      peakGallons += Math.min(occupants, 2) * 2; // shaving (max 2 people shaving)
+      if (hasDishwasher) peakGallons += 7;
+      if (hasClothesWasher) peakGallons += 8;
+      // Add some hand dish washing if no dishwasher
+      if (!hasDishwasher) peakGallons += 6;
+
+      // BTU input calculation
+      const recoveryEfficiency = 0.67; // typical gas tank
+      const btuInput = Math.round((peakGallons * 8.33 * tempRise) / (recoveryEfficiency * 60));
+
+      // Tank size recommendation
+      let tankSize: string;
+      if (peakGallons <= 40) tankSize = '40 gal';
+      else if (peakGallons <= 55) tankSize = '50 gal';
+      else if (peakGallons <= 70) tankSize = '65 gal';
+      else tankSize = '75-80 gal';
+
+      document.getElementById('r-tank')!.textContent = tankSize;
+      document.getElementById('r-fhr')!.textContent = peakGallons + ' gal';
+      document.getElementById('r-btu')!.textContent = btuInput.toLocaleString() + ' BTU/hr';
+      document.getElementById('r-rise')!.textContent = tempRise + '\u00B0F';
+    } else {
+      tankResults.classList.add('hidden');
+      tanklessResults.classList.remove('hidden');
+
+      // Tankless: calculate simultaneous fixture GPM
+      // Assume worst case: showers running + 1 faucet + appliance
+      const simultaneousShowers = Math.min(bathrooms, Math.ceil(occupants / 2));
+      let totalGPM = simultaneousShowers * 2.0; // showers at 2.0 GPM
+      totalGPM += 1.5; // one faucet
+      if (hasDishwasher) totalGPM += 1.5;
+      if (hasClothesWasher) totalGPM += 2.0;
+
+      const btuRequired = Math.round(totalGPM * 500 * tempRise);
+
+      // Size recommendation
+      let sizeRec: string;
+      if (btuRequired <= 120000) sizeRec = 'Small (120K BTU)';
+      else if (btuRequired <= 160000) sizeRec = 'Medium (160K BTU)';
+      else if (btuRequired <= 200000) sizeRec = 'Large (199K BTU)';
+      else sizeRec = 'XL (250K+ BTU)';
+
+      document.getElementById('r-gpm')!.textContent = totalGPM.toFixed(1) + ' GPM';
+      document.getElementById('r-btu2')!.textContent = btuRequired.toLocaleString() + ' BTU';
+      document.getElementById('r-rise2')!.textContent = tempRise + '\u00B0F';
+      document.getElementById('r-size2')!.textContent = sizeRec;
+    }
+  }
+
+  document.querySelectorAll('#wh-calc input, #wh-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

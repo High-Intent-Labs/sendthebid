@@ -1,0 +1,352 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('flat-rate-price-builder')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is flat rate pricing in plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful plumbing companies use flat rate pricing for common repairs like faucet replacements, toilet rebuilds, and garbage disposal installs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I build a flat rate price book for plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 100-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is flat rate better than time and material for plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flat rate pricing outperforms time and material billing for most plumbing service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Plumbers who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What markup should I use for plumbing flat rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For small commodity parts like wax rings, flappers, and fill valves, a 200% markup is standard in the plumbing industry. For mid-range items like faucets and garbage disposals, 100-150% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="flat-rate-calc">
+    <!-- Input Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="repair-type">Repair Type</label>
+        <select id="repair-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="faucet-replacement">Faucet replacement</option>
+          <option value="toilet-replacement">Toilet replacement</option>
+          <option value="disposal-install">Garbage disposal install</option>
+          <option value="water-heater-flush">Water heater flush</option>
+          <option value="drain-cleaning">Drain cleaning (snake)</option>
+          <option value="angle-stop">Angle stop replacement</option>
+          <option value="p-trap">P-trap replacement</option>
+          <option value="hose-bibb">Hose bibb replacement</option>
+          <option value="custom">Custom (enter your own)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-cost">Parts Cost ($)</label>
+        <input type="number" id="parts-cost" value="45" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-markup">Parts Markup (%)</label>
+        <input type="number" id="parts-markup" value="150" min="0" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Estimated Labor Hours</label>
+        <input type="number" id="labor-hours" value="1.5" min="0" max="40" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
+        <input type="number" id="billable-rate" value="95" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-materials">Misc Materials ($)</label>
+        <input type="number" id="misc-materials" value="15" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">Your Loaded Wage ($/hr)</label>
+        <input type="number" id="loaded-wage" value="38" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Plumber hourly cost including burden (taxes, insurance, benefits)</p>
+      </div>
+    </div>
+
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Your Flat Rate Price</h3>
+
+      <!-- Primary Result -->
+      <div class="bg-bg-dark rounded-xl p-6 text-center mb-6 border border-accent/30">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flat Rate Price</div>
+        <div id="result-flat-rate" class="font-heading font-extrabold text-5xl text-accent">--</div>
+        <div id="result-repair-label" class="text-text-muted text-sm mt-2">--</div>
+      </div>
+
+      <!-- National Average Comparison -->
+      <div id="national-avg-section" class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-text-secondary text-sm font-medium">National Average Range</span>
+          <span id="result-national-range" class="text-text-secondary text-sm font-medium">--</span>
+        </div>
+        <div class="relative h-8 bg-bg-dark rounded-full overflow-hidden border border-border">
+          <div id="avg-range-bar" class="absolute top-0 h-full bg-[rgba(96,165,250,0.2)] rounded-full border border-[rgba(96,165,250,0.4)]"></div>
+          <div id="your-price-marker" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg z-10" style="left: 50%"></div>
+        </div>
+        <div class="flex justify-between mt-1">
+          <span id="bar-low" class="text-text-muted text-xs">--</span>
+          <span class="text-accent text-xs font-medium">Your Price</span>
+          <span id="bar-high" class="text-text-muted text-xs">--</span>
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <div id="undercharge-warning" class="hidden mb-6 bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg p-4">
+        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this repair. Your price is more than 20% below the national average low end.</p>
+      </div>
+
+      <!-- Breakdown Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
+          <div id="result-parts-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
+          <div id="result-labor-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Misc</div>
+          <div id="result-misc" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Cost</div>
+          <div id="result-cost" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit</div>
+          <div id="result-profit" class="font-heading font-extrabold text-xl text-[#34D399]">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit Margin</div>
+          <div id="result-margin" class="font-heading font-extrabold text-xl text-[#34D399]">--</div>
+        </div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">Prices are estimates. Adjust parts cost and markup to match your local supplier pricing. Compare to national averages to stay competitive.</p>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select the repair type.</strong> Choose from the pre-built task library. Parts cost and labor hours auto-fill based on industry averages. Pick "Custom" to enter your own values from scratch.</p>
+          <p><strong class="text-text-primary">2. Adjust parts cost and markup.</strong> Override the default parts cost with your actual supplier pricing. Small commodity parts like wax rings and flappers typically carry 200% markup. Fixtures like faucets and disposals use 100-150%.</p>
+          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover plumber wages, overhead, truck costs, and profit. Adjust labor hours based on your team's average completion time for this repair.</p>
+          <p><strong class="text-text-primary">4. Review your flat rate against the national average.</strong> The comparison bar shows where your price falls relative to the national range. If you are more than 20% below the low end, you are likely leaving money on the table.</p>
+        </div>
+      </section>
+
+      <!-- Why Flat Rate Pricing Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>Hourly billing penalizes your best plumbers. A journeyman who replaces a faucet in 45 minutes earns your company half the revenue of a slower apprentice who takes 90 minutes. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the repair</strong>, not the speed of the plumber.</p>
+          <p>Customers prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $95 an hour plus parts," their anxiety spikes. Every minute the plumber spends on the phone or walking to the truck feels like money burning. A flat rate quote of $325 to replace the faucet removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
+          <p>Flat rate also makes your business predictable. You know exactly what revenue each service call will generate before the plumber leaves the shop. That makes dispatching, payroll forecasting, and profit tracking dramatically simpler. Most plumbing companies that switch from hourly to flat rate see revenue increase 15-30% within the first year with no additional marketing spend.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new plumbing company or transitioning from time-and-material to flat rate. Use this tool to price out every common repair, compare to national averages, and build a complete price book your plumbers can use in the field.</p>
+          <p><strong class="text-text-primary">Quarterly price updates.</strong> Parts costs change with supply chain shifts. Run your top 10 repairs through the builder each quarter with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
+          <p><strong class="text-text-primary">Training new plumbers on pricing.</strong> Show a new hire exactly how the flat rate breaks down: parts revenue, labor revenue, cost, and profit. When plumbers understand the math, they present prices with more confidence and close more jobs.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing in plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful plumbing companies use flat rate pricing for common repairs like faucet replacements, toilet rebuilds, and garbage disposal installs.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate price book for plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 100-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than time and material for plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms time and material billing for most plumbing service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Plumbers who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I use for plumbing flat rate?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For small commodity parts like wax rings, flappers, and fill valves, a 200% markup is standard in the plumbing industry. For mid-range items like faucets and garbage disposals, 100-150% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // Task library data
+  const taskLibrary: Record<string, { partsCost: number; laborHours: number; markup: number; avgLow: number; avgHigh: number; label: string }> = {
+    'faucet-replacement':   { partsCost: 45,  laborHours: 1.5,  markup: 150, avgLow: 275,  avgHigh: 375,  label: 'Faucet replacement' },
+    'toilet-replacement':   { partsCost: 180, laborHours: 2,    markup: 100, avgLow: 350,  avgHigh: 500,  label: 'Toilet replacement' },
+    'disposal-install':     { partsCost: 120, laborHours: 1.5,  markup: 100, avgLow: 275,  avgHigh: 400,  label: 'Garbage disposal install' },
+    'water-heater-flush':   { partsCost: 15,  laborHours: 1,    markup: 200, avgLow: 125,  avgHigh: 200,  label: 'Water heater flush' },
+    'drain-cleaning':       { partsCost: 10,  laborHours: 1,    markup: 200, avgLow: 175,  avgHigh: 300,  label: 'Drain cleaning (snake)' },
+    'angle-stop':           { partsCost: 25,  laborHours: 1,    markup: 200, avgLow: 150,  avgHigh: 250,  label: 'Angle stop replacement' },
+    'p-trap':               { partsCost: 15,  laborHours: 0.75, markup: 200, avgLow: 125,  avgHigh: 200,  label: 'P-trap replacement' },
+    'hose-bibb':            { partsCost: 35,  laborHours: 1.5,  markup: 150, avgLow: 200,  avgHigh: 300,  label: 'Hose bibb replacement' },
+    'custom':               { partsCost: 0,   laborHours: 0,    markup: 200, avgLow: 0,    avgHigh: 0,    label: 'Custom repair' },
+  };
+
+  const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  const fmtDec = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  function onRepairTypeChange() {
+    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
+    const task = taskLibrary[repairType];
+    if (!task) return;
+
+    (document.getElementById('parts-cost') as HTMLInputElement).value = String(task.partsCost);
+    (document.getElementById('parts-markup') as HTMLInputElement).value = String(task.markup);
+    (document.getElementById('labor-hours') as HTMLInputElement).value = String(task.laborHours);
+  }
+
+  function calculate() {
+    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
+    const partsCost = parseFloat((document.getElementById('parts-cost') as HTMLInputElement).value) || 0;
+    const partsMarkup = parseFloat((document.getElementById('parts-markup') as HTMLInputElement).value) || 0;
+    const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
+    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
+    const miscMaterials = parseFloat((document.getElementById('misc-materials') as HTMLInputElement).value) || 0;
+    const loadedWage = parseFloat((document.getElementById('loaded-wage') as HTMLInputElement).value) || 0;
+
+    const task = taskLibrary[repairType];
+
+    // Formula: Flat_Rate = (Parts_Cost x (1 + Parts_Markup/100)) + (Labor_Hours x Billable_Rate) + Misc_Materials
+    const partsRevenue = partsCost * (1 + partsMarkup / 100);
+    const laborRevenue = laborHours * billableRate;
+    const flatRate = partsRevenue + laborRevenue + miscMaterials;
+
+    // Cost: actual parts + loaded wage * hours
+    const totalCost = partsCost + (loadedWage * laborHours);
+    const profit = flatRate - totalCost;
+    const margin = flatRate > 0 ? (profit / flatRate) * 100 : 0;
+
+    // Display primary result
+    document.getElementById('result-flat-rate')!.textContent = fmt(Math.round(flatRate));
+    document.getElementById('result-repair-label')!.textContent = task ? task.label : 'Custom repair';
+
+    // Breakdown
+    document.getElementById('result-parts-rev')!.textContent = fmtDec(partsRevenue);
+    document.getElementById('result-labor-rev')!.textContent = fmtDec(laborRevenue);
+    document.getElementById('result-misc')!.textContent = fmtDec(miscMaterials);
+    document.getElementById('result-cost')!.textContent = fmtDec(totalCost);
+    document.getElementById('result-profit')!.textContent = fmtDec(profit);
+    document.getElementById('result-margin')!.textContent = margin.toFixed(1) + '%';
+
+    // Color profit/margin based on positive/negative
+    const profitEl = document.getElementById('result-profit')!;
+    const marginEl = document.getElementById('result-margin')!;
+    if (profit < 0) {
+      profitEl.className = 'font-heading font-extrabold text-xl text-red-400';
+      marginEl.className = 'font-heading font-extrabold text-xl text-red-400';
+    } else {
+      profitEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
+      marginEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
+    }
+
+    // National average comparison
+    const avgSection = document.getElementById('national-avg-section')!;
+    const warning = document.getElementById('undercharge-warning')!;
+
+    if (task && task.avgLow > 0) {
+      avgSection.classList.remove('hidden');
+
+      const avgLow = task.avgLow;
+      const avgHigh = task.avgHigh;
+
+      document.getElementById('result-national-range')!.textContent = fmt(avgLow) + ' - ' + fmt(avgHigh);
+
+      // Bar visualization
+      // Scale: bar goes from 60% of avgLow to 140% of avgHigh
+      const barMin = avgLow * 0.6;
+      const barMax = avgHigh * 1.4;
+      const barRange = barMax - barMin;
+
+      // Position the average range band
+      const rangeLeftPct = ((avgLow - barMin) / barRange) * 100;
+      const rangeWidthPct = ((avgHigh - avgLow) / barRange) * 100;
+      const rangeBar = document.getElementById('avg-range-bar')!;
+      rangeBar.style.left = rangeLeftPct + '%';
+      rangeBar.style.width = rangeWidthPct + '%';
+
+      // Position the user's price marker
+      const pricePct = Math.max(2, Math.min(98, ((flatRate - barMin) / barRange) * 100));
+      const marker = document.getElementById('your-price-marker')!;
+      marker.style.left = pricePct + '%';
+      marker.style.transform = 'translate(-50%, -50%)';
+
+      // Bar labels
+      document.getElementById('bar-low')!.textContent = fmt(avgLow);
+      document.getElementById('bar-high')!.textContent = fmt(avgHigh);
+
+      // Undercharge warning: >20% below national avg low
+      if (flatRate < avgLow * 0.8) {
+        warning.classList.remove('hidden');
+      } else {
+        warning.classList.add('hidden');
+      }
+    } else {
+      avgSection.classList.add('hidden');
+      warning.classList.add('hidden');
+    }
+
+  }
+
+  // Wire up event listeners
+  document.getElementById('repair-type')?.addEventListener('change', () => {
+    onRepairTypeChange();
+    calculate();
+  });
+
+
+  // Auto-calculate on any input change
+  document.querySelectorAll('#flat-rate-calc input, #flat-rate-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+    el.addEventListener('input', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

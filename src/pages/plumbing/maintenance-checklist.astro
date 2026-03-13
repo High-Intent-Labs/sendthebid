@@ -1,0 +1,603 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+const tool = getToolBySlug('maintenance-checklist')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What should a plumbing maintenance visit include?", "acceptedAnswer": { "@type": "Answer", "text": "A complete plumbing maintenance visit should include water heater inspection (anode rod, T&P valve, sediment flush, thermostat verification at 120 degrees F), supply system checks (main shut-off valve, PRV operation, angle stops, water pressure test targeting 40-80 PSI), drain system evaluation (run all drains, inspect visible drain pipes, check cleanout access, inspect washing machine hoses), fixture inspection (faucet drips, toilet fill valves and flappers, garbage disposal, caulking), and safety checks (gas leak inspection, CO detector test, sump pump test, backflow prevention)." } },
+    { "@type": "Question", "name": "How often should plumbing be inspected?", "acceptedAnswer": { "@type": "Answer", "text": "A whole-house plumbing inspection should be performed at least once a year. Water heaters need annual maintenance including a sediment flush and anode rod check — tank water heaters last 8 to 12 years and tankless units last 20 or more years with proper maintenance. Homes older than 25 years or those with galvanized or polybutylene pipes should be inspected more frequently due to higher failure risk." } },
+    { "@type": "Question", "name": "What is normal residential water pressure?", "acceptedAnswer": { "@type": "Answer", "text": "Normal residential water pressure is between 40 and 80 PSI. Pressure below 40 PSI causes weak flow at fixtures, while pressure above 80 PSI stresses pipes, fittings, and appliances and can cause leaks over time. A pressure reducing valve (PRV) regulates incoming city water pressure to safe levels. PRVs typically last 7 to 12 years and should be tested during every maintenance visit." } },
+    { "@type": "Question", "name": "When should a water heater be replaced?", "acceptedAnswer": { "@type": "Answer", "text": "A standard tank water heater should be replaced after 8 to 12 years depending on water quality and maintenance history. Warning signs include rusty water from the hot side only, rumbling or popping sounds from sediment buildup, visible corrosion or leaking at the base, and a failed T&P relief valve. Tankless water heaters can last 20 or more years but still require annual descaling and filter cleaning to maintain efficiency." } }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="checklist-app">
+    <!-- Progress Bar -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm font-medium text-text-secondary">Progress</span>
+        <span id="progress-text" class="text-sm font-bold text-accent">0 of 0 items checked</span>
+      </div>
+      <div class="w-full bg-bg-dark rounded-full h-3 overflow-hidden">
+        <div id="progress-bar" class="bg-accent h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- ============ WATER HEATER ============ -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Water Heater
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect anode rod condition</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Flush tank (2-3 gal sediment drain)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test T&amp;P relief valve</span>
+        </label>
+        <div class="flex flex-wrap items-start gap-3">
+          <label class="flex items-start gap-3 cursor-pointer group shrink-0">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Thermostat setting</span>
+          </label>
+          <div class="flex items-center gap-2 ml-8">
+            <input type="number" data-field="wh-temp" placeholder="120" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
+            <span class="text-xs text-text-muted ml-1">Target: 120&deg;F</span>
+            <span id="ind-wh-temp" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
+          </div>
+        </div>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Flue / venting inspection (gas units)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Expansion tank pressure check</span>
+        </label>
+        <div class="flex flex-wrap items-start gap-3">
+          <label class="flex items-start gap-3 cursor-pointer group shrink-0">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Note unit age</span>
+          </label>
+          <div class="flex flex-wrap items-center gap-2 ml-8">
+            <label class="text-xs text-text-muted">Age:</label>
+            <input type="number" data-field="wh-age" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">yrs</span>
+            <span class="text-xs text-text-muted ml-1 italic">(8-12yr tank / 20+ tankless)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SUPPLY SYSTEM ============ -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Supply System
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Main shut-off valve operation</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">PRV (pressure reducing valve) check</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Angle stop operation (under sinks / toilets)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Visible supply line inspection</span>
+        </label>
+        <div class="flex flex-wrap items-start gap-3">
+          <label class="flex items-start gap-3 cursor-pointer group shrink-0">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Water pressure test</span>
+          </label>
+          <div class="flex items-center gap-2 ml-8">
+            <input type="number" data-field="water-pressure" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-24 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PSI</span>
+            <span class="text-xs text-text-muted ml-1">Target: 40-80 PSI</span>
+            <span id="ind-pressure" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
+          </div>
+        </div>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Hose bibb leaks / backflow check</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ DRAIN SYSTEM ============ -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Drain System
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Run all drains &mdash; check flow rate</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect visible drain pipes (leaks, corrosion)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Verify cleanout access</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Main line camera inspection (upsell opportunity)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Toilet wax rings &mdash; check for leaks / soft flooring</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Washing machine hoses (replace rubber with braided stainless)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ============ FIXTURES ============ -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Fixtures
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Faucet drips / leaks (all locations)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Toilet fill valves &amp; flappers</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Garbage disposal operation &amp; condition</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Dishwasher connections (supply &amp; drain)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Caulking around tubs / showers</span>
+        </label>
+        <div class="flex flex-wrap items-start gap-3">
+          <label class="flex items-start gap-3 cursor-pointer group shrink-0">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Flow rate test</span>
+          </label>
+          <div class="flex items-center gap-2 ml-8">
+            <input type="number" data-field="flow-rate" step="0.1" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">GPM</span>
+            <span class="text-xs text-text-muted ml-1">Target: 1.5-2.5 GPM</span>
+            <span id="ind-flow" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SAFETY ============ -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Safety
+      </h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Gas leak inspection (all connections)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">CO detector present &amp; functional</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Sump pump test (if applicable)</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer group">
+          <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" />
+          <span class="text-text-secondary group-hover:text-text-primary transition-colors">Backflow prevention device check</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Results Summary -->
+    <div id="results-summary" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">System Health Summary</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Items Checked</div>
+          <div id="summary-checked" class="font-heading font-extrabold text-3xl text-accent">0 / 0</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Completion</div>
+          <div id="summary-pct" class="font-heading font-extrabold text-3xl text-text-primary">0%</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flagged Readings</div>
+          <div id="summary-flags" class="font-heading font-extrabold text-3xl text-text-primary">0</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Health Grade</div>
+          <div id="summary-grade" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+        </div>
+      </div>
+      <div id="flag-list" class="hidden mb-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-3">Flagged Items</h4>
+        <div id="flag-items" class="space-y-2"></div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap gap-3 mt-6">
+      <button id="generate-report" class="bg-accent text-white font-heading font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+        Generate Report &rarr;
+      </button>
+      <button id="reset-checklist" class="bg-bg-dark text-text-secondary border border-border font-heading font-bold text-sm uppercase tracking-wider px-8 py-3.5 rounded-lg hover:border-accent hover:text-text-primary transition-all cursor-pointer">
+        Reset Checklist
+      </button>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Checklist</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Work through each section.</strong> Start with the water heater and move through supply system, drain system, fixtures, and safety. Check off items as you complete them. Enter readings directly into the fields — water pressure, temperature, flow rate — and the tool will flag anything outside normal range.</p>
+          <p><strong class="text-text-primary">2. Monitor your progress.</strong> The progress bar updates in real time. The summary section shows your completion percentage and a health grade based on items checked and flagged readings.</p>
+          <p><strong class="text-text-primary">3. Generate a report.</strong> When finished, hit Generate Report to create a printable summary of everything checked, every reading recorded, and any items that need attention. Your progress auto-saves so you never lose work.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete Plumbing Maintenance Visit Covers</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Water heater maintenance.</strong> The water heater is the most expensive single component in a home's plumbing system. Annual maintenance — flushing sediment, checking the anode rod, testing the T&P valve, and verifying the thermostat — extends the tank life by years and prevents catastrophic failures that cause thousands in water damage.</p>
+          <p><strong class="text-text-primary">Supply system integrity.</strong> A main shut-off valve that does not close fully is a ticking time bomb. Testing every valve, checking water pressure, and inspecting visible supply lines catches problems like corroding angle stops, failing PRVs, and supply lines ready to burst before they cause an emergency.</p>
+          <p><strong class="text-text-primary">Drain performance.</strong> Slow drains are early warnings of bigger problems. Running every drain confirms flow, and inspecting visible waste pipes reveals corrosion, improper grades, and failing joints. Recommending a camera inspection of the main line is a smart upsell that protects the homeowner and generates additional revenue.</p>
+          <p><strong class="text-text-primary">Fixture condition.</strong> A dripping faucet wastes thousands of gallons per year. A running toilet can add over fifty dollars a month to a water bill. Checking fill valves, flappers, disposal operation, and connection integrity at every fixture catches small problems before they become expensive ones.</p>
+          <p><strong class="text-text-primary">Safety verification.</strong> Gas leak inspections, CO detector checks, sump pump tests, and backflow device verification are the safety items that protect homeowners and limit your liability. Documenting these checks in every report demonstrates professionalism and thoroughness.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Annual maintenance visits.</strong> Use this as your standard operating procedure for every plumbing maintenance call. It ensures nothing gets skipped, readings get recorded, and the customer sees a professional report documenting every step.</p>
+          <p><strong class="text-text-primary">New plumber training.</strong> Hand this checklist to every new hire. It teaches them the complete process for a thorough plumbing maintenance visit and builds consistent habits from day one. The reading targets and color indicators help them learn what normal looks like.</p>
+          <p><strong class="text-text-primary">Maintenance agreement visits.</strong> If you sell plumbing maintenance plans, this checklist is your proof of value. Customers paying for a plan expect thoroughness. Generate the report, hand it to them, and show exactly what their money bought.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a plumbing maintenance visit include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete visit should include water heater inspection (anode rod, T&P valve, sediment flush, thermostat verification at 120 degrees F), supply system checks (main shut-off valve, PRV operation, angle stops, water pressure test targeting 40-80 PSI), drain system evaluation (run all drains, inspect visible drain pipes, check cleanout access, inspect washing machine hoses), fixture inspection (faucet drips, toilet fill valves and flappers, garbage disposal, caulking), and safety checks (gas leak inspection, CO detector test, sump pump test, backflow prevention).</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should plumbing be inspected?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A whole-house plumbing inspection should be performed at least once a year. Water heaters need annual maintenance including a sediment flush and anode rod check — tank water heaters last 8 to 12 years and tankless units last 20 or more years with proper maintenance. Homes older than 25 years or those with galvanized or polybutylene pipes should be inspected more frequently due to higher failure risk.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is normal residential water pressure?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Normal residential water pressure is between 40 and 80 PSI. Pressure below 40 PSI causes weak flow at fixtures, while pressure above 80 PSI stresses pipes, fittings, and appliances and can cause leaks over time. A pressure reducing valve (PRV) regulates incoming city water pressure to safe levels. PRVs typically last 7 to 12 years and should be tested during every maintenance visit.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">When should a water heater be replaced?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard tank water heater should be replaced after 8 to 12 years depending on water quality and maintenance history. Warning signs include rusty water from the hot side only, rumbling or popping sounds from sediment buildup, visible corrosion or leaking at the base, and a failed T&P relief valve. Tankless water heaters can last 20 or more years but still require annual descaling and filter cleaning to maintain efficiency.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // ===== STATE =====
+  const STORAGE_KEY = 'plumbing-maintenance-checklist';
+
+  interface SavedState {
+    checks: Record<string, boolean>;
+    fields: Record<string, string>;
+  }
+
+  // ===== PERSISTENCE =====
+  function saveState(): void {
+    const checks: Record<string, boolean> = {};
+    document.querySelectorAll('.cl-check').forEach((cb, i) => {
+      checks[`check-${i}`] = (cb as HTMLInputElement).checked;
+    });
+    const fields: Record<string, string> = {};
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const key = (el as HTMLElement).dataset.field!;
+      fields[key] = (el as HTMLInputElement | HTMLSelectElement).value;
+    });
+    const state: SavedState = { checks, fields };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function loadState(): void {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const state: SavedState = JSON.parse(raw);
+      if (state.checks) {
+        document.querySelectorAll('.cl-check').forEach((cb, i) => {
+          (cb as HTMLInputElement).checked = !!state.checks[`check-${i}`];
+        });
+      }
+      if (state.fields) {
+        document.querySelectorAll('[data-field]').forEach(el => {
+          const key = (el as HTMLElement).dataset.field!;
+          if (state.fields[key] !== undefined) {
+            (el as HTMLInputElement | HTMLSelectElement).value = state.fields[key];
+          }
+        });
+      }
+    } catch {}
+  }
+
+  // ===== PROGRESS & SUMMARY =====
+  function evaluateFlags(): { count: number; items: string[] } {
+    const flags: string[] = [];
+    const pressure = parseFloat((document.querySelector('[data-field="water-pressure"]') as HTMLInputElement)?.value);
+    if (!isNaN(pressure) && pressure > 0 && (pressure < 40 || pressure > 80)) flags.push(`Water Pressure: ${pressure} PSI (target 40-80 PSI)`);
+    const whTemp = parseFloat((document.querySelector('[data-field="wh-temp"]') as HTMLInputElement)?.value);
+    if (!isNaN(whTemp) && whTemp > 0 && (whTemp < 110 || whTemp > 130)) flags.push(`Water Heater Temp: ${whTemp}\u00B0F (target 120\u00B0F)`);
+    const flow = parseFloat((document.querySelector('[data-field="flow-rate"]') as HTMLInputElement)?.value);
+    if (!isNaN(flow) && flow > 0 && (flow < 1.5 || flow > 2.5)) flags.push(`Flow Rate: ${flow} GPM (target 1.5-2.5 GPM)`);
+    const whAge = parseFloat((document.querySelector('[data-field="wh-age"]') as HTMLInputElement)?.value);
+    if (!isNaN(whAge) && whAge >= 10) flags.push(`Water Heater Age: ${whAge} years (replacement recommended at 8-12 years for tank units)`);
+    return { count: flags.length, items: flags };
+  }
+
+  function getGrade(pct: number, flagCount: number): string {
+    if (pct === 0) return '--';
+    const penalty = flagCount * 10;
+    const score = Math.max(0, pct - penalty);
+    if (score >= 90) return 'A';
+    if (score >= 80) return 'B';
+    if (score >= 70) return 'C';
+    if (score >= 60) return 'D';
+    return 'F';
+  }
+
+  function gradeColor(grade: string): string {
+    if (grade === 'A') return 'text-[#34D399]';
+    if (grade === 'B') return 'text-[#60A5FA]';
+    if (grade === 'C') return 'text-[#FBBF24]';
+    if (grade === 'D') return 'text-[#FB923C]';
+    if (grade === 'F') return 'text-[#F87171]';
+    return 'text-text-primary';
+  }
+
+  function updateProgress(): void {
+    const checks = document.querySelectorAll('.cl-check') as NodeListOf<HTMLInputElement>;
+    const total = checks.length;
+    const checked = Array.from(checks).filter(c => c.checked).length;
+    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+    document.getElementById('progress-text')!.textContent = `${checked} of ${total} items checked`;
+    (document.getElementById('progress-bar') as HTMLElement).style.width = `${pct}%`;
+
+    const flags = evaluateFlags();
+    const grade = getGrade(pct, flags.count);
+
+    document.getElementById('summary-checked')!.textContent = `${checked} / ${total}`;
+    document.getElementById('summary-pct')!.textContent = `${pct}%`;
+    document.getElementById('summary-flags')!.textContent = flags.count.toString();
+
+    const gradeEl = document.getElementById('summary-grade')!;
+    gradeEl.textContent = grade;
+    gradeEl.className = `font-heading font-extrabold text-3xl ${gradeColor(grade)}`;
+
+    if (flags.count > 0) {
+      document.getElementById('summary-flags')!.className = 'font-heading font-extrabold text-3xl text-[#FBBF24]';
+    } else {
+      document.getElementById('summary-flags')!.className = 'font-heading font-extrabold text-3xl text-[#34D399]';
+    }
+
+    const flagList = document.getElementById('flag-list')!;
+    const flagItems = document.getElementById('flag-items')!;
+    if (flags.count > 0) {
+      flagList.classList.remove('hidden');
+      flagItems.innerHTML = flags.items.map(f => `<div class="bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg px-4 py-2 text-sm text-[#FBBF24]">${f}</div>`).join('');
+    } else {
+      flagList.classList.add('hidden');
+      flagItems.innerHTML = '';
+    }
+  }
+
+  // ===== COLOR INDICATORS =====
+  function updateIndicators(): void {
+    const pressure = parseFloat((document.querySelector('[data-field="water-pressure"]') as HTMLInputElement)?.value);
+    const indPressure = document.getElementById('ind-pressure');
+    if (indPressure) {
+      if (isNaN(pressure) || pressure === 0) indPressure.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (pressure >= 40 && pressure <= 80) indPressure.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (pressure >= 30 && pressure <= 90) indPressure.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indPressure.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    }
+
+    const whTemp = parseFloat((document.querySelector('[data-field="wh-temp"]') as HTMLInputElement)?.value);
+    const indTemp = document.getElementById('ind-wh-temp');
+    if (indTemp) {
+      if (isNaN(whTemp) || whTemp === 0) indTemp.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (whTemp >= 118 && whTemp <= 122) indTemp.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (whTemp >= 110 && whTemp <= 130) indTemp.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indTemp.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    }
+
+    const flow = parseFloat((document.querySelector('[data-field="flow-rate"]') as HTMLInputElement)?.value);
+    const indFlow = document.getElementById('ind-flow');
+    if (indFlow) {
+      if (isNaN(flow) || flow === 0) indFlow.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (flow >= 1.5 && flow <= 2.5) indFlow.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (flow >= 1.0 && flow <= 3.0) indFlow.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indFlow.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    }
+  }
+
+  // ===== EVENT LISTENERS =====
+  document.querySelectorAll('.cl-check').forEach(cb => {
+    cb.addEventListener('change', () => {
+      updateProgress();
+      saveState();
+    });
+  });
+
+  document.querySelectorAll('[data-field]').forEach(el => {
+    el.addEventListener('input', () => {
+      updateIndicators();
+      updateProgress();
+      saveState();
+    });
+    el.addEventListener('change', () => {
+      updateIndicators();
+      updateProgress();
+      saveState();
+    });
+  });
+
+  // ===== RESET =====
+  document.getElementById('reset-checklist')?.addEventListener('click', () => {
+    if (!confirm('Reset all checked items and readings? This cannot be undone.')) return;
+    document.querySelectorAll('.cl-check').forEach(cb => { (cb as HTMLInputElement).checked = false; });
+    document.querySelectorAll('[data-field]').forEach(el => { (el as HTMLInputElement | HTMLSelectElement).value = ''; });
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    updateIndicators();
+    updateProgress();
+  });
+
+  // ===== REPORT GENERATION =====
+  document.getElementById('generate-report')?.addEventListener('click', () => {
+    const checks = document.querySelectorAll('.cl-check') as NodeListOf<HTMLInputElement>;
+    const total = checks.length;
+    const checked = Array.from(checks).filter(c => c.checked).length;
+    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+    const flags = evaluateFlags();
+    const grade = getGrade(pct, flags.count);
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+    // Gather field readings
+    const fields: Record<string, string> = {};
+    document.querySelectorAll('[data-field]').forEach(el => {
+      const key = (el as HTMLElement).dataset.field!;
+      const val = (el as HTMLInputElement | HTMLSelectElement).value;
+      if (val) fields[key] = val;
+    });
+
+    // Build sections
+    const sections: { title: string; items: { text: string; checked: boolean }[] }[] = [];
+    const sectionEls = document.querySelectorAll('#checklist-app > .mb-8');
+    sectionEls.forEach(sec => {
+      const h3 = sec.querySelector('h3');
+      if (!h3) return;
+      const title = h3.textContent?.trim().replace(/^\u25CF\s*/, '') || '';
+      const items: { text: string; checked: boolean }[] = [];
+      sec.querySelectorAll('.cl-check').forEach(cb => {
+        const label = (cb as HTMLElement).closest('label') || (cb as HTMLElement).closest('.flex');
+        const span = label?.querySelector('span');
+        const text = span?.textContent?.trim() || '';
+        items.push({ text, checked: (cb as HTMLInputElement).checked });
+      });
+      sections.push({ title, items });
+    });
+
+    // Build HTML for print
+    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Plumbing Maintenance Report</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; padding: 40px; max-width: 800px; margin: 0 auto; font-size: 13px; line-height: 1.5; }
+      h1 { font-size: 22px; margin-bottom: 4px; }
+      h2 { font-size: 16px; margin: 20px 0 8px; border-bottom: 2px solid #e5e7eb; padding-bottom: 4px; }
+      .meta { color: #6b7280; font-size: 12px; margin-bottom: 20px; }
+      .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+      .summary-box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
+      .summary-box .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280; margin-bottom: 4px; }
+      .summary-box .value { font-size: 22px; font-weight: 700; }
+      .grade-A { color: #10b981; } .grade-B { color: #3b82f6; } .grade-C { color: #f59e0b; } .grade-D { color: #f97316; } .grade-F { color: #ef4444; }
+      .item { padding: 3px 0; display: flex; align-items: center; gap: 8px; }
+      .check { width: 14px; height: 14px; border: 1.5px solid #d1d5db; border-radius: 3px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+      .check.done { background: #10b981; border-color: #10b981; color: white; }
+      .readings { margin: 8px 0 8px 22px; padding: 8px 12px; background: #f9fafb; border-radius: 6px; font-size: 12px; }
+      .readings span { margin-right: 16px; }
+      .flag { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 6px 12px; margin: 4px 0; font-size: 12px; color: #92400e; }
+      @media print { body { padding: 20px; } }
+    </style></head><body>`;
+
+    html += `<h1>Plumbing Maintenance Report</h1>`;
+    html += `<div class="meta">${dateStr} at ${timeStr}</div>`;
+
+    html += `<div class="summary-grid">`;
+    html += `<div class="summary-box"><div class="label">Checked</div><div class="value">${checked}/${total}</div></div>`;
+    html += `<div class="summary-box"><div class="label">Completion</div><div class="value">${pct}%</div></div>`;
+    html += `<div class="summary-box"><div class="label">Flags</div><div class="value">${flags.count}</div></div>`;
+    html += `<div class="summary-box"><div class="label">Grade</div><div class="value grade-${grade}">${grade}</div></div>`;
+    html += `</div>`;
+
+    if (flags.count > 0) {
+      html += `<h2>Flagged Readings</h2>`;
+      flags.items.forEach(f => { html += `<div class="flag">${f}</div>`; });
+    }
+
+    sections.forEach(sec => {
+      html += `<h2>${sec.title}</h2>`;
+      sec.items.forEach(item => {
+        html += `<div class="item"><span class="check ${item.checked ? 'done' : ''}">${item.checked ? '&#10003;' : ''}</span> ${item.text}</div>`;
+      });
+    });
+
+    // Add readings section if any
+    const readingLabels: Record<string, string> = {
+      'wh-temp': 'Water Heater Temp (\u00B0F)',
+      'wh-age': 'Water Heater Age (years)',
+      'water-pressure': 'Water Pressure (PSI)',
+      'flow-rate': 'Flow Rate (GPM)',
+    };
+    const activeFields = Object.entries(fields).filter(([_, v]) => v);
+    if (activeFields.length > 0) {
+      html += `<h2>Recorded Readings</h2><div class="readings">`;
+      activeFields.forEach(([k, v]) => {
+        const label = readingLabels[k] || k;
+        html += `<span><strong>${label}:</strong> ${v}</span>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</body></html>`;
+
+    const printWin = window.open('', '_blank');
+    if (printWin) {
+      printWin.document.write(html);
+      printWin.document.close();
+      setTimeout(() => printWin.print(), 400);
+    }
+  });
+
+  // ===== INIT =====
+  loadState();
+  updateIndicators();
+  updateProgress();
+</script>

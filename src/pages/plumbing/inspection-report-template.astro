@@ -1,0 +1,985 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('inspection-report-template')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should a plumbing inspection report include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A professional plumbing inspection report should include system overview (supply pipe material, drain pipe material, water heater details), component-by-component ratings using a Pass/Monitor/Fail scale for water supply pipes, drain and vent pipes, water heater, fixtures, shut-off valves, gas lines, sump pump, and backflow prevention, water pressure and flow rate measurements, a prioritized list of findings with estimated repair costs, an overall pass or fail assessment, and inspector credentials with license number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a plumbing inspection cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard plumbing inspection costs between $100 and $300 depending on the property size, location, and scope. Pre-purchase plumbing inspections for real estate transactions typically run $200 to $500 since they require camera inspection of drain lines and more detailed documentation. Annual maintenance inspections are often included in plumbing service agreements ranging from $149 to $399 per year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is checked during a plumbing inspection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A thorough plumbing inspection checks water supply pipes for material, condition, and leaks, drain waste and vent pipes for blockages and corrosion, water heater age and operation, all fixtures for proper function and leaks, shut-off valves for operation, gas lines for leaks, sump or ejector pump function, and backflow prevention devices. Water pressure, water heater temperature, and fixture flow rates are also measured and recorded."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I write a professional plumbing inspection report?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with complete property and system identification including pipe materials, sizes, and ages. Rate each plumbing component using a standardized scale such as Pass, Monitor, or Fail. Record all measurements including water pressure in PSI, water heater temperature, and flow rates in GPM. List every finding with a recommended action, estimated cost, and priority level. Include an overall assessment and total repair cost estimate. Always add a disclaimer about the inspection scope and limitations."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="inspection-report-form">
+
+    <!-- Section: Header / Company Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Inspector &amp; Company Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="company-name">Company Name</label>
+        <input type="text" id="company-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inspector-name">Inspector Name</label>
+        <input type="text" id="inspector-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inspector-phone">Phone</label>
+        <input type="text" id="inspector-phone" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="license-number">License #</label>
+        <input type="text" id="license-number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inspection-date">Inspection Date</label>
+        <input type="date" id="inspection-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="report-number">Report #</label>
+        <input type="text" id="report-number" value="PIR-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="property-address">Property Address</label>
+        <input type="text" id="property-address" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inspection-reason">Reason for Inspection</label>
+        <select id="inspection-reason" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Pre-Purchase">Pre-Purchase</option>
+          <option value="Annual Inspection" selected>Annual Inspection</option>
+          <option value="Insurance">Insurance</option>
+          <option value="Complaint Investigation">Complaint Investigation</option>
+          <option value="Re-Pipe Evaluation">Re-Pipe Evaluation</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section: System Overview -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Overview</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-material">Supply Pipe Material</label>
+        <select id="supply-material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Copper">Copper</option>
+          <option value="PEX">PEX</option>
+          <option value="CPVC">CPVC</option>
+          <option value="Galvanized Steel">Galvanized Steel</option>
+          <option value="Polybutylene">Polybutylene</option>
+          <option value="Mixed">Mixed</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-size">Supply Pipe Size</label>
+        <select id="supply-size" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value='1/2"'>1/2"</option>
+          <option value='3/4"' selected>3/4"</option>
+          <option value='1"'>1"</option>
+          <option value='1-1/4"'>1-1/4"</option>
+          <option value='1-1/2"'>1-1/2"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-age">Supply Pipe Age (years)</label>
+        <input type="number" id="supply-age" min="0" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-condition">Supply Pipe Condition</label>
+        <select id="supply-condition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Excellent">Excellent</option>
+          <option value="Good" selected>Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Poor">Poor</option>
+          <option value="Failed">Failed</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="drain-material">Drain Pipe Material</label>
+        <select id="drain-material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="PVC">PVC</option>
+          <option value="ABS">ABS</option>
+          <option value="Cast Iron">Cast Iron</option>
+          <option value="Galvanized Steel">Galvanized Steel</option>
+          <option value="Clay">Clay</option>
+          <option value="Orangeburg">Orangeburg</option>
+          <option value="Mixed">Mixed</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="drain-size">Main Drain Size</label>
+        <select id="drain-size" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value='3"'>3"</option>
+          <option value='4"' selected>4"</option>
+          <option value='6"'>6"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="drain-condition">Drain Pipe Condition</label>
+        <select id="drain-condition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Excellent">Excellent</option>
+          <option value="Good" selected>Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Poor">Poor</option>
+          <option value="Failed">Failed</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-type">Water Heater Type</label>
+        <select id="wh-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Tank - Gas">Tank - Gas</option>
+          <option value="Tank - Electric">Tank - Electric</option>
+          <option value="Tankless - Gas">Tankless - Gas</option>
+          <option value="Tankless - Electric">Tankless - Electric</option>
+          <option value="Heat Pump">Heat Pump</option>
+          <option value="None">None</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-make">Water Heater Make</label>
+        <input type="text" id="wh-make" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-model">Water Heater Model</label>
+        <input type="text" id="wh-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-install-date">Water Heater Install Date</label>
+        <input type="date" id="wh-install-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Water Heater Age</label>
+        <div id="wh-age-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="water-source">Water Source</label>
+        <select id="water-source" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="City/Municipal" selected>City / Municipal</option>
+          <option value="Well">Well</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sewer-type">Sewer Type</label>
+        <select id="sewer-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="City/Municipal" selected>City / Municipal</option>
+          <option value="Septic">Septic</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section: Component Ratings -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Component Ratings</h3>
+    <div class="space-y-4 mb-8">
+      <!-- Water Supply Pipes -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Water Supply Pipes</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="supply-pipes">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="supply-pipes"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="supply-pipes" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Drain / Waste / Vent Pipes -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Drain / Waste / Vent</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="dwv-pipes">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="dwv-pipes"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="dwv-pipes" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Water Heater -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Water Heater</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="water-heater">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="water-heater"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="water-heater" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Fixtures -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Fixtures</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="fixtures">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="fixtures"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="fixtures" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Shut-off Valves -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Shut-off Valves</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="shutoff-valves">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="shutoff-valves"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="shutoff-valves" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Gas Lines -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Gas Lines</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="gas-lines">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="gas-lines"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="gas-lines" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Sump / Ejector Pump -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Sump / Ejector Pump</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="sump-pump">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+            <option value="N/A">N/A</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="sump-pump"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="sump-pump" rows="2" placeholder="Notes..."></textarea>
+      </div>
+      <!-- Backflow Prevention -->
+      <div class="bg-bg-dark border border-border rounded-lg p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+          <span class="font-medium text-text-primary w-48 shrink-0">Backflow Prevention</span>
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="backflow">
+            <option value="Pass">Pass (Green)</option>
+            <option value="Monitor">Monitor (Yellow)</option>
+            <option value="Fail">Fail (Red)</option>
+            <option value="N/A">N/A</option>
+          </select>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="backflow"></span>
+        </div>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="backflow" rows="2" placeholder="Notes..."></textarea>
+      </div>
+    </div>
+
+    <!-- Section: Measurements -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Measurements</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="water-pressure">Water Pressure (PSI)</label>
+        <input type="number" id="water-pressure" min="0" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Pressure Level</label>
+        <div id="pressure-level-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-temp">Water Heater Temp (&deg;F)</label>
+        <input type="number" id="wh-temp" min="0" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Temp Level</label>
+        <div id="wh-temp-level-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="flow-rate">Flow Rate (GPM)</label>
+        <input type="number" id="flow-rate" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Flow Level</label>
+        <div id="flow-level-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+      </div>
+    </div>
+
+    <!-- Section: Findings -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Findings</h3>
+    <div class="mb-8">
+      <div id="findings-table" class="space-y-3">
+        <div class="finding-row bg-bg-dark border border-border rounded-lg p-4">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_120px_140px_40px] gap-3 items-end">
+            <div>
+              <label class="block text-sm font-medium text-text-secondary mb-2">Description</label>
+              <input type="text" class="finding-desc w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-text-secondary mb-2">Recommended Action</label>
+              <input type="text" class="finding-action w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-text-secondary mb-2">Est. Cost ($)</label>
+              <input type="number" min="0" step="1" class="finding-cost w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-text-secondary mb-2">Priority</label>
+              <select class="finding-priority w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+                <option value="Immediate/Safety">Immediate / Safety</option>
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-text-secondary mb-2">&nbsp;</label>
+              <button type="button" class="remove-finding-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove finding">&times;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" id="add-finding-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Finding</button>
+    </div>
+
+    <!-- Section: Summary -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Summary</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div class="bg-bg-dark rounded-xl p-5 text-center">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Good Condition</div>
+        <div id="summary-good" class="font-heading font-extrabold text-3xl text-green-400">0</div>
+      </div>
+      <div class="bg-bg-dark rounded-xl p-5 text-center">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Needs Attention</div>
+        <div id="summary-attention" class="font-heading font-extrabold text-3xl text-yellow-400">0</div>
+      </div>
+      <div class="bg-bg-dark rounded-xl p-5 text-center">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Repair Cost</div>
+        <div id="summary-cost" class="font-heading font-extrabold text-3xl text-accent">$0</div>
+      </div>
+      <div class="bg-bg-dark rounded-xl p-5 text-center">
+        <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Overall Assessment</div>
+        <div id="summary-assessment-display" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="overall-assessment">Overall Assessment</label>
+        <select id="overall-assessment" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Pass">Pass</option>
+          <option value="Conditional Pass" selected>Conditional Pass</option>
+          <option value="Fail">Fail</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="additional-notes">Additional Notes</label>
+        <textarea id="additional-notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+      </div>
+    </div>
+
+    <!-- Generate Button -->
+    <button id="generate-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+      Generate Inspection Report &rarr;
+    </button>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Fill in inspector and property details.</strong> Enter your company name, license number, and the property address. The report number auto-generates as PIR-001 -- change it to match your numbering system. Select the reason for the inspection so the report context is clear from the start.</p>
+          <p><strong class="text-text-primary">2. Document the plumbing system overview.</strong> Record the supply pipe material, size, age, and condition. Do the same for the drain pipes. Identify the water heater type, make, and model from the data plate -- the age calculates automatically from the install date. Note the water source and sewer type for the property.</p>
+          <p><strong class="text-text-primary">3. Rate each component and record measurements.</strong> Go through each component -- water supply pipes, drain/waste/vent, water heater, fixtures, shut-off valves, gas lines, sump pump, and backflow prevention -- and assign a Pass, Monitor, or Fail rating with notes. Then record water pressure, water heater temperature, and flow rate measurements. Color indicators flag readings outside normal ranges.</p>
+          <p><strong class="text-text-primary">4. Document findings and generate the report.</strong> For every issue you find, add a finding row with a description, recommended action, estimated repair cost, and priority level. The summary section auto-calculates totals as you go. Select your overall assessment, add any additional notes, and hit Generate. The report opens in a new tab with professional formatting -- ready to print or save as PDF.</p>
+        </div>
+      </section>
+
+      <!-- What Makes a Professional Report -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Plumbing Inspection Report</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>A professional plumbing inspection report does more than check boxes. Every section serves a specific purpose in communicating system condition to the property owner, buyer, insurer, or warranty provider.</p>
+          <p><strong class="text-text-primary">System identification</strong> anchors the report to specific infrastructure. Supply pipe material, drain pipe material, water heater make and model, water source, and sewer type let anyone verify what was inspected. Pipe ages and conditions give the reader immediate context about where the plumbing sits in its lifecycle and whether major replacements are approaching.</p>
+          <p><strong class="text-text-primary">Component ratings</strong> using a standardized Pass/Monitor/Fail scale make complex technical findings accessible to non-technical readers. A homebuyer doesn't need to understand galvanic corrosion -- they need to know the supply pipes passed, the water heater needs monitoring, and the shut-off valves failed. The notes behind each rating provide the technical detail for other professionals.</p>
+          <p><strong class="text-text-primary">Measurements</strong> document the system's actual operating condition with verifiable numbers. Water pressure in PSI, water heater temperature, and flow rate in GPM are objective data points that cannot be disputed. They create a baseline for future comparisons and protect the inspector if conditions change after the inspection.</p>
+          <p><strong class="text-text-primary">Prioritized findings</strong> turn observations into actionable recommendations. Each finding includes what is wrong, what should be done, how much it will cost, and how urgent it is. This structure helps property owners make informed decisions about repairs and budgeting.</p>
+          <p><strong class="text-text-primary">Documentation matters</strong> because inspection reports become legal documents. They are referenced in real estate transactions, insurance claims, warranty disputes, and liability cases. A thorough, well-structured report protects your client, protects your business, and demonstrates the professionalism that separates serious plumbing contractors from everyone else.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Pre-purchase inspections.</strong> A buyer's agent or homebuyer hires you to evaluate the plumbing system before closing on a property. The report becomes part of the due diligence package. A clear pass/fail assessment with estimated repair costs gives the buyer leverage to negotiate price reductions or request repairs before closing. Pipe material and age are especially important -- polybutylene or galvanized supply lines can be deal-breakers that save the buyer tens of thousands in surprise re-piping costs.</p>
+          <p><strong class="text-text-primary">Annual maintenance inspections.</strong> During service visits and maintenance calls, a formal inspection report documents the plumbing system's current condition and creates a year-over-year record. When a component rating moves from green to yellow, you can point to the history and recommend proactive replacement before it fails. This builds trust, generates future work, and protects you from customers who claim you never told them something was wearing out.</p>
+          <p><strong class="text-text-primary">Insurance and re-pipe evaluations.</strong> Insurance companies require documented proof of plumbing condition when processing claims for water damage. Re-pipe evaluations need detailed pipe material, age, and condition documentation to justify the scope of work. A professional report with component ratings, measurements, and findings gives adjusters and property owners exactly what they need to make informed decisions without the back-and-forth of incomplete documentation.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a plumbing inspection report include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional plumbing inspection report should include system overview (supply pipe material, drain pipe material, water heater details), component-by-component ratings using a Pass/Monitor/Fail scale for water supply pipes, drain and vent pipes, water heater, fixtures, shut-off valves, gas lines, sump pump, and backflow prevention, water pressure and flow rate measurements, a prioritized list of findings with estimated repair costs, an overall pass or fail assessment, and inspector credentials with license number.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a plumbing inspection cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard plumbing inspection costs between $100 and $300 depending on the property size, location, and scope. Pre-purchase plumbing inspections for real estate transactions typically run $200 to $500 since they require camera inspection of drain lines and more detailed documentation. Annual maintenance inspections are often included in plumbing service agreements ranging from $149 to $399 per year.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is checked during a plumbing inspection?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A thorough plumbing inspection checks water supply pipes for material, condition, and leaks, drain waste and vent pipes for blockages and corrosion, water heater age and operation, all fixtures for proper function and leaks, shut-off valves for operation, gas lines for leaks, sump or ejector pump function, and backflow prevention devices. Water pressure, water heater temperature, and fixture flow rates are also measured and recorded.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I write a professional plumbing inspection report?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with complete property and system identification including pipe materials, sizes, and ages. Rate each plumbing component using a standardized scale such as Pass, Monitor, or Fail. Record all measurements including water pressure in PSI, water heater temperature, and flow rates in GPM. List every finding with a recommended action, estimated cost, and priority level. Include an overall assessment and total repair cost estimate. Always add a disclaimer about the inspection scope and limitations.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // --- Default date ---
+  const now = new Date();
+  const dateInput = document.getElementById('inspection-date') as HTMLInputElement;
+  if (dateInput && !dateInput.value) {
+    dateInput.value = now.toISOString().slice(0, 10);
+  }
+
+  // --- Water Heater Age auto-calculation ---
+  function updateWHAge() {
+    const installDate = (document.getElementById('wh-install-date') as HTMLInputElement).value;
+    const display = document.getElementById('wh-age-display')!;
+    if (installDate) {
+      const install = new Date(installDate);
+      const today = new Date();
+      let years = today.getFullYear() - install.getFullYear();
+      const monthDiff = today.getMonth() - install.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < install.getDate())) {
+        years--;
+      }
+      display.textContent = years + (years === 1 ? ' year' : ' years');
+      // Flag if water heater age >= 10 years
+      if (years >= 10) {
+        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      } else {
+        display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-primary';
+      }
+    } else {
+      display.textContent = '\u2014';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
+    }
+  }
+  document.getElementById('wh-install-date')?.addEventListener('input', updateWHAge);
+
+  // --- Component Rating color indicators ---
+  function updateRatingIndicators() {
+    document.querySelectorAll('.component-rating').forEach(sel => {
+      const select = sel as HTMLSelectElement;
+      const component = select.dataset.component;
+      const indicator = document.querySelector(`.rating-indicator[data-for="${component}"]`) as HTMLElement;
+      if (!indicator) return;
+      indicator.classList.remove('bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-gray-500');
+      if (select.value === 'Pass') {
+        indicator.classList.add('bg-green-500');
+      } else if (select.value === 'Monitor') {
+        indicator.classList.add('bg-yellow-500');
+      } else if (select.value === 'Fail') {
+        indicator.classList.add('bg-red-500');
+      } else {
+        indicator.classList.add('bg-gray-500');
+      }
+    });
+    updateSummary();
+  }
+  document.querySelectorAll('.component-rating').forEach(el => {
+    el.addEventListener('change', updateRatingIndicators);
+  });
+
+  // --- Water Pressure indicator ---
+  function updatePressureLevel() {
+    const psi = parseFloat((document.getElementById('water-pressure') as HTMLInputElement).value);
+    const display = document.getElementById('pressure-level-display')!;
+    if (!isNaN(psi) && psi >= 0) {
+      if (psi >= 40 && psi <= 80) {
+        display.textContent = psi + ' PSI \u2014 Normal';
+        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
+      } else if (psi < 40) {
+        display.textContent = psi + ' PSI \u2014 Low';
+        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      } else {
+        display.textContent = psi + ' PSI \u2014 High';
+        display.className = 'w-full bg-bg-dark border border-red-500/50 rounded-lg px-4 py-3 text-lg font-bold text-red-400';
+      }
+    } else {
+      display.textContent = '\u2014';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
+    }
+  }
+  document.getElementById('water-pressure')?.addEventListener('input', updatePressureLevel);
+
+  // --- Water Heater Temp indicator ---
+  function updateWHTempLevel() {
+    const temp = parseFloat((document.getElementById('wh-temp') as HTMLInputElement).value);
+    const display = document.getElementById('wh-temp-level-display')!;
+    if (!isNaN(temp) && temp >= 0) {
+      if (temp >= 110 && temp <= 130) {
+        display.textContent = temp + '\u00B0F \u2014 Normal';
+        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
+      } else if (temp < 110) {
+        display.textContent = temp + '\u00B0F \u2014 Low (scalding risk reduced, but bacteria risk)';
+        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      } else {
+        display.textContent = temp + '\u00B0F \u2014 High (scalding risk)';
+        display.className = 'w-full bg-bg-dark border border-red-500/50 rounded-lg px-4 py-3 text-lg font-bold text-red-400';
+      }
+    } else {
+      display.textContent = '\u2014';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
+    }
+  }
+  document.getElementById('wh-temp')?.addEventListener('input', updateWHTempLevel);
+
+  // --- Flow Rate indicator ---
+  function updateFlowLevel() {
+    const gpm = parseFloat((document.getElementById('flow-rate') as HTMLInputElement).value);
+    const display = document.getElementById('flow-level-display')!;
+    if (!isNaN(gpm) && gpm >= 0) {
+      if (gpm >= 1.5 && gpm <= 2.5) {
+        display.textContent = gpm.toFixed(1) + ' GPM \u2014 Normal';
+        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
+      } else if (gpm < 1.5) {
+        display.textContent = gpm.toFixed(1) + ' GPM \u2014 Low';
+        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      } else {
+        display.textContent = gpm.toFixed(1) + ' GPM \u2014 High';
+        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      }
+    } else {
+      display.textContent = '\u2014';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
+    }
+  }
+  document.getElementById('flow-rate')?.addEventListener('input', updateFlowLevel);
+
+  // --- Dynamic Findings Table ---
+  function addFindingRow() {
+    const table = document.getElementById('findings-table')!;
+    const row = document.createElement('div');
+    row.className = 'finding-row bg-bg-dark border border-border rounded-lg p-4';
+    row.innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_120px_140px_40px] gap-3 items-end">
+        <div>
+          <input type="text" class="finding-desc w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <input type="text" class="finding-action w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <input type="number" min="0" step="1" class="finding-cost w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <select class="finding-priority w-full bg-bg-card border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="Immediate/Safety">Immediate / Safety</option>
+            <option value="High">High</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div>
+          <button type="button" class="remove-finding-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove finding">&times;</button>
+        </div>
+      </div>
+    `;
+    table.appendChild(row);
+    attachFindingListeners();
+  }
+
+  document.getElementById('add-finding-btn')?.addEventListener('click', addFindingRow);
+
+  document.getElementById('findings-table')?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('remove-finding-btn')) {
+      const row = target.closest('.finding-row');
+      const allRows = document.querySelectorAll('.finding-row');
+      if (allRows.length > 1 && row) {
+        row.remove();
+        updateSummary();
+      }
+    }
+  });
+
+  function attachFindingListeners() {
+    document.querySelectorAll('.finding-cost').forEach(el => {
+      el.removeEventListener('input', updateSummary);
+      el.addEventListener('input', updateSummary);
+    });
+  }
+  attachFindingListeners();
+
+  // --- Summary auto-calculation ---
+  function updateSummary() {
+    // Count component ratings
+    let good = 0;
+    let attention = 0;
+    document.querySelectorAll('.component-rating').forEach(sel => {
+      const val = (sel as HTMLSelectElement).value;
+      if (val === 'Pass') good++;
+      else if (val === 'N/A') { /* skip */ }
+      else attention++;
+    });
+    document.getElementById('summary-good')!.textContent = String(good);
+    document.getElementById('summary-attention')!.textContent = String(attention);
+
+    // Sum finding costs
+    let totalCost = 0;
+    document.querySelectorAll('.finding-cost').forEach(el => {
+      const val = parseFloat((el as HTMLInputElement).value);
+      if (!isNaN(val)) totalCost += val;
+    });
+    document.getElementById('summary-cost')!.textContent = '$' + totalCost.toLocaleString();
+
+    // Overall assessment display
+    const assessment = (document.getElementById('overall-assessment') as HTMLSelectElement).value;
+    const assessDisplay = document.getElementById('summary-assessment-display')!;
+    assessDisplay.textContent = assessment;
+    assessDisplay.classList.remove('text-green-400', 'text-yellow-400', 'text-red-400', 'text-text-primary');
+    if (assessment === 'Pass') {
+      assessDisplay.classList.add('text-green-400');
+    } else if (assessment === 'Conditional Pass') {
+      assessDisplay.classList.add('text-yellow-400');
+    } else {
+      assessDisplay.classList.add('text-red-400');
+    }
+  }
+  document.getElementById('overall-assessment')?.addEventListener('change', updateSummary);
+  updateSummary();
+
+  // --- Helper ---
+  function getVal(id: string): string {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+    return el ? el.value : '';
+  }
+
+  // --- Generate Inspection Report ---
+  function generateReport() {
+    // Collect component ratings
+    const components = [
+      { key: 'supply-pipes', label: 'Water Supply Pipes' },
+      { key: 'dwv-pipes', label: 'Drain / Waste / Vent' },
+      { key: 'water-heater', label: 'Water Heater' },
+      { key: 'fixtures', label: 'Fixtures' },
+      { key: 'shutoff-valves', label: 'Shut-off Valves' },
+      { key: 'gas-lines', label: 'Gas Lines' },
+      { key: 'sump-pump', label: 'Sump / Ejector Pump' },
+      { key: 'backflow', label: 'Backflow Prevention' },
+    ];
+
+    let ratingsHtml = '';
+    let greenCount = 0;
+    let yellowCount = 0;
+    let redCount = 0;
+    let naCount = 0;
+    components.forEach(comp => {
+      const rating = (document.querySelector(`.component-rating[data-component="${comp.key}"]`) as HTMLSelectElement)?.value || 'Pass';
+      const notes = (document.querySelector(`.component-notes[data-component="${comp.key}"]`) as HTMLTextAreaElement)?.value || '';
+      let color = '#16a34a';
+      let bg = '#dcfce7';
+      let label = 'PASS';
+      if (rating === 'Monitor') {
+        color = '#ca8a04'; bg = '#fef9c3'; label = 'MONITOR'; yellowCount++;
+      } else if (rating === 'Fail') {
+        color = '#dc2626'; bg = '#fee2e2'; label = 'FAIL'; redCount++;
+      } else if (rating === 'N/A') {
+        color = '#6b7280'; bg = '#f3f4f6'; label = 'N/A'; naCount++;
+      } else {
+        greenCount++;
+      }
+      ratingsHtml += `<tr>
+        <td style="border:1px solid #ddd;padding:8px 12px;font-weight:600;">${comp.label}</td>
+        <td style="border:1px solid #ddd;padding:8px 12px;text-align:center;"><span style="display:inline-block;padding:2px 12px;border-radius:4px;background:${bg};color:${color};font-weight:700;font-size:12px;text-transform:uppercase;">${label}</span></td>
+        <td style="border:1px solid #ddd;padding:8px 12px;font-size:13px;color:#555;">${notes || '\u2014'}</td>
+      </tr>`;
+    });
+
+    // Water heater age
+    const whInstallDate = getVal('wh-install-date');
+    let whAge = '\u2014';
+    if (whInstallDate) {
+      const install = new Date(whInstallDate);
+      const today = new Date();
+      let years = today.getFullYear() - install.getFullYear();
+      const md = today.getMonth() - install.getMonth();
+      if (md < 0 || (md === 0 && today.getDate() < install.getDate())) years--;
+      whAge = years + (years === 1 ? ' year' : ' years');
+    }
+
+    // Water Pressure display
+    const pressureVal = parseFloat(getVal('water-pressure'));
+    let pressureDisplay = '\u2014';
+    let pressureColor = '#666';
+    if (!isNaN(pressureVal) && pressureVal >= 0) {
+      if (pressureVal >= 40 && pressureVal <= 80) {
+        pressureDisplay = pressureVal + ' PSI'; pressureColor = '#16a34a';
+      } else if (pressureVal < 40) {
+        pressureDisplay = pressureVal + ' PSI (Low)'; pressureColor = '#ca8a04';
+      } else {
+        pressureDisplay = pressureVal + ' PSI (High)'; pressureColor = '#dc2626';
+      }
+    }
+
+    // WH Temp display
+    const whTempVal = parseFloat(getVal('wh-temp'));
+    let whTempDisplay = '\u2014';
+    let whTempColor = '#666';
+    if (!isNaN(whTempVal) && whTempVal >= 0) {
+      if (whTempVal >= 110 && whTempVal <= 130) {
+        whTempDisplay = whTempVal + '\u00B0F'; whTempColor = '#16a34a';
+      } else if (whTempVal < 110) {
+        whTempDisplay = whTempVal + '\u00B0F (Low)'; whTempColor = '#ca8a04';
+      } else {
+        whTempDisplay = whTempVal + '\u00B0F (High)'; whTempColor = '#dc2626';
+      }
+    }
+
+    // Flow Rate display
+    const flowVal = parseFloat(getVal('flow-rate'));
+    let flowDisplay = '\u2014';
+    let flowColor = '#666';
+    if (!isNaN(flowVal) && flowVal >= 0) {
+      if (flowVal >= 1.5 && flowVal <= 2.5) {
+        flowDisplay = flowVal.toFixed(1) + ' GPM'; flowColor = '#16a34a';
+      } else if (flowVal < 1.5) {
+        flowDisplay = flowVal.toFixed(1) + ' GPM (Low)'; flowColor = '#ca8a04';
+      } else {
+        flowDisplay = flowVal.toFixed(1) + ' GPM (High)'; flowColor = '#ca8a04';
+      }
+    }
+
+    // Supply pipe condition color
+    const supplyCondition = getVal('supply-condition');
+    let supplyCondColor = '#16a34a';
+    if (supplyCondition === 'Fair') supplyCondColor = '#ca8a04';
+    else if (supplyCondition === 'Poor' || supplyCondition === 'Failed') supplyCondColor = '#dc2626';
+
+    // Drain pipe condition color
+    const drainCondition = getVal('drain-condition');
+    let drainCondColor = '#16a34a';
+    if (drainCondition === 'Fair') drainCondColor = '#ca8a04';
+    else if (drainCondition === 'Poor' || drainCondition === 'Failed') drainCondColor = '#dc2626';
+
+    // Findings
+    const findingRows = document.querySelectorAll('.finding-row');
+    let findingsHtml = '';
+    let totalCost = 0;
+    findingRows.forEach(row => {
+      const desc = (row.querySelector('.finding-desc') as HTMLInputElement)?.value || '';
+      const action = (row.querySelector('.finding-action') as HTMLInputElement)?.value || '';
+      const cost = parseFloat((row.querySelector('.finding-cost') as HTMLInputElement)?.value) || 0;
+      const priority = (row.querySelector('.finding-priority') as HTMLSelectElement)?.value || 'Medium';
+      if (desc || action) {
+        totalCost += cost;
+        let priBg = '#e0f2e9'; let priColor = '#166534';
+        if (priority === 'Immediate/Safety') { priBg = '#fee2e2'; priColor = '#991b1b'; }
+        else if (priority === 'High') { priBg = '#fef3c7'; priColor = '#92400e'; }
+        else if (priority === 'Medium') { priBg = '#dbeafe'; priColor = '#1e40af'; }
+        findingsHtml += `<tr>
+          <td style="border:1px solid #ddd;padding:8px 12px;">${desc}</td>
+          <td style="border:1px solid #ddd;padding:8px 12px;">${action}</td>
+          <td style="border:1px solid #ddd;padding:8px 12px;text-align:right;">$${cost.toLocaleString()}</td>
+          <td style="border:1px solid #ddd;padding:8px 12px;text-align:center;"><span style="display:inline-block;padding:2px 10px;border-radius:4px;background:${priBg};color:${priColor};font-weight:600;font-size:11px;text-transform:uppercase;">${priority}</span></td>
+        </tr>`;
+      }
+    });
+
+    // Overall assessment color
+    const assessment = getVal('overall-assessment');
+    let assessColor = '#16a34a';
+    let assessBg = '#dcfce7';
+    if (assessment === 'Conditional Pass') { assessColor = '#ca8a04'; assessBg = '#fef9c3'; }
+    else if (assessment === 'Fail') { assessColor = '#dc2626'; assessBg = '#fee2e2'; }
+
+    const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Plumbing Inspection Report ${getVal('report-number')}</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a1a; padding:40px; max-width:850px; margin:0 auto; font-size:14px; line-height:1.5; }
+  h1 { font-size:22px; margin-bottom:4px; }
+  h2 { font-size:15px; color:#333; margin:24px 0 8px; padding-bottom:4px; border-bottom:2px solid #e5e5e5; text-transform:uppercase; letter-spacing:0.5px; }
+  .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; padding-bottom:16px; border-bottom:3px solid #1a1a1a; }
+  .header-left { }
+  .header-right { text-align:right; font-size:13px; color:#555; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-bottom:6px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px 24px; margin-bottom:6px; }
+  .label { font-weight:600; font-size:12px; color:#666; text-transform:uppercase; letter-spacing:0.3px; }
+  .value { font-size:14px; margin-bottom:6px; }
+  table { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  th { background:#f0f0f0; border:1px solid #ddd; padding:8px 12px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  td { border:1px solid #ddd; padding:8px 12px; }
+  .summary-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; margin:16px 0; }
+  .summary-box { border:2px solid #e5e5e5; border-radius:8px; padding:16px; text-align:center; }
+  .summary-box .num { font-size:28px; font-weight:800; }
+  .summary-box .lbl { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+  .assess-badge { display:inline-block; padding:6px 20px; border-radius:6px; font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+  .disclaimer { margin-top:30px; padding:16px; background:#f9f9f9; border-radius:6px; font-size:12px; color:#666; line-height:1.6; }
+  .signature-block { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; padding-top:16px; }
+  .sig-line { border-top:1px solid #1a1a1a; padding-top:6px; font-size:12px; color:#666; text-transform:uppercase; }
+  .sig-name { font-size:16px; font-weight:600; min-height:20px; }
+  @media print { body { padding:20px; } }
+</style>
+</head><body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Plumbing Inspection Report</h1>
+    <div style="font-size:13px;color:#555;">${getVal('company-name') || 'Plumbing Inspection Services'}</div>
+  </div>
+  <div class="header-right">
+    <div style="font-size:20px;font-weight:700;">${getVal('report-number')}</div>
+    <div>${getVal('inspection-date')}</div>
+    <div>${getVal('inspection-reason')}</div>
+  </div>
+</div>
+
+<h2>Inspector Details</h2>
+<div class="grid2">
+  <div><span class="label">Inspector:</span></div><div><span class="label">Phone:</span></div>
+  <div class="value">${getVal('inspector-name') || '\u2014'}</div><div class="value">${getVal('inspector-phone') || '\u2014'}</div>
+  <div><span class="label">License #:</span></div><div><span class="label">Property Address:</span></div>
+  <div class="value">${getVal('license-number') || '\u2014'}</div><div class="value">${getVal('property-address') || '\u2014'}</div>
+</div>
+
+<h2>System Overview</h2>
+<div class="grid3">
+  <div><span class="label">Supply Pipe Material:</span></div><div><span class="label">Supply Pipe Size:</span></div><div><span class="label">Supply Pipe Age:</span></div>
+  <div class="value">${getVal('supply-material')}</div><div class="value">${getVal('supply-size')}</div><div class="value">${getVal('supply-age') ? getVal('supply-age') + ' years' : '\u2014'}</div>
+  <div><span class="label">Supply Pipe Condition:</span></div><div><span class="label">Drain Pipe Material:</span></div><div><span class="label">Main Drain Size:</span></div>
+  <div class="value" style="color:${supplyCondColor};font-weight:700;">${supplyCondition}</div><div class="value">${getVal('drain-material')}</div><div class="value">${getVal('drain-size')}</div>
+  <div><span class="label">Drain Pipe Condition:</span></div><div><span class="label">Water Source:</span></div><div><span class="label">Sewer Type:</span></div>
+  <div class="value" style="color:${drainCondColor};font-weight:700;">${drainCondition}</div><div class="value">${getVal('water-source')}</div><div class="value">${getVal('sewer-type')}</div>
+</div>
+
+<h2>Water Heater</h2>
+<div class="grid3">
+  <div><span class="label">Type:</span></div><div><span class="label">Make:</span></div><div><span class="label">Model:</span></div>
+  <div class="value">${getVal('wh-type')}</div><div class="value">${getVal('wh-make') || '\u2014'}</div><div class="value">${getVal('wh-model') || '\u2014'}</div>
+  <div><span class="label">Install Date:</span></div><div><span class="label">Age:</span></div><div></div>
+  <div class="value">${getVal('wh-install-date') || '\u2014'}</div><div class="value">${whAge}</div><div></div>
+</div>
+
+<h2>Component Ratings</h2>
+<table>
+  <thead><tr><th>Component</th><th style="text-align:center;">Rating</th><th>Notes</th></tr></thead>
+  <tbody>${ratingsHtml}</tbody>
+</table>
+
+<h2>Measurements</h2>
+<table>
+  <thead><tr><th>Water Pressure</th><th>Water Heater Temp</th><th>Flow Rate</th></tr></thead>
+  <tbody><tr>
+    <td style="text-align:center;font-weight:700;color:${pressureColor};">${pressureDisplay}</td>
+    <td style="text-align:center;font-weight:700;color:${whTempColor};">${whTempDisplay}</td>
+    <td style="text-align:center;font-weight:700;color:${flowColor};">${flowDisplay}</td>
+  </tr></tbody>
+</table>
+
+${findingsHtml ? `<h2>Findings &amp; Recommendations</h2>
+<table>
+  <thead><tr><th>Description</th><th>Recommended Action</th><th style="text-align:right;">Est. Cost</th><th style="text-align:center;">Priority</th></tr></thead>
+  <tbody>${findingsHtml}</tbody>
+</table>` : ''}
+
+<h2>Summary</h2>
+<div class="summary-grid">
+  <div class="summary-box">
+    <div class="num" style="color:#16a34a;">${greenCount}</div>
+    <div class="lbl">Good Condition</div>
+  </div>
+  <div class="summary-box">
+    <div class="num" style="color:#ca8a04;">${yellowCount + redCount}</div>
+    <div class="lbl">Needs Attention</div>
+  </div>
+  <div class="summary-box">
+    <div class="num" style="color:#ea580c;">$${totalCost.toLocaleString()}</div>
+    <div class="lbl">Total Repair Cost</div>
+  </div>
+  <div class="summary-box">
+    <div class="assess-badge" style="background:${assessBg};color:${assessColor};">${assessment}</div>
+    <div class="lbl" style="margin-top:8px;">Overall Assessment</div>
+  </div>
+</div>
+
+${getVal('additional-notes') ? `<div style="margin-top:12px;"><span class="label">Additional Notes:</span><div class="value" style="background:#f9f9f9;padding:10px;border-radius:4px;white-space:pre-wrap;margin-top:4px;">${getVal('additional-notes')}</div></div>` : ''}
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> This inspection report reflects the condition of the plumbing system at the time of inspection based on visual examination and standard diagnostic measurements. Hidden defects, inaccessible components (including pipes behind walls, under slabs, or underground), and conditions that may develop after the inspection date are not covered. Camera inspection of drain lines was ${getVal('inspection-reason') === 'Pre-Purchase' ? 'included' : 'not included'} unless otherwise noted. This report is not a warranty or guarantee of future performance. The inspector and company assume no liability for conditions that were not observable or testable at the time of inspection. Repair cost estimates are approximate and may vary based on contractor pricing, parts availability, and actual scope of work.
+</div>
+
+<div class="signature-block">
+  <div>
+    <div class="sig-name">${getVal('inspector-name') || ''}</div>
+    <div class="sig-line">Inspector Signature / Date</div>
+  </div>
+  <div>
+    <div class="sig-name">&nbsp;</div>
+    <div class="sig-line">Property Owner / Recipient</div>
+  </div>
+</div>
+
+</body></html>`;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+    }
+  }
+
+  document.getElementById('generate-btn')?.addEventListener('click', generateReport);
+</script>

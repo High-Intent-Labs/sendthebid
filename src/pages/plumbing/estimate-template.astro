@@ -1,0 +1,734 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('estimate-template')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should a plumbing estimate include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A professional plumbing estimate should include company information and license number, customer details, current system assessment, a plumbing-specific scope of work, itemized costs for fixtures, labor, materials, and permits, applicable rebates, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I present Good/Better/Best options for plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with the Good option as the basic solution that solves the problem, such as a standard tank water heater. The Better option adds efficiency or features, like a high-efficiency tank model. The Best option is the premium choice, such as a tankless conversion with recirculation. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should a plumbing estimate be valid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbing estimates are valid for 30 days. Fixture and material pricing from supply houses typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During periods of supply chain disruption or price volatility on copper and PEX, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should plumbing estimates include financing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for jobs over $3,000 like water heater replacements, re-pipes, or sewer line repairs. Customers focus on monthly affordability rather than total cost. Common financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="estimate-builder">
+    <!-- Company Info -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Company Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
+          <input type="text" id="companyName" placeholder="Your Plumbing Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
+          <input type="text" id="companyPhone" placeholder="(555) 123-4567" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
+          <input type="text" id="companyEmail" placeholder="info@yourplumbing.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
+          <input type="text" id="licenseNum" placeholder="PLB-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
+          <input type="text" id="estimateNum" value="EST-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateDate">Estimate Date</label>
+          <input type="date" id="estimateDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="validUntil">Valid Until</label>
+          <input type="date" id="validUntil" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Info -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Customer Information</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
+          <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerPhone">Phone</label>
+          <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
+          <input type="text" id="customerAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Current System Assessment -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Current System Assessment</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
+          <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="Tank Water Heater">Tank Water Heater</option>
+            <option value="Tankless Water Heater">Tankless Water Heater</option>
+            <option value="Supply Pipes">Supply Pipes</option>
+            <option value="Drain/Sewer Line">Drain/Sewer Line</option>
+            <option value="Faucets/Fixtures">Faucets/Fixtures</option>
+            <option value="Sump Pump">Sump Pump</option>
+            <option value="Gas Lines">Gas Lines</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="systemAge">Current System Age (years)</label>
+          <input type="number" id="systemAge" value="12" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentCondition">Current Condition</label>
+          <select id="currentCondition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="Working - needs replacement soon">Working - needs replacement soon</option>
+            <option value="Failing - intermittent issues">Failing - intermittent issues</option>
+            <option value="Failed - not operational">Failed - not operational</option>
+            <option value="Leaking">Leaking</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="issuesNotes">Issues / Notes</label>
+          <textarea id="issuesNotes" rows="3" placeholder="Describe current issues..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good / Better / Best Options -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Good / Better / Best Options</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- GOOD -->
+        <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-good">
+          <div class="h-1.5 bg-[#60A5FA]"></div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#60A5FA] bg-[rgba(96,165,250,0.1)] px-3 py-1 rounded-full">Good</span>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Fixture/System Description</label>
+                <input type="text" id="goodDesc" value="Standard tank water heater (40 gal)" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodRating">Specs / Rating</label>
+                <input type="text" id="goodRating" value="40,000 BTU / 0.62 UEF" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodEquip">Fixture/Equipment Cost ($)</label>
+                <input type="number" id="goodEquip" value="650" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodLabor">Labor Cost ($)</label>
+                <input type="number" id="goodLabor" value="800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodMaterials">Materials ($)</label>
+                <input type="number" id="goodMaterials" value="150" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodPermits">Permits ($)</label>
+                <input type="number" id="goodPermits" value="150" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="goodRebates">Rebates ($)</label>
+                <input type="number" id="goodRebates" value="0" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div class="border-t border-border pt-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-text-secondary font-medium">Total</span>
+                  <span id="goodTotal" class="font-heading font-extrabold text-2xl text-[#60A5FA]">$1,750</span>
+                </div>
+                <div id="goodMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BETTER -->
+        <div class="bg-bg-dark border-2 border-[#34D399] rounded-xl overflow-hidden relative" id="card-better">
+          <div class="h-1.5 bg-[#34D399]"></div>
+          <div class="absolute top-3 right-4">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#34D399] bg-[rgba(52,211,153,0.15)] px-2.5 py-1 rounded-full">Most Popular</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#34D399] bg-[rgba(52,211,153,0.1)] px-3 py-1 rounded-full">Better</span>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Fixture/System Description</label>
+                <input type="text" id="betterDesc" value="High-efficiency tank water heater (50 gal)" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterRating">Specs / Rating</label>
+                <input type="text" id="betterRating" value="50,000 BTU / 0.70 UEF" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterEquip">Fixture/Equipment Cost ($)</label>
+                <input type="number" id="betterEquip" value="1100" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterLabor">Labor Cost ($)</label>
+                <input type="number" id="betterLabor" value="900" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterMaterials">Materials ($)</label>
+                <input type="number" id="betterMaterials" value="175" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterPermits">Permits ($)</label>
+                <input type="number" id="betterPermits" value="150" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="betterRebates">Rebates ($)</label>
+                <input type="number" id="betterRebates" value="200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div class="border-t border-border pt-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-text-secondary font-medium">Total</span>
+                  <span id="betterTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$2,125</span>
+                </div>
+                <div id="betterMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEST -->
+        <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-best">
+          <div class="h-1.5 bg-[#FBBF24]"></div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#FBBF24] bg-[rgba(251,191,36,0.1)] px-3 py-1 rounded-full">Best</span>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Fixture/System Description</label>
+                <input type="text" id="bestDesc" value="Tankless water heater conversion" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestRating">Specs / Rating</label>
+                <input type="text" id="bestRating" value="199,000 BTU / 0.96 UEF" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestEquip">Fixture/Equipment Cost ($)</label>
+                <input type="number" id="bestEquip" value="2200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestLabor">Labor Cost ($)</label>
+                <input type="number" id="bestLabor" value="1800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestMaterials">Materials ($)</label>
+                <input type="number" id="bestMaterials" value="400" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestPermits">Permits ($)</label>
+                <input type="number" id="bestPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs text-text-muted mb-1" for="bestRebates">Rebates ($)</label>
+                <input type="number" id="bestRebates" value="500" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+              </div>
+              <div class="border-t border-border pt-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-text-secondary font-medium">Total</span>
+                  <span id="bestTotal" class="font-heading font-extrabold text-2xl text-[#FBBF24]">$4,150</span>
+                </div>
+                <div id="bestMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scope of Work -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Scope of Work</h3>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
+        <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Disconnect and remove existing water heater
+&bull; Install new unit per manufacturer specifications
+&bull; Connect water supply lines and gas/electric
+&bull; Install new shut-off valve and expansion tank
+&bull; Test for leaks and verify proper operation
+&bull; Set thermostat to 120&deg;F and walkthrough with homeowner
+&bull; Dispose of old unit and clean work area
+&bull; Pull permit and schedule inspection</textarea>
+      </div>
+    </div>
+
+    <!-- Financing -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Financing</h3>
+      <div class="flex items-center gap-3 mb-4">
+        <input type="checkbox" id="showFinancing" class="w-5 h-5 rounded border-border bg-bg-dark accent-accent cursor-pointer" />
+        <label class="text-sm font-medium text-text-secondary cursor-pointer" for="showFinancing">Show financing options on estimate</label>
+      </div>
+      <div id="financingFields" class="hidden">
+        <div class="max-w-xs">
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="financeTerm">Term (months)</label>
+          <input type="number" id="financeTerm" value="60" min="12" max="240" step="12" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Monthly payments calculated at 7.99% APR</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Terms</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
+          <textarea id="paymentTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">50% deposit required. Balance due on completion.</textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="warrantyTerms">Warranty</label>
+          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Workmanship: 1-year warranty. Fixtures: manufacturer warranty applies.</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="mb-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-4">Estimate Summary</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
+          <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
+          <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$1,750</div>
+          <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
+          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">Standard tank water heater (40 gal)</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#34D399] bg-bg-dark border border-[#34D399] px-2.5 py-0.5 rounded-full">Most Popular</span>
+          </div>
+          <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
+          <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$2,125</div>
+          <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
+          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">High-efficiency tank water heater (50 gal)</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
+          <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
+          <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$4,150</div>
+          <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
+          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">Tankless water heater conversion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate Button -->
+    <button id="generate-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+      Generate Estimate PDF &rarr;
+    </button>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license number. These appear in the header of your estimate. The estimate number auto-generates but you can change it to match your numbering system.</p>
+          <p><strong class="text-text-primary">2. Add the customer details.</strong> Enter the customer name, address, and phone. This information populates the estimate header so the customer knows exactly who it was prepared for.</p>
+          <p><strong class="text-text-primary">3. Assess the current system.</strong> Document the existing fixture or system type, age, and condition. This builds credibility and gives the customer context for why replacement is recommended. Add notes about specific issues you found during your inspection.</p>
+          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter fixture descriptions, specifications, and costs for each tier. The Good option should be the basic solution. Better adds efficiency or capacity. Best is the premium package. Totals calculate automatically as you type.</p>
+          <p><strong class="text-text-primary">5. Generate and print.</strong> Click "Generate Estimate PDF" to open a clean, print-ready estimate in a new window. Use your browser's print function to save as PDF or print directly. The estimate includes all three options, scope of work, and terms.</p>
+        </div>
+      </section>
+
+      <!-- Why Good/Better/Best Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Good/Better/Best Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals in home services.</p>
+          <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
+          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction.</p>
+          <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive fixture. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Water heater replacements.</strong> After inspecting a failing water heater, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option — standard tank, high-efficiency tank, tankless conversion — and show the totals. Print or email the estimate before you leave.</p>
+          <p><strong class="text-text-primary">Re-pipe and fixture upgrade consultations.</strong> When a customer needs a whole-house re-pipe or wants to upgrade their fixtures, the Good/Better/Best format works especially well. Good is a basic PEX re-pipe, Better adds manifold distribution, Best includes on-demand recirculation.</p>
+          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The tiered format lets the decision maker choose the level of investment without going back and forth on revisions.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a plumbing estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional plumbing estimate should include company information and license number, customer details, current system assessment, a plumbing-specific scope of work, itemized costs for fixtures, labor, materials, and permits, applicable rebates, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options for plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the basic solution that solves the problem, such as a standard tank water heater. The Better option adds efficiency or features, like a high-efficiency tank model. The Best option is the premium choice, such as a tankless conversion with recirculation. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a plumbing estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbing estimates are valid for 30 days. Fixture and material pricing from supply houses typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During periods of supply chain disruption or price volatility on copper and PEX, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should plumbing estimates include financing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for jobs over $3,000 like water heater replacements, re-pipes, or sewer line repairs. Customers focus on monthly affordability rather than total cost. Common financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // --- Utility functions ---
+  function getVal(id: string): string {
+    return (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)?.value || '';
+  }
+  function getNum(id: string): number {
+    return parseFloat((document.getElementById(id) as HTMLInputElement)?.value) || 0;
+  }
+  function fmt(n: number): string {
+    return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  // --- Set default dates ---
+  function setDefaultDates() {
+    const today = new Date();
+    const dateStr = today.toISOString().split('T')[0];
+    (document.getElementById('estimateDate') as HTMLInputElement).value = dateStr;
+
+    const valid = new Date(today);
+    valid.setDate(valid.getDate() + 30);
+    (document.getElementById('validUntil') as HTMLInputElement).value = valid.toISOString().split('T')[0];
+  }
+
+  // --- Calculate option total ---
+  function calcOption(prefix: string): number {
+    const equip = getNum(prefix + 'Equip');
+    const labor = getNum(prefix + 'Labor');
+    const materials = getNum(prefix + 'Materials');
+    const permits = getNum(prefix + 'Permits');
+    const rebates = getNum(prefix + 'Rebates');
+    return equip + labor + materials + permits - rebates;
+  }
+
+  // --- Calculate monthly payment (simple amortization) ---
+  function calcMonthly(total: number, termMonths: number, apr: number): number {
+    const r = apr / 100 / 12;
+    if (r === 0) return total / termMonths;
+    return total * (r * Math.pow(1 + r, termMonths)) / (Math.pow(1 + r, termMonths) - 1);
+  }
+
+  // --- Update all totals and preview ---
+  function updateAll() {
+    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
+    const term = getNum('financeTerm') || 60;
+    const apr = 7.99;
+
+    const tiers = ['good', 'better', 'best'] as const;
+    tiers.forEach(tier => {
+      const total = calcOption(tier);
+      const totalEl = document.getElementById(tier + 'Total')!;
+      totalEl.textContent = fmt(total);
+
+      // Preview totals
+      const previewTotalEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Total')!;
+      previewTotalEl.textContent = fmt(total);
+
+      // Preview descriptions
+      const previewDescEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Desc')!;
+      previewDescEl.textContent = getVal(tier + 'Desc');
+
+      // Monthly payments
+      const monthlyEl = document.getElementById(tier + 'Monthly')!;
+      const previewMonthlyEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Monthly')!;
+
+      if (financing && total > 0) {
+        const monthly = calcMonthly(total, term, apr);
+        const monthlyStr = fmt(Math.round(monthly)) + '/mo';
+        monthlyEl.textContent = monthlyStr + ' for ' + term + ' months';
+        monthlyEl.classList.remove('hidden');
+        previewMonthlyEl.textContent = 'or ' + monthlyStr;
+        previewMonthlyEl.classList.remove('hidden');
+      } else {
+        monthlyEl.classList.add('hidden');
+        previewMonthlyEl.classList.add('hidden');
+      }
+    });
+  }
+
+  // --- Toggle financing fields ---
+  function toggleFinancing() {
+    const checked = (document.getElementById('showFinancing') as HTMLInputElement).checked;
+    const fields = document.getElementById('financingFields')!;
+    if (checked) {
+      fields.classList.remove('hidden');
+    } else {
+      fields.classList.add('hidden');
+    }
+    updateAll();
+  }
+
+  // --- Generate print-ready estimate ---
+  function generateEstimate() {
+    const companyName = getVal('companyName') || 'Plumbing Company';
+    const companyPhone = getVal('companyPhone');
+    const companyEmail = getVal('companyEmail');
+    const licenseNum = getVal('licenseNum');
+    const estimateNum = getVal('estimateNum');
+    const estimateDate = getVal('estimateDate');
+    const validUntil = getVal('validUntil');
+
+    const customerName = getVal('customerName') || 'Customer';
+    const customerPhone = getVal('customerPhone');
+    const customerAddress = getVal('customerAddress');
+
+    const currentType = getVal('currentType');
+    const systemAge = getVal('systemAge');
+    const currentCondition = getVal('currentCondition');
+    const issuesNotes = getVal('issuesNotes');
+
+    const scopeOfWork = getVal('scopeOfWork');
+    const paymentTerms = getVal('paymentTerms');
+    const warrantyTerms = getVal('warrantyTerms');
+
+    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
+    const term = getNum('financeTerm') || 60;
+    const apr = 7.99;
+
+    const goodTotal = calcOption('good');
+    const betterTotal = calcOption('better');
+    const bestTotal = calcOption('best');
+
+    const goodMonthly = financing ? calcMonthly(goodTotal, term, apr) : 0;
+    const betterMonthly = financing ? calcMonthly(betterTotal, term, apr) : 0;
+    const bestMonthly = financing ? calcMonthly(bestTotal, term, apr) : 0;
+
+    function fmtDate(d: string): string {
+      if (!d) return '';
+      const parts = d.split('-');
+      return parts[1] + '/' + parts[2] + '/' + parts[0];
+    }
+
+    function escHtml(s: string): string {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function scopeToHtml(s: string): string {
+      return s.split('\n').map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '';
+        return '<div style="margin-bottom:4px;">' + escHtml(trimmed) + '</div>';
+      }).join('');
+    }
+
+    const optionRow = (label: string, good: string, better: string, best: string, isBold?: boolean) => {
+      const weight = isBold ? 'font-weight:700;' : '';
+      const size = isBold ? 'font-size:18px;' : 'font-size:14px;';
+      return `<tr>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;${weight}${size}">${label}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}">${good}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}background:#f0fdf4;">${better}</td>
+        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}">${best}</td>
+      </tr>`;
+    };
+
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Estimate ${escHtml(estimateNum)} - ${escHtml(companyName)}</title>
+<style>
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .no-print { display: none !important; }
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1f2937; margin: 0; padding: 40px; line-height: 1.5; max-width: 900px; margin: 0 auto; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 3px solid #111827; }
+  .company-name { font-size: 28px; font-weight: 800; color: #111827; margin: 0 0 4px 0; }
+  .company-detail { font-size: 13px; color: #6b7280; margin: 2px 0; }
+  .estimate-meta { text-align: right; }
+  .estimate-meta .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; }
+  .estimate-meta .value { font-size: 14px; font-weight: 600; color: #111827; }
+  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-weight: 700; margin: 28px 0 12px 0; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; font-size: 14px; }
+  .info-grid .label { color: #6b7280; }
+  .info-grid .value { color: #111827; font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  table th { background: #f9fafb; padding: 10px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; font-weight: 700; border-bottom: 2px solid #e5e7eb; }
+  table th.popular { background: #f0fdf4; color: #059669; }
+  .scope-box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; font-size: 14px; color: #374151; }
+  .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; color: #374151; }
+  .terms-grid h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin: 0 0 6px 0; }
+  .signature-line { border-top: 1px solid #d1d5db; margin-top: 48px; padding-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .sig-block { font-size: 13px; color: #6b7280; }
+  .sig-block .line { border-bottom: 1px solid #9ca3af; height: 40px; margin-bottom: 4px; }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 12px; color: #9ca3af; }
+  .financing-row td { font-size: 13px; color: #6b7280; font-style: italic; }
+  .badge-popular { display: inline-block; background: #dcfce7; color: #059669; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+</style>
+</head>
+<body>
+  <div class="no-print" style="text-align:center;margin-bottom:24px;">
+    <button onclick="window.print()" style="background:#FF6B2B;color:white;border:none;padding:12px 32px;font-size:16px;font-weight:700;border-radius:8px;cursor:pointer;">Print / Save as PDF</button>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="company-name">${escHtml(companyName)}</div>
+      ${companyPhone ? '<div class="company-detail">' + escHtml(companyPhone) + '</div>' : ''}
+      ${companyEmail ? '<div class="company-detail">' + escHtml(companyEmail) + '</div>' : ''}
+      ${licenseNum ? '<div class="company-detail">License: ' + escHtml(licenseNum) + '</div>' : ''}
+    </div>
+    <div class="estimate-meta">
+      <div style="margin-bottom:8px;"><div class="label">Estimate</div><div class="value">${escHtml(estimateNum)}</div></div>
+      <div style="margin-bottom:8px;"><div class="label">Date</div><div class="value">${fmtDate(estimateDate)}</div></div>
+      <div><div class="label">Valid Until</div><div class="value">${fmtDate(validUntil)}</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Customer</div>
+  <div class="info-grid">
+    <div><span class="label">Name:</span> <span class="value">${escHtml(customerName)}</span></div>
+    <div><span class="label">Phone:</span> <span class="value">${escHtml(customerPhone)}</span></div>
+    <div style="grid-column:1/-1;"><span class="label">Address:</span> <span class="value">${escHtml(customerAddress)}</span></div>
+  </div>
+
+  <div class="section-title">Current System Assessment</div>
+  <div class="info-grid">
+    <div><span class="label">System Type:</span> <span class="value">${escHtml(currentType)}</span></div>
+    <div><span class="label">System Age:</span> <span class="value">${escHtml(systemAge)} years</span></div>
+    <div style="grid-column:1/-1;"><span class="label">Condition:</span> <span class="value">${escHtml(currentCondition)}</span></div>
+    ${issuesNotes ? '<div style="grid-column:1/-1;"><span class="label">Notes:</span> <span class="value">' + escHtml(issuesNotes) + '</span></div>' : ''}
+  </div>
+
+  <div class="section-title">Replacement Options</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:30%;">&nbsp;</th>
+        <th style="width:23%;text-align:right;">Good</th>
+        <th class="popular" style="width:23%;text-align:right;">Better <span class="badge-popular">Recommended</span></th>
+        <th style="width:23%;text-align:right;">Best</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${optionRow('Fixture/Equipment', escHtml(getVal('goodDesc')), escHtml(getVal('betterDesc')), escHtml(getVal('bestDesc')))}
+      ${optionRow('Specs / Rating', escHtml(getVal('goodRating')), escHtml(getVal('betterRating')), escHtml(getVal('bestRating')))}
+      ${optionRow('Fixture/Equipment Cost', fmt(getNum('goodEquip')), fmt(getNum('betterEquip')), fmt(getNum('bestEquip')))}
+      ${optionRow('Labor', fmt(getNum('goodLabor')), fmt(getNum('betterLabor')), fmt(getNum('bestLabor')))}
+      ${optionRow('Materials', fmt(getNum('goodMaterials')), fmt(getNum('betterMaterials')), fmt(getNum('bestMaterials')))}
+      ${optionRow('Permits', fmt(getNum('goodPermits')), fmt(getNum('betterPermits')), fmt(getNum('bestPermits')))}
+      ${optionRow('Rebates', getNum('goodRebates') > 0 ? '-' + fmt(getNum('goodRebates')) : '$0', getNum('betterRebates') > 0 ? '-' + fmt(getNum('betterRebates')) : '$0', getNum('bestRebates') > 0 ? '-' + fmt(getNum('bestRebates')) : '$0')}
+      ${optionRow('Total', fmt(goodTotal), fmt(betterTotal), fmt(bestTotal), true)}
+      ${financing ? '<tr class="financing-row"><td style="padding:8px 12px;">Monthly Payment (' + term + ' mo @ ' + apr + '% APR)</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(goodMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;background:#f0fdf4;">' + fmt(Math.round(betterMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(bestMonthly)) + '/mo</td></tr>' : ''}
+    </tbody>
+  </table>
+
+  <div class="section-title">Scope of Work</div>
+  <div class="scope-box">${scopeToHtml(scopeOfWork)}</div>
+
+  <div class="section-title">Terms &amp; Warranty</div>
+  <div class="terms-grid">
+    <div>
+      <h4>Payment Terms</h4>
+      <p style="margin:0;white-space:pre-line;">${escHtml(paymentTerms)}</p>
+    </div>
+    <div>
+      <h4>Warranty</h4>
+      <p style="margin:0;white-space:pre-line;">${escHtml(warrantyTerms)}</p>
+    </div>
+  </div>
+
+  <div class="signature-line">
+    <div class="sig-block">
+      <div class="line"></div>
+      Customer Signature &nbsp;&nbsp;&nbsp;&nbsp; Date
+    </div>
+    <div class="sig-block">
+      <div class="line"></div>
+      Option Selected: &nbsp; Good &nbsp;|&nbsp; Better &nbsp;|&nbsp; Best
+    </div>
+  </div>
+
+  <div class="footer">
+    This estimate is valid for 30 days from the date above. Prices subject to change after expiration.
+    ${companyName ? '<br>' + escHtml(companyName) : ''}${licenseNum ? ' &bull; License ' + escHtml(licenseNum) : ''}${companyPhone ? ' &bull; ' + escHtml(companyPhone) : ''}
+  </div>
+</body>
+</html>`;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+    }
+  }
+
+  // --- Event listeners ---
+  setDefaultDates();
+
+  document.getElementById('showFinancing')?.addEventListener('change', toggleFinancing);
+  document.getElementById('generate-btn')?.addEventListener('click', generateEstimate);
+
+  // Auto-calculate on any input change
+  document.querySelectorAll('#estimate-builder input, #estimate-builder select, #estimate-builder textarea').forEach(el => {
+    el.addEventListener('change', updateAll);
+    el.addEventListener('input', updateAll);
+  });
+
+  // Calculate on load with defaults
+  updateAll();
+</script>

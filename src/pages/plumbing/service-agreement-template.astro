@@ -1,0 +1,856 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('service-agreement-template')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should a plumbing service agreement include?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A plumbing service agreement should include company and customer information, covered fixtures and equipment with descriptions and locations, the coverage tier detailing what is included (inspections, water heater flushes, drain cleaning, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I charge for a plumbing maintenance agreement?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbing companies charge between $129 and $449 per year depending on the coverage tier. A basic plan with one annual inspection typically runs $129 to $179. A standard plan adding a water heater flush and same-day scheduling runs $199 to $299. Premium plans including drain cleaning, camera inspection, and deeper discounts run $299 to $449. Price to cover your costs plus a healthy margin — aim for 50% or higher gross profit on agreement revenue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do plumbing maintenance agreements increase business value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A plumbing company with 500 active agreements at $250 each has $125,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during inspection visits when plumbers identify aging water heaters, corroding pipes, and failing fixtures."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a plumbing service agreement and a warranty?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A warranty is a manufacturer guarantee that covers defects in fixtures or workmanship for a set period — typically 1 to 5 years on parts. A service agreement is a contract between the plumbing company and the customer for ongoing maintenance and service benefits like annual inspections, water heater flushes, repair discounts, and priority scheduling. Warranties cover fixture failure while service agreements cover preventive maintenance and service perks. Many plumbing companies require active maintenance to honor their workmanship warranties."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="sa-builder">
+    <!-- Company Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Information</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
+        <input type="text" id="companyName" placeholder="Your Plumbing Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
+        <input type="text" id="companyPhone" placeholder="(555) 123-4567" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
+        <input type="email" id="companyEmail" placeholder="service@yourplumbing.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyLicense">License #</label>
+        <input type="text" id="companyLicense" placeholder="PLB-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="agreementNumber">Agreement #</label>
+        <input type="text" id="agreementNumber" value="SA-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="agreementDate">Agreement Date</label>
+        <input type="date" id="agreementDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="agreementTerm">Term</label>
+        <select id="agreementTerm" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1">1 Year</option>
+          <option value="2">2 Years</option>
+          <option value="3">3 Years</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Customer Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Information</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
+        <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
+        <input type="text" id="customerAddress" placeholder="123 Main St, City, State ZIP" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerPhone">Phone</label>
+        <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerEmail">Email</label>
+        <input type="email" id="customerEmail" placeholder="customer@email.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Systems Covered -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Systems / Equipment Covered</h3>
+    <div id="systemsList" class="space-y-4 mb-4">
+      <div class="system-entry bg-bg-dark border border-border rounded-lg p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
+            <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
+              <option value="Tank Water Heater">Tank Water Heater</option>
+              <option value="Tankless Water Heater">Tankless Water Heater</option>
+              <option value="Whole-House Plumbing">Whole-House Plumbing</option>
+              <option value="Sump Pump">Sump Pump</option>
+              <option value="Water Softener">Water Softener</option>
+              <option value="Recirculation Pump">Recirculation Pump</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
+            <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Rheem" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
+            <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="PROG50-38N" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
+            <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
+            <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-end">
+            <button type="button" class="remove-system-btn text-red-400 hover:text-red-300 text-sm font-medium transition-colors hidden">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="addSystemBtn" type="button" class="text-accent hover:text-accent-hover text-sm font-semibold transition-colors mb-8">
+      + Add Another System
+    </button>
+
+    <!-- Coverage Tiers -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Coverage Tier</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+      <!-- Basic - Plumbing Protection -->
+      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="basic">
+        <div class="flex items-center gap-3 mb-3">
+          <input type="radio" name="tier" id="tierBasic" value="basic" class="accent-accent w-4 h-4" />
+          <label for="tierBasic" class="font-heading font-bold text-base text-text-primary cursor-pointer">Plumbing Protection</label>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Year ($)</label>
+            <input type="number" id="basicPrice" value="149" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Inspections / Year</label>
+            <input type="number" id="basicTuneups" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="basicPriority" checked class="accent-accent w-4 h-4" />
+            <label for="basicPriority" class="text-sm text-text-secondary cursor-pointer">Priority Scheduling</label>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
+            <input type="number" id="basicDiscount" value="10" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="basicNoOvertime" checked class="accent-accent w-4 h-4" />
+            <label for="basicNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Fee</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="basicNoTrip" class="accent-accent w-4 h-4" />
+            <label for="basicNoTrip" class="text-sm text-text-secondary cursor-pointer">No Trip Fee</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Standard - Plumbing Plus -->
+      <div class="tier-card bg-bg-dark border-2 border-accent rounded-xl p-5 cursor-pointer transition-all relative" data-tier="standard">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full">Most Popular</div>
+        <div class="flex items-center gap-3 mb-3">
+          <input type="radio" name="tier" id="tierStandard" value="standard" checked class="accent-accent w-4 h-4" />
+          <label for="tierStandard" class="font-heading font-bold text-base text-text-primary cursor-pointer">Plumbing Plus</label>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Year ($)</label>
+            <input type="number" id="standardPrice" value="249" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Inspections / Year</label>
+            <input type="number" id="standardTuneups" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="standardWHFlush" checked class="accent-accent w-4 h-4" />
+            <label for="standardWHFlush" class="text-sm text-text-secondary cursor-pointer">Water Heater Flush Included</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="standardSameDay" checked class="accent-accent w-4 h-4" />
+            <label for="standardSameDay" class="text-sm text-text-secondary cursor-pointer">Same-Day Scheduling</label>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
+            <input type="number" id="standardDiscount" value="15" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="standardNoOvertime" checked class="accent-accent w-4 h-4" />
+            <label for="standardNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Fee</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="standardNoTrip" checked class="accent-accent w-4 h-4" />
+            <label for="standardNoTrip" class="text-sm text-text-secondary cursor-pointer">No Trip Fee</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Premium - Total Plumbing Care -->
+      <div class="tier-card bg-bg-dark border-2 border-border rounded-xl p-5 cursor-pointer hover:border-[#3A4755] transition-all" data-tier="premium">
+        <div class="flex items-center gap-3 mb-3">
+          <input type="radio" name="tier" id="tierPremium" value="premium" class="accent-accent w-4 h-4" />
+          <label for="tierPremium" class="font-heading font-bold text-base text-text-primary cursor-pointer">Total Plumbing Care</label>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Year ($)</label>
+            <input type="number" id="premiumPrice" value="399" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Inspections / Year</label>
+            <input type="number" id="premiumTuneups" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumWHFlush" checked class="accent-accent w-4 h-4" />
+            <label for="premiumWHFlush" class="text-sm text-text-secondary cursor-pointer">Water Heater Flush Included</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumDrainClean" checked class="accent-accent w-4 h-4" />
+            <label for="premiumDrainClean" class="text-sm text-text-secondary cursor-pointer">Drain Cleaning Included</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumSameDay" checked class="accent-accent w-4 h-4" />
+            <label for="premiumSameDay" class="text-sm text-text-secondary cursor-pointer">Same-Day Guarantee</label>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-text-muted mb-1">Repair Discount (%)</label>
+            <input type="number" id="premiumDiscount" value="20" min="0" max="100" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumNoOvertime" checked class="accent-accent w-4 h-4" />
+            <label for="premiumNoOvertime" class="text-sm text-text-secondary cursor-pointer">No Overtime Fee</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumNoTrip" checked class="accent-accent w-4 h-4" />
+            <label for="premiumNoTrip" class="text-sm text-text-secondary cursor-pointer">No Trip Fee</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="premiumCamera" checked class="accent-accent w-4 h-4" />
+            <label for="premiumCamera" class="text-sm text-text-secondary cursor-pointer">Camera Inspection Included</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Terms -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Payment Terms</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentFreq">Payment Frequency</label>
+        <select id="paymentFreq" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Annual">Annual</option>
+          <option value="Semi-Annual">Semi-Annual</option>
+          <option value="Monthly">Monthly</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-3 pt-8">
+        <input type="checkbox" id="autoRenew" checked class="accent-accent w-5 h-5" />
+        <label for="autoRenew" class="text-text-primary font-medium cursor-pointer">Auto-Renew</label>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="cancelNotice">Cancellation Notice</label>
+        <select id="cancelNotice" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="30">30 Days</option>
+          <option value="60">60 Days</option>
+          <option value="90">90 Days</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Profitability Calculator -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Profitability Calculator</h3>
+    <div class="bg-bg-dark border border-border rounded-xl p-5 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1">Number of Agreements</label>
+          <input type="number" id="numAgreements" value="50" min="1" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1">Avg Price / Agreement ($)</label>
+          <input type="text" id="avgPrice" value="249" readonly class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-muted text-sm cursor-not-allowed" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1">Plumber Cost / Hour ($)</label>
+          <input type="number" id="techCost" value="45" min="0" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-text-muted mb-1">Hours / Inspection</label>
+          <input type="number" id="hoursPerTuneup" value="1.5" min="0" step="0.25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-bg-card rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Revenue</div>
+          <div id="profitRevenue" class="font-heading font-extrabold text-2xl text-accent">$12,450</div>
+        </div>
+        <div class="bg-bg-card rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost to Service</div>
+          <div id="profitCost" class="font-heading font-extrabold text-2xl text-text-primary">$3,375</div>
+        </div>
+        <div class="bg-bg-card rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit / Agreement</div>
+          <div id="profitPerAgreement" class="font-heading font-extrabold text-2xl text-text-primary">$182</div>
+        </div>
+        <div class="bg-bg-card rounded-xl p-4 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Annual Profit</div>
+          <div id="profitTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$9,075</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate Button -->
+    <button id="generateBtn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+      Generate Service Agreement &rarr;
+    </button>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your company and customer details.</strong> Fill in your company name, license number, and contact info. Then add the customer's name, address, and contact information. The agreement number auto-generates but you can customize it to match your numbering system.</p>
+          <p><strong class="text-text-primary">2. Add the covered equipment.</strong> List every piece of plumbing equipment the agreement covers — water heaters, sump pumps, water softeners, or select whole-house plumbing. Include the make, model, serial number, and install date. Click "Add Another System" for homes with multiple units.</p>
+          <p><strong class="text-text-primary">3. Select and customize a coverage tier.</strong> Choose Plumbing Protection, Plumbing Plus, or Total Plumbing Care. Each tier comes pre-loaded with industry-standard pricing and benefits. Adjust the price, inspection count, repair discount, and included perks to match what your company offers.</p>
+          <p><strong class="text-text-primary">4. Generate and print.</strong> Click Generate to create a professional, printable service agreement. It includes all the details you entered, the selected coverage tier, payment terms, cancellation policy, and signature lines for both parties.</p>
+        </div>
+      </section>
+
+      <!-- Why Service Agreements Are Essential -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Service Agreements Are Essential for Plumbing</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>Service agreements transform a plumbing business from a reactive, emergency-driven operation into one with <strong class="text-text-primary">predictable recurring revenue</strong>. Instead of waiting for the phone to ring when a pipe bursts, agreements guarantee scheduled work throughout the year and build a backlog of committed revenue.</p>
+          <p><strong class="text-text-primary">Customer retention skyrockets.</strong> A customer with an active agreement is far more likely to call you for their next repair or fixture replacement than a one-time service customer. They are already paying you, they know your plumbers, and they trust your company. That loyalty means fewer leads you need to buy and a lower cost of acquisition for every job.</p>
+          <p><strong class="text-text-primary">Agreements increase business value.</strong> When buyers or investors evaluate a plumbing company, recurring revenue from maintenance agreements is valued at a significantly higher multiple than one-time service revenue. Agreements also smooth out seasonal cash flow, making it easier to manage payroll, inventory, and growth investments year-round.</p>
+          <p>Every inspection visit is also a <strong class="text-text-primary">sales opportunity</strong>. Plumbers identify aging water heaters, corroding supply lines, and failing fixtures during routine maintenance. Agreement customers trust your recommendations because they already have a relationship with your company, leading to higher close rates on repairs and replacements.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Launching a maintenance agreement program.</strong> You know you need recurring revenue but have never offered agreements before. Use this template to design your tier structure, set competitive pricing, and generate professional contracts. The profitability calculator helps you price tiers that actually make money after accounting for plumber labor and materials.</p>
+          <p><strong class="text-text-primary">Closing new installs.</strong> After completing a water heater installation or re-pipe, present the customer with a service agreement before you leave the job site. Offer a first-year discount or include the first year with the installation. This is the highest-conversion moment — the customer just invested thousands of dollars and wants to protect their new equipment.</p>
+          <p><strong class="text-text-primary">Renewing and upgrading existing agreements.</strong> At renewal time, generate an updated agreement with the customer's current equipment details. Use the tier comparison to show customers the value of upgrading from Plumbing Protection to Plumbing Plus or Total Plumbing Care. The incremental revenue from tier upgrades adds up fast across your entire agreement base.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a plumbing service agreement include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A plumbing service agreement should include company and customer information, covered fixtures and equipment with descriptions and locations, the coverage tier detailing what is included (inspections, water heater flushes, drain cleaning, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a plumbing maintenance agreement?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbing companies charge between $129 and $449 per year depending on the coverage tier. A basic plan with one annual inspection typically runs $129 to $179. A standard plan adding a water heater flush and same-day scheduling runs $199 to $299. Premium plans including drain cleaning, camera inspection, and deeper discounts run $299 to $449. Price to cover your costs plus a healthy margin.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do plumbing maintenance agreements increase business value?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A plumbing company with 500 active agreements at $250 each has $125,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during inspection visits.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between a plumbing service agreement and a warranty?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A warranty is a manufacturer guarantee that covers defects in fixtures or workmanship for a set period — typically 1 to 5 years on parts. A service agreement is a contract between the plumbing company and the customer for ongoing maintenance and service benefits like annual inspections, water heater flushes, repair discounts, and priority scheduling. Warranties cover fixture failure while service agreements cover preventive maintenance and service perks.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // ---- Helpers ----
+  function $(id: string) { return document.getElementById(id) as HTMLInputElement; }
+  function val(id: string) { return parseFloat($(id).value) || 0; }
+  function checked(id: string) { return ($(id) as HTMLInputElement).checked; }
+  function fmt(n: number) { return n.toLocaleString('en-US', { maximumFractionDigits: 0 }); }
+
+  // ---- Set today's date ----
+  const today = new Date().toISOString().split('T')[0];
+  $('agreementDate').value = today;
+
+  // ---- Dynamic Systems ----
+  function createSystemEntry(): HTMLDivElement {
+    const div = document.createElement('div');
+    div.className = 'system-entry bg-bg-dark border border-border rounded-lg p-4';
+    div.innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
+          <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
+            <option value="Tank Water Heater">Tank Water Heater</option>
+            <option value="Tankless Water Heater">Tankless Water Heater</option>
+            <option value="Whole-House Plumbing">Whole-House Plumbing</option>
+            <option value="Sump Pump">Sump Pump</option>
+            <option value="Water Softener">Water Softener</option>
+            <option value="Recirculation Pump">Recirculation Pump</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
+          <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Rheem" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
+          <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="PROG50-38N" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
+          <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
+          <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div class="flex items-end">
+          <button type="button" class="remove-system-btn text-red-400 hover:text-red-300 text-sm font-medium transition-colors">Remove</button>
+        </div>
+      </div>
+    `;
+    return div;
+  }
+
+  document.getElementById('addSystemBtn')?.addEventListener('click', () => {
+    const list = document.getElementById('systemsList')!;
+    list.appendChild(createSystemEntry());
+    updateRemoveButtons();
+  });
+
+  document.getElementById('systemsList')?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('remove-system-btn')) {
+      target.closest('.system-entry')?.remove();
+      updateRemoveButtons();
+      updateProfitability();
+    }
+  });
+
+  function updateRemoveButtons() {
+    const entries = document.querySelectorAll('.system-entry');
+    entries.forEach((entry, i) => {
+      const btn = entry.querySelector('.remove-system-btn') as HTMLElement;
+      if (btn) btn.classList.toggle('hidden', entries.length <= 1);
+    });
+  }
+
+  // ---- Tier card selection ----
+  document.querySelectorAll('.tier-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'LABEL') return;
+      const radio = card.querySelector('input[type="radio"]') as HTMLInputElement;
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  });
+
+  function updateTierBorders() {
+    const selected = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value;
+    document.querySelectorAll('.tier-card').forEach(card => {
+      const tier = (card as HTMLElement).dataset.tier;
+      if (tier === selected) {
+        card.classList.remove('border-border', 'hover:border-[#3A4755]');
+        card.classList.add('border-accent');
+      } else {
+        card.classList.remove('border-accent');
+        card.classList.add('border-border', 'hover:border-[#3A4755]');
+      }
+    });
+  }
+
+  document.querySelectorAll('input[name="tier"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      updateTierBorders();
+      updateProfitability();
+    });
+  });
+
+  // ---- Profitability Calculator ----
+  function getSelectedTierData() {
+    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'standard';
+    const prefix = tier === 'basic' ? 'basic' : tier === 'premium' ? 'premium' : 'standard';
+    return {
+      price: val(`${prefix}Price`),
+      tuneups: val(`${prefix}Tuneups`),
+    };
+  }
+
+  function updateProfitability() {
+    const tierData = getSelectedTierData();
+    const numAgreements = val('numAgreements') || 50;
+    const techCost = val('techCost') || 45;
+    const hours = val('hoursPerTuneup') || 1.5;
+
+    $('avgPrice').value = tierData.price.toString();
+
+    const annualRevenue = numAgreements * tierData.price;
+    const costPerTuneup = techCost * hours;
+    const totalTuneupsPerAgreement = tierData.tuneups;
+    const totalCost = numAgreements * totalTuneupsPerAgreement * costPerTuneup;
+    const profitPerAgreement = tierData.price - (totalTuneupsPerAgreement * costPerTuneup);
+    const totalProfit = annualRevenue - totalCost;
+
+    document.getElementById('profitRevenue')!.textContent = `$${fmt(annualRevenue)}`;
+    document.getElementById('profitCost')!.textContent = `$${fmt(totalCost)}`;
+    document.getElementById('profitPerAgreement')!.textContent = `$${fmt(profitPerAgreement)}`;
+    document.getElementById('profitTotal')!.textContent = `$${fmt(totalProfit)}`;
+
+    const profitEl = document.getElementById('profitTotal')!;
+    if (totalProfit > 0) {
+      profitEl.className = 'font-heading font-extrabold text-2xl text-[#34D399]';
+    } else {
+      profitEl.className = 'font-heading font-extrabold text-2xl text-red-400';
+    }
+  }
+
+  ['numAgreements', 'techCost', 'hoursPerTuneup'].forEach(id => {
+    $(id)?.addEventListener('input', updateProfitability);
+  });
+
+  document.querySelectorAll('.tier-input').forEach(input => {
+    input.addEventListener('input', updateProfitability);
+  });
+
+  // ---- Generate Agreement ----
+  function getSystems() {
+    const systems: Array<{type: string; make: string; model: string; serial: string; install: string}> = [];
+    document.querySelectorAll('.system-entry').forEach(entry => {
+      systems.push({
+        type: (entry.querySelector('.sys-type') as HTMLSelectElement)?.value || '',
+        make: (entry.querySelector('.sys-make') as HTMLInputElement)?.value || '',
+        model: (entry.querySelector('.sys-model') as HTMLInputElement)?.value || '',
+        serial: (entry.querySelector('.sys-serial') as HTMLInputElement)?.value || '',
+        install: (entry.querySelector('.sys-install') as HTMLInputElement)?.value || '',
+      });
+    });
+    return systems;
+  }
+
+  function getSelectedTierDetails() {
+    const tier = (document.querySelector('input[name="tier"]:checked') as HTMLInputElement)?.value || 'standard';
+    if (tier === 'basic') {
+      return {
+        name: 'Plumbing Protection',
+        tier: 'Basic',
+        price: val('basicPrice'),
+        tuneups: val('basicTuneups'),
+        scheduling: checked('basicPriority') ? 'Priority Scheduling' : 'Standard Scheduling',
+        discount: val('basicDiscount'),
+        noOvertime: checked('basicNoOvertime'),
+        noTrip: checked('basicNoTrip'),
+        whFlush: false,
+        drainClean: false,
+        camera: false,
+      };
+    } else if (tier === 'premium') {
+      return {
+        name: 'Total Plumbing Care',
+        tier: 'Premium',
+        price: val('premiumPrice'),
+        tuneups: val('premiumTuneups'),
+        scheduling: checked('premiumSameDay') ? 'Same-Day Guarantee' : 'Standard Scheduling',
+        discount: val('premiumDiscount'),
+        noOvertime: checked('premiumNoOvertime'),
+        noTrip: checked('premiumNoTrip'),
+        whFlush: checked('premiumWHFlush'),
+        drainClean: checked('premiumDrainClean'),
+        camera: checked('premiumCamera'),
+      };
+    }
+    return {
+      name: 'Plumbing Plus',
+      tier: 'Standard',
+      price: val('standardPrice'),
+      tuneups: val('standardTuneups'),
+      scheduling: checked('standardSameDay') ? 'Same-Day Scheduling' : 'Standard Scheduling',
+      discount: val('standardDiscount'),
+      noOvertime: checked('standardNoOvertime'),
+      noTrip: checked('standardNoTrip'),
+      whFlush: checked('standardWHFlush'),
+      drainClean: false,
+      camera: false,
+    };
+  }
+
+  document.getElementById('generateBtn')?.addEventListener('click', () => {
+    const companyName = $('companyName').value || 'Your Plumbing Company';
+    const companyPhone = $('companyPhone').value || '';
+    const companyEmail = $('companyEmail').value || '';
+    const companyLicense = $('companyLicense').value || '';
+    const agreementNumber = $('agreementNumber').value || 'SA-001';
+    const agreementDate = $('agreementDate').value || today;
+    const agreementTerm = ($('agreementTerm') as HTMLSelectElement).value;
+    const customerName = $('customerName').value || 'Customer';
+    const customerAddress = $('customerAddress').value || '';
+    const customerPhone = $('customerPhone').value || '';
+    const customerEmail = $('customerEmail').value || '';
+    const systems = getSystems();
+    const tier = getSelectedTierDetails();
+    const paymentFreq = ($('paymentFreq') as HTMLSelectElement).value;
+    const autoRenew = checked('autoRenew');
+    const cancelNotice = ($('cancelNotice') as HTMLSelectElement).value;
+    const numSystems = systems.length;
+    const totalAnnual = tier.price;
+
+    let paymentAmount = totalAnnual;
+    let paymentLabel = 'Annually';
+    if (paymentFreq === 'Semi-Annual') { paymentAmount = totalAnnual / 2; paymentLabel = 'Semi-Annually'; }
+    else if (paymentFreq === 'Monthly') { paymentAmount = totalAnnual / 12; paymentLabel = 'Monthly'; }
+
+    const formattedDate = new Date(agreementDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const endDate = new Date(agreementDate + 'T00:00:00');
+    endDate.setFullYear(endDate.getFullYear() + parseInt(agreementTerm));
+    const formattedEnd = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const systemsRows = systems.map((s, i) => `
+      <tr>
+        <td style="border:1px solid #ddd;padding:8px;">${i + 1}</td>
+        <td style="border:1px solid #ddd;padding:8px;">${s.type}</td>
+        <td style="border:1px solid #ddd;padding:8px;">${s.make}</td>
+        <td style="border:1px solid #ddd;padding:8px;">${s.model}</td>
+        <td style="border:1px solid #ddd;padding:8px;">${s.serial}</td>
+        <td style="border:1px solid #ddd;padding:8px;">${s.install ? new Date(s.install + 'T00:00:00').toLocaleDateString('en-US') : 'N/A'}</td>
+      </tr>
+    `).join('');
+
+    const benefitsList = [
+      `${tier.tuneups} comprehensive plumbing inspection${tier.tuneups > 1 ? 's' : ''} per year`,
+      tier.scheduling,
+      `${tier.discount}% discount on all repairs`,
+      tier.noOvertime ? 'No overtime fees on service calls' : null,
+      tier.noTrip ? 'No trip fee' : null,
+      tier.whFlush ? 'Water heater flush included with inspection' : null,
+      tier.drainClean ? 'Drain cleaning service included' : null,
+      tier.camera ? 'Camera inspection of main sewer line included' : null,
+    ].filter(Boolean);
+
+    const benefitsHtml = benefitsList.map(b => `<li style="margin-bottom:6px;">${b}</li>`).join('');
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Service Agreement - ${agreementNumber}</title>
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; max-width: 800px; margin: 0 auto; padding: 40px 30px; font-size: 13px; line-height: 1.6; }
+          h1 { font-size: 22px; margin-bottom: 4px; }
+          h2 { font-size: 16px; margin-top: 28px; margin-bottom: 10px; border-bottom: 2px solid #222; padding-bottom: 4px; }
+          h3 { font-size: 14px; margin-top: 18px; margin-bottom: 6px; }
+          table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+          .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #222; padding-bottom: 16px; margin-bottom: 20px; }
+          .header-left h1 { color: #222; }
+          .header-right { text-align: right; font-size: 12px; color: #555; }
+          .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px; }
+          .info-box { background: #f8f8f8; border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px; }
+          .info-box strong { display: block; font-size: 11px; text-transform: uppercase; color: #888; margin-bottom: 6px; letter-spacing: 0.5px; }
+          .tier-banner { background: #1a1a1a; color: #fff; padding: 14px 20px; border-radius: 6px; margin: 16px 0; display: flex; justify-content: space-between; align-items: center; }
+          .tier-banner .tier-name { font-size: 18px; font-weight: 700; }
+          .tier-banner .tier-price { font-size: 20px; font-weight: 700; }
+          .benefits-list { list-style: none; padding: 0; }
+          .benefits-list li { padding-left: 22px; position: relative; }
+          .benefits-list li::before { content: "\\2713"; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+          .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+          .sig-block { border-top: 1px solid #222; padding-top: 8px; margin-top: 50px; }
+          .sig-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+          .footer { text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 11px; color: #999; }
+          @media print {
+            body { padding: 20px; }
+            @page { margin: 0.5in; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="header-left">
+            <h1>${companyName}</h1>
+            <div style="font-size:13px;color:#555;margin-top:4px;">Plumbing Service Agreement</div>
+          </div>
+          <div class="header-right">
+            ${companyPhone ? `<div>${companyPhone}</div>` : ''}
+            ${companyEmail ? `<div>${companyEmail}</div>` : ''}
+            ${companyLicense ? `<div>License: ${companyLicense}</div>` : ''}
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;margin-bottom:20px;font-size:13px;">
+          <div><strong>Agreement #:</strong> ${agreementNumber}</div>
+          <div><strong>Date:</strong> ${formattedDate}</div>
+          <div><strong>Term:</strong> ${agreementTerm} Year${parseInt(agreementTerm) > 1 ? 's' : ''}</div>
+          <div><strong>Expires:</strong> ${formattedEnd}</div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <strong>Service Provider</strong>
+            <div>${companyName}</div>
+            ${companyPhone ? `<div>${companyPhone}</div>` : ''}
+            ${companyEmail ? `<div>${companyEmail}</div>` : ''}
+            ${companyLicense ? `<div>License: ${companyLicense}</div>` : ''}
+          </div>
+          <div class="info-box">
+            <strong>Customer</strong>
+            <div>${customerName}</div>
+            ${customerAddress ? `<div>${customerAddress}</div>` : ''}
+            ${customerPhone ? `<div>${customerPhone}</div>` : ''}
+            ${customerEmail ? `<div>${customerEmail}</div>` : ''}
+          </div>
+        </div>
+
+        <h2>Covered Equipment</h2>
+        <table>
+          <thead>
+            <tr style="background:#f0f0f0;">
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">#</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Type</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Make</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Model</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Serial #</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Installed</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${systemsRows}
+          </tbody>
+        </table>
+
+        <div class="tier-banner">
+          <div>
+            <div class="tier-name">${tier.name}</div>
+            <div style="font-size:12px;opacity:0.8;">${tier.tier} Coverage</div>
+          </div>
+          <div class="tier-price">$${fmt(totalAnnual)}<span style="font-size:12px;font-weight:400;opacity:0.8;">/year</span></div>
+        </div>
+
+        <h2>Coverage Benefits</h2>
+        <ul class="benefits-list">
+          ${benefitsHtml}
+        </ul>
+
+        <h2>Payment Terms</h2>
+        <table>
+          <tr>
+            <td style="border:1px solid #ddd;padding:8px;width:40%;background:#f8f8f8;font-weight:600;">Annual Price</td>
+            <td style="border:1px solid #ddd;padding:8px;">$${fmt(tier.price)}</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Total Annual Cost</td>
+            <td style="border:1px solid #ddd;padding:8px;font-weight:700;">$${fmt(totalAnnual)}</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Payment Frequency</td>
+            <td style="border:1px solid #ddd;padding:8px;">${paymentLabel} &mdash; $${paymentAmount.toFixed(2)} per payment</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Auto-Renewal</td>
+            <td style="border:1px solid #ddd;padding:8px;">${autoRenew ? 'Yes — agreement renews automatically unless cancelled' : 'No — customer must opt in to renew'}</td>
+          </tr>
+        </table>
+
+        <h2>Terms &amp; Conditions</h2>
+        <h3>1. Scope of Service</h3>
+        <p>This agreement covers scheduled preventive maintenance for the plumbing systems and equipment listed above. The Service Provider will perform ${tier.tuneups} comprehensive plumbing inspection${tier.tuneups > 1 ? 's' : ''} per year. Inspections include water heater evaluation, supply system checks, drain system testing, fixture inspection, and safety verification.${tier.whFlush ? ' Water heater sediment flush is included with each inspection.' : ''}${tier.drainClean ? ' One drain cleaning service per year is included.' : ''}${tier.camera ? ' One camera inspection of the main sewer line is included per year.' : ''}</p>
+
+        <h3>2. Scheduling</h3>
+        <p>The Service Provider will contact the Customer to schedule inspections at mutually convenient times. ${tier.scheduling === 'Same-Day Guarantee' ? 'For service calls, the Customer is guaranteed same-day service when the call is placed before noon.' : tier.scheduling === 'Same-Day Scheduling' ? 'For service calls, the Service Provider will make every reasonable effort to provide same-day scheduling.' : 'Agreement customers receive priority scheduling ahead of non-agreement customers.'}</p>
+
+        <h3>3. Repair Discounts</h3>
+        <p>The Customer receives a ${tier.discount}% discount on all repair labor and parts for covered plumbing systems during the agreement term. Discounts do not apply to new fixture installation, re-piping, or sewer line replacement.</p>
+
+        <h3>4. Exclusions</h3>
+        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; sewer line replacement; re-piping; new fixture or appliance installation; code upgrades required by local authorities; or cosmetic damage. Pre-existing conditions identified during the first inspection may be excluded at the Service Provider's discretion.</p>
+
+        <h3>5. Cancellation</h3>
+        <p>Either party may cancel this agreement with ${cancelNotice} days written notice. If the Customer cancels before the agreement term expires, a pro-rated refund will be issued less the retail value of any services already performed. The Service Provider reserves the right to cancel with ${cancelNotice} days notice and a full refund of unused services.</p>
+
+        <h3>6. Limitation of Liability</h3>
+        <p>The Service Provider's total liability under this agreement shall not exceed the annual agreement price. The Service Provider is not liable for incidental or consequential damages, including but not limited to property damage, lost income, or inconvenience resulting from plumbing system failure.</p>
+
+        <div class="sig-grid">
+          <div>
+            <div class="sig-block">
+              <div style="font-weight:600;margin-bottom:2px;">${companyName}</div>
+              <div class="sig-label">Authorized Representative</div>
+            </div>
+            <div class="sig-block">
+              <div class="sig-label">Date</div>
+            </div>
+          </div>
+          <div>
+            <div class="sig-block">
+              <div style="font-weight:600;margin-bottom:2px;">${customerName}</div>
+              <div class="sig-label">Customer Signature</div>
+            </div>
+            <div class="sig-block">
+              <div class="sig-label">Date</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          ${companyName} &middot; ${companyPhone} &middot; ${companyEmail}<br/>
+          ${companyLicense ? `License #${companyLicense} &middot; ` : ''}Agreement #${agreementNumber}
+        </div>
+      </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+    setTimeout(() => { printWindow.print(); }, 500);
+  });
+
+  // ---- Init ----
+  updateTierBorders();
+  updateProfitability();
+  updateRemoveButtons();
+</script>

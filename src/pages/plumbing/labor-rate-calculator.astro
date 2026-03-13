@@ -1,0 +1,300 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('labor-rate-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate my plumbing labor rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with your plumber's base wage and add the burden rate (benefits, taxes, workers comp). Divide your total annual overhead by the number of billable hours across all techs. Add the loaded wage and overhead per hour to get your break-even rate. Then divide by (1 minus your desired profit margin) to get your billable rate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good utilization rate for plumbing techs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbing companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service plumbers who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should plumbers charge per hour?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The average plumbing billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is burden rate in plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Burden rate is the additional cost on top of a plumber's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, uniforms, and tool allowances. For plumbing companies, burden rate typically runs 30-45% of base wages due to higher workers comp rates and specialty tool amortization."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="labor-calc">
+    <!-- Input Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="base-wage">Base Plumber Wage ($/hr)</label>
+        <input type="number" id="base-wage" value="28" min="10" max="100" step="0.50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <div class="flex items-center gap-1.5 mb-2">
+          <label class="block text-sm font-medium text-text-secondary" for="burden-rate">Burden Rate (%)</label>
+          <span class="relative group">
+            <span class="text-text-muted text-xs cursor-help border-b border-dashed border-text-muted">?</span>
+            <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 bg-bg-dark border border-border text-text-secondary text-xs rounded-lg px-3 py-2 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-10">Benefits, taxes, workers comp (8-12% for plumbing), tool allowance ($200/mo for camera/press tool)</span>
+          </span>
+        </div>
+        <input type="number" id="burden-rate" value="35" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pto-hours">PTO Hours/Year</label>
+        <input type="number" id="pto-hours" value="160" min="0" max="500" step="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <div class="flex items-center gap-1.5 mb-2">
+          <label class="block text-sm font-medium text-text-secondary" for="utilization-rate">Utilization Rate (%)</label>
+          <span class="relative group">
+            <span class="text-text-muted text-xs cursor-help border-b border-dashed border-text-muted">?</span>
+            <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 bg-bg-dark border border-border text-text-secondary text-xs rounded-lg px-3 py-2 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-10">% of available hours that are billable</span>
+          </span>
+        </div>
+        <input type="number" id="utilization-rate" value="40" min="10" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="num-techs">Number of Plumbers</label>
+        <input type="number" id="num-techs" value="3" min="1" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="annual-overhead">Annual Overhead ($)</label>
+        <input type="number" id="annual-overhead" value="180000" min="0" max="5000000" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="profit-margin">Desired Profit Margin (%)</label>
+        <input type="number" id="profit-margin" value="20" min="0" max="80" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+
+      <!-- Stepped Calculation Breakdown -->
+      <div class="bg-bg-dark rounded-xl p-5 mb-6 space-y-2 font-mono text-sm">
+        <div class="flex justify-between text-text-secondary">
+          <span>Step 1: Loaded Wage</span>
+          <span id="step-1" class="text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between text-text-secondary">
+          <span>Step 2: Available Hours</span>
+          <span id="step-2" class="text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between text-text-secondary">
+          <span>Step 3: Billable Hours</span>
+          <span id="step-3" class="text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between text-text-secondary">
+          <span>Step 4: Overhead/Hour</span>
+          <span id="step-4" class="text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between text-text-secondary">
+          <span>Step 5: Break-Even Rate</span>
+          <span id="step-5" class="text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between text-text-secondary border-t border-border pt-2">
+          <span class="font-bold">Step 6: Billable Rate</span>
+          <span id="step-6" class="text-accent font-bold">--</span>
+        </div>
+      </div>
+
+      <!-- Result Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Break-Even Rate</div>
+          <div id="result-breakeven" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">per hour</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center border border-accent/30">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Recommended Billable Rate</div>
+          <div id="result-billable" class="font-heading font-extrabold text-4xl text-accent">--</div>
+          <div class="text-text-muted text-xs mt-1">per hour</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Revenue/Plumber</div>
+          <div id="result-annual" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost Per Truck Roll</div>
+          <div id="result-truckroll" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">rate x 2 hrs</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Billable Hours/Year</div>
+          <div id="result-billable-hours" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">per plumber</div>
+        </div>
+      </div>
+
+      <!-- Benchmark -->
+      <div class="bg-bg-dark rounded-xl p-5 mb-4">
+        <p class="text-text-secondary text-sm"><strong class="text-text-primary">Benchmark:</strong> Service plumber $85-150/hr billable. Journeyman $65-95/hr cost. Apprentice $35-55/hr cost.</p>
+      </div>
+
+      <!-- Warning -->
+      <div id="rate-warning" class="hidden bg-[rgba(251,191,36,0.1)] border border-[#FBBF24]/30 rounded-xl p-5">
+        <p class="text-[#FBBF24] text-sm font-medium">If below $85/hr residential, you are probably losing money.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your base plumber wage.</strong> This is the hourly rate you pay a plumber before any extras. If you pay different rates, use the average across your team.</p>
+          <p><strong class="text-text-primary">2. Set the burden rate.</strong> This covers everything on top of wages: employer payroll taxes, workers comp (8-12% for plumbing, higher than most trades), health insurance, retirement match, uniforms, and tool allowances for camera equipment, press tools, and other specialty gear. Most plumbing companies land between 30-45%.</p>
+          <p><strong class="text-text-primary">3. Input PTO hours per year.</strong> Count vacation, sick days, holidays, and training days. Four weeks (160 hours) is standard. This reduces your available billing hours.</p>
+          <p><strong class="text-text-primary">4. Set your utilization rate.</strong> This is the percentage of available hours your plumbers actually spend on billable work. The rest goes to drive time, paperwork, callbacks, and downtime. 40% is realistic for residential service.</p>
+          <p><strong class="text-text-primary">5. Enter your team size and overhead.</strong> Annual overhead includes rent, trucks, insurance, software, marketing, office staff, and everything else that isn't direct labor or parts.</p>
+          <p><strong class="text-text-primary">6. Choose your profit margin.</strong> This is the net margin you want after covering all costs. 15-25% is the target range for healthy plumbing businesses.</p>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Labor Rate Calculation Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>This calculator uses the <strong class="text-text-primary">multi-step method</strong> that most plumbing business coaches teach. It builds your rate from the bottom up so every dollar of cost is covered.</p>
+          <p><strong class="text-text-primary">Step 1 -- Loaded Wage.</strong> Take the base wage and add the burden rate. A $28/hr plumber with 35% burden actually costs you $37.80/hr when you factor in taxes, insurance, tool allowances, and benefits.</p>
+          <p><strong class="text-text-primary">Step 2 -- Available Hours.</strong> Start with 2,080 annual work hours (40 hrs/week x 52 weeks) and subtract PTO. This gives you the hours a plumber is actually working.</p>
+          <p><strong class="text-text-primary">Step 3 -- Billable Hours.</strong> Multiply available hours by the utilization rate. This is the number of hours you can actually charge customers for. The gap between available and billable hours is where most shops lose money.</p>
+          <p><strong class="text-text-primary">Step 4 -- Overhead Per Hour.</strong> Divide total annual overhead by all plumbers' combined billable hours. This tells you how much overhead each billable hour needs to carry.</p>
+          <p><strong class="text-text-primary">Step 5 -- Break-Even Rate.</strong> Add the loaded wage and the overhead per hour. This is the minimum you must charge to not lose money -- zero profit.</p>
+          <p><strong class="text-text-primary">Step 6 -- Billable Rate.</strong> Divide the break-even rate by (1 minus your profit margin). A 20% margin means dividing by 0.80. This is the rate you actually charge customers.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm">
+            <p>Billable_Rate = (Loaded_Wage + Overhead_Per_Hour) / (1 - Profit% / 100)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Setting flat rate prices.</strong> Your flat rate book is built on a labor rate. If that rate is wrong, every single price in the book is wrong. Run this calculator first, then build your price book on top of the result.</p>
+          <p><strong class="text-text-primary">Annual rate review.</strong> Costs go up every year -- insurance premiums, fuel, wages. Most shops set their rate once and forget it. Run this every January with updated numbers to make sure you are not falling behind.</p>
+          <p><strong class="text-text-primary">Hiring decisions.</strong> Before adding a plumber, plug in the new team size and see how it changes your overhead per hour and required rate. More plumbers spread overhead thinner, but only if utilization stays the same.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate my plumbing labor rate?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your plumber's base wage and add the burden rate (benefits, taxes, workers comp). Divide your total annual overhead by the number of billable hours across all techs. Add the loaded wage and overhead per hour to get your break-even rate. Then divide by (1 minus your desired profit margin) to get your billable rate.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good utilization rate for plumbing techs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbing companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service plumbers who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should plumbers charge per hour?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average plumbing billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is burden rate in plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Burden rate is the additional cost on top of a plumber's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, uniforms, and tool allowances. For plumbing companies, burden rate typically runs 30-45% of base wages due to higher workers comp rates and specialty tool amortization.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const baseWage = parseFloat((document.getElementById('base-wage') as HTMLInputElement).value) || 28;
+    const burdenRate = parseFloat((document.getElementById('burden-rate') as HTMLInputElement).value) || 35;
+    const ptoHours = parseFloat((document.getElementById('pto-hours') as HTMLInputElement).value) || 160;
+    const utilizationRate = parseFloat((document.getElementById('utilization-rate') as HTMLInputElement).value) || 40;
+    const numTechs = parseInt((document.getElementById('num-techs') as HTMLInputElement).value) || 3;
+    const annualOverhead = parseFloat((document.getElementById('annual-overhead') as HTMLInputElement).value) || 180000;
+    const profitMargin = parseFloat((document.getElementById('profit-margin') as HTMLInputElement).value) || 20;
+
+    // Step 1: Loaded Wage
+    const loadedWage = baseWage * (1 + burdenRate / 100);
+
+    // Step 2: Available Hours
+    const availableHours = 2080 - ptoHours;
+
+    // Step 3: Billable Hours
+    const billableHours = availableHours * (utilizationRate / 100);
+
+    // Step 4: Overhead Per Hour
+    const overheadPerHour = annualOverhead / (numTechs * billableHours);
+
+    // Step 5: Break-Even Rate
+    const breakEven = loadedWage + overheadPerHour;
+
+    // Step 6: Billable Rate
+    const billableRate = breakEven / (1 - profitMargin / 100);
+
+    // Derived metrics
+    const annualRevenuePerTech = billableRate * billableHours;
+    const truckRoll = billableRate * 2;
+
+    // Update stepped calculation
+    document.getElementById('step-1')!.textContent = `$${baseWage.toFixed(2)} x ${(1 + burdenRate / 100).toFixed(2)} = $${loadedWage.toFixed(2)}/hr`;
+    document.getElementById('step-2')!.textContent = `2,080 - ${ptoHours} = ${availableHours} hrs`;
+    document.getElementById('step-3')!.textContent = `${availableHours} x ${(utilizationRate / 100).toFixed(2)} = ${billableHours.toFixed(0)} hrs`;
+    document.getElementById('step-4')!.textContent = `$${annualOverhead.toLocaleString()} / (${numTechs} x ${billableHours.toFixed(0)}) = $${overheadPerHour.toFixed(2)}/hr`;
+    document.getElementById('step-5')!.textContent = `$${loadedWage.toFixed(2)} + $${overheadPerHour.toFixed(2)} = $${breakEven.toFixed(2)}/hr`;
+    document.getElementById('step-6')!.textContent = `$${breakEven.toFixed(2)} / ${(1 - profitMargin / 100).toFixed(2)} = $${billableRate.toFixed(2)}/hr`;
+
+    // Update result cards
+    document.getElementById('result-breakeven')!.textContent = `$${breakEven.toFixed(2)}`;
+    document.getElementById('result-billable')!.textContent = `$${billableRate.toFixed(2)}`;
+    document.getElementById('result-annual')!.textContent = `$${Math.round(annualRevenuePerTech).toLocaleString()}`;
+    document.getElementById('result-truckroll')!.textContent = `$${truckRoll.toFixed(2)}`;
+    document.getElementById('result-billable-hours')!.textContent = `${billableHours.toFixed(0)}`;
+
+    // Show/hide warning
+    const warning = document.getElementById('rate-warning')!;
+    if (billableRate < 85) {
+      warning.classList.remove('hidden');
+    } else {
+      warning.classList.add('hidden');
+    }
+
+  }
+
+
+  // Auto-calculate on input change
+  document.querySelectorAll('#labor-calc input').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

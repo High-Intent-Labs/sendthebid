@@ -10,7 +10,7 @@ export const trades: Trade[] = [
   { name: 'Handyman', slug: 'handyman', icon: '🧰', toolCount: 24, status: 'live' },
   { name: 'Pest Control', slug: 'pest-control', icon: '🐛', toolCount: 24, status: 'live' },
   { name: 'Cleaning', slug: 'cleaning', icon: '✨', toolCount: 24, status: 'live' },
-  { name: 'Plumbing', slug: 'plumbing', icon: '🔧', toolCount: 0, status: 'coming' },
+  { name: 'Plumbing', slug: 'plumbing', icon: '🔧', toolCount: 24, status: 'live' },
 ];
 
 export function getTradeBySlug(slug: string): Trade | undefined {

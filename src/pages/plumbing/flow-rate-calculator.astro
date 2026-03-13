@@ -1,0 +1,224 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('flow-rate-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate water flow rate in a pipe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use the Hazen-Williams equation: Q = 0.2083 x (100/C)^1.85 x (pressure_gradient)^0.54 x d^2.63. You need to know the pipe inside diameter, material (for roughness coefficient C), available pressure, and pipe length. This calculator handles the math and unit conversions automatically." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a safe water velocity in plumbing pipes?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For residential water supply, keep velocity between 2-8 fps. Under 2 fps can cause sediment buildup. Over 8 fps causes water hammer, noise, and erosion — especially at fittings. Hot water lines should stay under 5 fps. Most codes reference 8 fps as the upper limit for supply piping." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does elevation affect water flow rate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Every foot of elevation gain costs 0.433 PSI of pressure. A fixture 20 feet above the water main loses about 8.7 PSI just from elevation, reducing available flow. This calculator subtracts elevation pressure loss before computing flow rate, giving you the actual GPM you can expect at the outlet." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Hazen-Williams C value for different pipe materials?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Common C values: PEX = 150, PVC = 150, CPVC = 140, Copper = 130, Galvanized steel = 120, Cast iron = 100. Higher C values mean smoother interior walls and less friction loss, resulting in higher flow rates for the same pipe diameter and pressure." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="fr-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diameter">Pipe Diameter (nominal)</label>
+        <select id="diameter" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.545">1/2"</option>
+          <option value="0.785" selected>3/4"</option>
+          <option value="1.025">1"</option>
+          <option value="1.368">1-1/4"</option>
+          <option value="1.600">1-1/2"</option>
+          <option value="2.067">2"</option>
+          <option value="3.068">3"</option>
+          <option value="4.026">4"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material">Pipe Material</label>
+        <select id="material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="130">Copper (C=130)</option>
+          <option value="150" selected>PEX (C=150)</option>
+          <option value="140">CPVC (C=140)</option>
+          <option value="150">PVC (C=150)</option>
+          <option value="120">Galvanized Steel (C=120)</option>
+          <option value="100">Cast Iron (C=100)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pressure">Available Pressure (PSI)</label>
+        <input type="number" id="pressure" value="60" min="5" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeLength">Pipe Length (ft)</label>
+        <input type="number" id="pipeLength" value="100" min="1" max="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="elevation">Elevation Change (ft)</label>
+        <input type="number" id="elevation" value="0" min="-100" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <span class="text-text-muted text-xs mt-1 block">Positive = uphill, Negative = downhill</span>
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flow Rate</div>
+          <div id="r-gpm" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Velocity</div>
+          <div id="r-vel" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Net Pressure</div>
+          <div id="r-net" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flow Category</div>
+          <div id="r-flow" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic"></p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select pipe diameter.</strong> Choose the nominal pipe size you are evaluating. The calculator uses actual inside diameter for the chosen size.</p>
+          <p><strong class="text-text-primary">2. Choose pipe material.</strong> Each material has a different Hazen-Williams C factor that affects friction. Smoother pipes (higher C) deliver more flow at the same pressure.</p>
+          <p><strong class="text-text-primary">3. Enter available pressure.</strong> Use the PSI measured at the start of the pipe run. For city water, this is typically 40-80 PSI. For well systems, use the pump's operating pressure.</p>
+          <p><strong class="text-text-primary">4. Enter pipe length.</strong> Measure the developed (actual) length of the pipe run, including all horizontal and vertical sections.</p>
+          <p><strong class="text-text-primary">5. Enter elevation change.</strong> If the outlet is higher than the inlet, enter a positive number. Each foot of rise costs 0.433 PSI. Downhill runs (negative) gain pressure.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Flow Rate Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>This calculator uses the Hazen-Williams equation, which is the standard method for pressurized water systems in plumbing design.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>Net_Pressure = Supply_PSI - (Elevation_ft x 0.433)</p>
+            <p>Pressure_Gradient = (Net_PSI x 2.31) / Pipe_Length_ft</p>
+            <p>Q = 0.2083 x (100/C)^1.85 x Gradient^0.54 x d^2.63</p>
+            <p>Velocity = Q / (pi x (d/24)^2 x 7.48 x 60)</p>
+            <p class="mt-2">Where: Q = GPM, C = roughness coefficient, d = inside diameter (inches)</p>
+          </div>
+          <p>The equation balances friction losses against available pressure to determine the maximum steady-state flow. Higher pressure, larger diameter, and smoother pipes all increase the flow rate.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Verifying fixture performance.</strong> Will a 3/4" line deliver enough GPM to run a rain showerhead at the second floor? Enter the pipe details and check against the fixture's rated flow.</p>
+          <p><strong class="text-text-primary">Irrigation system design.</strong> Calculate how many GPM your supply line can deliver to determine how many sprinkler zones you can run simultaneously.</p>
+          <p><strong class="text-text-primary">Troubleshooting low flow.</strong> If a customer reports poor flow at a specific fixture, calculate the theoretical maximum for that pipe run. If the calculated flow is adequate, the problem is elsewhere (valve, fixture, blockage).</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate water flow rate in a pipe?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use the Hazen-Williams equation with your pipe's inside diameter, material roughness (C factor), available pressure, and pipe length. This calculator handles the math and unit conversions automatically.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a safe water velocity in plumbing pipes?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential water supply, keep velocity between 2-8 fps. Under 2 fps can cause sediment buildup. Over 8 fps causes water hammer, noise, and erosion. Hot water lines should stay under 5 fps.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How does elevation affect water flow rate?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Every foot of elevation gain costs 0.433 PSI of pressure. A fixture 20 feet above the water main loses about 8.7 PSI just from elevation, reducing available flow. This calculator subtracts elevation pressure loss before computing flow rate.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the Hazen-Williams C value for different pipe materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common C values: PEX = 150, PVC = 150, CPVC = 140, Copper = 130, Galvanized steel = 120, Cast iron = 100. Higher C values mean smoother interiors and less friction loss.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const d = parseFloat((document.getElementById('diameter') as HTMLSelectElement).value) || 0.785;
+    const C = parseInt((document.getElementById('material') as HTMLSelectElement).value) || 150;
+    const pressure = parseFloat((document.getElementById('pressure') as HTMLInputElement).value) || 60;
+    const pipeLength = parseFloat((document.getElementById('pipeLength') as HTMLInputElement).value) || 100;
+    const elevation = parseFloat((document.getElementById('elevation') as HTMLInputElement).value) || 0;
+
+    // Net pressure after elevation adjustment
+    const netPressure = pressure - (elevation * 0.433);
+
+    if (netPressure <= 0) {
+      document.getElementById('r-gpm')!.textContent = '0 GPM';
+      document.getElementById('r-vel')!.textContent = '0 fps';
+      document.getElementById('r-net')!.textContent = netPressure.toFixed(1) + ' PSI';
+      document.getElementById('r-flow')!.textContent = 'No Flow';
+      document.getElementById('r-note')!.textContent = 'Insufficient pressure to overcome elevation. Increase supply pressure or reduce elevation.';
+      return;
+    }
+
+    // Hazen-Williams: Q = 0.2083 * (100/C)^1.85 * (deltaP * 2.31 / L)^0.54 * d^2.63
+    const pressureGradient = (netPressure * 2.31) / pipeLength;
+    const Q = 0.2083 * Math.pow(100 / C, 1.85) * Math.pow(pressureGradient, 0.54) * Math.pow(d, 2.63);
+
+    // Velocity: V = Q / (Area * 7.48 * 60) where Area is in sq ft
+    const dFt = d / 12;
+    const area = Math.PI * Math.pow(dFt / 2, 2);
+    const velocity = Q / (area * 7.48 * 60);
+
+    // Flow category based on Reynolds-like assessment
+    let flowCategory: string;
+    if (velocity < 2) flowCategory = 'Low Flow';
+    else if (velocity <= 5) flowCategory = 'Optimal';
+    else if (velocity <= 8) flowCategory = 'Acceptable';
+    else flowCategory = 'Too Fast';
+
+    document.getElementById('r-gpm')!.textContent = Q.toFixed(1) + ' GPM';
+    document.getElementById('r-vel')!.textContent = velocity.toFixed(1) + ' fps';
+    document.getElementById('r-net')!.textContent = netPressure.toFixed(1) + ' PSI';
+    document.getElementById('r-flow')!.textContent = flowCategory;
+
+    const note = document.getElementById('r-note')!;
+    if (velocity > 8) {
+      note.textContent = 'Warning: Velocity exceeds 8 fps. This will cause water hammer and pipe erosion. Consider a larger pipe diameter.';
+      note.classList.add('text-red-400');
+      note.classList.remove('text-text-muted');
+    } else if (velocity < 2) {
+      note.textContent = 'Note: Very low velocity may cause sediment accumulation in the pipe over time.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    } else {
+      note.textContent = 'Flow rate and velocity are within acceptable plumbing design ranges.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    }
+  }
+
+  document.querySelectorAll('#fr-calc input, #fr-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

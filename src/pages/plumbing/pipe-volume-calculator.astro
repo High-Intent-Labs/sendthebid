@@ -1,0 +1,206 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('pipe-volume-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate how many gallons of water are in a pipe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use the formula: Volume = pi x (inside_diameter/2)^2 x length x 7.48052. The inside diameter and length must be in feet. The 7.48052 factor converts cubic feet to gallons. This calculator uses actual inside diameters for each pipe material and nominal size, since they differ significantly." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need to know the volume of water in a pipe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Common uses include calculating chlorine concentration for disinfection after new installs or repairs, determining purge volume for flushing lines, sizing expansion tanks for hot water systems, and estimating water loss during drain-downs. Inspection authorities often require a specific chlorine-to-water ratio based on pipe volume." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does pipe material affect the volume of water inside?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Different materials have different wall thicknesses for the same nominal size. For example, a 1/2-inch copper pipe has an inside diameter of 0.545 inches, while 1/2-inch PEX is 0.475 inches. Copper holds about 30% more water per foot than PEX at the same nominal size." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does the water in a pipe weigh?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Water weighs 8.34 pounds per gallon at room temperature. A 100-foot run of 2-inch copper pipe holds about 1.7 gallons, weighing about 14 pounds. For large commercial piping, water weight becomes a structural consideration — a 100-foot run of 4-inch pipe holds over 5 gallons, weighing over 40 pounds." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="pv-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeMat">Pipe Material</label>
+        <select id="pipeMat" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="copper" selected>Copper (Type L)</option>
+          <option value="pex">PEX</option>
+          <option value="pvc">PVC (Schedule 40)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="nomSize">Nominal Pipe Size</label>
+        <select id="nomSize" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.5">1/2"</option>
+          <option value="0.75" selected>3/4"</option>
+          <option value="1">1"</option>
+          <option value="1.25">1-1/4"</option>
+          <option value="1.5">1-1/2"</option>
+          <option value="2">2"</option>
+          <option value="3">3"</option>
+          <option value="4">4"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeLen">Pipe Length (ft)</label>
+        <input type="number" id="pipeLen" value="100" min="1" max="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Volume (Gallons)</div>
+          <div id="r-gal" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Volume (Liters)</div>
+          <div id="r-lit" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Volume (cu ft)</div>
+          <div id="r-cuft" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Water Weight (lbs)</div>
+          <div id="r-lbs" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic"></p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select pipe material.</strong> Different materials have different wall thicknesses, which changes the inside diameter and therefore the volume. Copper, PEX, and PVC each have distinct ID values.</p>
+          <p><strong class="text-text-primary">2. Choose nominal pipe size.</strong> Select the standard trade size. The calculator automatically uses the correct inside diameter for the material and size combination.</p>
+          <p><strong class="text-text-primary">3. Enter pipe length.</strong> Total length of the pipe run in feet. For multiple sections of the same size, add the lengths together.</p>
+          <p><strong class="text-text-primary">4. Read the results.</strong> Volume is shown in gallons, liters, and cubic feet. Water weight is useful for structural support calculations and system fill estimates.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Pipe Volume Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>The calculator uses the cylinder volume formula with actual inside diameters from manufacturer specifications for each material type.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>Volume (cu ft) = pi x (ID / 24)^2 x Length_ft</p>
+            <p>Volume (gallons) = Volume_cuft x 7.48052</p>
+            <p>Volume (liters) = Gallons x 3.78541</p>
+            <p>Weight (lbs) = Gallons x 8.34</p>
+            <p class="mt-2">ID = actual inside diameter in inches (varies by material)</p>
+          </div>
+          <p>Inside diameters vary significantly between materials. For example, a nominal 3/4" pipe has an ID of 0.785" in copper but only 0.681" in PEX — a 15% difference that compounds over long pipe runs.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Disinfection calculations.</strong> After installing or repairing water lines, code requires chlorination at a specific concentration. You need the exact pipe volume to calculate how much chlorine to add.</p>
+          <p><strong class="text-text-primary">System purging and flushing.</strong> Before putting a new system in service, you need to know how many gallons to flush through the piping to remove debris, flux, and disinfectant.</p>
+          <p><strong class="text-text-primary">Expansion tank sizing.</strong> Hot water systems expand as they heat up. Knowing the total system volume is essential for selecting the right expansion tank to prevent pressure relief valve discharge.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate how many gallons of water are in a pipe?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use the formula: Volume = pi x (inside_diameter/2)^2 x length x 7.48052. The inside diameter and length must be in feet. The 7.48052 factor converts cubic feet to gallons. This calculator uses actual inside diameters for each pipe material and nominal size.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to know the volume of water in a pipe?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common uses include calculating chlorine concentration for disinfection, determining purge volume for flushing lines, sizing expansion tanks for hot water systems, and estimating water loss during drain-downs.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Does pipe material affect the volume of water inside?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Different materials have different wall thicknesses for the same nominal size. For example, 1/2-inch copper has an inside diameter of 0.545 inches, while 1/2-inch PEX is 0.475 inches. Copper holds about 30% more water per foot than PEX at the same nominal size.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does the water in a pipe weigh?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Water weighs 8.34 pounds per gallon at room temperature. A 100-foot run of 2-inch copper pipe holds about 1.7 gallons, weighing about 14 pounds. For large piping, water weight becomes a structural consideration.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const pipeMat = (document.getElementById('pipeMat') as HTMLSelectElement).value;
+    const nomSize = (document.getElementById('nomSize') as HTMLSelectElement).value;
+    const pipeLen = parseFloat((document.getElementById('pipeLen') as HTMLInputElement).value) || 100;
+
+    // Inside diameter lookup tables (inches)
+    const idTable: Record<string, Record<string, number>> = {
+      copper: {
+        '0.5': 0.545, '0.75': 0.785, '1': 1.025, '1.25': 1.265,
+        '1.5': 1.505, '2': 1.985, '3': 2.945, '4': 3.905,
+      },
+      pex: {
+        '0.5': 0.475, '0.75': 0.681, '1': 0.863, '1.25': 1.087,
+        '1.5': 1.263, '2': 1.599, '3': 2.400, '4': 3.200,
+      },
+      pvc: {
+        '0.5': 0.622, '0.75': 0.824, '1': 1.049, '1.25': 1.380,
+        '1.5': 1.610, '2': 2.067, '3': 3.068, '4': 4.026,
+      },
+    };
+
+    const id = idTable[pipeMat]?.[nomSize];
+    const note = document.getElementById('r-note')!;
+
+    if (!id) {
+      document.getElementById('r-gal')!.textContent = 'N/A';
+      document.getElementById('r-lit')!.textContent = 'N/A';
+      document.getElementById('r-cuft')!.textContent = 'N/A';
+      document.getElementById('r-lbs')!.textContent = 'N/A';
+      note.textContent = 'This pipe size is not available for the selected material. Choose a different combination.';
+      return;
+    }
+
+    // Volume = pi * (ID/2)^2 * Length * 7.48052 (gallons per cubic foot)
+    // ID needs to be in feet: ID_inches / 12
+    const idFt = id / 12;
+    const volumeCuFt = Math.PI * Math.pow(idFt / 2, 2) * pipeLen;
+    const volumeGal = volumeCuFt * 7.48052;
+    const volumeLit = volumeGal * 3.78541;
+    const weightLbs = volumeGal * 8.34;
+
+    document.getElementById('r-gal')!.textContent = volumeGal.toFixed(2) + ' gal';
+    document.getElementById('r-lit')!.textContent = volumeLit.toFixed(2) + ' L';
+    document.getElementById('r-cuft')!.textContent = volumeCuFt.toFixed(3) + ' ft\u00B3';
+    document.getElementById('r-lbs')!.textContent = weightLbs.toFixed(1) + ' lbs';
+
+    note.textContent = 'Using actual inside diameter of ' + id + '" for ' + pipeMat.toUpperCase() + ' at nominal ' + nomSize + '" size.';
+    note.classList.remove('text-red-400');
+    note.classList.add('text-text-muted');
+  }
+
+  document.querySelectorAll('#pv-calc input, #pv-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

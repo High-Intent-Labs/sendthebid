@@ -1,0 +1,255 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('gas-line-sizing-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I size a gas line for my appliances?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Add up the total BTU/hr input rating of all appliances on the line, measure the pipe length from the meter to the farthest appliance, then look up the minimum pipe diameter in the IFGC sizing tables (Table 402.4 for natural gas). The calculator automates this lookup based on your BTU load and pipe length." }
+    },
+    {
+      "@type": "Question",
+      "name": "What size gas line do I need for a tankless water heater?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most tankless water heaters require 150,000-200,000 BTU input, which typically needs a 3/4-inch gas line for runs under 30 feet or a 1-inch line for longer runs. Always check the manufacturer's specifications and verify with IFGC tables based on your actual pipe length from the meter." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is propane gas line sizing different from natural gas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Propane has roughly twice the BTU content per cubic foot as natural gas (2,516 vs 1,030 BTU/cf). This means propane pipes can handle about twice the BTU capacity at each pipe size. However, propane operates at higher pressures and has different code requirements. This calculator adjusts automatically when you select propane." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are common BTU ratings for gas appliances?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Typical ratings: gas furnace 40,000-120,000 BTU, tank water heater 30,000-50,000 BTU, tankless water heater 150,000-200,000 BTU, gas range/oven 30,000-65,000 BTU, gas dryer 22,000 BTU, gas fireplace 20,000-40,000 BTU. Always use the nameplate BTU input rating, not output." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="gl-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="gasType">Gas Type</label>
+        <select id="gasType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="natural" selected>Natural Gas</option>
+          <option value="propane">Propane (LP)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="totalBTU">Total BTU Load</label>
+        <input type="number" id="totalBTU" value="200000" min="5000" max="2000000" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeLength">Pipe Length from Meter (ft)</label>
+        <input type="number" id="pipeLength" value="50" min="5" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="numAppliances">Number of Appliances</label>
+        <input type="number" id="numAppliances" value="3" min="1" max="15" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="inletPressure">Inlet Pressure</label>
+        <select id="inletPressure" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.5" selected>Standard (0.5 PSI / 14" WC)</option>
+          <option value="2">Medium (2 PSI)</option>
+          <option value="5">High (5 PSI)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Appliance BTU reference -->
+    <div class="bg-bg-dark rounded-xl p-5 mb-6">
+      <h4 class="text-text-secondary text-sm font-medium mb-3">Common Appliance BTU Ratings (Input)</h4>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+        <div class="text-text-muted">Water Heater (tank): <span class="text-text-primary">30-50K</span></div>
+        <div class="text-text-muted">Tankless Water Heater: <span class="text-text-primary">150-200K</span></div>
+        <div class="text-text-muted">Furnace: <span class="text-text-primary">40-120K</span></div>
+        <div class="text-text-muted">Range/Oven: <span class="text-text-primary">30-65K</span></div>
+        <div class="text-text-muted">Dryer: <span class="text-text-primary">22K</span></div>
+        <div class="text-text-muted">Fireplace: <span class="text-text-primary">20-40K</span></div>
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Minimum Pipe Size</div>
+          <div id="r-size" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Capacity at This Size</div>
+          <div id="r-cap" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Safety Factor</div>
+          <div id="r-safety" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic">Based on IFGC Table 402.4 for Schedule 40 iron pipe at standard inlet pressure.</p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select gas type.</strong> Natural gas and propane have different energy densities and code tables. Propane delivers roughly twice the BTU per cubic foot, so pipe sizes can be smaller.</p>
+          <p><strong class="text-text-primary">2. Enter total BTU load.</strong> Add up the nameplate BTU input rating for every appliance on the pipe run. Use the reference table below the inputs for common appliance ratings.</p>
+          <p><strong class="text-text-primary">3. Enter pipe length.</strong> Measure from the gas meter to the farthest appliance on the run. This is the longest pipe path, which determines the sizing for the entire main.</p>
+          <p><strong class="text-text-primary">4. Review the recommendation.</strong> The calculator provides minimum pipe size per IFGC tables, plus the pipe's capacity and safety margin at that size.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Gas Line Sizing Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>Gas line sizing uses capacity tables from the International Fuel Gas Code (IFGC), specifically Table 402.4 for Schedule 40 iron pipe at standard inlet pressures.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>Lookup: IFGC Table 402.4 (0.5 PSI, Schedule 40 pipe)</p>
+            <p>Input: Total BTU/hr load + Pipe length (ft)</p>
+            <p>Output: Minimum pipe diameter that can deliver the required BTU</p>
+            <p class="mt-2">Natural gas: 1,030 BTU per cubic foot</p>
+            <p>Propane: 2,516 BTU per cubic foot (approx 2x capacity per pipe size)</p>
+            <p class="mt-2">Safety Factor = Pipe_Capacity / Required_BTU</p>
+          </div>
+          <p>The tables account for pressure drop over the pipe length. Longer runs require larger pipe to maintain adequate pressure at the appliance. The safety factor shows how much headroom you have for future appliance additions.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Adding a new gas appliance.</strong> Before installing a tankless water heater, gas range, or other appliance, verify the existing gas line is large enough to handle the additional BTU load.</p>
+          <p><strong class="text-text-primary">New construction gas piping design.</strong> Size the main from the meter and each branch to individual appliances. Start with the total load at the meter and size branches individually.</p>
+          <p><strong class="text-text-primary">Troubleshooting low flame or appliance error codes.</strong> If a gas appliance won't fire at full capacity or throws error codes, the gas line may be undersized. Calculate the required size and compare to what's installed.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I size a gas line for my appliances?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Add up the total BTU/hr input rating of all appliances on the line, measure the pipe length from the meter to the farthest appliance, then look up the minimum pipe diameter in the IFGC sizing tables. This calculator automates that lookup.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size gas line do I need for a tankless water heater?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most tankless water heaters need 150,000-200,000 BTU input, typically requiring a 3/4-inch gas line for runs under 30 feet or a 1-inch line for longer runs. Always verify with IFGC tables based on your actual pipe length.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is propane gas line sizing different from natural gas?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Propane has roughly twice the BTU content per cubic foot as natural gas, so propane pipes can handle about twice the BTU capacity at each pipe size. However, propane has different code requirements. This calculator adjusts automatically for propane.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are common BTU ratings for gas appliances?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Typical ratings: furnace 40-120K BTU, tank water heater 30-50K, tankless water heater 150-200K, range/oven 30-65K, dryer 22K, fireplace 20-40K. Always use the nameplate BTU input rating, not output.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const gasType = (document.getElementById('gasType') as HTMLSelectElement).value;
+    const totalBTU = parseInt((document.getElementById('totalBTU') as HTMLInputElement).value) || 200000;
+    const pipeLength = parseInt((document.getElementById('pipeLength') as HTMLInputElement).value) || 50;
+
+    // IFGC Table 402.4 simplified — Natural Gas, 0.5 PSI, Schedule 40 iron pipe
+    // Format: [maxBTU, pipeLengths: {10, 20, 30, 50, 75, 100}]
+    // Each row is a pipe size with max BTU capacity at each length
+    const sizingTable = [
+      { name: '1/2"',    caps: { 10: 30000,  20: 30000,  30: 30000,  50: 30000,  75: 30000,  100: 30000  } },
+      { name: '3/4"',    caps: { 10: 65000,  20: 65000,  30: 65000,  50: 65000,  75: 65000,  100: 65000  } },
+      { name: '1"',      caps: { 10: 175000, 20: 110000, 30: 110000, 50: 110000, 75: 110000, 100: 110000 } },
+      { name: '1-1/4"',  caps: { 10: 350000, 20: 200000, 30: 200000, 50: 200000, 75: 200000, 100: 200000 } },
+      { name: '1-1/2"',  caps: { 10: 500000, 20: 350000, 30: 350000, 50: 350000, 75: 350000, 100: 350000 } },
+      { name: '2"',      caps: { 10: 1000000,20: 750000, 30: 500000, 50: 500000, 75: 500000, 100: 500000 } },
+    ];
+
+    // Full IFGC table with proper decreasing capacities
+    const fullTable = [
+      { name: '1/2"',    caps: { 10: 30000,  20: 30000,  30: 30000,  50: 30000,  75: 22000,  100: 22000  } },
+      { name: '3/4"',    caps: { 10: 65000,  20: 65000,  30: 65000,  50: 65000,  75: 65000,  100: 65000  } },
+      { name: '1"',      caps: { 10: 175000, 20: 110000, 30: 110000, 50: 110000, 75: 110000, 100: 110000 } },
+      { name: '1-1/4"',  caps: { 10: 350000, 20: 200000, 30: 200000, 50: 200000, 75: 200000, 100: 200000 } },
+      { name: '1-1/2"',  caps: { 10: 500000, 20: 350000, 30: 350000, 50: 275000, 75: 275000, 100: 275000 } },
+      { name: '2"',      caps: { 10: 1000000,20: 750000, 30: 625000, 50: 500000, 75: 430000, 100: 375000 } },
+    ];
+
+    // Find the nearest pipe length bracket
+    const lengthBrackets = [10, 20, 30, 50, 75, 100];
+    let bracketLength = 100;
+    for (const bracket of lengthBrackets) {
+      if (pipeLength <= bracket) {
+        bracketLength = bracket;
+        break;
+      }
+    }
+
+    // Propane gets ~2x capacity per pipe size
+    const multiplier = gasType === 'propane' ? 2 : 1;
+
+    // Adjusted BTU for lookup (divide by multiplier for propane)
+    const lookupBTU = totalBTU / multiplier;
+
+    let selectedPipe = fullTable[fullTable.length - 1];
+    let capacity = 0;
+
+    for (const pipe of fullTable) {
+      const cap = pipe.caps[bracketLength as keyof typeof pipe.caps] || pipe.caps[100];
+      if (cap >= lookupBTU) {
+        selectedPipe = pipe;
+        capacity = cap * multiplier;
+        break;
+      }
+      capacity = cap * multiplier;
+    }
+
+    const safetyFactor = capacity / totalBTU;
+
+    document.getElementById('r-size')!.textContent = selectedPipe.name;
+    document.getElementById('r-cap')!.textContent = capacity.toLocaleString() + ' BTU/hr';
+
+    const safetyEl = document.getElementById('r-safety')!;
+    if (safetyFactor >= 1) {
+      safetyEl.textContent = safetyFactor.toFixed(1) + 'x';
+      safetyEl.classList.remove('text-red-400');
+      safetyEl.classList.add('text-green-400');
+    } else {
+      safetyEl.textContent = 'UNDERSIZED';
+      safetyEl.classList.remove('text-green-400');
+      safetyEl.classList.add('text-red-400');
+    }
+
+    const note = document.getElementById('r-note')!;
+    if (safetyFactor < 1) {
+      note.textContent = 'Warning: Even the largest standard pipe size may not be adequate. Consider a dedicated line or consult the gas utility for higher pressure service.';
+      note.classList.add('text-red-400');
+      note.classList.remove('text-text-muted');
+    } else if (safetyFactor < 1.2) {
+      note.textContent = 'Pipe size meets minimum requirements but has little safety margin. Consider upsizing one step for future appliance additions.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    } else {
+      note.textContent = 'Based on IFGC Table 402.4 for Schedule 40 iron pipe. ' + (gasType === 'propane' ? 'Propane capacity is approximately 2x natural gas per pipe size.' : 'Standard 0.5 PSI inlet pressure assumed.');
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    }
+  }
+
+  document.querySelectorAll('#gl-calc input, #gl-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

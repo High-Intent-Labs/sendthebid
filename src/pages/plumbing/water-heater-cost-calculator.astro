@@ -1,0 +1,323 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('water-heater-cost-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does it cost to replace a water heater?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard 50-gallon gas tank water heater replacement typically costs $1,200-$1,800 installed, including equipment, labor, and basic materials. Tankless water heater installations range from $2,200-$5,000 depending on fuel type and whether fuel conversion or code upgrades are needed. Hybrid heat pump water heaters cost $2,800-$3,400 installed but qualify for up to $2,000 in federal tax credits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a tankless water heater worth the extra cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tankless water heaters cost 2-3x more to install but last 20+ years compared to 10-12 for tank units. They save approximately $10-15 per month on energy costs by eliminating standby heat loss. For a typical household, the energy savings offset the higher installation cost over 10-15 years. Tankless units also provide unlimited hot water and take up less space."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there tax credits for water heater replacement?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying heat pump (hybrid) water heaters installed in your primary residence. The unit must meet specific energy efficiency requirements. Standard tank and tankless water heaters do not qualify for the $2,000 credit but may qualify for smaller incentives through local utility rebate programs. Check with your tax advisor for current eligibility."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know when to replace my water heater?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Replace your water heater if it is over 10-12 years old (tank) or 20 years old (tankless), shows rust-colored water, makes rumbling or popping noises, leaks from the tank body (not fittings), or cannot keep up with hot water demand. A water heater leaking from the bottom of the tank cannot be repaired and must be replaced immediately to prevent water damage."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="wh-cost-calc">
+    <!-- Input Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="whType">Water Heater Type</label>
+        <select id="whType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="tank-40">Tank 40-Gallon</option>
+          <option value="tank-50" selected>Tank 50-Gallon</option>
+          <option value="tank-75">Tank 75-Gallon</option>
+          <option value="tankless-std">Tankless Standard</option>
+          <option value="tankless-prem">Tankless Premium</option>
+          <option value="hybrid">Hybrid / Heat Pump</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fuelType">Fuel Type</label>
+        <select id="fuelType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="gas" selected>Gas</option>
+          <option value="electric">Electric</option>
+          <option value="propane">Propane</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region</label>
+        <select id="region" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.85">Southeast</option>
+          <option value="0.90">Midwest</option>
+          <option value="0.95">South</option>
+          <option value="1.00" selected>National Average</option>
+          <option value="1.05">Mountain</option>
+          <option value="1.10">Northeast</option>
+          <option value="1.10">Pacific NW</option>
+          <option value="1.15">West</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="complexity">Installation Complexity</label>
+        <select id="complexity" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1.0" selected>Standard Replacement</option>
+          <option value="1.15">Code Upgrades Needed</option>
+          <option value="1.4">Fuel Conversion</option>
+          <option value="1.2">Difficult Access</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- N/A Warning -->
+    <div id="na-warning" class="hidden bg-yellow-500/10 border border-yellow-500/30 rounded-lg px-5 py-4 mb-6">
+      <p class="text-yellow-400 text-sm font-medium">Heat pump water heaters are only available as electric units. Gas and propane are not available for this type. Please select Electric as the fuel type, or choose a different water heater type.</p>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Your Estimated Cost</h3>
+
+      <!-- Cost Range Bar -->
+      <div class="bg-bg-dark rounded-xl p-6 mb-6">
+        <div class="flex justify-between items-end mb-3">
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Low</div>
+            <div id="result-low" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
+          </div>
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Mid Estimate</div>
+            <div id="result-mid" class="font-heading font-extrabold text-3xl text-accent">--</div>
+          </div>
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">High</div>
+            <div id="result-high" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
+          </div>
+        </div>
+        <!-- Visual range bar -->
+        <div class="relative h-3 bg-bg-card rounded-full overflow-hidden mt-4">
+          <div id="range-bar" class="absolute inset-y-0 left-[10%] right-[10%] rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40"></div>
+          <div id="range-marker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg"></div>
+        </div>
+      </div>
+
+      <!-- Energy & Savings Cards -->
+      <h3 class="font-heading font-bold text-xl mb-6">Energy & Savings</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Energy Cost</div>
+          <div id="result-monthly-energy" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">estimated</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Energy Cost</div>
+          <div id="result-annual-energy" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">estimated</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Savings vs Old Unit</div>
+          <div id="result-annual-savings" class="font-heading font-extrabold text-2xl text-accent">--</div>
+          <div class="text-text-muted text-xs mt-1">vs 10+ year old standard tank</div>
+        </div>
+      </div>
+
+      <!-- Tax Credit Card -->
+      <div id="tax-credit-card" class="hidden bg-bg-dark rounded-xl p-5 text-center border border-green-500/30 mb-6">
+        <div class="text-green-400 text-xs font-medium uppercase tracking-wider mb-2">Federal Tax Credit</div>
+        <div class="font-heading font-extrabold text-2xl text-green-400">Up to $2,000</div>
+        <div class="text-text-muted text-xs mt-1">25C credit for qualifying heat pump water heaters</div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">Estimate includes equipment, labor, and standard installation. Contact a licensed plumber for an exact quote.</p>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select the water heater type.</strong> Choose from standard tank sizes (40, 50, or 75 gallon), tankless units (standard or premium), or a hybrid heat pump model. If you are unsure what size you need, use our Water Heater Sizing Calculator to find the right match for your household.</p>
+          <p><strong class="text-text-primary">2. Choose your fuel type.</strong> Gas, electric, and propane each have different equipment costs and operating expenses. Note that hybrid heat pump water heaters are only available as electric units. If you select a hybrid with gas or propane, the tool will alert you to switch.</p>
+          <p><strong class="text-text-primary">3. Set your region.</strong> Regional labor rates and material costs vary significantly. The Southeast and Midwest are the most affordable markets for water heater installation, while the West Coast and Northeast run the highest.</p>
+          <p><strong class="text-text-primary">4. Select the installation complexity.</strong> A standard replacement means swapping the old unit for a new one of the same fuel type with no code issues. Code upgrades (expansion tank, drain pan, seismic straps) add 15%. Fuel conversions (gas to electric or vice versa) add 40% for new gas lines or electrical circuits. Difficult access (tight closets, attic installations) adds 20%.</p>
+        </div>
+      </section>
+
+      <!-- Cost Factors -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Affects Water Heater Replacement Cost</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Equipment type and size.</strong> A standard 50-gallon gas tank is the most common and affordable option. Larger tanks and tankless units cost more for the equipment itself. Hybrid heat pump units have the highest equipment cost but the lowest operating cost and qualify for the largest federal tax credits.</p>
+          <p><strong class="text-text-primary">Fuel type.</strong> Electric tank water heaters cost less to buy but more to operate in most areas. Gas units cost slightly more upfront but have lower monthly energy bills in regions with affordable natural gas. Propane units carry a premium for both equipment and fuel costs.</p>
+          <p><strong class="text-text-primary">Code compliance upgrades.</strong> Older installations may not meet current code. Common required upgrades include thermal expansion tanks, earthquake strapping (in seismic zones), drain pans with piped discharge, updated gas connectors, and proper venting. These add $200-$500 to the total project.</p>
+          <p><strong class="text-text-primary">Fuel conversion.</strong> Switching from gas to electric (or vice versa) is the most expensive scenario. It requires running new gas piping or a dedicated electrical circuit, potentially upgrading the electrical panel, and modifying venting. Budget an additional 40% over a standard like-for-like replacement.</p>
+          <p><strong class="text-text-primary">Access and location.</strong> Water heaters in open garages or basements are easy to replace. Units in tight closets, attics, or crawlspaces take longer to remove and install, which increases labor cost. Attic installations may also require a new drain pan and overflow line per code.</p>
+        </div>
+      </section>
+
+      <!-- Tank vs Tankless -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Tank vs. Tankless vs. Heat Pump: Which Is Right?</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Tank water heaters</strong> are the most common and affordable option. They store 40-75 gallons of hot water and recover as it is used. Installation is straightforward and replacement is typically a same-day job. Standard gas tanks last 8-12 years. Monthly energy costs average $30-$45 depending on fuel type.</p>
+          <p><strong class="text-text-primary">Tankless water heaters</strong> heat water on demand with no storage tank. They provide unlimited hot water, last 20+ years, and save energy by eliminating standby heat loss. Installation costs are higher due to larger gas lines or electrical requirements, and venting upgrades for gas units. Monthly energy costs average $18-$25.</p>
+          <p><strong class="text-text-primary">Hybrid heat pump water heaters</strong> use a heat pump to pull warmth from the surrounding air to heat water, making them 2-3x more efficient than standard electric tanks. They cost more upfront but qualify for up to $2,000 in federal 25C tax credits. Monthly energy costs average around $15. They require installation in a space with adequate air volume (at least 120 sq ft) and work best in warm or moderate climates.</p>
+        </div>
+      </section>
+
+      <!-- Signs of Failure -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Signs Your Water Heater Needs Replacement</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Age.</strong> If your tank water heater is over 10-12 years old, it is approaching the end of its expected lifespan. Check the serial number on the data plate to find the manufacture date. Proactive replacement before failure avoids emergency calls and potential water damage.</p>
+          <p><strong class="text-text-primary">Rust-colored water.</strong> Rusty hot water (but not cold) indicates corrosion inside the tank. Once the anode rod is depleted and the steel liner starts rusting, the tank will eventually leak. This cannot be repaired.</p>
+          <p><strong class="text-text-primary">Rumbling or popping noises.</strong> Sediment buildup on the bottom of the tank creates hot spots and causes popping sounds during heating cycles. While flushing the tank can help in mild cases, heavy sediment buildup reduces efficiency and accelerates tank failure.</p>
+          <p><strong class="text-text-primary">Leaking from the tank body.</strong> A leak from the bottom or side of the tank (not from fittings or the T&P valve) means the inner liner has failed. This cannot be repaired. Replace the water heater immediately to prevent water damage to your home.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does it cost to replace a water heater?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard 50-gallon gas tank water heater replacement typically costs $1,200-$1,800 installed, including equipment, labor, and basic materials. Tankless water heater installations range from $2,200-$5,000 depending on fuel type and whether fuel conversion or code upgrades are needed. Hybrid heat pump water heaters cost $2,800-$3,400 installed but qualify for up to $2,000 in federal tax credits.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is a tankless water heater worth the extra cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tankless water heaters cost 2-3x more to install but last 20+ years compared to 10-12 for tank units. They save approximately $10-15 per month on energy costs by eliminating standby heat loss. For a typical household, the energy savings offset the higher installation cost over 10-15 years. Tankless units also provide unlimited hot water and take up less space.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Are there tax credits for water heater replacement?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying heat pump (hybrid) water heaters installed in your primary residence. The unit must meet specific energy efficiency requirements. Standard tank and tankless water heaters do not qualify for the $2,000 credit but may qualify for smaller incentives through local utility rebate programs. Check with your tax advisor for current eligibility.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I know when to replace my water heater?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Replace your water heater if it is over 10-12 years old (tank) or 20 years old (tankless), shows rust-colored water, makes rumbling or popping noises, leaks from the tank body (not fittings), or cannot keep up with hot water demand. A water heater leaking from the bottom of the tank cannot be repaired and must be replaced immediately to prevent water damage.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // Base prices by type and fuel: { type: { fuel: price } }
+  // N/A combinations represented as 0
+  const basePrices: Record<string, Record<string, number>> = {
+    'tank-40':        { gas: 1200, electric: 1000, propane: 1300 },
+    'tank-50':        { gas: 1400, electric: 1200, propane: 1500 },
+    'tank-75':        { gas: 1800, electric: 1600, propane: 1900 },
+    'tankless-std':   { gas: 3000, electric: 2200, propane: 3200 },
+    'tankless-prem':  { gas: 4000, electric: 3000, propane: 4200 },
+    'hybrid':         { gas: 0,    electric: 2800, propane: 0 },
+  };
+
+  // Monthly energy costs by category key
+  // gas tank ~$30, electric tank ~$45, gas tankless ~$18, electric tankless ~$25, heat pump ~$15
+  // propane tank ~$35, propane tankless ~$22
+  const monthlyCosts: Record<string, Record<string, number>> = {
+    'tank-40':        { gas: 30, electric: 45, propane: 35 },
+    'tank-50':        { gas: 30, electric: 45, propane: 35 },
+    'tank-75':        { gas: 35, electric: 50, propane: 40 },
+    'tankless-std':   { gas: 18, electric: 25, propane: 22 },
+    'tankless-prem':  { gas: 18, electric: 25, propane: 22 },
+    'hybrid':         { gas: 0,  electric: 15, propane: 0 },
+  };
+
+  // Baseline for "old unit" comparison: standard 50-gal gas tank = $45/mo (aged, less efficient)
+  const oldUnitMonthlyCost = 45;
+
+  function calculate() {
+    const whType = (document.getElementById('whType') as HTMLSelectElement).value;
+    const fuelType = (document.getElementById('fuelType') as HTMLSelectElement).value;
+    const regionFactor = parseFloat((document.getElementById('region') as HTMLSelectElement).value);
+    const complexityFactor = parseFloat((document.getElementById('complexity') as HTMLSelectElement).value);
+
+    const naWarning = document.getElementById('na-warning') as HTMLDivElement;
+    const resultsDiv = document.getElementById('results') as HTMLDivElement;
+    const taxCreditCard = document.getElementById('tax-credit-card') as HTMLDivElement;
+
+    const basePrice = basePrices[whType]?.[fuelType] ?? 0;
+
+    // Handle N/A combinations (hybrid only available as electric)
+    if (basePrice === 0) {
+      naWarning.classList.remove('hidden');
+      resultsDiv.style.opacity = '0.3';
+      resultsDiv.style.pointerEvents = 'none';
+
+      // Clear results
+      document.getElementById('result-low')!.textContent = 'N/A';
+      document.getElementById('result-mid')!.textContent = 'N/A';
+      document.getElementById('result-high')!.textContent = 'N/A';
+      document.getElementById('result-monthly-energy')!.textContent = 'N/A';
+      document.getElementById('result-annual-energy')!.textContent = 'N/A';
+      document.getElementById('result-annual-savings')!.textContent = 'N/A';
+      taxCreditCard.classList.add('hidden');
+      return;
+    }
+
+    naWarning.classList.add('hidden');
+    resultsDiv.style.opacity = '1';
+    resultsDiv.style.pointerEvents = 'auto';
+
+    // Estimated_Cost = Base_Price x Regional_Factor x Complexity_Factor
+    const estimatedCost = basePrice * regionFactor * complexityFactor;
+    const low = Math.round(estimatedCost * 0.8);
+    const high = Math.round(estimatedCost * 1.2);
+    const mid = Math.round(estimatedCost);
+
+    const fmt = (n: number) => '$' + n.toLocaleString();
+
+    document.getElementById('result-low')!.textContent = fmt(low);
+    document.getElementById('result-mid')!.textContent = fmt(mid);
+    document.getElementById('result-high')!.textContent = fmt(high);
+
+    // Energy costs
+    const monthlyCost = monthlyCosts[whType]?.[fuelType] ?? 30;
+    const annualCost = monthlyCost * 12;
+    const annualSavings = (oldUnitMonthlyCost * 12) - annualCost;
+
+    document.getElementById('result-monthly-energy')!.textContent = fmt(monthlyCost) + '/mo';
+    document.getElementById('result-annual-energy')!.textContent = fmt(annualCost) + '/yr';
+    document.getElementById('result-annual-savings')!.textContent = annualSavings > 0 ? fmt(annualSavings) + '/yr' : '$0/yr';
+
+    // Show tax credit for hybrid/heat pump
+    const isHeatPump = whType === 'hybrid';
+    taxCreditCard.classList.toggle('hidden', !isHeatPump);
+  }
+
+  // Auto-calculate on input change
+  document.querySelectorAll('#wh-cost-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

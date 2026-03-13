@@ -1,0 +1,288 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('fixture-unit-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are Water Supply Fixture Units (WSFU)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "WSFU is a standardized value from IPC Table 604.4 that represents the load a plumbing fixture places on the water supply system. Each fixture type has a defined WSFU value — for example, a toilet with a flush tank is 5 WSFU, a shower is 4 WSFU, and a lavatory is 2 WSFU. Totaling WSFU for all fixtures lets you size supply pipes and water meters." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between WSFU and DFU?",
+      "acceptedAnswer": { "@type": "Answer", "text": "WSFU (Water Supply Fixture Units) measure demand on the supply system — how much water fixtures need delivered under pressure. DFU (Drainage Fixture Units) measure load on the drain-waste-vent system — how much wastewater fixtures discharge by gravity. They use different values because supply and drainage have different flow characteristics." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert fixture units to GPM?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use Hunter's Curve (IPC Table E103.3) to convert total WSFU to gallons per minute (GPM). The relationship is not linear — at low fixture counts each WSFU adds more GPM, but the curve flattens at higher counts because not all fixtures run simultaneously. For example, 20 WSFU converts to about 14 GPM, while 100 WSFU converts to about 38 GPM." }
+    },
+    {
+      "@type": "Question",
+      "name": "What size drain pipe do I need based on DFU?",
+      "acceptedAnswer": { "@type": "Answer", "text": "IPC Table 710.1 sizes horizontal drain branches by DFU: up to 24 DFU requires a 3-inch pipe, 24-42 DFU needs 3-inch, 42-216 DFU needs 4-inch, and over 216 DFU requires 6-inch pipe. These apply to horizontal branches — vertical stacks have higher DFU allowances for the same pipe size." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="fu-calc">
+    <div class="mb-6">
+      <h3 class="font-heading font-bold text-lg mb-4">Enter Fixture Quantities</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left text-text-secondary font-medium py-3 pr-4">Fixture</th>
+              <th class="text-center text-text-muted font-medium py-3 px-3">WSFU</th>
+              <th class="text-center text-text-muted font-medium py-3 px-3">DFU</th>
+              <th class="text-center text-text-secondary font-medium py-3 pl-3">Qty</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border">
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Bathtub</td>
+              <td class="text-center text-text-muted py-3 px-3">4</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-bathtub" value="1" min="0" max="20" data-wsfu="4" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Shower</td>
+              <td class="text-center text-text-muted py-3 px-3">4</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-shower" value="2" min="0" max="20" data-wsfu="4" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Lavatory (bathroom sink)</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="text-center text-text-muted py-3 px-3">1</td>
+              <td class="py-3 pl-3"><input type="number" id="f-lav" value="3" min="0" max="30" data-wsfu="2" data-dfu="1" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Kitchen Sink</td>
+              <td class="text-center text-text-muted py-3 px-3">3</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-kitchen" value="1" min="0" max="10" data-wsfu="3" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Dishwasher</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-dishwasher" value="1" min="0" max="5" data-wsfu="2" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Clothes Washer</td>
+              <td class="text-center text-text-muted py-3 px-3">4</td>
+              <td class="text-center text-text-muted py-3 px-3">3</td>
+              <td class="py-3 pl-3"><input type="number" id="f-washer" value="1" min="0" max="5" data-wsfu="4" data-dfu="3" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Toilet (flush tank)</td>
+              <td class="text-center text-text-muted py-3 px-3">5</td>
+              <td class="text-center text-text-muted py-3 px-3">4</td>
+              <td class="py-3 pl-3"><input type="number" id="f-toilet" value="3" min="0" max="30" data-wsfu="5" data-dfu="4" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Toilet (flush valve)</td>
+              <td class="text-center text-text-muted py-3 px-3">10</td>
+              <td class="text-center text-text-muted py-3 px-3">4</td>
+              <td class="py-3 pl-3"><input type="number" id="f-toiletfv" value="0" min="0" max="30" data-wsfu="10" data-dfu="4" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Hose Bibb</td>
+              <td class="text-center text-text-muted py-3 px-3">5</td>
+              <td class="text-center text-text-muted py-3 px-3">0</td>
+              <td class="py-3 pl-3"><input type="number" id="f-hose" value="2" min="0" max="10" data-wsfu="5" data-dfu="0" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Utility Sink</td>
+              <td class="text-center text-text-muted py-3 px-3">3</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-utility" value="0" min="0" max="10" data-wsfu="3" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Bar Sink</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="text-center text-text-muted py-3 px-3">1</td>
+              <td class="py-3 pl-3"><input type="number" id="f-bar" value="0" min="0" max="10" data-wsfu="2" data-dfu="1" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 text-text-primary">Floor Drain</td>
+              <td class="text-center text-text-muted py-3 px-3">0</td>
+              <td class="text-center text-text-muted py-3 px-3">2</td>
+              <td class="py-3 pl-3"><input type="number" id="f-floor" value="0" min="0" max="20" data-wsfu="0" data-dfu="2" class="w-20 mx-auto block bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-center text-sm focus:border-accent focus:outline-none transition-colors" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total WSFU</div>
+          <div id="r-wsfu" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total DFU</div>
+          <div id="r-dfu" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Estimated GPM</div>
+          <div id="r-gpm" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supply Pipe Size</div>
+          <div id="r-supply" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Drain Pipe Size</div>
+          <div id="r-drain" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p class="text-text-muted text-sm italic">Values per IPC Tables 604.4, 709.1, and E103.3. Pipe sizes are for building main — branch sizing may differ.</p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Count each fixture type.</strong> Walk through the building or review the plans. Count every plumbing fixture that will be connected — supply side and drain side.</p>
+          <p><strong class="text-text-primary">2. Enter quantities in the table.</strong> Each fixture type has pre-loaded WSFU and DFU values from IPC Tables 604.4 and 709.1. Just enter how many of each fixture you have.</p>
+          <p><strong class="text-text-primary">3. Note the toilet type.</strong> Flush tank toilets (residential) are 5 WSFU. Flush valve toilets (commercial) are 10 WSFU. Using the wrong type will significantly change the supply pipe sizing.</p>
+          <p><strong class="text-text-primary">4. Read the results.</strong> The calculator totals WSFU and DFU, converts to GPM, and recommends both supply and drain pipe sizes for the building main.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Fixture Unit Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>Fixture units are a standardized way to express plumbing demand without calculating each fixture individually. The IPC tables convert these totals into pipe sizes.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>Total WSFU = Sum of (each fixture's WSFU x quantity)</p>
+            <p>Total DFU = Sum of (each fixture's DFU x quantity)</p>
+            <p class="mt-2">GPM from Hunter's Curve (IPC Table E103.3):</p>
+            <p>1-2 WSFU=3 GPM, 3-5=5, 6-10=8, 11-20=14, 21-40=22</p>
+            <p>41-60=29, 61-100=38, 101-200=55, 201-400=80</p>
+            <p class="mt-2">Supply pipe: based on WSFU and available pressure</p>
+            <p>Drain pipe: &lt;24 DFU=3", 24-42=3", 42-216=4", 216+=6"</p>
+          </div>
+          <p>Hunter's Curve accounts for diversity — the statistical probability that all fixtures will not be used simultaneously. This is why 100 WSFU converts to only 38 GPM rather than the theoretical sum of individual flows.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Building main sizing.</strong> Total all fixtures in the building to determine the water service pipe and meter size. This is the first step in any plumbing system design.</p>
+          <p><strong class="text-text-primary">Addition or remodel impact.</strong> Adding fixtures increases demand. Calculate current fixture units, add the new ones, and check if the existing main and drain are large enough.</p>
+          <p><strong class="text-text-primary">Permit applications.</strong> Most jurisdictions require a fixture unit count as part of the plumbing permit submittal. This calculator gives you the totals and pipe sizes to include.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are Water Supply Fixture Units (WSFU)?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">WSFU is a standardized value from IPC Table 604.4 that represents the load a plumbing fixture places on the water supply system. Each fixture type has a defined WSFU value. Totaling WSFU lets you size supply pipes and water meters.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between WSFU and DFU?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">WSFU measures demand on the supply system (pressurized). DFU measures load on the drain-waste-vent system (gravity). They use different values because supply and drainage have different flow characteristics.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I convert fixture units to GPM?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use Hunter's Curve (IPC Table E103.3). The relationship is not linear — at low counts each WSFU adds more GPM, but the curve flattens at higher counts. For example, 20 WSFU is about 14 GPM, while 100 WSFU is about 38 GPM.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size drain pipe do I need based on DFU?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">IPC Table 710.1 sizes horizontal drain branches by DFU: up to 24 DFU requires 3-inch, 42-216 DFU needs 4-inch, and over 216 DFU requires 6-inch. Vertical stacks have higher DFU allowances for the same pipe size.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const fixtures = [
+      { id: 'f-bathtub', wsfu: 4, dfu: 2 },
+      { id: 'f-shower', wsfu: 4, dfu: 2 },
+      { id: 'f-lav', wsfu: 2, dfu: 1 },
+      { id: 'f-kitchen', wsfu: 3, dfu: 2 },
+      { id: 'f-dishwasher', wsfu: 2, dfu: 2 },
+      { id: 'f-washer', wsfu: 4, dfu: 3 },
+      { id: 'f-toilet', wsfu: 5, dfu: 4 },
+      { id: 'f-toiletfv', wsfu: 10, dfu: 4 },
+      { id: 'f-hose', wsfu: 5, dfu: 0 },
+      { id: 'f-utility', wsfu: 3, dfu: 2 },
+      { id: 'f-bar', wsfu: 2, dfu: 1 },
+      { id: 'f-floor', wsfu: 0, dfu: 2 },
+    ];
+
+    let totalWSFU = 0;
+    let totalDFU = 0;
+
+    for (const fix of fixtures) {
+      const qty = parseInt((document.getElementById(fix.id) as HTMLInputElement).value) || 0;
+      totalWSFU += fix.wsfu * qty;
+      totalDFU += fix.dfu * qty;
+    }
+
+    // Hunter's Curve: WSFU to GPM
+    function wsfuToGPM(w: number): number {
+      if (w <= 0) return 0;
+      if (w <= 2) return 3;
+      if (w <= 5) return 5;
+      if (w <= 10) return 8;
+      if (w <= 20) return 14;
+      if (w <= 40) return 22;
+      if (w <= 60) return 29;
+      if (w <= 100) return 38;
+      if (w <= 200) return 55;
+      if (w <= 400) return 80;
+      return 80 + (w - 400) * 0.15;
+    }
+
+    const gpm = wsfuToGPM(totalWSFU);
+
+    // Recommend supply pipe size based on WSFU
+    let supplyPipe: string;
+    if (totalWSFU <= 5) supplyPipe = '1/2"';
+    else if (totalWSFU <= 15) supplyPipe = '3/4"';
+    else if (totalWSFU <= 30) supplyPipe = '1"';
+    else if (totalWSFU <= 60) supplyPipe = '1-1/4"';
+    else if (totalWSFU <= 100) supplyPipe = '1-1/2"';
+    else supplyPipe = '2"';
+
+    // Recommend drain pipe size based on DFU
+    let drainPipe: string;
+    if (totalDFU <= 24) drainPipe = '3"';
+    else if (totalDFU <= 42) drainPipe = '3"';
+    else if (totalDFU <= 216) drainPipe = '4"';
+    else drainPipe = '6"';
+
+    document.getElementById('r-wsfu')!.textContent = totalWSFU.toString();
+    document.getElementById('r-dfu')!.textContent = totalDFU.toString();
+    document.getElementById('r-gpm')!.textContent = gpm.toFixed(1) + ' GPM';
+    document.getElementById('r-supply')!.textContent = supplyPipe;
+    document.getElementById('r-drain')!.textContent = drainPipe;
+  }
+
+  document.querySelectorAll('#fu-calc input').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

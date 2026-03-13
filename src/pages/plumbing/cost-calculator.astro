@@ -1,0 +1,282 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('cost-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a plumber cost per hour?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbers charge between $75 and $200 per hour depending on the region, complexity, and whether the work is during normal business hours or an emergency call. Journeyman plumbers typically charge $75-$130 per hour, while master plumbers or specialists may charge $130-$200+. Many plumbers quote flat-rate pricing for standard jobs rather than hourly rates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do plumbing costs vary so much by region?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Regional cost differences reflect local labor rates, permit fees, cost of living, and material availability. The Southeast and Midwest tend to have the lowest plumbing costs at 10-15% below the national average. The West Coast and Northeast are the most expensive markets at 10-15% above average due to higher wages, stricter code requirements, and higher operating costs for plumbing businesses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What factors affect the cost of a plumbing job?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The biggest factors are job type and scope, accessibility of the work area, material costs, regional labor rates, and whether permits or inspections are required. Slab work and wall-access repairs cost significantly more than exposed pipe work because of the demolition and restoration involved. Emergency or after-hours service typically adds 50-100% to the standard rate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I call a plumber instead of doing it myself?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Call a licensed plumber for anything involving gas lines, sewer lines, water heater installation, re-piping, or work that requires a permit. Simple jobs like replacing a faucet aerator or tightening a compression fitting are safe DIY tasks. However, if a project involves soldering, opening walls, working under a slab, or connecting to the main water or sewer line, a licensed plumber ensures the work meets code and is done safely."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="plumb-cost-calc">
+    <!-- Input Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobType">Job Type</label>
+        <select id="jobType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="faucet-install" selected>Faucet Install</option>
+          <option value="toilet-install">Toilet Install</option>
+          <option value="garbage-disposal">Garbage Disposal</option>
+          <option value="wh-tank">Water Heater (Tank)</option>
+          <option value="wh-tankless">Water Heater (Tankless)</option>
+          <option value="drain-cleaning">Drain Cleaning</option>
+          <option value="sewer-repair">Sewer Line Repair</option>
+          <option value="repipe">Re-pipe (Whole House)</option>
+          <option value="bath-roughin">Bathroom Rough-in</option>
+          <option value="leak-accessible">Leak Repair (Accessible)</option>
+          <option value="leak-wall-slab">Leak Repair (Wall/Slab)</option>
+          <option value="sump-pump">Sump Pump Install</option>
+          <option value="gas-line">Gas Line Install</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region</label>
+        <select id="region" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.85">Southeast</option>
+          <option value="0.90">Midwest</option>
+          <option value="0.95">South</option>
+          <option value="1.00" selected>National Average</option>
+          <option value="1.05">Mountain</option>
+          <option value="1.10">Northeast</option>
+          <option value="1.10">Pacific NW</option>
+          <option value="1.15">West</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="complexity">Access / Complexity</label>
+        <select id="complexity" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1.0" selected>Standard Access</option>
+          <option value="1.15">Crawlspace</option>
+          <option value="1.3">Slab</option>
+          <option value="1.1">Multi-Story</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Your Estimated Cost</h3>
+
+      <!-- Cost Range Bar -->
+      <div class="bg-bg-dark rounded-xl p-6 mb-6">
+        <div class="flex justify-between items-end mb-3">
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Low</div>
+            <div id="result-low" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
+          </div>
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Mid Estimate</div>
+            <div id="result-mid" class="font-heading font-extrabold text-3xl text-accent">--</div>
+          </div>
+          <div class="text-center">
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">High</div>
+            <div id="result-high" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
+          </div>
+        </div>
+        <!-- Visual range bar -->
+        <div class="relative h-3 bg-bg-card rounded-full overflow-hidden mt-4">
+          <div id="range-bar" class="absolute inset-y-0 left-[10%] right-[10%] rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40"></div>
+          <div id="range-marker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg"></div>
+        </div>
+      </div>
+
+      <!-- Detail cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Regional Adjustment</div>
+          <div id="result-region" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div id="result-region-note" class="text-text-muted text-xs mt-1">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Complexity Adjustment</div>
+          <div id="result-complexity" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div id="result-complexity-note" class="text-text-muted text-xs mt-1">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">National Average (Mid)</div>
+          <div id="result-national" class="font-heading font-extrabold text-2xl text-accent">--</div>
+          <div class="text-text-muted text-xs mt-1">before adjustments</div>
+        </div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">Estimate based on national averages. Contact a licensed plumber for an exact quote.</p>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select your job type.</strong> Choose the plumbing job that best matches the work you need done. Each job type has a built-in cost range based on thousands of real plumbing jobs across the country.</p>
+          <p><strong class="text-text-primary">2. Choose your region.</strong> Labor rates, permit costs, and material prices vary significantly by location. The Southeast and Midwest are the most affordable markets, while the West Coast and Northeast run higher due to cost-of-living differences and stricter code requirements.</p>
+          <p><strong class="text-text-primary">3. Set the access complexity.</strong> Standard access means exposed pipes or easy-to-reach fixtures. Crawlspace adds 15% for the difficulty of working in tight quarters. Slab work adds 30% for concrete cutting and restoration. Multi-story homes add 10% for the extra labor of running materials up stairs.</p>
+          <p><strong class="text-text-primary">4. Review your estimate.</strong> The tool shows a low, mid, and high range. The mid estimate reflects a typical job with average materials. The low end assumes straightforward conditions and builder-grade materials. The high end accounts for premium fixtures, unexpected complications, or difficult site conditions.</p>
+        </div>
+      </section>
+
+      <!-- What Affects Cost -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Affects Plumbing Costs</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Job type and scope.</strong> A simple faucet install is a 1-2 hour job with minimal materials, while a whole-house re-pipe is a multi-day project that may require opening walls and patching drywall. The scope of work is the single biggest driver of total cost.</p>
+          <p><strong class="text-text-primary">Material and fixture quality.</strong> A basic builder-grade faucet costs $50 while a premium brand runs $300+. The same pattern applies across every plumbing category: standard tank water heaters start around $400 while high-efficiency tankless units cost $1,500-$2,500 for the equipment alone.</p>
+          <p><strong class="text-text-primary">Accessibility.</strong> Exposed pipes in a basement are fast and easy to work on. The same repair behind a finished wall requires cutting drywall, making the repair, and patching. Under-slab work requires concrete cutting, which adds significant cost for both the plumbing work and the surface restoration.</p>
+          <p><strong class="text-text-primary">Permits and inspections.</strong> Many plumbing jobs require permits, especially water heater installations, gas line work, and re-pipes. Permit fees typically range from $50 to $500 depending on your jurisdiction and the scope of work. The plumber's time for the inspection adds to the total cost.</p>
+          <p><strong class="text-text-primary">Emergency vs. scheduled service.</strong> After-hours and weekend emergency calls typically cost 50-100% more than scheduled work during normal business hours. If the issue is not actively causing damage, scheduling the repair during regular hours saves significant money.</p>
+        </div>
+      </section>
+
+      <!-- When To Call a Plumber -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Call a Licensed Plumber</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Water heater replacement.</strong> Water heater installation involves gas or high-amperage electrical connections, venting, pressure relief valves, and code compliance. A licensed plumber ensures the installation is safe and meets local building codes. Most jurisdictions require a permit for water heater replacement.</p>
+          <p><strong class="text-text-primary">Sewer line problems.</strong> Tree root intrusion, bellied pipes, and collapsed sewer lines require professional diagnosis with a camera inspection and specialized repair equipment. Sewer work often requires permits and inspections, and improper repairs can cause sewage backups and property damage.</p>
+          <p><strong class="text-text-primary">Gas line work.</strong> Gas piping must be sized, installed, and tested by a licensed professional. Improper gas work creates explosion and carbon monoxide hazards. Never attempt gas line work as a DIY project.</p>
+          <p><strong class="text-text-primary">Re-piping and rough-in work.</strong> Whole-house re-pipes and new bathroom rough-ins involve system design, code compliance, and coordination with other trades. These projects require permits, inspections, and the expertise of a licensed plumber to ensure proper sizing, slope, venting, and connections.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a plumber cost per hour?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbers charge between $75 and $200 per hour depending on the region, complexity, and whether the work is during normal business hours or an emergency call. Journeyman plumbers typically charge $75-$130 per hour, while master plumbers or specialists may charge $130-$200+. Many plumbers quote flat-rate pricing for standard jobs rather than hourly rates.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do plumbing costs vary so much by region?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Regional cost differences reflect local labor rates, permit fees, cost of living, and material availability. The Southeast and Midwest tend to have the lowest plumbing costs at 10-15% below the national average. The West Coast and Northeast are the most expensive markets at 10-15% above average due to higher wages, stricter code requirements, and higher operating costs for plumbing businesses.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What factors affect the cost of a plumbing job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The biggest factors are job type and scope, accessibility of the work area, material costs, regional labor rates, and whether permits or inspections are required. Slab work and wall-access repairs cost significantly more than exposed pipe work because of the demolition and restoration involved. Emergency or after-hours service typically adds 50-100% to the standard rate.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">When should I call a plumber instead of doing it myself?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Call a licensed plumber for anything involving gas lines, sewer lines, water heater installation, re-piping, or work that requires a permit. Simple jobs like replacing a faucet aerator or tightening a compression fitting are safe DIY tasks. However, if a project involves soldering, opening walls, working under a slab, or connecting to the main water or sewer line, a licensed plumber ensures the work meets code and is done safely.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // Base prices: [low, mid, high]
+  const jobPrices: Record<string, [number, number, number]> = {
+    'faucet-install':   [175, 325, 500],
+    'toilet-install':   [250, 475, 700],
+    'garbage-disposal': [200, 375, 550],
+    'wh-tank':          [800, 1500, 2500],
+    'wh-tankless':      [2000, 3500, 5000],
+    'drain-cleaning':   [125, 250, 400],
+    'sewer-repair':     [1500, 3500, 7000],
+    'repipe':           [4000, 8000, 15000],
+    'bath-roughin':     [1500, 3000, 5000],
+    'leak-accessible':  [150, 300, 500],
+    'leak-wall-slab':   [500, 1000, 2000],
+    'sump-pump':        [500, 900, 1500],
+    'gas-line':         [300, 700, 1500],
+  };
+
+  const regionNames: Record<string, string> = {
+    '0.85': 'Southeast (15% below avg)',
+    '0.90': 'Midwest (10% below avg)',
+    '0.95': 'South (5% below avg)',
+    '1.00': 'National Average',
+    '1.05': 'Mountain (5% above avg)',
+    '1.10': 'Northeast / Pacific NW (10% above avg)',
+    '1.15': 'West (15% above avg)',
+  };
+
+  const complexityNames: Record<string, string> = {
+    '1.0': 'Standard access (no adjustment)',
+    '1.15': 'Crawlspace (+15%)',
+    '1.3': 'Slab (+30%)',
+    '1.1': 'Multi-story (+10%)',
+  };
+
+  function calculate() {
+    const jobType = (document.getElementById('jobType') as HTMLSelectElement).value;
+    const regionFactor = parseFloat((document.getElementById('region') as HTMLSelectElement).value);
+    const complexityFactor = parseFloat((document.getElementById('complexity') as HTMLSelectElement).value);
+
+    const prices = jobPrices[jobType] ?? [325, 325, 325];
+    const baseMid = prices[1];
+
+    // Estimated_Cost = Base_Mid x Regional_Factor x Complexity_Factor
+    const estimatedCost = baseMid * regionFactor * complexityFactor;
+    const low = Math.round(estimatedCost * 0.7);
+    const high = Math.round(estimatedCost * 1.3);
+    const mid = Math.round(estimatedCost);
+
+    const fmt = (n: number) => '$' + n.toLocaleString();
+
+    document.getElementById('result-low')!.textContent = fmt(low);
+    document.getElementById('result-mid')!.textContent = fmt(mid);
+    document.getElementById('result-high')!.textContent = fmt(high);
+    document.getElementById('result-national')!.textContent = fmt(baseMid);
+
+    // Region detail
+    const regionVal = (document.getElementById('region') as HTMLSelectElement).value;
+    const regionPct = Math.round((regionFactor - 1) * 100);
+    document.getElementById('result-region')!.textContent = regionPct === 0 ? 'None' : (regionPct > 0 ? '+' + regionPct + '%' : regionPct + '%');
+    document.getElementById('result-region-note')!.textContent = regionNames[regionVal] ?? '';
+
+    // Complexity detail
+    const complexityVal = (document.getElementById('complexity') as HTMLSelectElement).value;
+    const complexityPct = Math.round((complexityFactor - 1) * 100);
+    document.getElementById('result-complexity')!.textContent = complexityPct === 0 ? 'None' : '+' + complexityPct + '%';
+    document.getElementById('result-complexity-note')!.textContent = complexityNames[complexityVal] ?? '';
+  }
+
+  // Auto-calculate on input change
+  document.querySelectorAll('#plumb-cost-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

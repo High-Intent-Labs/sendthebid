@@ -1,0 +1,575 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('work-order-template')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should be on a plumbing work order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A complete plumbing work order includes dispatch info (work order number, date, plumber assigned, van number, priority), customer details with access instructions and water shut-off location, system info (home age, pipe material, water heater details), reported issue and diagnosis, work performed, parts used with quantities and costs, fixture installed with brand, model, and serial number, testing results (pressure test, leak check, flow rate, water heater temp), before/after photo areas, and completion times with signatures."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need to record pressure test results?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pressure test results document that the plumbing system was holding proper pressure when you completed the work. A passing pressure test at the correct PSI proves there are no leaks in your work, which protects you from liability if a leak develops later from a different cause. Many jurisdictions also require documented pressure tests for permit inspections on new installations and re-pipes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What pipe materials should I document?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Always document the existing pipe material — copper, PEX, CPVC, galvanized steel, or polybutylene. This information is critical for selecting compatible fittings and materials, identifying potential issues like galvanic corrosion between dissimilar metals, and advising homeowners about future re-pipe needs. Polybutylene and older galvanized pipes are especially important to note as they indicate potential system-wide issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is normal residential water pressure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Normal residential water pressure is between 40 and 80 PSI, with most homes ideally between 50 and 70 PSI. Pressure below 40 PSI causes poor flow at fixtures and may indicate a failing pressure regulator or supply issue. Pressure above 80 PSI can damage fixtures, appliances, and pipe joints, and requires a pressure reducing valve. Always test and document the water pressure on every service call."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="work-order-form">
+
+    <!-- Section: Dispatch Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Dispatch Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wo-number">Work Order #</label>
+        <input type="text" id="wo-number" value="WO-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wo-date">Date</label>
+        <input type="date" id="wo-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wo-time">Time</label>
+        <input type="time" id="wo-time" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="plumber-name">Plumber Assigned</label>
+        <input type="text" id="plumber-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="van-number">Van #</label>
+        <input type="text" id="van-number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="priority">Priority</label>
+        <select id="priority" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Scheduled" selected>Scheduled</option>
+          <option value="Standard">Standard</option>
+          <option value="Urgent">Urgent</option>
+          <option value="Emergency">Emergency</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section: Customer Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="cust-name">Customer Name</label>
+        <input type="text" id="cust-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="cust-address">Address</label>
+        <input type="text" id="cust-address" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="cust-phone">Phone</label>
+        <input type="text" id="cust-phone" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="access-instructions">Access Instructions</label>
+        <input type="text" id="access-instructions" placeholder="Gate code, lockbox, etc." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pets-info">Pets on Property</label>
+        <input type="text" id="pets-info" placeholder="2 dogs in backyard" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="shutoff-location">Water Shut-Off Location</label>
+        <input type="text" id="shutoff-location" placeholder="Front yard, left of driveway" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Section: System Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="home-age">Home Age (years)</label>
+        <input type="number" id="home-age" min="0" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipe-material">Pipe Material</label>
+        <select id="pipe-material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Copper" selected>Copper</option>
+          <option value="PEX">PEX</option>
+          <option value="CPVC">CPVC</option>
+          <option value="Galvanized">Galvanized</option>
+          <option value="Polybutylene">Polybutylene</option>
+          <option value="Mixed">Mixed</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-age">Water Heater Age (years)</label>
+        <input type="number" id="wh-age" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-type">Water Heater Type</label>
+        <select id="wh-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Gas Tank" selected>Gas Tank</option>
+          <option value="Electric Tank">Electric Tank</option>
+          <option value="Tankless Gas">Tankless Gas</option>
+          <option value="Tankless Electric">Tankless Electric</option>
+          <option value="Heat Pump">Heat Pump</option>
+          <option value="N/A">N/A</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="water-source">Water Source</label>
+        <select id="water-source" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="City Water" selected>City Water</option>
+          <option value="Well Water">Well Water</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Section: Service Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Details</h3>
+    <div class="space-y-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="reported-issue">Reported Issue</label>
+        <textarea id="reported-issue" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnosis">Diagnosis / Root Cause</label>
+        <textarea id="diagnosis" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="work-performed">Work Performed</label>
+        <textarea id="work-performed" rows="4" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
+      </div>
+    </div>
+
+    <!-- Section: Parts Used -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts Used</h3>
+    <div class="mb-8">
+      <div id="parts-table" class="space-y-3">
+        <div class="grid grid-cols-[1fr_80px_100px_40px] gap-3 items-end part-row">
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Part Name</label>
+            <input type="text" class="part-name w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Qty</label>
+            <input type="number" value="1" min="1" class="part-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Cost ($)</label>
+            <input type="number" value="0" min="0" step="0.01" class="part-cost w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">&nbsp;</label>
+            <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Part</button>
+    </div>
+
+    <!-- Section: Fixture Installed -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Fixture Installed</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fixture-brand">Brand</label>
+        <input type="text" id="fixture-brand" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fixture-model">Model</label>
+        <input type="text" id="fixture-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fixture-serial">Serial #</label>
+        <input type="text" id="fixture-serial" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fixture-warranty">Warranty</label>
+        <input type="text" id="fixture-warranty" placeholder="e.g., 6 yr tank / 1 yr parts" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Section: Testing -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Testing</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pressure-test">Pressure Test (PSI)</label>
+        <input type="number" id="pressure-test" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="leak-check">Leak Check</label>
+        <select id="leak-check" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Pass">Pass - No Leaks</option>
+          <option value="Fail">Fail - Leak Found</option>
+          <option value="N/A">N/A</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="flow-rate">Flow Rate (GPM)</label>
+        <input type="number" id="flow-rate" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wh-temp">Water Heater Temp (&deg;F)</label>
+        <input type="number" id="wh-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Section: Before/After Photos -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Before / After Photos</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-bg-dark border-2 border-dashed border-border rounded-xl p-8 text-center">
+        <div class="text-text-muted text-sm mb-2">BEFORE</div>
+        <div class="text-text-muted text-xs">Take or attach photos on your device before printing</div>
+      </div>
+      <div class="bg-bg-dark border-2 border-dashed border-border rounded-xl p-8 text-center">
+        <div class="text-text-muted text-sm mb-2">AFTER</div>
+        <div class="text-text-muted text-xs">Take or attach photos on your device before printing</div>
+      </div>
+    </div>
+
+    <!-- Section: Completion -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Completion</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="time-arrived">Time Arrived</label>
+        <input type="time" id="time-arrived" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="time-completed">Time Completed</label>
+        <input type="time" id="time-completed" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Total Hours</label>
+        <div id="total-hours-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="plumber-signature">Plumber Signature</label>
+        <input type="text" id="plumber-signature" placeholder="Type full name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Generate Button -->
+    <button id="generate-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+      Generate Work Order &rarr;
+    </button>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Fill in dispatch and customer info.</strong> Start with the work order number, date, and plumber assignment. Add the customer's name, address, phone, access instructions, pet info, and water shut-off location so the plumber has everything before arriving.</p>
+          <p><strong class="text-text-primary">2. Identify the system.</strong> Record the home age, pipe material, water heater age and type, and water source. This information helps diagnose issues and recommend the right solutions.</p>
+          <p><strong class="text-text-primary">3. Document the service.</strong> Write what the customer reported, your diagnosis and root cause, and exactly what work you performed. Be specific — vague notes cause problems during warranty claims and callbacks.</p>
+          <p><strong class="text-text-primary">4. Record testing results.</strong> Log pressure test PSI, leak check results, flow rate, and water heater temperature. These readings prove the system was operating correctly when you left.</p>
+          <p><strong class="text-text-primary">5. Generate the work order.</strong> Hit the button to create a clean, printable work order. Have the customer review it, then use it for your records, warranty documentation, or office filing.</p>
+        </div>
+      </section>
+
+      <!-- What Goes on a Work Order -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Goes on a Plumbing Work Order</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>A work order is the single document that proves what happened on a job. Every section exists for a reason.</p>
+          <p><strong class="text-text-primary">System identification</strong> — pipe material, water heater type and age, water source — gives context for the work performed. Knowing the home has galvanized pipes or polybutylene changes the entire diagnostic approach.</p>
+          <p><strong class="text-text-primary">Testing results</strong> document the system's condition after your work. A passing pressure test at the correct PSI proves there are no leaks. Flow rate verification confirms fixtures are performing properly. Water heater temperature confirms the thermostat setting is safe and correct.</p>
+          <p><strong class="text-text-primary">Fixture documentation</strong> with brand, model, and serial number is essential for warranty claims. If a water heater fails under warranty, the manufacturer needs this information. Without it, you are fighting an uphill battle to get a replacement covered.</p>
+          <p><strong class="text-text-primary">Parts used</strong> with quantities and costs create a clear record for inventory management, warranty tracking, and accurate invoicing. No more guessing what angle stop or fill valve you installed three months ago.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Service and repair calls.</strong> Every diagnostic visit and repair needs a work order. The plumber fills it out on site — reported issue, diagnosis, work performed, parts used, and test results. It becomes the permanent record of the visit and the basis for the invoice.</p>
+          <p><strong class="text-text-primary">Installations and replacements.</strong> When installing a water heater, faucet, toilet, or any fixture, the work order captures the fixture details (brand, model, serial), testing results, and warranty information. This documentation is critical for manufacturer warranties and building inspections.</p>
+          <p><strong class="text-text-primary">Warranty and callback documentation.</strong> When a manufacturer asks for proof that a fixture was properly installed, or when a customer disputes what was done, the work order is your evidence. Complete work orders with test results, parts, and signatures eliminate disputes.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a plumbing work order?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete plumbing work order includes dispatch info (work order number, date, plumber assigned, van number, priority), customer details with access instructions and water shut-off location, system info (home age, pipe material, water heater details), reported issue and diagnosis, work performed, parts used with quantities and costs, fixture installed with brand, model, and serial number, testing results (pressure test, leak check, flow rate, water heater temp), before/after photo areas, and completion times with signatures.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record pressure test results?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Pressure test results document that the plumbing system was holding proper pressure when you completed the work. A passing pressure test at the correct PSI proves there are no leaks in your work, which protects you from liability if a leak develops later from a different cause. Many jurisdictions also require documented pressure tests for permit inspections on new installations and re-pipes.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What pipe materials should I document?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Always document the existing pipe material -- copper, PEX, CPVC, galvanized steel, or polybutylene. This information is critical for selecting compatible fittings and materials, identifying potential issues like galvanic corrosion between dissimilar metals, and advising homeowners about future re-pipe needs. Polybutylene and older galvanized pipes are especially important to note as they indicate potential system-wide issues.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is normal residential water pressure?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Normal residential water pressure is between 40 and 80 PSI, with most homes ideally between 50 and 70 PSI. Pressure below 40 PSI causes poor flow at fixtures and may indicate a failing pressure regulator or supply issue. Pressure above 80 PSI can damage fixtures, appliances, and pipe joints, and requires a pressure reducing valve. Always test and document the water pressure on every service call.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // --- Default date and time ---
+  const now = new Date();
+  const dateInput = document.getElementById('wo-date') as HTMLInputElement;
+  const timeInput = document.getElementById('wo-time') as HTMLInputElement;
+  if (dateInput && !dateInput.value) {
+    dateInput.value = now.toISOString().slice(0, 10);
+  }
+  if (timeInput && !timeInput.value) {
+    timeInput.value = now.toTimeString().slice(0, 5);
+  }
+
+  // --- Total Hours auto-calculation ---
+  function updateTotalHours() {
+    const arrived = (document.getElementById('time-arrived') as HTMLInputElement).value;
+    const completed = (document.getElementById('time-completed') as HTMLInputElement).value;
+    const display = document.getElementById('total-hours-display')!;
+    if (arrived && completed) {
+      const [ah, am] = arrived.split(':').map(Number);
+      const [ch, cm] = completed.split(':').map(Number);
+      let totalMinutes = (ch * 60 + cm) - (ah * 60 + am);
+      if (totalMinutes < 0) totalMinutes += 24 * 60; // handle overnight
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+      display.textContent = hours + 'h ' + minutes + 'm';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-primary';
+    } else {
+      display.textContent = '\u2014';
+      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
+    }
+  }
+  document.getElementById('time-arrived')?.addEventListener('input', updateTotalHours);
+  document.getElementById('time-completed')?.addEventListener('input', updateTotalHours);
+
+  // --- Dynamic Parts Table ---
+  function addPartRow() {
+    const table = document.getElementById('parts-table')!;
+    const row = document.createElement('div');
+    row.className = 'grid grid-cols-[1fr_80px_100px_40px] gap-3 items-end part-row';
+    row.innerHTML = `
+      <div>
+        <input type="text" class="part-name w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <input type="number" value="1" min="1" class="part-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <input type="number" value="0" min="0" step="0.01" class="part-cost w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+      </div>
+    `;
+    table.appendChild(row);
+  }
+
+  document.getElementById('add-part-btn')?.addEventListener('click', addPartRow);
+
+  document.getElementById('parts-table')?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('remove-part-btn')) {
+      const row = target.closest('.part-row');
+      const allRows = document.querySelectorAll('.part-row');
+      if (allRows.length > 1 && row) {
+        row.remove();
+      }
+    }
+  });
+
+  // --- Generate Work Order ---
+  function getVal(id: string): string {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+    return el ? el.value : '';
+  }
+
+  function generateWorkOrder() {
+    // Collect parts
+    const partRows = document.querySelectorAll('.part-row');
+    let partsHtml = '';
+    partRows.forEach(row => {
+      const name = (row.querySelector('.part-name') as HTMLInputElement)?.value || '';
+      const qty = (row.querySelector('.part-qty') as HTMLInputElement)?.value || '';
+      const cost = (row.querySelector('.part-cost') as HTMLInputElement)?.value || '';
+      if (name) {
+        partsHtml += `<tr><td style="border:1px solid #ddd;padding:6px 10px;">${name}</td><td style="border:1px solid #ddd;padding:6px 10px;text-align:center;">${qty}</td><td style="border:1px solid #ddd;padding:6px 10px;text-align:right;">$${parseFloat(cost || '0').toFixed(2)}</td></tr>`;
+      }
+    });
+
+    // Total hours
+    const arrived = getVal('time-arrived');
+    const completed = getVal('time-completed');
+    let totalHours = '';
+    if (arrived && completed) {
+      const [ah, am] = arrived.split(':').map(Number);
+      const [ch, cm] = completed.split(':').map(Number);
+      let totalMin = (ch * 60 + cm) - (ah * 60 + am);
+      if (totalMin < 0) totalMin += 24 * 60;
+      totalHours = Math.floor(totalMin / 60) + 'h ' + (totalMin % 60) + 'm';
+    }
+
+    // Fixture info
+    const fixtureBrand = getVal('fixture-brand');
+    const fixtureModel = getVal('fixture-model');
+    const fixtureSerial = getVal('fixture-serial');
+    const fixtureWarranty = getVal('fixture-warranty');
+    const hasFixture = fixtureBrand || fixtureModel || fixtureSerial;
+
+    const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Work Order ${getVal('wo-number')}</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a1a; padding:40px; max-width:850px; margin:0 auto; font-size:14px; line-height:1.5; }
+  h1 { font-size:22px; margin-bottom:4px; }
+  h2 { font-size:15px; color:#333; margin:20px 0 8px; padding-bottom:4px; border-bottom:2px solid #e5e5e5; text-transform:uppercase; letter-spacing:0.5px; }
+  .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; padding-bottom:16px; border-bottom:3px solid #1a1a1a; }
+  .header-left { }
+  .header-right { text-align:right; font-size:13px; color:#555; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; margin-bottom:6px; }
+  .grid2 .label { font-weight:600; font-size:12px; color:#666; text-transform:uppercase; letter-spacing:0.3px; }
+  .grid2 .value { font-size:14px; margin-bottom:6px; }
+  .text-block { margin-bottom:12px; }
+  .text-block .label { font-weight:600; font-size:12px; color:#666; text-transform:uppercase; letter-spacing:0.3px; margin-bottom:2px; }
+  .text-block .value { font-size:14px; white-space:pre-wrap; background:#f9f9f9; padding:8px 10px; border-radius:4px; min-height:24px; }
+  table { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  th { background:#f0f0f0; border:1px solid #ddd; padding:6px 10px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  td { border:1px solid #ddd; padding:6px 10px; }
+  .signature-block { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; padding-top:16px; }
+  .sig-line { border-top:1px solid #1a1a1a; padding-top:6px; font-size:12px; color:#666; text-transform:uppercase; }
+  .sig-name { font-size:16px; font-weight:600; min-height:20px; }
+  .priority-badge { display:inline-block; padding:2px 10px; border-radius:4px; font-size:12px; font-weight:600; text-transform:uppercase; }
+  .priority-Scheduled { background:#e0f2e9; color:#166534; }
+  .priority-Standard { background:#e0f2e9; color:#166534; }
+  .priority-Urgent { background:#fef3c7; color:#92400e; }
+  .priority-Emergency { background:#fee2e2; color:#991b1b; }
+  .test-table td { text-align:center; }
+  @media print { body { padding:20px; } }
+</style>
+</head><body>
+<div class="header">
+  <div class="header-left">
+    <h1>Plumbing Work Order</h1>
+    <div style="font-size:13px;color:#555;">Service Documentation</div>
+  </div>
+  <div class="header-right">
+    <div style="font-size:20px;font-weight:700;">${getVal('wo-number')}</div>
+    <div>${getVal('wo-date')}</div>
+    <div>${getVal('wo-time')}</div>
+    <span class="priority-badge priority-${getVal('priority')}">${getVal('priority')}</span>
+  </div>
+</div>
+
+<h2>Dispatch</h2>
+<div class="grid2">
+  <div><span class="label">Plumber:</span></div><div><span class="label">Van #:</span></div>
+  <div class="value">${getVal('plumber-name') || '\u2014'}</div><div class="value">${getVal('van-number') || '\u2014'}</div>
+</div>
+
+<h2>Customer</h2>
+<div class="grid2">
+  <div><span class="label">Name:</span></div><div><span class="label">Phone:</span></div>
+  <div class="value">${getVal('cust-name') || '\u2014'}</div><div class="value">${getVal('cust-phone') || '\u2014'}</div>
+  <div><span class="label">Address:</span></div><div><span class="label">Access:</span></div>
+  <div class="value">${getVal('cust-address') || '\u2014'}</div><div class="value">${getVal('access-instructions') || '\u2014'}</div>
+  <div><span class="label">Pets:</span></div><div><span class="label">Water Shut-Off:</span></div>
+  <div class="value">${getVal('pets-info') || '\u2014'}</div><div class="value">${getVal('shutoff-location') || '\u2014'}</div>
+</div>
+
+<h2>System Info</h2>
+<div class="grid2">
+  <div><span class="label">Home Age:</span></div><div><span class="label">Pipe Material:</span></div>
+  <div class="value">${getVal('home-age') ? getVal('home-age') + ' years' : '\u2014'}</div><div class="value">${getVal('pipe-material')}</div>
+  <div><span class="label">Water Heater Age:</span></div><div><span class="label">Water Heater Type:</span></div>
+  <div class="value">${getVal('wh-age') ? getVal('wh-age') + ' years' : '\u2014'}</div><div class="value">${getVal('wh-type')}</div>
+  <div><span class="label">Water Source:</span></div><div></div>
+  <div class="value">${getVal('water-source')}</div><div></div>
+</div>
+
+<h2>Service Details</h2>
+<div class="text-block"><div class="label">Reported Issue</div><div class="value">${getVal('reported-issue') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Diagnosis / Root Cause</div><div class="value">${getVal('diagnosis') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Work Performed</div><div class="value">${getVal('work-performed') || '\u2014'}</div></div>
+
+${partsHtml ? `<h2>Parts Used</h2>
+<table><thead><tr><th>Part Name</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Cost</th></tr></thead><tbody>${partsHtml}</tbody></table>` : ''}
+
+${hasFixture ? `<h2>Fixture Installed</h2>
+<div class="grid2">
+  <div><span class="label">Brand:</span></div><div><span class="label">Model:</span></div>
+  <div class="value">${fixtureBrand || '\u2014'}</div><div class="value">${fixtureModel || '\u2014'}</div>
+  <div><span class="label">Serial #:</span></div><div><span class="label">Warranty:</span></div>
+  <div class="value">${fixtureSerial || '\u2014'}</div><div class="value">${fixtureWarranty || '\u2014'}</div>
+</div>` : ''}
+
+<h2>Testing</h2>
+<table class="test-table">
+  <thead><tr><th>Pressure Test (PSI)</th><th>Leak Check</th><th>Flow Rate (GPM)</th><th>WH Temp (&deg;F)</th></tr></thead>
+  <tbody><tr><td>${getVal('pressure-test') || '\u2014'}</td><td>${getVal('leak-check')}</td><td>${getVal('flow-rate') || '\u2014'}</td><td>${getVal('wh-temp') ? getVal('wh-temp') + '\u00B0F' : '\u2014'}</td></tr></tbody>
+</table>
+
+<h2>Completion</h2>
+<div class="grid2">
+  <div><span class="label">Time Arrived:</span></div><div><span class="label">Time Completed:</span></div>
+  <div class="value">${arrived || '\u2014'}</div><div class="value">${completed || '\u2014'}</div>
+  <div><span class="label">Total Hours:</span></div><div></div>
+  <div class="value">${totalHours || '\u2014'}</div><div></div>
+</div>
+
+<div class="signature-block">
+  <div>
+    <div class="sig-name">${getVal('plumber-signature') || ''}</div>
+    <div class="sig-line">Plumber Signature</div>
+  </div>
+  <div>
+    <div class="sig-name">&nbsp;</div>
+    <div class="sig-line">Customer Signature</div>
+  </div>
+</div>
+
+</body></html>`;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+    }
+  }
+
+  document.getElementById('generate-btn')?.addEventListener('click', generateWorkOrder);
+</script>

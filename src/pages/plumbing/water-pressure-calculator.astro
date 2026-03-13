@@ -1,0 +1,283 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('water-pressure-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I calculate water pressure at a fixture?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Start with the supply pressure (from the street or PRV), then subtract elevation loss (0.433 PSI per foot of rise) and friction loss through the pipe. Friction loss depends on pipe diameter, material, length, flow rate, and fittings. The result is the available pressure at the fixture. IPC requires a minimum of 8 PSI at any fixture." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the minimum water pressure required by code?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The International Plumbing Code requires a minimum of 8 PSI at any fixture during peak demand. Most fixtures work best at 40-60 PSI. Maximum pressure should not exceed 80 PSI — a pressure reducing valve (PRV) is required if supply pressure is higher than 80 PSI." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do pipe fittings affect water pressure?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Each fitting creates turbulence that acts like additional pipe length. A 90-degree elbow adds about 2.5 feet of equivalent pipe length, a tee-branch adds 5 feet, and a check valve adds 10 feet. In a typical house with many fittings, the equivalent length of fittings can add 30-50% to the actual pipe length." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much pressure is lost per foot of elevation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Water loses 0.433 PSI for every foot of vertical rise. A two-story house with fixtures 20 feet above the water main loses about 8.7 PSI just from elevation — before any friction loss is calculated. This is why upper-floor fixtures often have noticeably lower pressure than ground-floor ones." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="wp-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supplyPSI">Supply Pressure (PSI)</label>
+        <input type="number" id="supplyPSI" value="65" min="5" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="elevation">Elevation Change (ft)</label>
+        <input type="number" id="elevation" value="10" min="-50" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <span class="text-text-muted text-xs mt-1 block">+ = uphill to fixture, - = downhill</span>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeDiam">Pipe Diameter</label>
+        <select id="pipeDiam" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.545">1/2"</option>
+          <option value="0.785" selected>3/4"</option>
+          <option value="1.025">1"</option>
+          <option value="1.600">1-1/2"</option>
+          <option value="2.067">2"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeLength">Pipe Length (ft)</label>
+        <input type="number" id="pipeLength" value="75" min="1" max="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeMat">Pipe Material</label>
+        <select id="pipeMat" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="130">Copper (C=130)</option>
+          <option value="150" selected>PEX (C=150)</option>
+          <option value="140">CPVC (C=140)</option>
+          <option value="150">PVC (C=150)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="flowRate">Design Flow Rate (GPM)</label>
+        <input type="number" id="flowRate" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Fittings section -->
+    <div class="bg-bg-dark rounded-xl p-5 mb-6">
+      <h4 class="text-text-secondary text-sm font-medium mb-3">Fittings (enter quantity of each)</h4>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div>
+          <label class="block text-text-muted text-xs mb-1">90&deg; Elbows</label>
+          <input type="number" id="elbows90" value="6" min="0" max="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-text-muted text-xs mb-1">45&deg; Elbows</label>
+          <input type="number" id="elbows45" value="2" min="0" max="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-text-muted text-xs mb-1">Tee (branch)</label>
+          <input type="number" id="tees" value="3" min="0" max="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-text-muted text-xs mb-1">Gate Valves</label>
+          <input type="number" id="gateValves" value="1" min="0" max="20" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-text-muted text-xs mb-1">Ball Valves</label>
+          <input type="number" id="ballValves" value="2" min="0" max="20" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-text-muted text-xs mb-1">Check Valves</label>
+          <input type="number" id="checkValves" value="0" min="0" max="10" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Available at Fixture</div>
+          <div id="r-avail" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Elevation Loss</div>
+          <div id="r-elev" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Friction Loss</div>
+          <div id="r-friction" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Code Check</div>
+          <div id="r-code" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <!-- Pressure breakdown -->
+      <div class="bg-bg-dark rounded-xl p-5 mb-4">
+        <h4 class="text-text-secondary text-sm font-medium mb-3">Pressure Breakdown</h4>
+        <div id="r-breakdown" class="space-y-2 text-sm font-mono"></div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic"></p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter supply pressure.</strong> This is the pressure at the starting point of your pipe run — typically at the meter, PRV, or main shutoff. Use a pressure gauge reading if available.</p>
+          <p><strong class="text-text-primary">2. Enter elevation change.</strong> Measure the vertical distance from the supply point to the fixture. Uphill (positive) loses pressure; downhill (negative) gains it.</p>
+          <p><strong class="text-text-primary">3. Select pipe details.</strong> Choose the pipe diameter, material, and enter the total developed length of the pipe run from supply to fixture.</p>
+          <p><strong class="text-text-primary">4. Enter design flow rate.</strong> This is the GPM that will be flowing through the pipe during peak demand. Use our Fixture Unit Calculator to convert fixture units to GPM.</p>
+          <p><strong class="text-text-primary">5. Count fittings.</strong> Each fitting adds equivalent pipe length. The calculator converts fitting counts to equivalent feet and adds them to the total friction calculation.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Water Pressure Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>This calculator subtracts all pressure losses from the supply pressure to determine what remains at the fixture.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>Elevation_Loss = Height_ft x 0.433 PSI/ft</p>
+            <p class="mt-2">Equivalent lengths: 90&deg; elbow=2.5ft, 45&deg; elbow=1.2ft, Tee=5ft</p>
+            <p>Gate valve=0.5ft, Ball valve=0.5ft, Check valve=10ft</p>
+            <p class="mt-2">Total_Equiv_Length = Pipe_Length + Sum(fitting equivalent lengths)</p>
+            <p>Friction_Loss = (hl_per_100ft x Total_Equiv_Length) / 100</p>
+            <p>hl = (4.52 x Q^1.85) / (C^1.85 x d^4.87) [Hazen-Williams]</p>
+            <p class="mt-2">Available_PSI = Supply_PSI - Elevation_Loss - Friction_Loss</p>
+            <p>IPC minimum: 8 PSI at fixture | Ideal range: 40-80 PSI</p>
+          </div>
+          <p>Friction loss increases exponentially with flow rate and decreases with larger pipe diameter. A pipe that works fine at 5 GPM might have unacceptable pressure drop at 15 GPM.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Verifying upper-floor pressure.</strong> Before quoting a bathroom remodel on the third floor, calculate if adequate pressure will reach the new fixtures with the existing supply piping.</p>
+          <p><strong class="text-text-primary">Diagnosing low-pressure complaints.</strong> Walk through the calculation with real measurements to pinpoint whether the problem is elevation, undersized pipe, excessive fittings, or supply pressure.</p>
+          <p><strong class="text-text-primary">Designing booster pump systems.</strong> If the calculation shows available pressure below 8 PSI, you need a booster pump. The deficit tells you the minimum pump boost required.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate water pressure at a fixture?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the supply pressure, then subtract elevation loss (0.433 PSI per foot of rise) and friction loss through the pipe. IPC requires a minimum of 8 PSI at any fixture during peak demand.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the minimum water pressure required by code?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The IPC requires a minimum of 8 PSI at any fixture during peak demand. Most fixtures work best at 40-60 PSI. Maximum should not exceed 80 PSI — a PRV is required if supply pressure is higher.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do pipe fittings affect water pressure?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Each fitting creates turbulence that acts like additional pipe length. A 90-degree elbow adds about 2.5 feet, a tee-branch adds 5 feet, and a check valve adds 10 feet. Fittings can add 30-50% to the effective pipe length in a typical house.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much pressure is lost per foot of elevation?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Water loses 0.433 PSI for every foot of vertical rise. A two-story house with fixtures 20 feet above the water main loses about 8.7 PSI just from elevation, before any friction loss.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const supplyPSI = parseFloat((document.getElementById('supplyPSI') as HTMLInputElement).value) || 65;
+    const elevation = parseFloat((document.getElementById('elevation') as HTMLInputElement).value) || 0;
+    const d = parseFloat((document.getElementById('pipeDiam') as HTMLSelectElement).value) || 0.785;
+    const pipeLength = parseFloat((document.getElementById('pipeLength') as HTMLInputElement).value) || 75;
+    const C = parseInt((document.getElementById('pipeMat') as HTMLSelectElement).value) || 150;
+    const flowRate = parseFloat((document.getElementById('flowRate') as HTMLInputElement).value) || 8;
+
+    // Fittings
+    const elbows90 = parseInt((document.getElementById('elbows90') as HTMLInputElement).value) || 0;
+    const elbows45 = parseInt((document.getElementById('elbows45') as HTMLInputElement).value) || 0;
+    const tees = parseInt((document.getElementById('tees') as HTMLInputElement).value) || 0;
+    const gateValves = parseInt((document.getElementById('gateValves') as HTMLInputElement).value) || 0;
+    const ballValves = parseInt((document.getElementById('ballValves') as HTMLInputElement).value) || 0;
+    const checkValves = parseInt((document.getElementById('checkValves') as HTMLInputElement).value) || 0;
+
+    // Equivalent lengths for fittings (feet)
+    const fittingEquiv = (elbows90 * 2.5) + (elbows45 * 1.2) + (tees * 5) + (gateValves * 0.5) + (ballValves * 0.5) + (checkValves * 10);
+    const totalEquivLength = pipeLength + fittingEquiv;
+
+    // Elevation loss
+    const elevationLoss = elevation * 0.433;
+
+    // Hazen-Williams friction loss per 100 ft: hl = (4.52 * Q^1.85) / (C^1.85 * d^4.87)
+    const hlPer100 = (4.52 * Math.pow(flowRate, 1.85)) / (Math.pow(C, 1.85) * Math.pow(d, 4.87));
+    // Convert ft of head per 100ft to PSI per 100ft
+    const frictionPSIper100 = hlPer100 * 0.433;
+    const totalFrictionLoss = (frictionPSIper100 * totalEquivLength) / 100;
+
+    // Available pressure at fixture
+    const availablePSI = supplyPSI - elevationLoss - totalFrictionLoss;
+
+    document.getElementById('r-avail')!.textContent = availablePSI.toFixed(1) + ' PSI';
+    document.getElementById('r-elev')!.textContent = elevationLoss.toFixed(1) + ' PSI';
+    document.getElementById('r-friction')!.textContent = totalFrictionLoss.toFixed(1) + ' PSI';
+
+    // Code check
+    const codeEl = document.getElementById('r-code')!;
+    if (availablePSI >= 40) {
+      codeEl.textContent = 'IDEAL';
+      codeEl.classList.remove('text-red-400', 'text-yellow-400');
+      codeEl.classList.add('text-green-400');
+    } else if (availablePSI >= 8) {
+      codeEl.textContent = 'PASSES (Low)';
+      codeEl.classList.remove('text-red-400', 'text-green-400');
+      codeEl.classList.add('text-yellow-400');
+    } else {
+      codeEl.textContent = 'FAILS CODE';
+      codeEl.classList.remove('text-green-400', 'text-yellow-400');
+      codeEl.classList.add('text-red-400');
+    }
+
+    // Pressure breakdown
+    const breakdown = document.getElementById('r-breakdown')!;
+    breakdown.innerHTML = `
+      <div class="flex justify-between text-text-secondary"><span>Supply pressure:</span><span class="text-text-primary">${supplyPSI.toFixed(1)} PSI</span></div>
+      <div class="flex justify-between text-text-secondary"><span>Elevation loss (${elevation} ft x 0.433):</span><span class="text-red-400">-${elevationLoss.toFixed(1)} PSI</span></div>
+      <div class="flex justify-between text-text-secondary"><span>Pipe friction (${pipeLength} ft actual + ${fittingEquiv.toFixed(0)} ft fittings):</span><span class="text-red-400">-${totalFrictionLoss.toFixed(1)} PSI</span></div>
+      <div class="flex justify-between text-text-primary font-bold border-t border-border pt-2 mt-2"><span>Available at fixture:</span><span class="${availablePSI >= 8 ? 'text-accent' : 'text-red-400'}">${availablePSI.toFixed(1)} PSI</span></div>
+    `;
+
+    const note = document.getElementById('r-note')!;
+    if (availablePSI < 8) {
+      note.textContent = 'Warning: Available pressure is below the IPC minimum of 8 PSI. Consider upsizing the pipe, installing a booster pump, or reducing the number of fittings.';
+      note.classList.add('text-red-400');
+      note.classList.remove('text-text-muted');
+    } else if (availablePSI > 80) {
+      note.textContent = 'Note: Pressure exceeds 80 PSI at the fixture. A pressure reducing valve (PRV) is required by code to protect fixtures and piping.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    } else {
+      note.textContent = 'Available pressure is within the ideal range of 40-80 PSI for residential plumbing fixtures.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    }
+  }
+
+  document.querySelectorAll('#wp-calc input, #wp-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

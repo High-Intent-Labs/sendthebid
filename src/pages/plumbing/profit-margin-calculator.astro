@@ -1,0 +1,333 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('profit-margin-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a good profit margin for plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The industry average gross margin for plumbing companies is around 45%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 30-45%. If your gross margin is consistently below 35%, you are likely underpricing your work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between margin and markup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Margin is profit as a percentage of revenue (selling price). Markup is profit as a percentage of cost. For example, if a job costs $2,000 and you sell it for $4,200, your profit is $2,200. Your margin is 52.4% ($2,200 / $4,200) and your markup is 110% ($2,200 / $2,000). They describe the same profit from different reference points."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate overhead for a plumbing job?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most plumbing companies allocate overhead as a percentage of revenue, typically 25-35%. To find yours, divide total annual overhead costs by total annual revenue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my plumbing profit margin so low?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common causes of low plumbing margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="margin-calc">
+    <!-- Input Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="revenue">Job Revenue ($)</label>
+        <input type="number" id="revenue" value="4200" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Fixtures &amp; Parts (water heater, faucet, toilet, fittings, pipe)</label>
+        <input type="number" id="equipment" value="1400" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Labor sub-section -->
+    <div class="mb-6">
+      <p class="text-sm font-medium text-text-secondary mb-3">Labor</p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="techs">Number of Techs</label>
+          <input type="number" id="techs" value="2" min="1" max="20" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="hours">Hours</label>
+          <input type="number" id="hours" value="5" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="hourlyRate">Hourly Rate ($)</label>
+          <input type="number" id="hourlyRate" value="32" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials">Materials Cost ($)</label>
+        <input type="number" id="materials" value="250" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="overhead">Overhead (%)</label>
+        <input type="number" id="overhead" value="30" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">% of revenue allocated to overhead</p>
+      </div>
+    </div>
+
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit</div>
+          <div id="result-profit" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Margin</div>
+          <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Markup</div>
+          <div id="result-markup" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost per $1 Revenue</div>
+          <div id="result-costper" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+        </div>
+      </div>
+
+      <!-- Benchmarks -->
+      <div class="bg-bg-dark rounded-xl p-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Plumbing Industry Benchmarks</h4>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">Industry Avg Gross Margin</span>
+              <span class="text-text-primary font-semibold">45%</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 45%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">Top Performers</span>
+              <span class="text-text-primary font-semibold">55%+</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#34D399] h-2 rounded-full" style="width: 55%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">Service Work Target</span>
+              <span class="text-text-primary font-semibold">50 &ndash; 65%</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 57%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">Install Work Target</span>
+              <span class="text-text-primary font-semibold">30 &ndash; 45%</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 37%"></div>
+            </div>
+          </div>
+          <div id="benchmark-warning" class="hidden mt-3 bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] rounded-lg px-4 py-3 text-sm text-[#FCA5A5]">
+            Your margin is below 35%. You may be underpricing your work.
+          </div>
+        </div>
+        <!-- Your margin indicator -->
+        <div class="mt-4 pt-4 border-t border-border">
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-text-secondary font-medium">Your Gross Margin</span>
+            <span id="benchmark-your-margin" class="font-heading font-bold">&mdash;</span>
+          </div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2.5">
+            <div id="benchmark-bar" class="h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your job revenue.</strong> This is the total amount you charge the customer. Include all line items: fixtures, labor, materials, and any fees.</p>
+          <p><strong class="text-text-primary">2. Enter fixtures and parts cost.</strong> Your wholesale cost for the water heater, faucet, toilet, fittings, pipe, and any other parts. Use what you actually paid, not list price.</p>
+          <p><strong class="text-text-primary">3. Fill in labor details.</strong> Enter the number of techs on the job, total hours, and your hourly labor cost. This should be your burdened rate (wages + payroll taxes + workers comp), not the billing rate.</p>
+          <p><strong class="text-text-primary">4. Add materials cost.</strong> Consumables like solder, flux, Teflon tape, pipe dope, hangers, clamps, and any other supplies used on the job.</p>
+          <p><strong class="text-text-primary">5. Set your overhead percentage.</strong> Most plumbing companies run 25-35% overhead. This covers rent, insurance, trucks, office staff, software, and marketing. If you do not know yours, 30% is a solid starting point.</p>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Profit Margin Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Margin and markup describe the same profit from different angles.</strong> Margin is profit as a percentage of the selling price (revenue). Markup is profit as a percentage of your cost. Confusing the two is one of the most common pricing mistakes in the trades.</p>
+          <p>Here is how this calculator computes each number:</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
+            <p>Labor_Cost = Techs x Hours x Hourly_Rate</p>
+            <p>Total_Cost = Fixtures + Labor_Cost + Materials + (Revenue x Overhead% / 100)</p>
+            <p>Profit = Revenue - Total_Cost</p>
+            <p>Gross_Margin = (Profit / Revenue) x 100</p>
+            <p>Markup = (Profit / Total_Cost) x 100</p>
+          </div>
+          <p><strong class="text-text-primary">Example:</strong> A $4,200 plumbing job with $1,400 in fixtures, $320 in labor (2 techs x 5 hours x $32), $250 in materials, and 30% overhead ($1,260). Total cost is $3,230. Profit is $970. Gross margin is 23.1%. Markup is 30%.</p>
+          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.77, you keep $0.23 in profit for every $1 collected. Top plumbing shops aim for $0.45-$0.55 in cost per revenue dollar on service work.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">After completing a job.</strong> Plug in the actual numbers once the invoice is paid. Compare your real margin to what you estimated during the quote. If there is a gap, figure out whether it was labor overrun, unexpected materials, or scope creep, and adjust future pricing accordingly.</p>
+          <p><strong class="text-text-primary">When quoting new work.</strong> Before you send a proposal, run the numbers here to make sure you are hitting your target margin. Adjust the revenue up or down until you land in the green zone. This prevents the all-too-common mistake of pricing based on gut feel and discovering you barely broke even.</p>
+          <p><strong class="text-text-primary">During annual business review.</strong> Pull your average job revenue, typical fixture cost, and average crew size. See where your overall margin lands relative to industry benchmarks. If you are below 45%, you have a pricing problem, a cost problem, or both.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for plumbing companies is around 45%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 30-45%. If your gross margin is consistently below 35%, you are likely underpricing your work.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between margin and markup?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Margin is profit as a percentage of revenue (selling price). Markup is profit as a percentage of cost. For example, if a job costs $2,000 and you sell it for $4,200, your profit is $2,200. Your margin is 52.4% ($2,200 / $4,200) and your markup is 110% ($2,200 / $2,000). They describe the same profit from different reference points.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead for a plumbing job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most plumbing companies allocate overhead as a percentage of revenue, typically 25-35%. To find yours, divide total annual overhead costs by total annual revenue.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is my plumbing profit margin so low?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low plumbing margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const revenue = parseFloat((document.getElementById('revenue') as HTMLInputElement).value) || 0;
+    const equipment = parseFloat((document.getElementById('equipment') as HTMLInputElement).value) || 0;
+    const techs = parseFloat((document.getElementById('techs') as HTMLInputElement).value) || 0;
+    const hours = parseFloat((document.getElementById('hours') as HTMLInputElement).value) || 0;
+    const hourlyRate = parseFloat((document.getElementById('hourlyRate') as HTMLInputElement).value) || 0;
+    const materials = parseFloat((document.getElementById('materials') as HTMLInputElement).value) || 0;
+    const overheadPct = parseFloat((document.getElementById('overhead') as HTMLInputElement).value) || 0;
+
+    const laborCost = techs * hours * hourlyRate;
+    const overheadCost = revenue * (overheadPct / 100);
+    const totalCost = equipment + laborCost + materials + overheadCost;
+    const profit = revenue - totalCost;
+    const grossMargin = revenue > 0 ? (profit / revenue) * 100 : 0;
+    const markup = totalCost > 0 ? (profit / totalCost) * 100 : 0;
+    const costPerDollar = revenue > 0 ? totalCost / revenue : 0;
+
+    // Format results
+    const profitFormatted = profit >= 0
+      ? '$' + profit.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+      : '-$' + Math.abs(profit).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    document.getElementById('result-profit')!.textContent = profitFormatted;
+    document.getElementById('result-margin')!.textContent = grossMargin.toFixed(1) + '%';
+    document.getElementById('result-markup')!.textContent = markup.toFixed(1) + '%';
+    document.getElementById('result-costper')!.textContent = '$' + costPerDollar.toFixed(2);
+
+    // Color the margin result
+    const marginEl = document.getElementById('result-margin')!;
+    marginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
+    if (grossMargin >= 45) {
+      marginEl.classList.add('text-[#34D399]');
+    } else if (grossMargin >= 35) {
+      marginEl.classList.add('text-[#FBBF24]');
+    } else {
+      marginEl.classList.add('text-[#EF4444]');
+    }
+
+    // Color the profit result
+    const profitEl = document.getElementById('result-profit')!;
+    profitEl.classList.remove('text-accent', 'text-[#34D399]', 'text-[#EF4444]');
+    if (profit >= 0) {
+      profitEl.classList.add('text-[#34D399]');
+    } else {
+      profitEl.classList.add('text-[#EF4444]');
+    }
+
+    // Update benchmark bar
+    const clampedMargin = Math.max(0, Math.min(100, grossMargin));
+    const benchmarkBar = document.getElementById('benchmark-bar')!;
+    benchmarkBar.style.width = clampedMargin + '%';
+    benchmarkBar.classList.remove('bg-[#34D399]', 'bg-[#FBBF24]', 'bg-[#EF4444]');
+    if (grossMargin >= 45) {
+      benchmarkBar.classList.add('bg-[#34D399]');
+    } else if (grossMargin >= 35) {
+      benchmarkBar.classList.add('bg-[#FBBF24]');
+    } else {
+      benchmarkBar.classList.add('bg-[#EF4444]');
+    }
+
+    const yourMarginEl = document.getElementById('benchmark-your-margin')!;
+    yourMarginEl.textContent = grossMargin.toFixed(1) + '%';
+    yourMarginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
+    if (grossMargin >= 45) {
+      yourMarginEl.classList.add('text-[#34D399]');
+    } else if (grossMargin >= 35) {
+      yourMarginEl.classList.add('text-[#FBBF24]');
+    } else {
+      yourMarginEl.classList.add('text-[#EF4444]');
+    }
+
+    // Show/hide underpricing warning
+    const warningEl = document.getElementById('benchmark-warning')!;
+    if (grossMargin < 35) {
+      warningEl.classList.remove('hidden');
+    } else {
+      warningEl.classList.add('hidden');
+    }
+
+  }
+
+
+  // Auto-calculate on input change
+  document.querySelectorAll('#margin-calc input').forEach(el => {
+    el.addEventListener('change', calculate);
+    el.addEventListener('input', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

@@ -1,0 +1,198 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('drain-slope-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What slope should a drain pipe have?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Per the International Plumbing Code (IPC), drain pipes 2.5 inches and smaller require a minimum slope of 1/4 inch per foot. Pipes 3 inches and larger need 1/8 inch per foot minimum. Too little slope causes clogs; too much slope causes the water to outrun the solids, also leading to blockages." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is self-scouring velocity and why does it matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Self-scouring velocity is the minimum flow speed (2 fps per IPC) needed to keep solids moving through a drain pipe. If water flows too slowly, waste settles and builds up. Manning's equation calculates the actual velocity based on pipe size, slope, and material roughness to verify the pipe will self-clean." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a drain pipe have too much slope?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Excessive slope (beyond about 1/2 inch per foot) causes liquid to flow faster than solids, leaving waste behind in the pipe. The IPC allows steeper slopes but plumbing best practice keeps residential drains between 1/8 and 1/2 inch per foot for reliable self-scouring performance." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="ds-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeDiam">Pipe Diameter</label>
+        <select id="pipeDiam" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1.5">1-1/2"</option>
+          <option value="2">2"</option>
+          <option value="3" selected>3"</option>
+          <option value="4">4"</option>
+          <option value="6">6"</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeMat">Pipe Material</label>
+        <select id="pipeMat" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.009" selected>PVC (n=0.009)</option>
+          <option value="0.009">ABS (n=0.009)</option>
+          <option value="0.013">Cast Iron (n=0.013)</option>
+          <option value="0.011">Copper DWV (n=0.011)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="dfu">DFU Load</label>
+        <input type="number" id="dfu" value="12" min="1" max="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="runLength">Pipe Run Length (ft)</label>
+        <input type="number" id="runLength" value="30" min="1" max="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Required Slope</div>
+          <div id="r-slope" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Fall</div>
+          <div id="r-fall" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Estimated Velocity</div>
+          <div id="r-vel" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Self-Scouring</div>
+          <div id="r-scour" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic"></p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Select pipe diameter.</strong> Choose the drain pipe size for the section you are designing. Most residential branch drains are 1.5" to 4". Building drains and sewers are typically 4" to 6".</p>
+          <p><strong class="text-text-primary">2. Choose pipe material.</strong> Manning's roughness coefficient (n) varies by material. PVC and ABS are smooth (n=0.009), cast iron is rougher (n=0.013). Rougher pipes need more slope to maintain self-scouring velocity.</p>
+          <p><strong class="text-text-primary">3. Enter DFU load.</strong> Total the Drainage Fixture Units on this pipe section. Use our Fixture Unit Calculator if needed. DFU load helps verify the pipe diameter is adequate.</p>
+          <p><strong class="text-text-primary">4. Enter pipe run length.</strong> The horizontal distance of the drain run. This determines total fall — how many inches the pipe drops end to end.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Drain Slope Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>Minimum slope is set by the IPC based on pipe diameter. Velocity is calculated using Manning's equation to verify self-scouring performance.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>IPC Minimum Slope: 2.5" and smaller = 1/4" per foot, 3" and larger = 1/8" per foot</p>
+            <p>Total Fall = Slope (in/ft) x Run Length (ft)</p>
+            <p class="mt-2">Manning's Equation: V = (1.486 / n) x R^(2/3) x S^(1/2)</p>
+            <p>Where: n = roughness coefficient, R = hydraulic radius (d/4 for full pipe), S = slope in ft/ft</p>
+            <p>Self-scouring check: V must be &ge; 2 fps</p>
+          </div>
+          <p>Manning's equation calculates gravity-flow velocity in open channels and partially-filled pipes. The hydraulic radius (pipe cross-section area divided by wetted perimeter) and slope drive the velocity, with roughness acting as a drag factor.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Rough-in layout.</strong> Before cutting into the slab or running drain lines through floor joists, calculate the total fall required so you know if there is enough vertical space for the slope across the pipe run.</p>
+          <p><strong class="text-text-primary">Sewer lateral design.</strong> Building drain to street sewer connections often have long runs. Calculate total fall to ensure the pipe reaches the main at the correct elevation while maintaining minimum slope.</p>
+          <p><strong class="text-text-primary">Diagnosing recurring clogs.</strong> If a drain line clogs repeatedly, check if the installed slope meets code. Belly (sag) in the pipe or insufficient slope are common causes of chronic blockages.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What slope should a drain pipe have?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Per the IPC, drain pipes 2.5 inches and smaller require 1/4 inch per foot. Pipes 3 inches and larger need 1/8 inch per foot minimum. Too little slope causes clogs; too much slope causes water to outrun solids.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is self-scouring velocity and why does it matter?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Self-scouring velocity is the minimum flow speed (2 fps per IPC) needed to keep solids moving through a drain pipe. If water flows too slowly, waste settles and causes blockages. Manning's equation verifies the actual velocity.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Can a drain pipe have too much slope?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Excessive slope beyond about 1/2 inch per foot causes liquid to flow faster than solids, leaving waste behind in the pipe. Best practice keeps residential drains between 1/8 and 1/2 inch per foot.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const pipeDiam = parseFloat((document.getElementById('pipeDiam') as HTMLSelectElement).value) || 3;
+    const n = parseFloat((document.getElementById('pipeMat') as HTMLSelectElement).value) || 0.009;
+    const runLength = parseFloat((document.getElementById('runLength') as HTMLInputElement).value) || 30;
+
+    // IPC minimum slope: 2.5" and smaller = 1/4"/ft, 3" and larger = 1/8"/ft
+    const slopeInPerFt = pipeDiam <= 2.5 ? 0.25 : 0.125;
+    const slopeFraction = pipeDiam <= 2.5 ? '1/4' : '1/8';
+
+    // Total fall in inches
+    const totalFall = slopeInPerFt * runLength;
+
+    // Manning's equation: V = (1.486/n) * R^(2/3) * S^(1/2)
+    // For half-full circular pipe: R = d/4
+    const dFt = pipeDiam / 12; // diameter in feet
+    const R = dFt / 4; // hydraulic radius for half-full pipe
+    const S = slopeInPerFt / 12; // slope in ft/ft
+
+    const velocity = (1.486 / n) * Math.pow(R, 2 / 3) * Math.pow(S, 0.5);
+
+    // Self-scouring check: V >= 2 fps
+    const selfScouring = velocity >= 2;
+
+    document.getElementById('r-slope')!.textContent = slopeFraction + '" per ft';
+    document.getElementById('r-fall')!.textContent = totalFall.toFixed(1) + ' in (' + (totalFall / 12).toFixed(2) + ' ft)';
+    document.getElementById('r-vel')!.textContent = velocity.toFixed(2) + ' fps';
+
+    const scourEl = document.getElementById('r-scour')!;
+    if (selfScouring) {
+      scourEl.textContent = 'PASS';
+      scourEl.classList.remove('text-red-400');
+      scourEl.classList.add('text-green-400');
+    } else {
+      scourEl.textContent = 'FAIL';
+      scourEl.classList.remove('text-green-400');
+      scourEl.classList.add('text-red-400');
+    }
+
+    const note = document.getElementById('r-note')!;
+    if (!selfScouring) {
+      note.textContent = 'Warning: Estimated velocity is below 2 fps self-scouring minimum. Consider increasing slope or reducing pipe diameter to increase velocity.';
+      note.classList.add('text-red-400');
+      note.classList.remove('text-text-muted');
+    } else {
+      note.textContent = 'Slope meets IPC minimum requirements and velocity exceeds the 2 fps self-scouring threshold. Drain should function properly.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    }
+  }
+
+  document.querySelectorAll('#ds-calc input, #ds-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

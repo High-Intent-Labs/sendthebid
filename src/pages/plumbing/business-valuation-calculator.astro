@@ -1,0 +1,415 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('business-valuation-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much is my plumbing business worth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbing businesses sell for 1.5 to 3.5 times their Seller's Discretionary Earnings (SDE). A company doing $1.2M in revenue with $280K in SDE and strong service agreements might be valued between $560K and $980K. The exact multiple depends on recurring revenue, owner dependence, fleet condition, licensed plumbers on staff, and the quality of your financial records."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is SDE in business valuation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SDE stands for Seller's Discretionary Earnings. It is the total financial benefit a single owner-operator takes from the business. SDE equals net profit plus owner salary, owner benefits, one-time or non-recurring expenses, depreciation, and interest. Buyers use SDE to compare businesses on an apples-to-apples basis regardless of how the current owner chooses to pay themselves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do service agreements affect plumbing business value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Service agreements are the single biggest value driver in plumbing business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 40% or more of revenue from service contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What multiple do plumbing businesses sell for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Plumbing businesses typically sell for 1.5 to 3.5 times SDE. Smaller companies under $1M in revenue average around 2 to 2.5x. Mid-size companies between $1M and $3M average 2.5 to 3x. Larger companies above $3M often command 3 to 3.5x or higher. These multiples shift based on service agreement revenue, owner involvement, fleet condition, licensed plumber count, and financial record keeping."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="valuation-calc">
+    <!-- Financial Inputs -->
+    <div class="mb-6">
+      <p class="text-sm font-medium text-text-secondary mb-3">Financial Information</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="revenue">Annual Revenue ($)</label>
+          <input type="number" id="revenue" value="1200000" min="0" step="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="netProfit">Net Profit ($)</label>
+          <input type="number" id="netProfit" value="120000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="ownerSalary">Owner Salary ($)</label>
+          <input type="number" id="ownerSalary" value="110000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="ownerBenefits">Owner Benefits ($)</label>
+          <input type="number" id="ownerBenefits" value="20000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Health insurance, vehicle, phone, etc.</p>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="oneTime">One-Time / Non-Recurring Expenses ($)</label>
+          <input type="number" id="oneTime" value="10000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Lawsuit, equipment replacement, etc.</p>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="depreciation">Depreciation ($)</label>
+          <input type="number" id="depreciation" value="12000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="interest">Interest ($)</label>
+          <input type="number" id="interest" value="5000" min="0" step="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Factor Inputs -->
+    <div class="mb-8">
+      <p class="text-sm font-medium text-text-secondary mb-3">Business Factors</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="maintenance">Service Agreement Base (% of Revenue)</label>
+          <select id="maintenance" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.5">0 &ndash; 10%</option>
+            <option value="0" selected>10 &ndash; 25%</option>
+            <option value="0.5">25 &ndash; 40%</option>
+            <option value="1.0">40%+</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="ownerDependence">Owner Dependence</label>
+          <select id="ownerDependence" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.5">Does 50%+ of sales</option>
+            <option value="0" selected>Full-time manager runs it</option>
+            <option value="0.5">Mostly passive</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="fleetAge">Fleet Age</label>
+          <select id="fleetAge" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.25">Average &gt; 7 years</option>
+            <option value="0" selected>Average 3 &ndash; 7 years</option>
+            <option value="0.25">Average &lt; 3 years</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="licensedPlumbers">Licensed Plumbers on Staff</label>
+          <select id="licensedPlumbers" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.25">Owner only</option>
+            <option value="0" selected>1 &ndash; 2 journeymen</option>
+            <option value="0.25">3+ journeymen or master plumber</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="revenueType">Residential vs Commercial Mix</label>
+          <select id="revenueType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.25">90%+ residential</option>
+            <option value="0" selected>Mixed (50/50)</option>
+            <option value="0.25">Strong commercial base (50%+)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="financialRecords">Financial Records</label>
+          <select id="financialRecords" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.5">Cash-heavy / poor records</option>
+            <option value="0" selected>Adequate records</option>
+            <option value="0.25">Clean books with CPA</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Estimated Business Value</h3>
+
+      <!-- Valuation Range Bar -->
+      <div class="bg-bg-dark rounded-xl p-6 mb-6">
+        <div class="flex justify-between text-sm text-text-muted mb-2">
+          <span>Low</span>
+          <span>Mid</span>
+          <span>High</span>
+        </div>
+        <div class="relative w-full h-4 bg-[rgba(255,255,255,0.05)] rounded-full overflow-hidden">
+          <div id="range-bar" class="absolute h-full rounded-full transition-all duration-500" style="left: 0%; width: 100%; background: linear-gradient(90deg, #FBBF24, #34D399, #60A5FA);"></div>
+        </div>
+        <div class="flex justify-between mt-3">
+          <span id="result-low" class="font-heading font-extrabold text-lg text-[#FBBF24]">--</span>
+          <span id="result-mid" class="font-heading font-extrabold text-2xl text-[#34D399]">--</span>
+          <span id="result-high" class="font-heading font-extrabold text-lg text-[#60A5FA]">--</span>
+        </div>
+      </div>
+
+      <!-- Key Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">SDE</div>
+          <div id="result-sde" class="font-heading font-extrabold text-3xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Adjusted Multiple</div>
+          <div id="result-multiple" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Revenue Multiple</div>
+          <div id="result-revmultiple" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Base Multiple</div>
+          <div id="result-basemultiple" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
+        </div>
+      </div>
+
+      <!-- Adjustment Factors Breakdown -->
+      <div class="bg-bg-dark rounded-xl p-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Multiple Adjustment Factors</h4>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-text-secondary">Base Multiple (by revenue)</span>
+            <span id="adj-base" class="font-heading font-bold text-text-primary">--</span>
+          </div>
+          <div class="border-t border-border pt-3 space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Service Agreement Base</span>
+              <span id="adj-maintenance" class="font-heading font-bold">--</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Owner Dependence</span>
+              <span id="adj-owner" class="font-heading font-bold">--</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Fleet Age</span>
+              <span id="adj-fleet" class="font-heading font-bold">--</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Licensed Plumbers</span>
+              <span id="adj-licensed" class="font-heading font-bold">--</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Revenue Mix</span>
+              <span id="adj-revtype" class="font-heading font-bold">--</span>
+            </div>
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-text-secondary">Financial Records</span>
+              <span id="adj-records" class="font-heading font-bold">--</span>
+            </div>
+          </div>
+          <div class="border-t border-border pt-3 flex justify-between items-center text-sm">
+            <span class="text-text-primary font-medium">Adjusted Multiple</span>
+            <span id="adj-total" class="font-heading font-bold text-accent">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your financial numbers.</strong> Pull these from your most recent tax return or profit and loss statement. Use annual figures. Net profit is the bottom line after all expenses, including your salary.</p>
+          <p><strong class="text-text-primary">2. Add owner compensation and add-backs.</strong> Include your total salary, benefits (health insurance, vehicle, phone), any one-time expenses that will not recur, depreciation, and interest. These get added back to net profit to calculate SDE.</p>
+          <p><strong class="text-text-primary">3. Select your business factors.</strong> Be honest about where your business stands. Each factor shifts the valuation multiple up or down. Service agreements and owner dependence have the largest impact on value.</p>
+          <p><strong class="text-text-primary">4. Review the estimated value range.</strong> The calculator shows a low, mid, and high estimate. Most deals close near the midpoint, but strong negotiators with well-documented businesses can push toward the high end.</p>
+          <p><strong class="text-text-primary">5. Test different scenarios.</strong> Change the inputs to see what drives value. If you are planning to sell in 2-3 years, focus on the factors you can improve: build up service agreements, reduce owner dependence, and clean up your books.</p>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Plumbing Business Valuation Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">The SDE multiple method is the standard for valuing owner-operated plumbing companies.</strong> SDE (Seller's Discretionary Earnings) represents the total economic benefit available to a single owner. It starts with net profit and adds back the owner's salary, benefits, one-time expenses, depreciation, and interest. This gives buyers a clear picture of what they can expect to earn.</p>
+          <p>Here is how this calculator computes the valuation:</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
+            <p>SDE = Net_Profit + Owner_Salary + Owner_Benefits + One_Time + Depreciation + Interest</p>
+            <p>Base_Multiple = determined by annual revenue bracket</p>
+            <p>Adjusted_Multiple = Base_Multiple + Sum(Factor_Adjustments)</p>
+            <p>Valuation_Mid = SDE x Adjusted_Multiple</p>
+            <p>Valuation_Low = SDE x (Adjusted_Multiple - 0.5)</p>
+            <p>Valuation_High = SDE x (Adjusted_Multiple + 0.5)</p>
+          </div>
+          <p><strong class="text-text-primary">Plumbing businesses average 2-3x SDE.</strong> Multiples are generally lower than HVAC because plumbing has less recurring revenue from maintenance contracts and more reliance on demand calls. However, plumbing companies with strong service agreement bases, multiple licensed plumbers, and a commercial revenue mix can command premium multiples closer to 3-3.5x.</p>
+          <p><strong class="text-text-primary">Service agreements are the biggest value driver.</strong> They represent predictable, recurring revenue that transfers to a new owner on day one. A business with 40%+ of revenue from service contracts can see its multiple jump by a full point compared to one that relies entirely on demand calls. If you are building to sell, growing your service agreement base is the single highest-leverage move.</p>
+          <p><strong class="text-text-primary">Owner dependence is the biggest value killer.</strong> If you are personally running every call and managing every job, a buyer sees risk. Businesses that run with a full-time manager or are mostly passive command higher multiples because the revenue does not walk out the door with the seller.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Thinking of selling.</strong> If you are considering an exit in the next 1-5 years, run your numbers now to get a baseline. Then focus on the adjustable factors: build service agreements, hire a manager, get additional plumbers licensed, and get your books clean with a CPA. Each improvement can add tens or hundreds of thousands to the sale price.</p>
+          <p><strong class="text-text-primary">Buying a business.</strong> Before you make an offer on a plumbing company, run the seller's numbers through this calculator. Compare the asking price to the estimated range. If the seller wants more than the high estimate, you need to understand what justifies the premium. If the asking price is below the midpoint, dig into why and find out what the seller is not telling you.</p>
+          <p><strong class="text-text-primary">Succession planning.</strong> Whether you are passing the business to a family member, selling to a key employee, or planning an ESOP, you need a defensible valuation. This calculator gives you a starting framework. For an actual transaction, hire a business broker or certified valuation analyst, but use this tool to make sure you are in the right ballpark and understand what drives the number.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much is my plumbing business worth?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbing businesses sell for 1.5 to 3.5 times their Seller's Discretionary Earnings (SDE). A company doing $1.2M in revenue with $280K in SDE and strong service agreements might be valued between $560K and $980K. The exact multiple depends on recurring revenue, owner dependence, fleet condition, licensed plumbers on staff, and the quality of your financial records.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is SDE in business valuation?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">SDE stands for Seller's Discretionary Earnings. It is the total financial benefit a single owner-operator takes from the business. SDE equals net profit plus owner salary, owner benefits, one-time or non-recurring expenses, depreciation, and interest. Buyers use SDE to compare businesses on an apples-to-apples basis regardless of how the current owner chooses to pay themselves.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do service agreements affect plumbing business value?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Service agreements are the single biggest value driver in plumbing business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 40% or more of revenue from service contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What multiple do plumbing businesses sell for?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Plumbing businesses typically sell for 1.5 to 3.5 times SDE. Smaller companies under $1M in revenue average around 2 to 2.5x. Mid-size companies between $1M and $3M average 2.5 to 3x. Larger companies above $3M often command 3 to 3.5x or higher. These multiples shift based on service agreement revenue, owner involvement, fleet condition, licensed plumber count, and financial record keeping.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const revenue = parseFloat((document.getElementById('revenue') as HTMLInputElement).value) || 0;
+    const netProfit = parseFloat((document.getElementById('netProfit') as HTMLInputElement).value) || 0;
+    const ownerSalary = parseFloat((document.getElementById('ownerSalary') as HTMLInputElement).value) || 0;
+    const ownerBenefits = parseFloat((document.getElementById('ownerBenefits') as HTMLInputElement).value) || 0;
+    const oneTime = parseFloat((document.getElementById('oneTime') as HTMLInputElement).value) || 0;
+    const depreciation = parseFloat((document.getElementById('depreciation') as HTMLInputElement).value) || 0;
+    const interest = parseFloat((document.getElementById('interest') as HTMLInputElement).value) || 0;
+
+    const maintenanceAdj = parseFloat((document.getElementById('maintenance') as HTMLSelectElement).value);
+    const ownerAdj = parseFloat((document.getElementById('ownerDependence') as HTMLSelectElement).value);
+    const fleetAdj = parseFloat((document.getElementById('fleetAge') as HTMLSelectElement).value);
+    const licensedAdj = parseFloat((document.getElementById('licensedPlumbers') as HTMLSelectElement).value);
+    const revTypeAdj = parseFloat((document.getElementById('revenueType') as HTMLSelectElement).value);
+    const recordsAdj = parseFloat((document.getElementById('financialRecords') as HTMLSelectElement).value);
+
+    // Calculate SDE
+    const sde = netProfit + ownerSalary + ownerBenefits + oneTime + depreciation + interest;
+
+    // Determine base multiple by revenue (plumbing multiples: 1.5-3.5x range)
+    let baseMultiple: number;
+    if (revenue < 1000000) {
+      baseMultiple = 2.0;
+    } else if (revenue < 3000000) {
+      baseMultiple = 2.5;
+    } else if (revenue < 5000000) {
+      baseMultiple = 3.0;
+    } else {
+      baseMultiple = 3.25;
+    }
+
+    // Calculate adjusted multiple
+    const totalAdjustment = maintenanceAdj + ownerAdj + fleetAdj + licensedAdj + revTypeAdj + recordsAdj;
+    const adjustedMultiple = baseMultiple + totalAdjustment;
+
+    // Calculate valuations
+    const valuationLow = sde * (adjustedMultiple - 0.5);
+    const valuationMid = sde * adjustedMultiple;
+    const valuationHigh = sde * (adjustedMultiple + 0.5);
+    const revenueMultiple = revenue > 0 ? valuationMid / revenue : 0;
+
+    // Format currency
+    const fmt = (n: number) => {
+      if (n >= 1000000) {
+        return '$' + (n / 1000000).toFixed(2) + 'M';
+      }
+      return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    };
+
+    // Format adjustment value with sign and color
+    const fmtAdj = (val: number): string => {
+      if (val > 0) return '+' + val.toFixed(2);
+      if (val < 0) return val.toFixed(2);
+      return '0.00';
+    };
+
+    const colorAdj = (el: HTMLElement, val: number) => {
+      el.classList.remove('text-[#34D399]', 'text-[#EF4444]', 'text-text-muted');
+      if (val > 0) {
+        el.classList.add('text-[#34D399]');
+      } else if (val < 0) {
+        el.classList.add('text-[#EF4444]');
+      } else {
+        el.classList.add('text-text-muted');
+      }
+    };
+
+    // Update valuation range
+    document.getElementById('result-low')!.textContent = fmt(valuationLow);
+    document.getElementById('result-mid')!.textContent = fmt(valuationMid);
+    document.getElementById('result-high')!.textContent = fmt(valuationHigh);
+
+    // Update key metrics
+    document.getElementById('result-sde')!.textContent = fmt(sde);
+    document.getElementById('result-multiple')!.textContent = adjustedMultiple.toFixed(2) + 'x';
+    document.getElementById('result-revmultiple')!.textContent = revenueMultiple.toFixed(2) + 'x';
+    document.getElementById('result-basemultiple')!.textContent = baseMultiple.toFixed(2) + 'x';
+
+    // Update adjustment breakdown
+    document.getElementById('adj-base')!.textContent = baseMultiple.toFixed(2) + 'x';
+
+    const adjMaintEl = document.getElementById('adj-maintenance')!;
+    adjMaintEl.textContent = fmtAdj(maintenanceAdj);
+    colorAdj(adjMaintEl, maintenanceAdj);
+
+    const adjOwnerEl = document.getElementById('adj-owner')!;
+    adjOwnerEl.textContent = fmtAdj(ownerAdj);
+    colorAdj(adjOwnerEl, ownerAdj);
+
+    const adjFleetEl = document.getElementById('adj-fleet')!;
+    adjFleetEl.textContent = fmtAdj(fleetAdj);
+    colorAdj(adjFleetEl, fleetAdj);
+
+    const adjLicensedEl = document.getElementById('adj-licensed')!;
+    adjLicensedEl.textContent = fmtAdj(licensedAdj);
+    colorAdj(adjLicensedEl, licensedAdj);
+
+    const adjRevTypeEl = document.getElementById('adj-revtype')!;
+    adjRevTypeEl.textContent = fmtAdj(revTypeAdj);
+    colorAdj(adjRevTypeEl, revTypeAdj);
+
+    const adjRecordsEl = document.getElementById('adj-records')!;
+    adjRecordsEl.textContent = fmtAdj(recordsAdj);
+    colorAdj(adjRecordsEl, recordsAdj);
+
+    document.getElementById('adj-total')!.textContent = adjustedMultiple.toFixed(2) + 'x';
+
+  }
+
+  // Auto-calculate on input change
+  document.querySelectorAll('#valuation-calc input, #valuation-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+    el.addEventListener('input', calculate);
+  });
+
+  // Calculate on load with defaults
+  calculate();
+</script>

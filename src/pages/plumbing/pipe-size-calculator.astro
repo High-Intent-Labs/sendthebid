@@ -1,0 +1,245 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('pipe-size-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I determine the right pipe size for water supply?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Start by totaling the Water Supply Fixture Units (WSFU) on the branch or main you're sizing. Convert WSFU to GPM using Hunter's Curve, then find the smallest pipe diameter that keeps velocity under 8 fps for cold water (5 fps for hot) and friction loss within the available pressure budget. This calculator automates that process using the Hazen-Williams equation." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the maximum velocity allowed in water supply pipes?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The IPC limits velocity to 8 feet per second for cold water supply pipes. Hot water lines should be kept under 5 fps to reduce erosion and water hammer. Some jurisdictions and pipe manufacturers recommend even lower limits, especially for CPVC and PEX systems." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Hazen-Williams C factor and why does pipe material matter?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The Hazen-Williams C factor represents the internal roughness of a pipe. Smoother materials like PEX and PVC have a C of 150, copper is 130, and CPVC is 140. A higher C means less friction loss, so smoother pipes can sometimes be one size smaller for the same flow rate." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many fixture units can a 3/4-inch pipe handle?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A 3/4-inch copper pipe can typically handle 8-14 WSFU depending on pipe length and available pressure. With PEX (smoother interior), it may handle slightly more. Always verify with a friction loss calculation rather than relying on rules of thumb alone." }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="ps-calc">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wsfu">Total Fixture Units (WSFU)</label>
+        <input type="number" id="wsfu" value="20" min="1" max="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material">Pipe Material</label>
+        <select id="material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="130">Copper (C=130)</option>
+          <option value="150" selected>PEX (C=150)</option>
+          <option value="140">CPVC (C=140)</option>
+          <option value="150">PVC (C=150)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pressure">Available Pressure (PSI)</label>
+        <input type="number" id="pressure" value="60" min="10" max="150" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pipeLength">Pipe Length (ft)</label>
+        <input type="number" id="pipeLength" value="100" min="5" max="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="fittings">Number of Fittings</label>
+        <input type="number" id="fittings" value="10" min="0" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="lineType">Line Type</label>
+        <select id="lineType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="cold" selected>Cold Water Supply</option>
+          <option value="hot">Hot Water Supply</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Recommended Pipe Size</div>
+          <div id="r-size" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flow Rate</div>
+          <div id="r-gpm" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Velocity</div>
+          <div id="r-vel" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Friction Loss</div>
+          <div id="r-friction" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+      <p id="r-note" class="text-text-muted text-sm italic"></p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter total WSFU.</strong> Add up the Water Supply Fixture Units on the pipe section you are sizing. Use our Fixture Unit Calculator if you need help with the count.</p>
+          <p><strong class="text-text-primary">2. Select pipe material.</strong> Each material has a different Hazen-Williams C factor that affects friction loss. PEX and PVC (C=150) have less friction than copper (C=130).</p>
+          <p><strong class="text-text-primary">3. Enter available pressure.</strong> This is the supply pressure at the start of the pipe run, typically the street pressure or pressure after a PRV.</p>
+          <p><strong class="text-text-primary">4. Enter pipe length and fittings.</strong> Measure the actual developed length of the pipe run. Each fitting adds equivalent length — the calculator adds approximately 2.5 ft per fitting.</p>
+          <p><strong class="text-text-primary">5. Choose line type.</strong> Hot water lines have a lower maximum velocity (5 fps vs 8 fps) to prevent erosion and water hammer in heated pipes.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Pipe Sizing Formula Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>This calculator converts fixture units to GPM using Hunter's Curve, then tests each pipe diameter from 1/2" up until it finds one that satisfies both velocity and friction loss constraints.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>1. WSFU to GPM conversion (Hunter's Curve simplified)</p>
+            <p>2. Friction loss: hl = (4.52 x Q^1.85) / (C^1.85 x d^4.87)</p>
+            <p>3. Velocity: V = 0.4085 x Q / d^2</p>
+            <p>4. Constraints: V &le; 8 fps (cold) or 5 fps (hot)</p>
+            <p>5. Select smallest pipe that passes both checks</p>
+          </div>
+          <p>The Hazen-Williams equation relates flow, pipe roughness, and diameter to friction loss per 100 feet. Smaller pipes create more friction and higher velocity, so the calculator steps up sizes until both limits are satisfied.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">New construction rough-in.</strong> Size every supply branch and main during the design phase. Getting pipe size right at rough-in avoids costly re-work after walls are closed.</p>
+          <p><strong class="text-text-primary">Addition or remodel.</strong> Adding a bathroom or kitchen? Calculate whether the existing supply pipe can handle the additional fixture units or if it needs to be upsized.</p>
+          <p><strong class="text-text-primary">Low-pressure troubleshooting.</strong> If a customer complains about low pressure at distant fixtures, this calculator can verify if the pipe size is adequate for the fixture count and run length.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I determine the right pipe size for water supply?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by totaling the Water Supply Fixture Units (WSFU) on the branch or main you're sizing. Convert WSFU to GPM using Hunter's Curve, then find the smallest pipe diameter that keeps velocity under 8 fps for cold water (5 fps for hot) and friction loss within the available pressure budget.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the maximum velocity allowed in water supply pipes?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The IPC limits velocity to 8 feet per second for cold water supply pipes. Hot water lines should be kept under 5 fps to reduce erosion and water hammer. Some jurisdictions recommend even lower limits for CPVC and PEX.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the Hazen-Williams C factor and why does pipe material matter?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The Hazen-Williams C factor represents the internal roughness of a pipe. Smoother materials like PEX and PVC have a C of 150, copper is 130, and CPVC is 140. A higher C means less friction loss, so smoother pipes can sometimes be one size smaller for the same flow rate.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How many fixture units can a 3/4-inch pipe handle?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 3/4-inch copper pipe can typically handle 8-14 WSFU depending on pipe length and available pressure. With PEX (smoother interior), it may handle slightly more. Always verify with a friction loss calculation rather than relying on rules of thumb alone.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  function calculate() {
+    const wsfu = parseInt((document.getElementById('wsfu') as HTMLInputElement).value) || 20;
+    const C = parseInt((document.getElementById('material') as HTMLSelectElement).value) || 150;
+    const pressure = parseFloat((document.getElementById('pressure') as HTMLInputElement).value) || 60;
+    const pipeLength = parseFloat((document.getElementById('pipeLength') as HTMLInputElement).value) || 100;
+    const fittings = parseInt((document.getElementById('fittings') as HTMLInputElement).value) || 0;
+    const lineType = (document.getElementById('lineType') as HTMLSelectElement).value;
+
+    const maxVelocity = lineType === 'hot' ? 5 : 8;
+
+    // Hunter's Curve: WSFU to GPM
+    function wsfuToGPM(w: number): number {
+      if (w <= 2) return 3;
+      if (w <= 5) return 5;
+      if (w <= 10) return 8;
+      if (w <= 20) return 14;
+      if (w <= 40) return 22;
+      if (w <= 60) return 29;
+      if (w <= 100) return 38;
+      if (w <= 200) return 55;
+      if (w <= 400) return 80;
+      return 80 + (w - 400) * 0.15;
+    }
+
+    const gpm = wsfuToGPM(wsfu);
+
+    // Pipe sizes to try (nominal size and inside diameter in inches)
+    const pipeSizes = [
+      { name: '1/2"', id: 0.545 },
+      { name: '3/4"', id: 0.785 },
+      { name: '1"', id: 1.025 },
+      { name: '1-1/4"', id: 1.368 },
+      { name: '1-1/2"', id: 1.600 },
+      { name: '2"', id: 2.067 },
+    ];
+
+    // Add equivalent length for fittings (approx 2.5 ft per fitting)
+    const equivLength = pipeLength + fittings * 2.5;
+
+    let bestPipe = pipeSizes[pipeSizes.length - 1];
+    let bestVelocity = 0;
+    let bestFriction = 0;
+
+    for (const pipe of pipeSizes) {
+      const d = pipe.id;
+      // Velocity: V = 0.4085 * Q / d^2
+      const velocity = 0.4085 * gpm / (d * d);
+      // Hazen-Williams friction loss per 100 ft
+      // hl = (4.52 * Q^1.85) / (C^1.85 * d^4.87)
+      const hl = (4.52 * Math.pow(gpm, 1.85)) / (Math.pow(C, 1.85) * Math.pow(d, 4.87));
+      const totalFrictionPSI = (hl * equivLength / 100) * 0.433; // convert ft head to PSI
+
+      if (velocity <= maxVelocity && totalFrictionPSI < pressure * 0.5) {
+        bestPipe = pipe;
+        bestVelocity = velocity;
+        bestFriction = hl;
+        break;
+      }
+
+      bestVelocity = velocity;
+      bestFriction = hl;
+    }
+
+    const frictionPSI = (bestFriction * equivLength / 100) * 0.433;
+
+    document.getElementById('r-size')!.textContent = bestPipe.name;
+    document.getElementById('r-gpm')!.textContent = gpm.toFixed(1) + ' GPM';
+    document.getElementById('r-vel')!.textContent = bestVelocity.toFixed(1) + ' fps';
+    document.getElementById('r-friction')!.textContent = frictionPSI.toFixed(1) + ' PSI';
+
+    const note = document.getElementById('r-note')!;
+    if (bestVelocity > maxVelocity) {
+      note.textContent = 'Warning: Velocity exceeds ' + maxVelocity + ' fps limit. Consider upsizing the pipe or reducing fixture count on this branch.';
+      note.classList.remove('text-text-muted');
+      note.classList.add('text-red-400');
+    } else {
+      note.textContent = 'Pipe size meets IPC velocity and pressure requirements for this configuration.';
+      note.classList.remove('text-red-400');
+      note.classList.add('text-text-muted');
+    }
+  }
+
+  document.querySelectorAll('#ps-calc input, #ps-calc select').forEach(el => {
+    el.addEventListener('change', calculate);
+  });
+  calculate();
+</script>

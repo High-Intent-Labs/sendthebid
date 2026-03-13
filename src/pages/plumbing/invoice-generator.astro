@@ -1,0 +1,583 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('invoice-generator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What should be included on a plumbing invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A professional plumbing invoice should include your company name, address, phone, email, and plumbing license and bond numbers. It should also list the customer's information, job type, a description of work performed, itemized line items for trip fees, labor, fixtures, parts, permits, and disposal fees, warranty terms, payment terms, and the invoice date and number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I create a professional plumbing invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use a dedicated plumbing invoice generator that includes fields specific to the trade — job type, fixture details, parts and fittings, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I charge tax on plumbing labor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tax rules vary by state and municipality. In most states, plumbing parts and fixtures are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment terms are standard for plumbing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger jobs like re-pipes or water heater installations, many plumbers require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="invoice-gen">
+    <!-- Company Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
+        <input type="text" id="companyName" placeholder="Your Plumbing Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyAddress">Address</label>
+        <input type="text" id="companyAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
+        <input type="text" id="companyPhone" placeholder="(555) 123-4567" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
+        <input type="text" id="companyEmail" placeholder="office@yourplumbing.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
+        <input type="text" id="licenseNum" placeholder="PLB-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bondNum">Bond #</label>
+        <input type="text" id="bondNum" placeholder="BND-789012" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceNum">Invoice #</label>
+        <input type="text" id="invoiceNum" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceDate">Invoice Date</label>
+          <input type="date" id="invoiceDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="dueDate">Due Date</label>
+          <input type="date" id="dueDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
+        <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerPhone">Customer Phone</label>
+        <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Customer Address</label>
+        <input type="text" id="customerAddress" placeholder="456 Oak Ave, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerEmail">Customer Email</label>
+        <input type="text" id="customerEmail" placeholder="customer@email.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Job Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobType">Job Type</label>
+        <select id="jobType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Service Call">Service Call</option>
+          <option value="Repair">Repair</option>
+          <option value="Installation">Installation</option>
+          <option value="Inspection">Inspection</option>
+          <option value="Drain Cleaning">Drain Cleaning</option>
+          <option value="Water Heater">Water Heater</option>
+          <option value="Re-pipe">Re-pipe</option>
+          <option value="Emergency">Emergency</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobLocation">Location on Property</label>
+        <input type="text" id="jobLocation" placeholder="Kitchen, Bathroom, Basement..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Line Items -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Line Items</h3>
+    <div class="mb-3">
+      <div class="hidden md:grid grid-cols-[1fr_80px_120px_120px_40px] gap-3 mb-2 px-1">
+        <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Description</span>
+        <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Qty</span>
+        <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Unit Price</span>
+        <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Total</span>
+        <span></span>
+      </div>
+      <div id="line-items" class="space-y-3">
+        <!-- Line items injected by JS -->
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-8">
+      <button id="add-line-btn" class="bg-bg-dark border border-border text-text-primary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">
+        + Add Line Item
+      </button>
+      <span class="text-text-muted text-xs self-center">Quick add:</span>
+      <button data-quick="Trip/Diagnostic Fee" data-price="89" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Diagnostic Fee ($89)</button>
+      <button data-quick="Faucet Replacement" data-price="275" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Faucet Replacement ($275)</button>
+      <button data-quick="Toilet Repair" data-price="195" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Toilet Repair ($195)</button>
+      <button data-quick="Drain Cleaning" data-price="225" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Drain Cleaning ($225)</button>
+      <button data-quick="Disposal/Haul-Away" data-price="75" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Disposal Fee ($75)</button>
+    </div>
+
+    <!-- Bottom Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Invoice Settings</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="taxRate">Tax Rate (%)</label>
+        <input type="number" id="taxRate" value="0" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
+        <select id="paymentTerms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Due on Receipt">Due on Receipt</option>
+          <option value="Net 15" selected>Net 15</option>
+          <option value="Net 30">Net 30</option>
+        </select>
+      </div>
+      <div class="md:col-span-1">
+        <!-- spacer for alignment -->
+      </div>
+      <div class="md:col-span-3">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Warranty</label>
+        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Workmanship: 1 year / Fixtures: manufacturer warranty.
+Prevent emergencies — ask about our annual plumbing inspection.</textarea>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Invoice Totals</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Subtotal</div>
+          <div id="result-subtotal" class="font-heading font-extrabold text-3xl text-text-primary">$0.00</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Tax</div>
+          <div id="result-tax" class="font-heading font-extrabold text-3xl text-text-primary">$0.00</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Due</div>
+          <div id="result-total" class="font-heading font-extrabold text-3xl text-accent">$0.00</div>
+        </div>
+      </div>
+
+      <!-- Generate PDF Button -->
+      <button id="generate-pdf-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
+        Generate PDF &rarr;
+      </button>
+      <p class="text-text-muted text-sm italic mt-3">Opens a print-ready invoice in a new window. Use your browser's print dialog to save as PDF.</p>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Generator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, address, phone, email, and plumbing license and bond numbers. These appear in the invoice header and build trust with customers.</p>
+          <p><strong class="text-text-primary">2. Add customer and job info.</strong> Enter the customer's name, address, phone, and email. Then select the job type and location on the property so every invoice ties back to the specific work performed.</p>
+          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each charge individually — trip fees, labor hours, fixtures, parts, permits, and disposal fees — or use the quick-add buttons for common plumbing items. Set quantities and unit prices, and the totals calculate automatically.</p>
+          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add warranty language or job notes in the notes field.</p>
+          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice in a new window. Use your browser's print function to save it as a PDF or send it directly to a printer.</p>
+        </div>
+      </section>
+
+      <!-- What Makes a Professional Invoice -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Plumbing Invoice</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>A professional plumbing invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, bond number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
+          <p>The job info section is what separates a plumbing invoice from a generic template. Logging the job type, location on the property, and specific fixtures or parts installed creates a service history for that address. When the customer calls back about a different issue, you can reference exactly what was done previously.</p>
+          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "plumbing repair - $500," break it out: trip/diagnostic fee, faucet replacement, labor for install, disposal of old fixture. Customers respect transparency, and it makes warranty claims simpler if a specific part fails.</p>
+          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup for plumbing is a 1-year workmanship warranty with manufacturer warranty on fixtures and parts. Having it on the invoice means there is no ambiguity later.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">On-site service calls.</strong> You finish a repair, pull up this tool on your phone or tablet, fill in what you replaced and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
+          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the plumbing-specific fields that generic invoice templates miss.</p>
+          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your dispatch or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on a plumbing invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional plumbing invoice should include your company name, address, phone, email, and plumbing license and bond numbers. It should also list the customer's information, job type, a description of work performed, itemized line items for trip fees, labor, fixtures, parts, permits, and disposal fees, warranty terms, payment terms, and the invoice date and number.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional plumbing invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated plumbing invoice generator that includes fields specific to the trade -- job type, fixture details, parts and fittings, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on plumbing labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, plumbing parts and fixtures are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for plumbing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger jobs like re-pipes or water heater installations, many plumbers require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // --- Date and Invoice Number Defaults ---
+  function initDefaults() {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const due = new Date(today);
+    due.setDate(due.getDate() + 15);
+    const dueStr = due.toISOString().split('T')[0];
+
+    (document.getElementById('invoiceDate') as HTMLInputElement).value = todayStr;
+    (document.getElementById('dueDate') as HTMLInputElement).value = dueStr;
+    (document.getElementById('invoiceNum') as HTMLInputElement).value = 'INV-' + String(Math.floor(Math.random() * 9000) + 1000);
+  }
+
+  // --- Line Items ---
+  interface LineItem {
+    id: number;
+    description: string;
+    qty: number;
+    price: number;
+  }
+
+  let lineItems: LineItem[] = [
+    { id: 1, description: '', qty: 1, price: 0 }
+  ];
+  let nextId = 2;
+
+  function renderLineItems() {
+    const container = document.getElementById('line-items')!;
+    container.innerHTML = '';
+
+    lineItems.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'grid grid-cols-1 md:grid-cols-[1fr_80px_120px_120px_40px] gap-3 items-center bg-bg-dark rounded-lg p-3 md:p-0 md:bg-transparent md:rounded-none';
+      const total = (item.qty * item.price).toFixed(2);
+
+      row.innerHTML = `
+        <div>
+          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Description</label>
+          <input type="text" data-id="${item.id}" data-field="description" value="${escapeHtml(item.description)}" placeholder="Description" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Qty</label>
+          <input type="number" data-id="${item.id}" data-field="qty" value="${item.qty}" min="1" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-center focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Unit Price</label>
+          <input type="number" data-id="${item.id}" data-field="price" value="${item.price}" min="0" step="0.01" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-right focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Total</label>
+          <div class="text-text-primary text-sm font-medium text-right px-3 py-2">$${total}</div>
+        </div>
+        <div class="flex justify-end">
+          ${lineItems.length > 1 ? `<button data-remove="${item.id}" class="remove-line-btn text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove">&times;</button>` : '<span></span>'}
+        </div>
+      `;
+
+      container.appendChild(row);
+    });
+
+    // Attach events
+    container.querySelectorAll('.line-input').forEach(input => {
+      input.addEventListener('input', handleLineInput);
+    });
+    container.querySelectorAll('.remove-line-btn').forEach(btn => {
+      btn.addEventListener('click', handleRemoveLine);
+    });
+
+    recalculate();
+  }
+
+  function escapeHtml(str: string): string {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function handleLineInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    const id = parseInt(input.dataset.id!);
+    const field = input.dataset.field!;
+    const item = lineItems.find(i => i.id === id);
+    if (!item) return;
+
+    if (field === 'description') {
+      item.description = input.value;
+    } else if (field === 'qty') {
+      item.qty = parseFloat(input.value) || 0;
+    } else if (field === 'price') {
+      item.price = parseFloat(input.value) || 0;
+    }
+
+    // Update row total without full re-render
+    const row = input.closest('.grid')!;
+    const totalEl = row.querySelector('div:nth-child(4) div') as HTMLElement;
+    if (totalEl) {
+      totalEl.textContent = '$' + (item.qty * item.price).toFixed(2);
+    }
+
+    recalculate();
+  }
+
+  function handleRemoveLine(e: Event) {
+    const btn = e.currentTarget as HTMLElement;
+    const id = parseInt(btn.dataset.remove!);
+    lineItems = lineItems.filter(i => i.id !== id);
+    renderLineItems();
+  }
+
+  function addLineItem(description = '', price = 0) {
+    lineItems.push({ id: nextId++, description, qty: 1, price });
+    renderLineItems();
+  }
+
+  // --- Calculations ---
+  function recalculate() {
+    const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
+    const tax = subtotal * (taxRate / 100);
+    const total = subtotal + tax;
+
+    document.getElementById('result-subtotal')!.textContent = '$' + subtotal.toFixed(2);
+    document.getElementById('result-tax')!.textContent = '$' + tax.toFixed(2);
+    document.getElementById('result-total')!.textContent = '$' + total.toFixed(2);
+  }
+
+  // --- PDF Generation (print-ready HTML) ---
+  function generatePDF() {
+    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'Plumbing Company';
+    const companyAddress = (document.getElementById('companyAddress') as HTMLInputElement).value;
+    const companyPhone = (document.getElementById('companyPhone') as HTMLInputElement).value;
+    const companyEmail = (document.getElementById('companyEmail') as HTMLInputElement).value;
+    const licenseNum = (document.getElementById('licenseNum') as HTMLInputElement).value;
+    const bondNum = (document.getElementById('bondNum') as HTMLInputElement).value;
+    const invoiceNum = (document.getElementById('invoiceNum') as HTMLInputElement).value;
+    const invoiceDate = (document.getElementById('invoiceDate') as HTMLInputElement).value;
+    const dueDate = (document.getElementById('dueDate') as HTMLInputElement).value;
+
+    const customerName = (document.getElementById('customerName') as HTMLInputElement).value || 'Customer';
+    const customerAddress = (document.getElementById('customerAddress') as HTMLInputElement).value;
+    const customerPhone = (document.getElementById('customerPhone') as HTMLInputElement).value;
+    const customerEmail = (document.getElementById('customerEmail') as HTMLInputElement).value;
+
+    const jobType = (document.getElementById('jobType') as HTMLSelectElement).value;
+    const jobLocation = (document.getElementById('jobLocation') as HTMLInputElement).value;
+
+    const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
+    const paymentTerms = (document.getElementById('paymentTerms') as HTMLSelectElement).value;
+    const notes = (document.getElementById('notes') as HTMLTextAreaElement).value;
+
+    const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
+    const tax = subtotal * (taxRate / 100);
+    const total = subtotal + tax;
+
+    function formatDate(dateStr: string): string {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    const lineItemsHtml = lineItems
+      .filter(item => item.description || item.price > 0)
+      .map(item => `
+        <tr>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left;">${escapeHtml(item.description)}</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: center;">${item.qty}</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right;">$${item.price.toFixed(2)}</td>
+          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right; font-weight: 600;">$${(item.qty * item.price).toFixed(2)}</td>
+        </tr>
+      `).join('');
+
+    const jobInfoHtml = (jobType || jobLocation) ? `
+      <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
+        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">Job Information</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: #333;">
+          ${jobType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(jobType)}</div>` : ''}
+          ${jobLocation ? `<div><span style="color: #888;">Location:</span> ${escapeHtml(jobLocation)}</div>` : ''}
+        </div>
+      </div>
+    ` : '';
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice ${escapeHtml(invoiceNum)}</title>
+  <style>
+    @media print {
+      body { margin: 0; }
+      .no-print { display: none; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333; background: #fff; padding: 40px; max-width: 800px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 3px solid #333;">
+    <div>
+      <div style="font-size: 28px; font-weight: 800; color: #111; margin-bottom: 4px;">${escapeHtml(companyName)}</div>
+      ${companyAddress ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyAddress)}</div>` : ''}
+      ${companyPhone ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyPhone)}</div>` : ''}
+      ${companyEmail ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyEmail)}</div>` : ''}
+      ${licenseNum ? `<div style="font-size: 13px; color: #888; margin-top: 4px;">License: ${escapeHtml(licenseNum)}</div>` : ''}
+      ${bondNum ? `<div style="font-size: 13px; color: #888;">Bond: ${escapeHtml(bondNum)}</div>` : ''}
+    </div>
+    <div style="text-align: right;">
+      <div style="font-size: 36px; font-weight: 800; color: #111; letter-spacing: 0.04em;">INVOICE</div>
+      <div style="font-size: 14px; color: #555; margin-top: 4px;">${escapeHtml(invoiceNum)}</div>
+    </div>
+  </div>
+
+  <!-- Billing Details -->
+  <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+    <div>
+      <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Bill To</div>
+      <div style="font-size: 16px; font-weight: 600; color: #111;">${escapeHtml(customerName)}</div>
+      ${customerAddress ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerAddress)}</div>` : ''}
+      ${customerPhone ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerPhone)}</div>` : ''}
+      ${customerEmail ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerEmail)}</div>` : ''}
+    </div>
+    <div style="text-align: right;">
+      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Date:</span> ${formatDate(invoiceDate)}</div>
+      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Due:</span> ${formatDate(dueDate)}</div>
+      <div style="font-size: 14px; color: #555;"><span style="color: #888;">Terms:</span> ${escapeHtml(paymentTerms)}</div>
+    </div>
+  </div>
+
+  <!-- Job Info -->
+  ${jobInfoHtml}
+
+  <!-- Line Items Table -->
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+    <thead>
+      <tr style="background: #333; color: #fff;">
+        <th style="padding: 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Description</th>
+        <th style="padding: 12px; text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 70px;">Qty</th>
+        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Unit Price</th>
+        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${lineItemsHtml}
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
+    <div style="width: 280px;">
+      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555;">
+        <span>Subtotal</span>
+        <span>$${subtotal.toFixed(2)}</span>
+      </div>
+      ${taxRate > 0 ? `
+      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555; border-bottom: 1px solid #eee;">
+        <span>Tax (${taxRate}%)</span>
+        <span>$${tax.toFixed(2)}</span>
+      </div>
+      ` : ''}
+      <div style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 20px; font-weight: 800; color: #111; border-top: 2px solid #333;">
+        <span>Total Due</span>
+        <span>$${total.toFixed(2)}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  ${notes ? `
+  <div style="padding: 20px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #333;">
+    <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Notes & Warranty</div>
+    <div style="font-size: 13px; color: #555; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(notes)}</div>
+  </div>
+  ` : ''}
+
+  <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #aaa;">
+    Thank you for your business.
+  </div>
+
+  <script>window.onload = function() { window.print(); }<\/script>
+</body>
+</html>`;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(html);
+      printWindow.document.close();
+    }
+  }
+
+  // --- Init ---
+  initDefaults();
+  renderLineItems();
+
+  // Event listeners
+  document.getElementById('add-line-btn')?.addEventListener('click', () => addLineItem());
+
+  document.querySelectorAll('.quick-add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      const desc = el.dataset.quick || '';
+      const price = parseFloat(el.dataset.price || '0');
+      addLineItem(desc, price);
+    });
+  });
+
+  document.getElementById('taxRate')?.addEventListener('input', recalculate);
+  document.getElementById('generate-pdf-btn')?.addEventListener('click', generatePDF);
+</script>

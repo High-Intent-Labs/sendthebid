@@ -1,0 +1,409 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/plumbingTools';
+
+const tool = getToolBySlug('service-call-price-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much should I charge for a plumbing service call?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most plumbing service calls range from $175 to $500 total. This includes a diagnostic fee of $79-$129, labor at $85-$150 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What markup should I put on plumbing parts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The industry standard for plumbing is 100-200% markup on common parts like fill valves and wax rings, 75-150% on mid-range parts like garbage disposals and pressure regulators, and 50-100% on major fixtures like water heaters. This results in a 50-70% margin on parts, which covers truck inventory, warranty, and overhead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I charge tax on plumbing labor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate profit margin on a plumbing service call?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $375 and your costs are $150, your gross profit is $225 and your margin is 60%. A healthy plumbing service call margin is 40-60%."
+      }
+    }
+  ]
+};
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]}>
+  <div id="service-calc">
+    <!-- Service Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Details</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnostic-fee">Diagnostic Fee ($)</label>
+        <input type="number" id="diagnostic-fee" value="89" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Labor Hours</label>
+        <input type="number" id="labor-hours" value="1.5" min="0" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
+        <input type="number" id="billable-rate" value="125" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">
+          Your Loaded Wage ($/hr)
+          <span class="inline-block ml-1 text-text-muted cursor-help" title="Your actual cost per hour including benefits, insurance, workers comp, payroll taxes">&#9432;</span>
+        </label>
+        <input type="number" id="loaded-wage" value="42" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Parts Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts</h3>
+    <div class="mb-2 text-sm text-text-muted">Add parts used on this service call. Select a preset or enter custom values.</div>
+    <div id="parts-table" class="space-y-3 mb-4">
+      <!-- Part rows inserted here by JS -->
+    </div>
+    <button id="add-part-btn" class="bg-bg-dark border border-border rounded-lg px-5 py-2.5 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer">
+      + Add Part
+    </button>
+
+    <!-- Other -->
+    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Other</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit Fee ($)</label>
+        <input type="number" id="permit-fee" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tax-rate">
+          Tax Rate (%)
+        </label>
+        <input type="number" id="tax-rate" value="0" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1.5">Applied to parts only &mdash; labor is typically not taxed.</p>
+      </div>
+    </div>
+
+
+    <!-- Results -->
+    <div id="results" class="mt-8 border-t border-border pt-8">
+      <h3 class="font-heading font-bold text-xl mb-6">Customer Price Breakdown</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Customer Total</div>
+          <div id="result-customer-total" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
+          <div id="result-parts-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
+          <div id="result-labor-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-xl mb-6">Your Profitability</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit</div>
+          <div id="result-gross-profit" class="font-heading font-extrabold text-3xl text-[#34D399]">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit Margin</div>
+          <div id="result-profit-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Total Cost</div>
+          <div id="result-total-cost" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Profit per Hour</div>
+          <div id="result-profit-per-hour" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
+        </div>
+      </div>
+
+      <!-- Benchmark Bar -->
+      <div class="bg-bg-dark rounded-xl p-5 mt-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average Plumbing Service Call: $175 &ndash; $500</h4>
+        <div class="relative h-6 bg-bg-card rounded-full overflow-hidden border border-border">
+          <div class="absolute inset-0 flex">
+            <div class="w-1/3 bg-[rgba(52,211,153,0.15)] border-r border-border"></div>
+            <div class="w-1/3 bg-[rgba(251,191,36,0.1)] border-r border-border"></div>
+            <div class="w-1/3 bg-[rgba(239,68,68,0.1)]"></div>
+          </div>
+          <div id="benchmark-marker" class="absolute top-0 h-full w-1 bg-accent rounded transition-all" style="left: 0%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-text-muted mt-2">
+          <span>$0</span>
+          <span>$175</span>
+          <span>$350</span>
+          <span>$500</span>
+          <span>$700+</span>
+        </div>
+        <p id="benchmark-text" class="text-text-secondary text-sm mt-3">Your price: &mdash;</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content sections -->
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter your service details.</strong> Set your diagnostic fee, estimated labor hours, your billable hourly rate, and your loaded wage (your true cost per hour including benefits, insurance, and workers comp).</p>
+          <p><strong class="text-text-primary">2. Add parts.</strong> Use the preset dropdown to quickly add common plumbing parts with typical wholesale costs, or enter custom parts and costs. Set your markup percentage for each part individually.</p>
+          <p><strong class="text-text-primary">3. Review the breakdown.</strong> The calculator shows the customer's total price, your total cost, gross profit, profit margin, and profit per hour. Compare your price to the industry benchmark range.</p>
+        </div>
+      </section>
+
+      <!-- How Pricing Works -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Service Call Pricing Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>A plumbing service call price is built from three main components: <strong class="text-text-primary">diagnostic fee, labor, and parts</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
+            <p>Customer Total = Diagnostic + (Hours x Rate) + Parts Revenue + Permit + Tax</p>
+            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Parts + Permit</p>
+            <p>Gross Profit = Customer Total - Your Cost</p>
+          </div>
+          <p><strong class="text-text-primary">Why parts markup matters.</strong> Parts are often the highest-margin component of a service call. A 150% markup on a $12 fill valve means you charge $30 and keep $18. That $18 covers the cost of stocking the part on your truck, the warehouse overhead, and your diagnostic expertise. Without healthy parts margins, it is very difficult to run a profitable service department.</p>
+          <p><strong class="text-text-primary">Labor vs parts profitability.</strong> Labor revenue depends on how fast you work. If you bill 1.5 hours at $125/hr but the job takes 2 hours, your effective rate drops. Parts profit is locked in the moment you set the price. The most profitable plumbing service companies maximize both: fast plumbers with strong parts margins.</p>
+          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to parts and materials but not to labor for repair services. Always check your local tax rules because some states tax all services and some tax none.</p>
+        </div>
+      </section>
+
+      <!-- When To Use This -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">On-the-fly pricing in the field.</strong> You have diagnosed the problem, you know the parts needed, and you need to give the customer a price before you start work. Pull up this calculator on your phone, plug in the parts and labor, and present a confident total. No guessing, no calling the office, no accidentally undercharging.</p>
+          <p><strong class="text-text-primary">Training new plumbers on pricing.</strong> New plumbers often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how diagnostic fees, labor, and parts markup all add up. Show them what happens to profit margin when they discount the diagnostic fee or undercharge on parts.</p>
+          <p><strong class="text-text-primary">Comparing time-and-materials to flat rate.</strong> Enter a few common repair scenarios in this calculator and compare the totals to your flat rate price book. If your flat rate prices are consistently lower than what this calculator produces, you may be leaving money on the table. If they are higher, you have room to be competitive.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a plumbing service call?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most plumbing service calls range from $175 to $500 total. This includes a diagnostic fee of $79-$129, labor at $85-$150 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on plumbing parts?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry standard for plumbing is 100-200% markup on common parts like fill valves and wax rings, 75-150% on mid-range parts like garbage disposals and pressure regulators, and 50-100% on major fixtures like water heaters. This results in a 50-70% margin on parts, which covers truck inventory, warranty, and overhead.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on plumbing labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit margin on a plumbing service call?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $375 and your costs are $150, your gross profit is $225 and your margin is 60%. A healthy plumbing service call margin is 40-60%.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  // Preset plumbing parts with wholesale costs
+  const presetParts: Record<string, number> = {
+    'Faucet cartridge': 30,
+    'Wax ring': 8,
+    'Fill valve': 18,
+    'Flapper': 7,
+    'P-trap': 15,
+    'Angle stop': 22,
+    'Garbage disposal': 140,
+    'Pressure regulator': 75,
+    'Expansion tank': 60,
+    'Thermocouple': 22,
+  };
+
+  let partCounter = 0;
+
+  function addPartRow(name = '', cost = 0, markup = 150) {
+    const id = partCounter++;
+    const table = document.getElementById('parts-table')!;
+    const row = document.createElement('div');
+    row.className = 'grid grid-cols-1 md:grid-cols-[1fr_1fr_120px_120px_40px] gap-3 items-end part-row';
+    row.dataset.partId = String(id);
+
+    const presetOptions = Object.entries(presetParts).map(([n, c]) =>
+      `<option value="${n}" ${n === name ? 'selected' : ''}>${n} &mdash; $${c}</option>`
+    ).join('');
+
+    row.innerHTML = `
+      <div>
+        <label class="block text-xs font-medium text-text-muted mb-1">Part</label>
+        <select class="part-preset w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
+          <option value="">Custom part...</option>
+          ${presetOptions}
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-text-muted mb-1">Wholesale Cost ($)</label>
+        <input type="number" class="part-cost w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" value="${cost}" min="0" step="0.01" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-text-muted mb-1">Markup %</label>
+        <input type="number" class="part-markup w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" value="${markup}" min="0" step="1" />
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-text-muted mb-1">Sell Price</label>
+        <div class="part-sell-price bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-accent text-sm font-medium">&mdash;</div>
+      </div>
+      <div>
+        <button class="remove-part-btn mt-5 text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove part">&times;</button>
+      </div>
+    `;
+
+    table.appendChild(row);
+
+    // Preset dropdown change
+    const presetSelect = row.querySelector('.part-preset') as HTMLSelectElement;
+    const costInput = row.querySelector('.part-cost') as HTMLInputElement;
+
+    presetSelect.addEventListener('change', () => {
+      const selected = presetSelect.value;
+      if (selected && presetParts[selected] !== undefined) {
+        costInput.value = String(presetParts[selected]);
+      }
+      calculate();
+    });
+
+    // Input change listeners
+    row.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    // Remove button
+    row.querySelector('.remove-part-btn')!.addEventListener('click', () => {
+      row.remove();
+      calculate();
+    });
+
+    // If a name was passed and it matches a preset, auto-fill cost
+    if (name && presetParts[name] !== undefined && cost === 0) {
+      costInput.value = String(presetParts[name]);
+    }
+
+    updatePartSellPrice(row);
+    calculate();
+  }
+
+  function updatePartSellPrice(row: Element) {
+    const cost = parseFloat((row.querySelector('.part-cost') as HTMLInputElement).value) || 0;
+    const markup = parseFloat((row.querySelector('.part-markup') as HTMLInputElement).value) || 0;
+    const sellPrice = cost * (1 + markup / 100);
+    (row.querySelector('.part-sell-price') as HTMLElement).textContent = `$${sellPrice.toFixed(2)}`;
+  }
+
+  function calculate() {
+    // Service details
+    const diagnosticFee = parseFloat((document.getElementById('diagnostic-fee') as HTMLInputElement).value) || 0;
+    const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
+    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
+    const loadedWage = parseFloat((document.getElementById('loaded-wage') as HTMLInputElement).value) || 0;
+
+    // Labor calculations
+    const laborRevenue = laborHours * billableRate;
+    const laborCost = laborHours * loadedWage;
+
+    // Parts calculations
+    let partsRevenue = 0;
+    let partsCost = 0;
+    document.querySelectorAll('.part-row').forEach(row => {
+      updatePartSellPrice(row);
+      const cost = parseFloat((row.querySelector('.part-cost') as HTMLInputElement).value) || 0;
+      const markup = parseFloat((row.querySelector('.part-markup') as HTMLInputElement).value) || 0;
+      const sellPrice = cost * (1 + markup / 100);
+      partsCost += cost;
+      partsRevenue += sellPrice;
+    });
+
+    // Other
+    const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
+    const taxRate = parseFloat((document.getElementById('tax-rate') as HTMLInputElement).value) || 0;
+
+    // Tax applies to parts only
+    const taxableAmount = partsRevenue;
+    const taxAmount = taxableAmount * (taxRate / 100);
+
+    // Totals
+    const customerTotal = diagnosticFee + laborRevenue + partsRevenue + permitFee + taxAmount;
+    const totalCost = laborCost + partsCost + permitFee;
+    const grossProfit = customerTotal - totalCost;
+    const profitMargin = customerTotal > 0 ? (grossProfit / customerTotal) * 100 : 0;
+    const profitPerHour = laborHours > 0 ? grossProfit / laborHours : 0;
+
+    // Update customer side results
+    document.getElementById('result-customer-total')!.textContent = `$${customerTotal.toFixed(0)}`;
+    document.getElementById('result-parts-revenue')!.textContent = `$${partsRevenue.toFixed(0)}`;
+    document.getElementById('result-labor-revenue')!.textContent = `$${(diagnosticFee + laborRevenue).toFixed(0)}`;
+
+    // Update profitability results
+    document.getElementById('result-gross-profit')!.textContent = `$${grossProfit.toFixed(0)}`;
+    document.getElementById('result-total-cost')!.textContent = `$${totalCost.toFixed(0)}`;
+    document.getElementById('result-profit-per-hour')!.textContent = `$${profitPerHour.toFixed(0)}/hr`;
+
+    // Profit margin with color coding
+    const marginEl = document.getElementById('result-profit-margin')!;
+    marginEl.textContent = `${profitMargin.toFixed(1)}%`;
+    marginEl.className = 'font-heading font-extrabold text-3xl';
+    if (profitMargin < 30) {
+      marginEl.classList.add('text-red-400');
+    } else if (profitMargin < 50) {
+      marginEl.classList.add('text-yellow-400');
+    } else {
+      marginEl.classList.add('text-[#34D399]');
+    }
+
+    // Benchmark bar (range $0 - $700+)
+    const maxBenchmark = 700;
+    const markerPct = Math.min((customerTotal / maxBenchmark) * 100, 100);
+    const marker = document.getElementById('benchmark-marker')!;
+    marker.style.left = `${markerPct}%`;
+
+    let benchmarkNote = '';
+    if (customerTotal < 175) {
+      benchmarkNote = 'Below average range. Make sure your margins are healthy.';
+    } else if (customerTotal <= 500) {
+      benchmarkNote = 'Within the typical range for plumbing service calls.';
+    } else {
+      benchmarkNote = 'Above average. Justified for major repairs or premium service.';
+    }
+    document.getElementById('benchmark-text')!.textContent = `Your price: $${customerTotal.toFixed(0)} \u2014 ${benchmarkNote}`;
+  }
+
+  // Add Part button
+  document.getElementById('add-part-btn')?.addEventListener('click', () => addPartRow());
+
+  // Auto-calculate on any input/select change within the calculator
+  document.querySelectorAll('#service-calc > .grid input, #service-calc > .grid select, #service-calc input[id="permit-fee"], #service-calc input[id="tax-rate"]').forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  // Initialize with one part row and run initial calculation
+  addPartRow('Fill valve', 18, 150);
+  calculate();
+</script>

@@ -10,15 +10,15 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much should I charge for an HVAC service call?",
+      "name": "How much should I charge for a Cleaning service call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
+        "text": "Most Cleaning service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I put on HVAC parts?",
+      "name": "What markup should I put on Cleaning parts?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead."
@@ -26,7 +26,7 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should I charge tax on Cleaning labor?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional."
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "How do I calculate profit margin on a service call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy HVAC service call margin is 40-60%."
+        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy Cleaning service call margin is 40-60%."
       }
     }
   ]
@@ -80,11 +80,11 @@ const faqSchema = {
       + Add Part
     </button>
 
-    <!-- Refrigerant Section -->
-    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Refrigerant (optional)</h3>
+    <!-- Supplies Section -->
+    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Supplies (optional)</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Refrigerant Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Supply Type</label>
         <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           <option value="none">None</option>
           <option value="r410a">R-410A</option>
@@ -92,15 +92,15 @@ const faqSchema = {
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-lbs">Pounds Added</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-lbs">Quantity Added</label>
         <input type="number" id="refrigerant-lbs" value="0" min="0" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-cost">Your Cost per lb ($)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-cost">Your Cost per Unit ($)</label>
         <input type="number" id="refrigerant-cost" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-price">Customer Price per lb ($)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-price">Customer Price per Unit ($)</label>
         <input type="number" id="refrigerant-price" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
       </div>
     </div>
@@ -117,7 +117,7 @@ const faqSchema = {
           Tax Rate (%)
         </label>
         <input type="number" id="tax-rate" value="0" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1.5">Applied to parts and refrigerant only &mdash; labor is typically not taxed.</p>
+        <p class="text-text-muted text-xs mt-1.5">Applied to parts and materials only &mdash; labor is typically not taxed.</p>
       </div>
     </div>
 
@@ -139,7 +139,7 @@ const faqSchema = {
           <div id="result-labor-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Refrigerant Revenue</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Supply Revenue</div>
           <div id="result-refrigerant-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
       </div>
@@ -166,7 +166,7 @@ const faqSchema = {
 
       <!-- Benchmark Bar -->
       <div class="bg-bg-dark rounded-xl p-5 mt-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average HVAC Service Call: $200 &ndash; $600</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average Cleaning Service Call: $200 &ndash; $600</h4>
         <div class="relative h-6 bg-bg-card rounded-full overflow-hidden border border-border">
           <div class="absolute inset-0 flex">
             <div class="w-1/3 bg-[rgba(52,211,153,0.15)] border-r border-border"></div>
@@ -195,8 +195,8 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your service details.</strong> Set your diagnostic fee, estimated labor hours, your billable hourly rate, and your loaded wage (your true cost per hour including benefits, insurance, and workers comp).</p>
-          <p><strong class="text-text-primary">2. Add parts.</strong> Use the preset dropdown to quickly add common HVAC parts with typical wholesale costs, or enter custom parts and costs. Set your markup percentage for each part individually.</p>
-          <p><strong class="text-text-primary">3. Add refrigerant if applicable.</strong> Select the refrigerant type and pounds added. The calculator auto-fills typical cost and customer pricing for R-410A and R-22.</p>
+          <p><strong class="text-text-primary">2. Add parts.</strong> Use the preset dropdown to quickly add common Cleaning parts with typical wholesale costs, or enter custom parts and costs. Set your markup percentage for each part individually.</p>
+          <p><strong class="text-text-primary">3. Add supplies if applicable.</strong> Select the type and quantity. The calculator provides typical cost and pricing guidance.</p>
           <p><strong class="text-text-primary">4. Review the breakdown.</strong> The calculator shows the customer's total price, your total cost, gross profit, profit margin, and profit per hour. Compare your price to the industry benchmark range.</p>
         </div>
       </section>
@@ -205,15 +205,15 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How Service Call Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A service call price is built from four components: <strong class="text-text-primary">diagnostic fee, labor, parts, and refrigerant</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
+          <p>A service call price is built from four components: <strong class="text-text-primary">diagnostic fee, labor, parts, and materials</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Customer Total = Diagnostic + (Hours x Rate) + Parts Revenue + Refrigerant Revenue + Permit + Tax</p>
-            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Parts + Refrigerant Cost + Permit</p>
+            <p>Customer Total = Diagnostic + (Hours x Rate) + Parts Revenue + Supply Revenue + Permit + Tax</p>
+            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Parts + Materials Cost + Permit</p>
             <p>Gross Profit = Customer Total - Your Cost</p>
           </div>
           <p><strong class="text-text-primary">Why parts markup matters.</strong> Parts are often the highest-margin component of a service call. A 200% markup on a $25 contactor means you charge $75 and keep $50. That $50 covers the cost of stocking the part on your truck, the warehouse overhead, and your diagnostic expertise. Without healthy parts margins, it is very difficult to run a profitable service department.</p>
           <p><strong class="text-text-primary">Labor vs parts profitability.</strong> Labor revenue depends on how fast you work. If you bill 1.5 hours at $125/hr but the job takes 2 hours, your effective rate drops. Parts profit is locked in the moment you set the price. The most profitable service companies maximize both: fast techs with strong parts margins.</p>
-          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to parts and materials but not to labor for repair services. Refrigerant is typically taxable as a material. Always check your local tax rules because some states tax all services and some tax none.</p>
+          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to parts and materials but not to labor for repair services. Materials are typically taxable. Always check your local tax rules because some states tax all services and some tax none.</p>
         </div>
       </section>
 
@@ -222,7 +222,7 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">On-the-fly pricing in the field.</strong> You have diagnosed the problem, you know the parts needed, and you need to give the customer a price before you start work. Pull up this calculator on your phone, plug in the parts and labor, and present a confident total. No guessing, no calling the office, no accidentally undercharging.</p>
-          <p><strong class="text-text-primary">Training new technicians on pricing.</strong> New techs often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how diagnostic fees, labor, parts markup, and refrigerant all add up. Show them what happens to profit margin when they discount the diagnostic fee or undercharge on parts.</p>
+          <p><strong class="text-text-primary">Training new technicians on pricing.</strong> New techs often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how diagnostic fees, labor, parts markup, and materials all add up. Show them what happens to profit margin when they discount the diagnostic fee or undercharge on parts.</p>
           <p><strong class="text-text-primary">Comparing time-and-materials to flat rate.</strong> Enter a few common repair scenarios in this calculator and compare the totals to your flat rate price book. If your flat rate prices are consistently lower than what this calculator produces, you may be leaving money on the table. If they are higher, you have room to be competitive.</p>
         </div>
       </section>
@@ -232,20 +232,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for an HVAC service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a Cleaning service call?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Cleaning service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on HVAC parts?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on Cleaning parts?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on Cleaning labor?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit margin on a service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy HVAC service call margin is 40-60%.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy Cleaning service call margin is 40-60%.</div>
           </details>
         </div>
       </section>
@@ -262,7 +262,7 @@ const faqSchema = {
     'TXV Valve': 85,
     'Compressor': 650,
     'Control Board': 175,
-    'Thermostat': 35,
+    'Dispenser': 35,
   };
 
   const refrigerantPricing: Record<string, { cost: number; price: number }> = {
@@ -372,7 +372,7 @@ const faqSchema = {
       partsRevenue += sellPrice;
     });
 
-    // Refrigerant calculations
+    // Materials calculations
     const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
     const refLbs = parseFloat((document.getElementById('refrigerant-lbs') as HTMLInputElement).value) || 0;
     const refCostPerLb = parseFloat((document.getElementById('refrigerant-cost') as HTMLInputElement).value) || 0;
@@ -384,7 +384,7 @@ const faqSchema = {
     const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
     const taxRate = parseFloat((document.getElementById('tax-rate') as HTMLInputElement).value) || 0;
 
-    // Tax applies to parts and refrigerant only
+    // Tax applies to parts and materials only
     const taxableAmount = partsRevenue + refrigerantRevenue;
     const taxAmount = taxableAmount * (taxRate / 100);
 
@@ -428,7 +428,7 @@ const faqSchema = {
     if (customerTotal < 200) {
       benchmarkNote = 'Below average range. Make sure your margins are healthy.';
     } else if (customerTotal <= 600) {
-      benchmarkNote = 'Within the typical range for HVAC service calls.';
+      benchmarkNote = 'Within the typical range for Cleaning service calls.';
     } else {
       benchmarkNote = 'Above average. Justified for major repairs or premium service.';
     }
@@ -437,7 +437,7 @@ const faqSchema = {
     // Show results
   }
 
-  // Refrigerant type change handler
+  // Materials type change handler
   document.getElementById('refrigerant-type')?.addEventListener('change', () => {
     const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
     const costInput = document.getElementById('refrigerant-cost') as HTMLInputElement;
@@ -470,7 +470,7 @@ const faqSchema = {
     el.addEventListener('change', calculate);
   });
 
-  // Also listen on refrigerant inputs
+  // Also listen on materials inputs
   document.getElementById('refrigerant-lbs')?.addEventListener('input', calculate);
   document.getElementById('refrigerant-cost')?.addEventListener('input', calculate);
   document.getElementById('refrigerant-price')?.addEventListener('input', calculate);

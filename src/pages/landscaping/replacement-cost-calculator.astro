@@ -10,15 +10,15 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much does a new HVAC system cost?",
+      "name": "How much does a new Landscaping system cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A new HVAC system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency AC and furnace for a 3-ton home averages around $6,500, while a high-efficiency heat pump system can run $11,500 or more before regional and complexity adjustments."
+        "text": "A new Landscaping system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency primary systems for a average home averages around $6,500, while a high-efficiency high-efficiency system can run $11,500 or more before regional and complexity adjustments."
       }
     },
     {
       "@type": "Question",
-      "name": "What size HVAC system do I need?",
+      "name": "What size Landscaping system do I need?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "System size is measured in tons and depends on your home's square footage, insulation, climate, and layout. A rough rule of thumb is 1 ton per 500-600 square feet, but a proper Manual J load calculation is required for accurate sizing. Oversized systems short-cycle and waste energy, while undersized systems can't keep up on extreme days."
@@ -26,18 +26,18 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "Are there tax credits for new HVAC systems?",
+      "name": "Are there tax credits for new Landscaping systems?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying heat pump systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and furnaces may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details."
+        "text": "Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying high-efficiency systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and systems may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details."
       }
     },
     {
       "@type": "Question",
-      "name": "How long does HVAC installation take?",
+      "name": "How long does Landscaping installation take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new ductwork is required, expect 2-3 days. Converting from one system type to another (e.g., furnace to heat pump) may take 1-2 days. Complex multi-zone mini-split installations can take 2-4 days depending on the number of indoor units and line set routing."
+        "text": "A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new system work is required, expect 2-3 days. Converting from one system type to another (e.g., system to high-efficiency option) may take 1-2 days. Complex multi-zone premium installations can take 2-4 days depending on the number of indoor units and line set routing."
       }
     }
   ]
@@ -51,20 +51,20 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="systemType">System Type</label>
         <select id="systemType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="ac-furnace">AC + Furnace</option>
-          <option value="heat-pump">Heat Pump</option>
-          <option value="mini-1">Mini-Split 1-Zone</option>
-          <option value="mini-2">Mini-Split 2-Zone</option>
-          <option value="mini-3">Mini-Split 3-Zone</option>
-          <option value="mini-4">Mini-Split 4-Zone</option>
+          <option value="standard-system">Standard System</option>
+          <option value="heat-pump">Premium Option</option>
+          <option value="mini-1">Option 1-Zone</option>
+          <option value="mini-2">Option 2-Zone</option>
+          <option value="mini-3">Option 3-Zone</option>
+          <option value="mini-4">Option 4-Zone</option>
         </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="efficiency">Efficiency Level</label>
         <select id="efficiency" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="standard">Standard (14 SEER / 80% AFUE)</option>
-          <option value="mid" selected>Mid-Range (16 SEER / 96% AFUE)</option>
-          <option value="high">High Efficiency (20 SEER / 98% AFUE)</option>
+          <option value="standard">Standard (14 efficiency / 80% efficiency)</option>
+          <option value="mid" selected>Mid-Range (16 efficiency / 96% efficiency)</option>
+          <option value="high">High Efficiency (high-efficiency)</option>
         </select>
       </div>
       <div>
@@ -102,11 +102,11 @@ const faqSchema = {
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ductwork">Ductwork</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ductwork">Project Complexity</label>
         <select id="ductwork" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           <option value="1.0" selected>Existing (good condition)</option>
           <option value="1.15">Partial Modification Needed</option>
-          <option value="1.5">New Ductwork Required</option>
+          <option value="1.5">Major Renovation Required</option>
         </select>
       </div>
     </div>
@@ -154,11 +154,11 @@ const faqSchema = {
         <div id="tax-credit-card" class="hidden bg-bg-dark rounded-xl p-5 text-center border border-green-500/30">
           <div class="text-green-400 text-xs font-medium uppercase tracking-wider mb-2">Federal Tax Credit</div>
           <div class="font-heading font-extrabold text-2xl text-green-400">Up to $2,000</div>
-          <div class="text-text-muted text-xs mt-1">25C credit for qualifying heat pumps</div>
+          <div class="text-text-muted text-xs mt-1">25C credit for qualifying high-efficiency options</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">This is a ballpark estimate based on national averages. Actual costs vary by contractor, equipment brand, and job-specific conditions. Get exact pricing from a licensed HVAC contractor in your area.</p>
+      <p class="text-text-muted text-sm italic">This is a ballpark estimate based on national averages. Actual costs vary by contractor, equipment brand, and job-specific conditions. Get exact pricing from a licensed Landscaping contractor in your area.</p>
     </div>
   </div>
 
@@ -169,22 +169,22 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select your system type.</strong> Choose between a traditional AC and furnace combo, a heat pump, or a ductless mini-split system. Mini-splits are priced by the number of indoor zones.</p>
+          <p><strong class="text-text-primary">1. Select your system type.</strong> Choose between a traditional primary systems combo, a high-efficiency option, or a premium system. Premium options are priced by the number of indoor zones.</p>
           <p><strong class="text-text-primary">2. Pick your efficiency level.</strong> Standard efficiency costs less upfront but more to operate. High-efficiency systems cost more to install but lower monthly energy bills and may qualify for federal tax credits.</p>
           <p><strong class="text-text-primary">3. Set the system size and your region.</strong> Tonnage should match your home's load calculation. Regional labor and material costs vary significantly, with the Southeast being most affordable and the West Coast being most expensive.</p>
-          <p><strong class="text-text-primary">4. Adjust for home complexity and ductwork.</strong> Multi-story homes, attic installations, and crawlspaces add labor time. New ductwork can add 50% to the total project cost.</p>
+          <p><strong class="text-text-primary">4. Adjust for complexity.</strong> Multi-story homes, difficult access, and special requirements add labor time. Major system changes can add 50% to the total project cost.</p>
         </div>
       </section>
 
       <!-- What Affects Cost -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Affects HVAC Replacement Cost</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Affects Landscaping Replacement Cost</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">System type and efficiency.</strong> The biggest cost driver is the equipment itself. A basic 14 SEER air conditioner with an 80% furnace is the most affordable option. Heat pumps cost slightly less for the equipment but provide both heating and cooling. High-efficiency units (20 SEER / 98% AFUE) can cost double the standard models.</p>
+          <p><strong class="text-text-primary">System type and efficiency.</strong> The biggest cost driver is the equipment itself. A basic standard efficiency system is the most affordable option. High-efficiency options cost slightly less for the equipment but provide both heating and cooling. High-efficiency units (high-efficiency) can cost double the standard models.</p>
           <p><strong class="text-text-primary">System size.</strong> Larger homes need larger systems. The cost scales roughly proportionally with tonnage. A 5-ton system costs significantly more than a 2-ton system in both equipment and labor.</p>
           <p><strong class="text-text-primary">Regional pricing.</strong> Labor rates, permit costs, and material availability vary by region. Southeastern states tend to have the lowest installation costs, while the West Coast and Northeast are the most expensive markets.</p>
-          <p><strong class="text-text-primary">Home complexity.</strong> Multi-story homes require more refrigerant line, longer duct runs, and scaffolding or ladder work. Attic installations in hot climates add difficulty and time. Crawlspace work is physically demanding and slows the job down.</p>
-          <p><strong class="text-text-primary">Ductwork condition.</strong> If your existing ductwork is in good shape, the contractor simply connects the new system. Partial modifications (adding a return, resizing a trunk line) add moderate cost. A full duct replacement is a major project that can increase the total price by 50%.</p>
+          <p><strong class="text-text-primary">Home complexity.</strong> Multi-story homes require more additional materials, longer runs, and difficult access. Work in tight spaces, at height, or in extreme weather adds difficulty and time. Complex jobs with multiple components take longer and cost more.</p>
+          <p><strong class="text-text-primary">System condition.</strong> If your existing existing systems are in good shape, the contractor simply connects the new system. Partial modifications (adding a return, resizing a trunk line) add moderate cost. A full system overhaul is a major project that can increase the total price by 50%.</p>
         </div>
       </section>
 
@@ -192,7 +192,7 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">During sales visits.</strong> Pull this up on your tablet while sitting at the kitchen table with a homeowner. Walk through the options together, show them how efficiency level and ductwork condition affect the price, and set realistic expectations before running your detailed proposal.</p>
+          <p><strong class="text-text-primary">During sales visits.</strong> Pull this up on your tablet while sitting at the kitchen table with a homeowner. Walk through the options together, show them how efficiency level and system condition affect the price, and set realistic expectations before running your detailed proposal.</p>
           <p><strong class="text-text-primary">Phone estimates.</strong> When a homeowner calls asking "how much for a new AC?" you can walk them through a few questions and give a ballpark range on the spot. This builds trust and qualifies the lead before scheduling an in-home visit.</p>
           <p><strong class="text-text-primary">Website lead generation.</strong> Embed this calculator on your website so homeowners can self-educate on pricing. Visitors who use the tool and then call you are better-informed and more likely to convert because they already have realistic price expectations.</p>
         </div>
@@ -203,20 +203,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a new HVAC system cost?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A new HVAC system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency AC and furnace for a 3-ton home averages around $6,500, while a high-efficiency heat pump system can run $11,500 or more before regional and complexity adjustments.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a new Landscaping system cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A new Landscaping system typically costs between $5,000 and $15,000 installed, depending on system type, efficiency level, home size, and region. A standard efficiency primary systems for a average home averages around $6,500, while a high-efficiency high-efficiency system can run $11,500 or more before regional and complexity adjustments.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size HVAC system do I need?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size Landscaping system do I need?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">System size is measured in tons and depends on your home's square footage, insulation, climate, and layout. A rough rule of thumb is 1 ton per 500-600 square feet, but a proper Manual J load calculation is required for accurate sizing. Oversized systems short-cycle and waste energy, while undersized systems can't keep up on extreme days.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Are there tax credits for new HVAC systems?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying heat pump systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and furnaces may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Are there tax credits for new Landscaping systems?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. The federal 25C energy efficiency tax credit offers up to $2,000 for qualifying high-efficiency systems installed in your primary residence. The system must meet specific efficiency requirements (CEE Tier 1 or higher). Standard air conditioners and systems may qualify for a smaller $600 credit. Check with your tax advisor for current eligibility details.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does HVAC installation take?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new ductwork is required, expect 2-3 days. Converting from one system type to another (e.g., furnace to heat pump) may take 1-2 days. Complex multi-zone mini-split installations can take 2-4 days depending on the number of indoor units and line set routing.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does Landscaping installation take?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A straightforward like-for-like replacement typically takes 1 day (6-10 hours). If new system work is required, expect 2-3 days. Converting from one system type to another (e.g., system to high-efficiency option) may take 1-2 days. Complex multi-zone premium installations can take 2-4 days depending on the number of indoor units and line set routing.</div>
           </details>
         </div>
       </section>
@@ -235,7 +235,7 @@ const faqSchema = {
 
     // Base prices by system type and efficiency
     const basePrices: Record<string, Record<string, number>> = {
-      'ac-furnace': { standard: 6500, mid: 9000, high: 13000 },
+      'standard-system': { standard: 6500, mid: 9000, high: 13000 },
       'heat-pump': { standard: 5500, mid: 8000, high: 11500 },
       'mini-1': { standard: 4500, mid: 4500, high: 4500 },
       'mini-2': { standard: 7000, mid: 7000, high: 7000 },
@@ -245,8 +245,8 @@ const faqSchema = {
 
     const basePrice = basePrices[systemType]?.[efficiency] ?? 9000;
 
-    // Formula: Base_Price x Regional x (Tons/3.0) x Complexity x Ductwork
-    const estimatedCost = basePrice * region * (tons / 3.0) * homeType * ductwork;
+    // Formula: Base_Price x Regional x (Tons/3.0) x Complexity x Complexity
+    const estimatedCost = basePrice * region * (size / 1.0) * homeType * ductwork;
 
     const low = Math.round(estimatedCost * 0.8);
     const mid = Math.round(estimatedCost);
@@ -263,7 +263,7 @@ const faqSchema = {
     document.getElementById('result-monthly60')!.textContent = fmt(monthly60);
     document.getElementById('result-monthly120')!.textContent = fmt(monthly120);
 
-    // Show/hide tax credit for heat pump and mini-split systems
+    // Show/hide tax credit for high-efficiency option and premium option systems
     const taxCreditCard = document.getElementById('tax-credit-card')!;
     const isHeatPump = systemType === 'heat-pump' || systemType.startsWith('mini-');
     taxCreditCard.classList.toggle('hidden', !isHeatPump);

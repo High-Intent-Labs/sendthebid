@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be included on an HVAC invoice?",
+      "name": "What should be included on a general contractor invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number."
+        "text": "A professional GC invoice should include your company name, address, phone, and contractor license number. It should list the customer name, project address, project type, and permit number if applicable. Itemize all labor, materials, subcontractor charges, and any markups. Include payment terms, warranty language, and the invoice date and number."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I create a professional HVAC invoice?",
+      "name": "How do I create a professional contractor invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use a dedicated HVAC invoice generator that includes fields specific to the trade — equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
+        "text": "Use a contractor-specific invoice generator that includes fields for project details, permit numbers, and itemized line items for labor, materials, and subcontractor work. Fill in your company details, customer and project info, add each charge as a separate line item with quantities and prices, set your tax rate and payment terms, and generate a PDF."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should a general contractor charge tax on labor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
+        "text": "Tax rules vary by state and municipality. In most states, materials are taxable but labor is not when billed separately. However, some states tax the entire invoice including labor when it is part of a construction contract. Check your state department of revenue guidelines or consult your accountant."
       }
     },
     {
       "@type": "Question",
-      "name": "What payment terms are standard for HVAC?",
+      "name": "What payment terms are standard for general contractors?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues."
+        "text": "For smaller projects under $10,000, Due on Completion or Net 15 is common. For larger remodeling and renovation projects, most GCs use a progress payment schedule: 30-50% deposit, progress payments at milestones, and a final payment on completion. Commercial work typically uses Net 30."
       }
     }
   ]
@@ -46,12 +46,11 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="invoice-gen">
-    <!-- Company Info -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-        <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyName" placeholder="Your Construction Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -59,11 +58,11 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-        <input type="text" id="companyEmail" placeholder="office@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyEmail" placeholder="office@yourcompany.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-        <input type="text" id="licenseNum" placeholder="HVAC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">GC License #</label>
+        <input type="text" id="licenseNum" placeholder="GC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceNum">Invoice #</label>
@@ -81,7 +80,6 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Customer Info -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
@@ -98,35 +96,34 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Project Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipmentType">Equipment Type</label>
-        <select id="equipmentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Central AC</option>
-          <option value="Heat Pump">Heat Pump</option>
-          <option value="Furnace">Furnace</option>
-          <option value="Mini Split">Mini Split</option>
-          <option value="Boiler">Boiler</option>
-          <option value="Package Unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="projectType">Project Type</label>
+        <select id="projectType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Kitchen Remodel">Kitchen Remodel</option>
+          <option value="Bathroom Remodel">Bathroom Remodel</option>
+          <option value="Room Addition">Room Addition</option>
+          <option value="Whole-House Renovation">Whole-House Renovation</option>
+          <option value="Deck / Patio">Deck / Patio</option>
+          <option value="Basement Finish">Basement Finish</option>
+          <option value="Siding / Exterior">Siding / Exterior</option>
+          <option value="Roofing">Roofing</option>
+          <option value="New Construction">New Construction</option>
+          <option value="Commercial Buildout">Commercial Buildout</option>
+          <option value="Other">Other</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipMake">Make</label>
-        <input type="text" id="equipMake" placeholder="Carrier, Trane, Lennox..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="permitNum">Permit #</label>
+        <input type="text" id="permitNum" placeholder="BP-2024-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipModel">Model</label>
-        <input type="text" id="equipModel" placeholder="Model number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipSerial">Serial #</label>
-        <input type="text" id="equipSerial" placeholder="Serial number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="projectAddress">Project Address (if different)</label>
+        <input type="text" id="projectAddress" placeholder="456 Oak Ave, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Line Items -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Line Items</h3>
     <div class="mb-3">
       <div class="hidden md:grid grid-cols-[1fr_80px_120px_120px_40px] gap-3 mb-2 px-1">
@@ -136,24 +133,20 @@ const faqSchema = {
         <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Total</span>
         <span></span>
       </div>
-      <div id="line-items" class="space-y-3">
-        <!-- Line items injected by JS -->
-      </div>
+      <div id="line-items" class="space-y-3"></div>
     </div>
-
     <div class="flex flex-wrap gap-3 mb-8">
-      <button id="add-line-btn" class="bg-bg-dark border border-border text-text-primary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">
-        + Add Line Item
-      </button>
+      <button id="add-line-btn" class="bg-bg-dark border border-border text-text-primary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">+ Add Line Item</button>
       <span class="text-text-muted text-xs self-center">Quick add:</span>
-      <button data-quick="Diagnostic Fee" data-price="89" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Diagnostic Fee ($89)</button>
-      <button data-quick="Capacitor" data-price="195" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Capacitor ($195)</button>
-      <button data-quick="Contactor" data-price="225" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Contactor ($225)</button>
-      <button data-quick="Blower Motor" data-price="575" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Blower Motor ($575)</button>
-      <button data-quick="Refrigerant R-410A (/lb)" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Refrigerant R-410A (/lb)</button>
+      <button data-quick="Demolition" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Demolition</button>
+      <button data-quick="Framing Labor" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Framing</button>
+      <button data-quick="Drywall Install &amp; Finish" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Drywall</button>
+      <button data-quick="Lumber &amp; Materials" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Lumber</button>
+      <button data-quick="Permit Fee" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Permit Fee</button>
+      <button data-quick="Sub - Electrical" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Sub - Electrical</button>
+      <button data-quick="Sub - Plumbing" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Sub - Plumbing</button>
     </div>
 
-    <!-- Bottom Section -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Invoice Settings</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
@@ -163,21 +156,20 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
         <select id="paymentTerms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Due on Receipt">Due on Receipt</option>
+          <option value="Due on Completion">Due on Completion</option>
           <option value="Net 15">Net 15</option>
           <option value="Net 30" selected>Net 30</option>
+          <option value="50% Deposit / 50% on Completion">50/50 Split</option>
+          <option value="Progress Billing">Progress Billing</option>
         </select>
       </div>
-      <div class="md:col-span-1">
-        <!-- spacer for alignment -->
-      </div>
+      <div></div>
       <div class="md:col-span-3">
         <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Warranty</label>
-        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Equipment: 10 yr parts / 1 yr labor. 30-day workmanship guarantee.</textarea>
+        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">1-year workmanship warranty on all labor. Materials covered by manufacturer warranty. All work per approved plans and local building code.</textarea>
       </div>
     </div>
 
-    <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Invoice Totals</h3>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -194,70 +186,58 @@ const faqSchema = {
           <div id="result-total" class="font-heading font-extrabold text-3xl text-accent">$0.00</div>
         </div>
       </div>
-
-      <!-- Generate PDF Button -->
-      <button id="generate-pdf-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
-        Generate PDF &rarr;
-      </button>
+      <button id="generate-pdf-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">Generate PDF &rarr;</button>
       <p class="text-text-muted text-sm italic mt-3">Opens a print-ready invoice in a new window. Use your browser's print dialog to save as PDF.</p>
     </div>
   </div>
 
-  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
-      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Generator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and contractor license number. These appear in the invoice header and build trust with customers.</p>
-          <p><strong class="text-text-primary">2. Add customer and system info.</strong> Enter the customer's name, address, and phone. Then log the equipment type, make, model, and serial number so every invoice ties back to the specific unit you serviced.</p>
-          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each part and labor charge individually, or use the quick-add buttons for common HVAC items. Set quantities and unit prices, and the totals calculate automatically.</p>
-          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add warranty language or job notes in the notes field.</p>
-          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice in a new window. Use your browser's print function to save it as a PDF or send it directly to a printer.</p>
+          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and GC license number. These appear in the invoice header and build credibility with clients.</p>
+          <p><strong class="text-text-primary">2. Add customer and project info.</strong> Enter the client name, address, and phone. Then fill in the project type, permit number, and project address so the invoice ties directly to the job.</p>
+          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each charge as a separate line item: labor, materials, subcontractor costs, permit fees, and any markups. Use the quick-add buttons for common GC line items, or add custom entries.</p>
+          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate, choose payment terms, and add warranty language or project notes in the notes field.</p>
+          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice. Use your browser's print function to save as PDF.</p>
         </div>
       </section>
-
-      <!-- What Makes a Professional Invoice -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional HVAC Invoice</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Contractor Invoice</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A professional HVAC invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
-          <p>The system section is what separates an HVAC invoice from a generic template. Logging the equipment type, make, model, and serial number creates a service history for that unit. When the customer calls back in two years, you can pull the serial number and know exactly what was done previously.</p>
-          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "AC repair - $500," break it out: diagnostic fee, capacitor replacement, labor for install. Customers respect transparency, and it makes warranty claims simpler if a specific part fails.</p>
-          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup is a 10-year manufacturer parts warranty, 1-year labor warranty, and a 30-day workmanship guarantee. Having it on the invoice means there is no ambiguity later.</p>
+          <p>A professional contractor invoice documents the work performed, protects both parties, and supports your lien rights in many states. Include your company name, GC license number, and full contact information at the top.</p>
+          <p>The project section separates a contractor invoice from a generic template. Recording the project type, address, and permit number creates a paper trail for inspections, warranty claims, and potential disputes.</p>
+          <p>Itemized line items with clear descriptions prevent payment disputes. Break work into demolition, framing, plumbing rough-in, tile, fixtures, and so on. Clients respect transparency, and it makes change orders easier to justify.</p>
+          <p>Warranty terms on the invoice are legally important. A common setup is a 1-year workmanship warranty with materials covered by manufacturer warranties.</p>
         </div>
       </section>
-
-      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">On-site service calls.</strong> You finish a repair, pull up this tool on your phone or tablet, fill in what you replaced and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
-          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the HVAC-specific fields that generic invoice templates miss.</p>
-          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your dispatch or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
+          <p><strong class="text-text-primary">Progress billing on active projects.</strong> Send invoices at each milestone: after demo, after framing, after rough-ins pass inspection, and at completion. This tool generates a professional invoice in minutes.</p>
+          <p><strong class="text-text-primary">Small projects and handyman work.</strong> For jobs under $5,000, this invoice serves as both the bill and the record. Fill in the project details, itemize the work, and hand the client a clean document.</p>
+          <p><strong class="text-text-primary">Backup when your system is down.</strong> If your project management software crashes or internet goes out on a job site, this tool works in your browser. Generate a clean invoice, save the PDF, and enter it into your system later.</p>
         </div>
       </section>
-
-      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on an HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on a general contractor invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional GC invoice should include your company name, address, phone, and contractor license number. It should list the customer name, project address, project type, and permit number. Itemize all labor, materials, subcontractor charges, and any markups. Include payment terms, warranty language, and the invoice date and number.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated HVAC invoice generator that includes fields specific to the trade -- equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional contractor invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a contractor-specific invoice generator with fields for project details, permit numbers, and itemized line items. Fill in your company details, customer and project info, add each charge as a line item, set tax rate and payment terms, and generate a PDF.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should a general contractor charge tax on labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state. In most states, materials are taxable but labor is not when billed separately. Some states tax the entire invoice when labor is part of a construction contract. Check your state department of revenue guidelines or consult your accountant.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for general contractors?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For projects under $10,000, Due on Completion or Net 15 is common. For larger projects, most GCs use progress payments: 30-50% deposit, payments at milestones, and final payment on completion. Commercial work typically uses Net 30.</div>
           </details>
         </div>
       </section>
@@ -266,81 +246,45 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // --- Date and Invoice Number Defaults ---
   function initDefaults() {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
     const due = new Date(today);
     due.setDate(due.getDate() + 30);
     const dueStr = due.toISOString().split('T')[0];
-
     (document.getElementById('invoiceDate') as HTMLInputElement).value = todayStr;
     (document.getElementById('dueDate') as HTMLInputElement).value = dueStr;
     (document.getElementById('invoiceNum') as HTMLInputElement).value = 'INV-' + String(Math.floor(Math.random() * 9000) + 1000);
   }
 
-  // --- Line Items ---
-  interface LineItem {
-    id: number;
-    description: string;
-    qty: number;
-    price: number;
-  }
-
-  let lineItems: LineItem[] = [
-    { id: 1, description: '', qty: 1, price: 0 }
-  ];
+  interface LineItem { id: number; description: string; qty: number; price: number; }
+  let lineItems: LineItem[] = [{ id: 1, description: '', qty: 1, price: 0 }];
   let nextId = 2;
-
-  function renderLineItems() {
-    const container = document.getElementById('line-items')!;
-    container.innerHTML = '';
-
-    lineItems.forEach((item, index) => {
-      const row = document.createElement('div');
-      row.className = 'grid grid-cols-1 md:grid-cols-[1fr_80px_120px_120px_40px] gap-3 items-center bg-bg-dark rounded-lg p-3 md:p-0 md:bg-transparent md:rounded-none';
-      const total = (item.qty * item.price).toFixed(2);
-
-      row.innerHTML = `
-        <div>
-          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Description</label>
-          <input type="text" data-id="${item.id}" data-field="description" value="${escapeHtml(item.description)}" placeholder="Description" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Qty</label>
-          <input type="number" data-id="${item.id}" data-field="qty" value="${item.qty}" min="1" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-center focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Unit Price</label>
-          <input type="number" data-id="${item.id}" data-field="price" value="${item.price}" min="0" step="0.01" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-right focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Total</label>
-          <div class="text-text-primary text-sm font-medium text-right px-3 py-2">$${total}</div>
-        </div>
-        <div class="flex justify-end">
-          ${lineItems.length > 1 ? `<button data-remove="${item.id}" class="remove-line-btn text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove">&times;</button>` : '<span></span>'}
-        </div>
-      `;
-
-      container.appendChild(row);
-    });
-
-    // Attach events
-    container.querySelectorAll('.line-input').forEach(input => {
-      input.addEventListener('input', handleLineInput);
-    });
-    container.querySelectorAll('.remove-line-btn').forEach(btn => {
-      btn.addEventListener('click', handleRemoveLine);
-    });
-
-    recalculate();
-  }
 
   function escapeHtml(str: string): string {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  function renderLineItems() {
+    const container = document.getElementById('line-items')!;
+    container.innerHTML = '';
+    lineItems.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'grid grid-cols-1 md:grid-cols-[1fr_80px_120px_120px_40px] gap-3 items-center bg-bg-dark rounded-lg p-3 md:p-0 md:bg-transparent md:rounded-none';
+      const total = (item.qty * item.price).toFixed(2);
+      row.innerHTML = `
+        <div><label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Description</label><input type="text" data-id="${item.id}" data-field="description" value="${escapeHtml(item.description)}" placeholder="Description" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" /></div>
+        <div><label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Qty</label><input type="number" data-id="${item.id}" data-field="qty" value="${item.qty}" min="1" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-center focus:border-accent focus:outline-none transition-colors" /></div>
+        <div><label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Unit Price</label><input type="number" data-id="${item.id}" data-field="price" value="${item.price}" min="0" step="0.01" class="line-input w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm text-right focus:border-accent focus:outline-none transition-colors" /></div>
+        <div><label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Total</label><div class="text-text-primary text-sm font-medium text-right px-3 py-2">$${total}</div></div>
+        <div class="flex justify-end">${lineItems.length > 1 ? `<button data-remove="${item.id}" class="remove-line-btn text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove">&times;</button>` : '<span></span>'}</div>`;
+      container.appendChild(row);
+    });
+    container.querySelectorAll('.line-input').forEach(input => { input.addEventListener('input', handleLineInput); });
+    container.querySelectorAll('.remove-line-btn').forEach(btn => { btn.addEventListener('click', handleRemoveLine); });
+    recalculate();
   }
 
   function handleLineInput(e: Event) {
@@ -349,22 +293,12 @@ const faqSchema = {
     const field = input.dataset.field!;
     const item = lineItems.find(i => i.id === id);
     if (!item) return;
-
-    if (field === 'description') {
-      item.description = input.value;
-    } else if (field === 'qty') {
-      item.qty = parseFloat(input.value) || 0;
-    } else if (field === 'price') {
-      item.price = parseFloat(input.value) || 0;
-    }
-
-    // Update row total without full re-render
+    if (field === 'description') item.description = input.value;
+    else if (field === 'qty') item.qty = parseFloat(input.value) || 0;
+    else if (field === 'price') item.price = parseFloat(input.value) || 0;
     const row = input.closest('.grid')!;
     const totalEl = row.querySelector('div:nth-child(4) div') as HTMLElement;
-    if (totalEl) {
-      totalEl.textContent = '$' + (item.qty * item.price).toFixed(2);
-    }
-
+    if (totalEl) totalEl.textContent = '$' + (item.qty * item.price).toFixed(2);
     recalculate();
   }
 
@@ -380,41 +314,33 @@ const faqSchema = {
     renderLineItems();
   }
 
-  // --- Calculations ---
   function recalculate() {
     const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
     const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
     const tax = subtotal * (taxRate / 100);
     const total = subtotal + tax;
-
     document.getElementById('result-subtotal')!.textContent = '$' + subtotal.toFixed(2);
     document.getElementById('result-tax')!.textContent = '$' + tax.toFixed(2);
     document.getElementById('result-total')!.textContent = '$' + total.toFixed(2);
   }
 
-  // --- PDF Generation (print-ready HTML) ---
   function generatePDF() {
-    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'HVAC Company';
+    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'Construction Company';
     const companyPhone = (document.getElementById('companyPhone') as HTMLInputElement).value;
     const companyEmail = (document.getElementById('companyEmail') as HTMLInputElement).value;
     const licenseNum = (document.getElementById('licenseNum') as HTMLInputElement).value;
     const invoiceNum = (document.getElementById('invoiceNum') as HTMLInputElement).value;
     const invoiceDate = (document.getElementById('invoiceDate') as HTMLInputElement).value;
     const dueDate = (document.getElementById('dueDate') as HTMLInputElement).value;
-
     const customerName = (document.getElementById('customerName') as HTMLInputElement).value || 'Customer';
     const customerAddress = (document.getElementById('customerAddress') as HTMLInputElement).value;
     const customerPhone = (document.getElementById('customerPhone') as HTMLInputElement).value;
-
-    const equipmentType = (document.getElementById('equipmentType') as HTMLSelectElement).value;
-    const equipMake = (document.getElementById('equipMake') as HTMLInputElement).value;
-    const equipModel = (document.getElementById('equipModel') as HTMLInputElement).value;
-    const equipSerial = (document.getElementById('equipSerial') as HTMLInputElement).value;
-
+    const projectType = (document.getElementById('projectType') as HTMLSelectElement).value;
+    const permitNum = (document.getElementById('permitNum') as HTMLInputElement).value;
+    const projectAddress = (document.getElementById('projectAddress') as HTMLInputElement).value;
     const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
     const paymentTerms = (document.getElementById('paymentTerms') as HTMLSelectElement).value;
     const notes = (document.getElementById('notes') as HTMLTextAreaElement).value;
-
     const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
     const tax = subtotal * (taxRate / 100);
     const total = subtotal + tax;
@@ -425,150 +351,25 @@ const faqSchema = {
       return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    const lineItemsHtml = lineItems
-      .filter(item => item.description || item.price > 0)
-      .map(item => `
-        <tr>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left;">${escapeHtml(item.description)}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: center;">${item.qty}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right;">$${item.price.toFixed(2)}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right; font-weight: 600;">$${(item.qty * item.price).toFixed(2)}</td>
-        </tr>
-      `).join('');
+    const lineItemsHtml = lineItems.filter(item => item.description || item.price > 0).map(item => `<tr><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:left;">${escapeHtml(item.description)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${item.qty}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">$${item.price.toFixed(2)}</td><td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;font-weight:600;">$${(item.qty * item.price).toFixed(2)}</td></tr>`).join('');
 
-    const systemInfoHtml = (equipmentType || equipMake || equipModel || equipSerial) ? `
-      <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
-        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">System Information</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: #333;">
-          ${equipmentType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(equipmentType)}</div>` : ''}
-          ${equipMake ? `<div><span style="color: #888;">Make:</span> ${escapeHtml(equipMake)}</div>` : ''}
-          ${equipModel ? `<div><span style="color: #888;">Model:</span> ${escapeHtml(equipModel)}</div>` : ''}
-          ${equipSerial ? `<div><span style="color: #888;">Serial #:</span> ${escapeHtml(equipSerial)}</div>` : ''}
-        </div>
-      </div>
-    ` : '';
+    const projectInfoHtml = (projectType || permitNum || projectAddress) ? `<div style="margin-bottom:30px;padding:15px;background:#f8f9fa;border-radius:6px;"><div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#666;margin-bottom:8px;">Project Information</div><div style="display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:#333;">${projectType ? `<div><span style="color:#888;">Type:</span> ${escapeHtml(projectType)}</div>` : ''}${permitNum ? `<div><span style="color:#888;">Permit #:</span> ${escapeHtml(permitNum)}</div>` : ''}${projectAddress ? `<div><span style="color:#888;">Job Site:</span> ${escapeHtml(projectAddress)}</div>` : ''}</div></div>` : '';
 
-    const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Invoice ${escapeHtml(invoiceNum)}</title>
-  <style>
-    @media print {
-      body { margin: 0; }
-      .no-print { display: none; }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333; background: #fff; padding: 40px; max-width: 800px; margin: 0 auto; }
-  </style>
-</head>
-<body>
-  <!-- Header -->
-  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 3px solid #333;">
-    <div>
-      <div style="font-size: 28px; font-weight: 800; color: #111; margin-bottom: 4px;">${escapeHtml(companyName)}</div>
-      ${companyPhone ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyPhone)}</div>` : ''}
-      ${companyEmail ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyEmail)}</div>` : ''}
-      ${licenseNum ? `<div style="font-size: 13px; color: #888; margin-top: 4px;">License: ${escapeHtml(licenseNum)}</div>` : ''}
-    </div>
-    <div style="text-align: right;">
-      <div style="font-size: 36px; font-weight: 800; color: #111; letter-spacing: 0.04em;">INVOICE</div>
-      <div style="font-size: 14px; color: #555; margin-top: 4px;">${escapeHtml(invoiceNum)}</div>
-    </div>
-  </div>
-
-  <!-- Billing Details -->
-  <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-    <div>
-      <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Bill To</div>
-      <div style="font-size: 16px; font-weight: 600; color: #111;">${escapeHtml(customerName)}</div>
-      ${customerAddress ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerAddress)}</div>` : ''}
-      ${customerPhone ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerPhone)}</div>` : ''}
-    </div>
-    <div style="text-align: right;">
-      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Date:</span> ${formatDate(invoiceDate)}</div>
-      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Due:</span> ${formatDate(dueDate)}</div>
-      <div style="font-size: 14px; color: #555;"><span style="color: #888;">Terms:</span> ${escapeHtml(paymentTerms)}</div>
-    </div>
-  </div>
-
-  <!-- System Info -->
-  ${systemInfoHtml}
-
-  <!-- Line Items Table -->
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-    <thead>
-      <tr style="background: #333; color: #fff;">
-        <th style="padding: 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Description</th>
-        <th style="padding: 12px; text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 70px;">Qty</th>
-        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Unit Price</th>
-        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${lineItemsHtml}
-    </tbody>
-  </table>
-
-  <!-- Totals -->
-  <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
-    <div style="width: 280px;">
-      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555;">
-        <span>Subtotal</span>
-        <span>$${subtotal.toFixed(2)}</span>
-      </div>
-      ${taxRate > 0 ? `
-      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555; border-bottom: 1px solid #eee;">
-        <span>Tax (${taxRate}%)</span>
-        <span>$${tax.toFixed(2)}</span>
-      </div>
-      ` : ''}
-      <div style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 20px; font-weight: 800; color: #111; border-top: 2px solid #333;">
-        <span>Total Due</span>
-        <span>$${total.toFixed(2)}</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Notes -->
-  ${notes ? `
-  <div style="padding: 20px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #333;">
-    <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Notes & Warranty</div>
-    <div style="font-size: 13px; color: #555; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(notes)}</div>
-  </div>
-  ` : ''}
-
-  <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #aaa;">
-    Thank you for your business.
-  </div>
-
-  <script>window.onload = function() { window.print(); }<\/script>
-</body>
-</html>`;
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Invoice ${escapeHtml(invoiceNum)}</title><style>@media print{body{margin:0}.no-print{display:none}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#333;background:#fff;padding:40px;max-width:800px;margin:0 auto}</style></head><body><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid #333;"><div><div style="font-size:28px;font-weight:800;color:#111;margin-bottom:4px;">${escapeHtml(companyName)}</div>${companyPhone ? `<div style="font-size:14px;color:#555;">${escapeHtml(companyPhone)}</div>` : ''}${companyEmail ? `<div style="font-size:14px;color:#555;">${escapeHtml(companyEmail)}</div>` : ''}${licenseNum ? `<div style="font-size:13px;color:#888;margin-top:4px;">GC License: ${escapeHtml(licenseNum)}</div>` : ''}</div><div style="text-align:right;"><div style="font-size:36px;font-weight:800;color:#111;letter-spacing:0.04em;">INVOICE</div><div style="font-size:14px;color:#555;margin-top:4px;">${escapeHtml(invoiceNum)}</div></div></div><div style="display:flex;justify-content:space-between;margin-bottom:30px;"><div><div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:6px;">Bill To</div><div style="font-size:16px;font-weight:600;color:#111;">${escapeHtml(customerName)}</div>${customerAddress ? `<div style="font-size:14px;color:#555;margin-top:2px;">${escapeHtml(customerAddress)}</div>` : ''}${customerPhone ? `<div style="font-size:14px;color:#555;margin-top:2px;">${escapeHtml(customerPhone)}</div>` : ''}</div><div style="text-align:right;"><div style="font-size:14px;color:#555;margin-bottom:4px;"><span style="color:#888;">Date:</span> ${formatDate(invoiceDate)}</div><div style="font-size:14px;color:#555;margin-bottom:4px;"><span style="color:#888;">Due:</span> ${formatDate(dueDate)}</div><div style="font-size:14px;color:#555;"><span style="color:#888;">Terms:</span> ${escapeHtml(paymentTerms)}</div></div></div>${projectInfoHtml}<table style="width:100%;border-collapse:collapse;margin-bottom:30px;"><thead><tr style="background:#333;color:#fff;"><th style="padding:12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Description</th><th style="padding:12px;text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:70px;">Qty</th><th style="padding:12px;text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:110px;">Unit Price</th><th style="padding:12px;text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:110px;">Total</th></tr></thead><tbody>${lineItemsHtml}</tbody></table><div style="display:flex;justify-content:flex-end;margin-bottom:40px;"><div style="width:280px;"><div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;color:#555;"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>${taxRate > 0 ? `<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;color:#555;border-bottom:1px solid #eee;"><span>Tax (${taxRate}%)</span><span>$${tax.toFixed(2)}</span></div>` : ''}<div style="display:flex;justify-content:space-between;padding:12px 0;font-size:20px;font-weight:800;color:#111;border-top:2px solid #333;"><span>Total Due</span><span>$${total.toFixed(2)}</span></div></div></div>${notes ? `<div style="padding:20px;background:#f8f9fa;border-radius:6px;border-left:4px solid #333;"><div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:6px;">Notes & Warranty</div><div style="font-size:13px;color:#555;line-height:1.6;white-space:pre-wrap;">${escapeHtml(notes)}</div></div>` : ''}<div style="text-align:center;margin-top:50px;padding-top:20px;border-top:1px solid #eee;font-size:12px;color:#aaa;">Thank you for your business.</div><script>window.onload=function(){window.print();}<\/script></body></html>`;
 
     const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(html);
-      printWindow.document.close();
-    }
+    if (printWindow) { printWindow.document.write(html); printWindow.document.close(); }
   }
 
-  // --- Init ---
   initDefaults();
   renderLineItems();
-
-  // Event listeners
   document.getElementById('add-line-btn')?.addEventListener('click', () => addLineItem());
-
   document.querySelectorAll('.quick-add-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const el = btn as HTMLElement;
-      const desc = el.dataset.quick || '';
-      const price = parseFloat(el.dataset.price || '0');
-      addLineItem(desc, price);
+      addLineItem(el.dataset.quick || '', parseFloat(el.dataset.price || '0'));
     });
   });
-
   document.getElementById('taxRate')?.addEventListener('input', recalculate);
   document.getElementById('generate-pdf-btn')?.addEventListener('click', generatePDF);
 </script>

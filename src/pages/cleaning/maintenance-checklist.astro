@@ -7,10 +7,10 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What should an HVAC maintenance visit include?", "acceptedAnswer": { "@type": "Answer", "text": "A complete HVAC maintenance visit should include thermostat calibration, filter replacement, electrical component testing (capacitor, contactor, amp draws), refrigerant pressure checks with superheat and subcooling calculations, condenser and evaporator coil cleaning, condensate drain clearing, and a full temperature split measurement. For heating, add heat exchanger inspection, CO testing, burner cleaning, and safety control verification." } },
-    { "@type": "Question", "name": "How often should HVAC be serviced?", "acceptedAnswer": { "@type": "Answer", "text": "HVAC systems should be serviced twice a year — once in spring before cooling season and once in fall before heating season. Cooling maintenance focuses on the AC and refrigerant system. Heating maintenance focuses on the furnace, heat exchanger, and gas components. Systems older than 10 years or in harsh climates may benefit from quarterly check-ins." } },
+    { "@type": "Question", "name": "What should a Cleaning maintenance visit include?", "acceptedAnswer": { "@type": "Answer", "text": "A complete Cleaning maintenance visit should include controls and settings check, filter replacement, electrical component testing (capacitor, contactor, amp draws), a thorough inspection of all components, testing of all safety systems, cleaning and adjustment of key parts, and documentation of current conditions versus previous service records. Address any issues found immediately or note them for follow-up." } },
+    { "@type": "Question", "name": "How often should Cleaning systems be serviced?", "acceptedAnswer": { "@type": "Answer", "text": "Cleaning systems should be serviced twice a year — at least once a year, or more frequently for high-use properties. Regular inspections catch small issues before they become expensive problems. Properties in harsh climates or with heavy usage may benefit from quarterly check-ins." } },
     { "@type": "Question", "name": "What is a normal superheat and subcooling?", "acceptedAnswer": { "@type": "Answer", "text": "For a standard TXV system, target superheat is 10-15 degrees F and target subcooling is 10-12 degrees F. For fixed orifice systems, superheat varies by indoor and outdoor conditions — use the manufacturer charging chart. Readings outside these ranges indicate issues: low superheat suggests flooding, high superheat suggests starved evaporator, low subcooling suggests undercharge, and high subcooling suggests overcharge or restriction." } },
-    { "@type": "Question", "name": "What is a safe CO level for a furnace?", "acceptedAnswer": { "@type": "Answer", "text": "A properly operating furnace should produce less than 9 PPM of carbon monoxide in the flue gas when measured in the undiluted air-free sample. Readings above 9 PPM indicate combustion problems such as a cracked heat exchanger, dirty burners, or improper gas pressure. Any CO above 35 PPM in ambient air is an immediate safety hazard requiring system shutdown." } }
+    { "@type": "Question", "name": "What is a safe operating condition?", "acceptedAnswer": { "@type": "Answer", "text": "Safety systems should be tested and verified to be functioning properly when measured in the undiluted air-free sample. Readings above 9 PPM indicate combustion problems such as a equipment malfunction or safety hazard. Any CO above 35 PPM in ambient air is an immediate safety hazard requiring system shutdown." } }
   ]
 };
 ---
@@ -41,7 +41,7 @@ const faqSchema = {
     <!-- ============ COOLING SEASON ============ -->
     <div id="panel-cooling">
 
-      <!-- Thermostat -->
+      <!-- Controls -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Thermostat
@@ -88,7 +88,7 @@ const faqSchema = {
           </div>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect ductwork for damage / disconnections</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect all systems for damage or issues</span>
           </label>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
@@ -140,7 +140,7 @@ const faqSchema = {
         </div>
       </div>
 
-      <!-- Refrigerant System -->
+      <!-- Sanitation Systems -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Refrigerant System
@@ -413,7 +413,7 @@ const faqSchema = {
           </label>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Ductwork inspection</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Surface inspection</span>
           </label>
         </div>
       </div>
@@ -494,13 +494,13 @@ const faqSchema = {
       </section>
 
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete HVAC Tune-Up Covers</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete Cleaning Service Covers</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Thermostat verification.</strong> A miscalibrated thermostat wastes energy and causes comfort complaints. Testing all modes confirms the system responds correctly to every call for heating, cooling, and fan operation.</p>
-          <p><strong class="text-text-primary">Air distribution.</strong> Dirty filters and disconnected ductwork are the most common causes of poor performance. A clogged filter alone can drop system efficiency by 15% and cause frozen coils or heat exchanger overheating.</p>
+          <p><strong class="text-text-primary">Controls verification.</strong> Checking all controls and settings ensures the system responds correctly. Testing confirms proper operation and helps catch issues before they affect performance.</p>
+          <p><strong class="text-text-primary">System condition.</strong> Regular cleaning and maintenance of all components is essential for optimal performance. Neglected systems lose efficiency over time and develop problems that cost more to fix later.</p>
           <p><strong class="text-text-primary">Electrical components.</strong> Capacitors weaken over time and contactors pit from arcing. Measuring actual amp draws against rated values catches motors that are overworking before they fail, saving the customer an emergency call.</p>
-          <p><strong class="text-text-primary">Refrigerant system.</strong> Superheat and subcooling are the two most important measurements in cooling diagnostics. They reveal charge level, metering device function, and airflow problems that pressures alone cannot identify.</p>
-          <p><strong class="text-text-primary">Heat exchanger and combustion.</strong> A cracked heat exchanger can leak carbon monoxide into living spaces. CO testing is not optional — it is the single most important safety check on any gas furnace maintenance visit.</p>
+          <p><strong class="text-text-primary">Supplies system.</strong> Superheat and subcooling are the two most important measurements in cooling diagnostics. They reveal charge level, metering device function, and airflow problems that pressures alone cannot identify.</p>
+          <p><strong class="text-text-primary">Heat exchanger and combustion.</strong> A cracked component can leak carbon monoxide into living spaces. CO testing is not optional — it is the single most important safety check on any gas system maintenance visit.</p>
           <p><strong class="text-text-primary">Safety controls.</strong> High-limit switches, pressure switches, and rollout switches exist to prevent fires and CO poisoning. Verifying each one operates correctly protects both the homeowner and your liability.</p>
           <p><strong class="text-text-primary">Performance verification.</strong> Temperature split (return minus supply) confirms the system is actually doing its job. A split outside the 15-20 degree range on cooling points to airflow, charge, or equipment problems.</p>
         </div>
@@ -509,7 +509,7 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Routine maintenance visits.</strong> Use this as your standard operating procedure for every tune-up. It ensures nothing gets skipped, readings get recorded, and the customer sees a professional report documenting every step.</p>
+          <p><strong class="text-text-primary">Routine maintenance visits.</strong> Use this as your standard operating procedure for every service visit. It ensures nothing gets skipped, readings get recorded, and the customer sees a professional report documenting every step.</p>
           <p><strong class="text-text-primary">New technician training.</strong> Hand this checklist to every new hire. It teaches them the complete process for a thorough maintenance visit and builds consistent habits from day one. The reading targets and color indicators help them learn what normal looks like.</p>
           <p><strong class="text-text-primary">Maintenance agreement visits.</strong> If you sell maintenance plans, this checklist is your proof of value. Customers paying for a plan expect thoroughness. Generate the report, hand it to them, and show exactly what their money bought.</p>
         </div>
@@ -519,11 +519,11 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC maintenance visit include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete visit should include thermostat calibration, filter replacement, electrical component testing (capacitor, contactor, amp draws), refrigerant pressure checks with superheat and subcooling, coil cleaning, condensate drain clearing, and a temperature split measurement. For heating, add heat exchanger inspection, CO testing, burner cleaning, and safety control verification.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Cleaning maintenance visit include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete visit should include controls and settings check, filter replacement, electrical component testing (capacitor, contactor, amp draws), a thorough inspection of all components, testing of all safety systems, cleaning and adjustment of key parts, and documentation of current conditions. Address any issues found immediately or note them for follow-up.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should HVAC be serviced?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should Cleaning systems be serviced?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Twice a year — once in spring before cooling season and once in fall before heating season. Systems older than 10 years or in harsh climates may benefit from quarterly check-ins. At minimum, filters should be checked monthly during heavy use seasons.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
@@ -531,8 +531,8 @@ const faqSchema = {
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For a standard TXV system, target superheat is 10-15 degrees F and target subcooling is 10-12 degrees F. Readings outside these ranges indicate charge problems, metering device issues, or airflow restrictions. For fixed orifice systems, use the manufacturer charging chart as superheat varies by conditions.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a safe CO level for a furnace?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A properly operating furnace should produce less than 9 PPM of carbon monoxide in the flue gas. Readings above 9 PPM indicate combustion problems. Any ambient CO above 35 PPM is an immediate safety hazard requiring system shutdown and investigation. Common causes include cracked heat exchangers, dirty burners, and improper gas pressure.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a safe operating condition?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Safety systems should be tested and verified to be functioning properly. Readings above 9 PPM indicate combustion problems. Any ambient CO above 35 PPM is an immediate safety hazard requiring system shutdown and investigation. Common causes include cracked components, dirty burners, and improper gas pressure.</div>
           </details>
         </div>
       </section>
@@ -811,7 +811,7 @@ const faqSchema = {
     });
 
     // Build HTML for print
-    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>HVAC Maintenance Report - ${seasonLabel}</title>
+    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cleaning Maintenance Report - ${seasonLabel}</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; padding: 40px; max-width: 800px; margin: 0 auto; font-size: 13px; line-height: 1.5; }
@@ -832,7 +832,7 @@ const faqSchema = {
       @media print { body { padding: 20px; } }
     </style></head><body>`;
 
-    html += `<h1>HVAC Maintenance Report</h1>`;
+    html += `<h1>Cleaning Maintenance Report</h1>`;
     html += `<div class="meta">${seasonLabel} &mdash; ${dateStr} at ${timeStr}</div>`;
 
     html += `<div class="summary-grid">`;

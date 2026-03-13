@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I price an HVAC installation?",
+      "name": "How do I price an exterior painting job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
+        "text": "Calculate the total exterior wall area, factor in the number of stories, siding type, and surface condition. Exterior production rates are lower than interior — typically 200-350 sq ft per hour depending on height and access. Add materials with markup, ladder or scaffold rental if needed, and target 30-45% gross margin."
       }
     },
     {
       "@type": "Question",
-      "name": "What profit margin should I target on installs?",
+      "name": "How much does it cost to paint the exterior of a house?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
+        "text": "A typical single-story home costs $2,500-4,500 for exterior painting. Two-story homes run $4,000-7,500. Three-story homes can reach $6,500-11,000 or more. These ranges assume standard paint, moderate prep, and include trim and fascia. Factors like siding type, condition, access difficulty, and paint quality shift the price."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a good price per ton for HVAC?",
+      "name": "What factors increase exterior painting costs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors."
+        "text": "Multiple stories add 20-40% per additional floor due to ladder time and safety concerns. Limited access from fences or landscaping adds 10%. Scaffold rental adds $500-1,000. Poor surface condition requiring heavy scraping and priming adds 30-50% to labor. Wood siding takes longer than vinyl or fiber cement due to more prep."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up HVAC equipment?",
+      "name": "How long does it take to paint the exterior of a house?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor."
+        "text": "A two-person crew can paint a single-story 1,500 sq ft home exterior in 2-3 days. A two-story home takes 3-5 days. Three-story homes take 5-7 days. These estimates include prep, priming, two coats, and trim work. Weather delays can extend the timeline."
       }
     }
   ]
@@ -45,155 +45,120 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="install-calc">
-    <!-- Equipment Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Equipment</h3>
+  <div id="exterior-calc">
+    <!-- Project Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Project Details</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-type">System Type</label>
-        <select id="system-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="ac-furnace" selected>AC + Furnace</option>
-          <option value="heat-pump">Heat Pump</option>
-          <option value="mini-split">Mini-Split</option>
-          <option value="package-unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="total-sqft">Exterior Wall Area (sq ft)</label>
+        <input type="number" id="total-sqft" value="2000" min="100" max="50000" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="num-stories">Number of Stories</label>
+        <select id="num-stories" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1" selected>1 Story</option>
+          <option value="2">2 Stories</option>
+          <option value="3">3+ Stories</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Equipment Cost ($)</label>
-        <input type="number" id="equipment-cost" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-markup">Equipment Markup (%)</label>
-        <input type="number" id="equipment-markup" value="40" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="siding-type">Siding Type</label>
+        <select id="siding-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="vinyl">Vinyl</option>
+          <option value="wood" selected>Wood (clapboard/shake)</option>
+          <option value="fiber-cement">Fiber Cement (Hardie)</option>
+          <option value="stucco">Stucco</option>
+          <option value="brick">Brick</option>
+          <option value="aluminum">Aluminum</option>
+        </select>
       </div>
     </div>
 
-    <!-- Labor Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="surface-condition">Surface Condition</label>
+        <select id="surface-condition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="good" selected>Good (light wash, minimal prep)</option>
+          <option value="fair">Fair (scraping, caulking, spot prime)</option>
+          <option value="poor">Poor (heavy scraping, full prime)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ladder-access">Ladder Access</label>
+        <select id="ladder-access" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="unrestricted" selected>Unrestricted ground access</option>
+          <option value="limited">Limited (fences, landscaping)</option>
+          <option value="scaffold">Requires scaffold/lift</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paint-quality">Paint Quality</label>
+        <select id="paint-quality" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="standard" selected>Standard (~$35/gal)</option>
+          <option value="premium">Premium (~$55/gal)</option>
+          <option value="high-end">High-End (~$75/gal)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Additional Services -->
+    <div class="bg-bg-dark border border-border rounded-lg p-4 mb-8">
+      <p class="text-sm font-medium text-text-secondary mb-3">Additional Exterior Services <span class="text-text-muted">(check to include)</span></p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="4" data-materials="40" checked />
+          Trim, fascia &amp; soffits
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="3" data-materials="25" />
+          Gutters &amp; downspouts
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="2" data-materials="20" />
+          Shutters (per pair)
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="2" data-materials="15" />
+          Exterior doors (each)
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="3" data-materials="30" />
+          Deck/porch railing
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="addon-item accent-accent" data-hours="2" data-materials="25" checked />
+          Power washing
+        </label>
+      </div>
+    </div>
+
+    <!-- Labor & Pricing -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor & Pricing</h3>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="crew-size">Crew Size</label>
         <input type="number" id="crew-size" value="2" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-hours">Install Hours</label>
-        <input type="number" id="install-hours" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Auto-fills based on system type</p>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Tech ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-    </div>
-
-    <!-- Materials Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials Cost ($)</label>
-        <input type="number" id="materials-cost" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="hourly-rate">Billable Rate ($/hr)</label>
+        <input type="number" id="hourly-rate" value="60" min="10" max="200" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
-        <input type="number" id="materials-markup" value="100" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-    </div>
-
-    <!-- Materials Checklist -->
-    <div class="bg-bg-dark border border-border rounded-lg p-4 mb-8">
-      <p class="text-sm font-medium text-text-secondary mb-3">Common Material Items <span class="text-text-muted">(check to include in materials cost)</span></p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="125" checked />
-          Copper line set &mdash; $125
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="50" checked />
-          Concrete pad &mdash; $50
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
-          Electrical disconnect &mdash; $30
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Electrical whip &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Thermostat wire &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="15" checked />
-          PVC drain line &mdash; $15
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="40" checked />
-          Duct transitions &mdash; $40
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Refrigerant line insulation &mdash; $25
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Misc &mdash; $25
-        </label>
-      </div>
-    </div>
-
-    <!-- Other Costs Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Other Costs</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit ($)</label>
-        <input type="number" id="permit-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="materials-markup" value="40" min="0" max="200" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal Fee ($)</label>
-        <input type="number" id="disposal-fee" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-fee">Misc ($)</label>
-        <input type="number" id="misc-fee" value="100" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-tons">System Tons</label>
-        <input type="number" id="system-tons" value="3" min="0.5" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">For price-per-ton calculation</p>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="scaffold-rental">Scaffold/Lift Rental ($)</label>
+        <input type="number" id="scaffold-rental" value="0" min="0" max="5000" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
-
-    <!-- Reverse Calculator Toggle -->
-    <div class="bg-bg-dark border border-border rounded-lg p-5 mb-8">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="checkbox" id="reverse-toggle" class="accent-accent w-4 h-4" />
-        <span class="text-sm font-medium text-text-primary">I want to hit a target price</span>
-      </label>
-      <div id="reverse-section" class="hidden mt-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2" for="target-price">Target Sell Price ($)</label>
-            <input type="number" id="target-price" value="7500" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-end">
-            <div class="bg-bg-card border border-border rounded-lg p-4 w-full">
-              <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">That Target Gives You</div>
-              <div id="reverse-margin" class="font-heading font-extrabold text-2xl text-text-primary">&mdash;</div>
-              <div class="text-text-muted text-xs mt-1">gross margin</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Install Pricing Summary</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Exterior Painting Estimate</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Install Price</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Suggested Price</div>
           <div id="result-total-sell" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
@@ -205,41 +170,48 @@ const faqSchema = {
           <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Ton</div>
-          <div id="result-price-per-ton" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost per Sq Ft</div>
+          <div id="result-per-sqft" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
       <!-- Breakdown -->
-      <div class="bg-bg-dark rounded-xl p-6">
+      <div class="bg-bg-dark rounded-xl p-6 mb-6">
         <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Cost &amp; Sell Breakdown</h4>
         <div class="space-y-3">
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Equipment</span>
+            <span class="text-text-secondary">Paint &amp; Primer</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-equip-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-equip-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-paint-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-paint-sell" class="text-accent">$0</span></span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center text-sm py-2 border-b border-border">
+            <span class="text-text-secondary">Supplies &amp; Caulk</span>
+            <div class="flex gap-6">
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-supplies-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-supplies-sell" class="text-accent">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
             <span class="text-text-secondary">Labor</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-labor-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right"><span id="breakdown-labor-hours" class="text-text-primary">0</span> hrs</span>
               <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-labor-sell" class="text-accent">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Materials</span>
+            <span class="text-text-secondary">Add-Ons</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-mat-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-mat-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-addon-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-addon-sell" class="text-accent">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2">
-            <span class="text-text-secondary">Other <span class="text-text-muted text-xs">(permit + disposal + misc)</span></span>
+            <span class="text-text-secondary">Scaffold/Lift Rental</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-other-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-other-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted w-24 text-right">&nbsp;</span>
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-scaffold" class="text-text-primary">$0</span></span>
             </div>
           </div>
         </div>
@@ -251,71 +223,70 @@ const faqSchema = {
           </div>
         </div>
       </div>
+
+      <!-- Timeline -->
+      <div class="bg-bg-dark rounded-xl p-5">
+        <p class="text-text-secondary text-sm"><strong class="text-text-primary">Estimated Timeline:</strong> <span id="timeline-estimate">--</span> &mdash; Add 1-2 buffer days for weather delays on exterior work.</p>
+      </div>
     </div>
   </div>
 
   <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
-      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the system type.</strong> Choose the type of HVAC system you are installing. The calculator auto-fills typical install hours based on your selection: AC + Furnace defaults to 8 hours, heat pumps to 10, mini-splits to 4, and package units to 6.</p>
-          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the distributor. A 40% markup is a common starting point, but adjust based on your market and competition. The calculator shows what the customer pays for equipment.</p>
-          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per technician. The billable rate is what you charge the customer per tech per hour, not the tech's wage.</p>
-          <p><strong class="text-text-primary">4. Configure materials.</strong> Use the checklist to toggle common material items on or off. The total auto-fills the materials cost field. Set your materials markup percentage to calculate the customer-facing price.</p>
-          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the system tonnage so the calculator can show your price per ton. Hit calculate to see the full breakdown, profit, and margin.</p>
+          <p><strong class="text-text-primary">1. Enter the exterior wall area.</strong> Measure or estimate the total paintable surface. A quick estimate is the home's square footage times 1.15 to account for gables and dormers. Subtract windows and doors.</p>
+          <p><strong class="text-text-primary">2. Select stories, siding type, and condition.</strong> Multi-story homes cost more due to ladder time and safety requirements. Wood siding takes longer than vinyl or fiber cement. Poor condition means heavy scraping, caulking, and full priming.</p>
+          <p><strong class="text-text-primary">3. Choose access and paint quality.</strong> Limited access from fences or landscaping adds time. Scaffold or lift rental is a direct cost passed to the customer. Exterior paint ranges from $35-75 per gallon.</p>
+          <p><strong class="text-text-primary">4. Add exterior services.</strong> Trim, fascia, gutters, and shutters are common add-ons. Power washing is usually included in exterior bids.</p>
+          <p><strong class="text-text-primary">5. Set your rate and review.</strong> The calculator builds the full estimate with materials, labor, and equipment costs.</p>
         </div>
       </section>
 
-      <!-- How Install Pricing Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Install Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Exterior Cost Calculation Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for equipment, labor, and materials, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
+          <p><strong class="text-text-primary">Production rates drop with height.</strong> Ground-level painting runs about 300-350 sq ft per hour. Second-story work drops to 200-250 sq ft per hour due to ladder repositioning. Third-story work drops further to 175-200 sq ft per hour.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Equipment_Sell = Equipment_Cost x (1 + Markup / 100)</p>
-            <p>Labor_Sell = Crew_Size x Hours x Billable_Rate</p>
-            <p>Materials_Sell = Materials_Cost x (1 + Materials_Markup / 100)</p>
-            <p>Total_Sell = Equipment_Sell + Labor_Sell + Materials_Sell + Permit + Disposal + Misc</p>
-            <p>Gross_Profit = Total_Sell - Total_Cost</p>
-            <p>Margin = (Gross_Profit / Total_Sell) x 100</p>
+            <p>Base_Hours = Area / Production_Rate</p>
+            <p>Adjusted_Hours = Base_Hours x Story_Factor x Ladder_Factor + Prep_Hours</p>
+            <p>Labor_Cost = Adjusted_Hours x Hourly_Rate</p>
+            <p>Total = Materials + Labor + Scaffold + Add-Ons</p>
           </div>
-          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most HVAC install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
-          <p><strong class="text-text-primary">Price per ton is a quick benchmark.</strong> Dividing total sell price by system tonnage gives you a per-ton number you can compare across jobs and against competitors. Residential AC installs typically run $2,500 to $4,000 per ton. Heat pump systems tend toward $3,000 to $5,000 per ton. If your number is significantly outside these ranges, investigate why.</p>
+          <p><strong class="text-text-primary">Siding type affects production rate.</strong> Smooth vinyl is fastest to paint. Wood clapboard requires more cutting in and care. Stucco soaks up paint and needs heavier application. Brick requires special masonry primer and more coats for full coverage.</p>
+          <p><strong class="text-text-primary">Exterior margins should be 30-45%.</strong> Exterior work has higher equipment costs and weather risk compared to interior. Price accordingly and always include a weather contingency clause in your contract.</p>
         </div>
       </section>
 
-      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the distributor, set your standard markups, and adjust the hours based on the difficulty of the install. Walk the customer through the price with confidence because you know the margin is healthy.</p>
-          <p><strong class="text-text-primary">Comparing system options for the customer.</strong> Run the calculator for a standard AC and furnace, then again for a heat pump. Show the customer both price points side by side. The tonnage, hours, and equipment cost change, so the total and price per ton shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
-          <p><strong class="text-text-primary">Training your sales team on pricing.</strong> New salespeople often discount too aggressively to close deals. Have them use this calculator to see exactly what happens to profit margin when they knock $500 off the price. When they see the margin drop from 32% to 22%, they learn to protect the price or find other ways to add value.</p>
+          <p><strong class="text-text-primary">Quoting whole-house exterior jobs.</strong> After measuring the home and assessing condition, plug in the details to build a professional estimate that covers all costs.</p>
+          <p><strong class="text-text-primary">Comparing siding type scenarios.</strong> If a customer has mixed siding, run separate calculations and combine them for an accurate total.</p>
+          <p><strong class="text-text-primary">Deciding whether to rent scaffolding.</strong> Plug in the scaffold rental cost and see how it affects margin. Sometimes the time saved with proper scaffolding pays for itself in reduced labor hours.</p>
         </div>
       </section>
 
-      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an HVAC installation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an exterior painting job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Calculate the total exterior wall area, factor in the number of stories, siding type, and surface condition. Exterior production rates are lower than interior. Add materials with markup, ladder or scaffold rental if needed, and target 30-45% gross margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on installs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does it cost to paint the exterior of a house?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A typical single-story home costs $2,500-4,500. Two-story homes run $4,000-7,500. Three-story homes can reach $6,500-11,000. These ranges assume standard paint, moderate prep, and include trim and fascia.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per ton for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What factors increase exterior painting costs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiple stories add 20-40% per additional floor. Limited access from fences adds 10%. Scaffold rental adds $500-1,000. Poor surface condition adds 30-50% to labor. Wood siding takes longer than vinyl or fiber cement.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up HVAC equipment?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does it take to paint the exterior of a house?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A two-person crew can paint a single-story 1,500 sq ft home exterior in 2-3 days. A two-story home takes 3-5 days. Three-story homes take 5-7 days. These include prep, priming, two coats, and trim work.</div>
           </details>
         </div>
       </section>
@@ -324,162 +295,120 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Typical install hours by system type
-  const systemHours: Record<string, number> = {
-    'ac-furnace': 8,
-    'heat-pump': 10,
-    'mini-split': 4,
-    'package-unit': 6,
+  const paintPrices: Record<string, number> = { 'standard': 35, 'premium': 55, 'high-end': 75 };
+  const EXTERIOR_COVERAGE = 350;
+  const PRIMER_COVERAGE = 300;
+  const PRIMER_PRICE = 30;
+
+  const sidingRates: Record<string, number> = {
+    'vinyl': 350, 'wood': 275, 'fiber-cement': 300, 'stucco': 250, 'brick': 200, 'aluminum': 325
   };
+  const storyFactors: Record<string, number> = { '1': 1.0, '2': 1.2, '3': 1.4 };
+  const ladderFactors: Record<string, number> = { 'unrestricted': 1.0, 'limited': 1.1, 'scaffold': 1.3 };
+  const conditionPrepMultipliers: Record<string, number> = { 'good': 0.1, 'fair': 0.3, 'poor': 0.5 };
 
-  // Assumed loaded wage for cost calculation (internal cost per tech per hour)
-  const LOADED_WAGE = 45;
-
-  // Update materials cost from checklist
-  function updateMaterialsFromChecklist() {
-    let total = 0;
-    document.querySelectorAll('.material-item').forEach(cb => {
-      const checkbox = cb as HTMLInputElement;
-      if (checkbox.checked) {
-        total += parseFloat(checkbox.dataset.cost || '0');
-      }
-    });
-    (document.getElementById('materials-cost') as HTMLInputElement).value = String(total);
-  }
-
-  // System type change: auto-fill install hours
-  document.getElementById('system-type')?.addEventListener('change', () => {
-    const systemType = (document.getElementById('system-type') as HTMLSelectElement).value;
-    const hours = systemHours[systemType] || 8;
-    (document.getElementById('install-hours') as HTMLInputElement).value = String(hours);
-    calculate();
-  });
-
-  // Reverse calculator toggle
-  document.getElementById('reverse-toggle')?.addEventListener('change', () => {
-    const checked = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    const section = document.getElementById('reverse-section')!;
-    if (checked) {
-    } else {
-      section.classList.add('hidden');
-    }
-    calculate();
-  });
-
-  // Material checklist changes
-  document.querySelectorAll('.material-item').forEach(cb => {
-    cb.addEventListener('change', () => {
-      updateMaterialsFromChecklist();
-      calculate();
-    });
-  });
+  const INTERNAL_LABOR_COST = 25;
+  const NUM_COATS = 2;
+  const SUPPLIES_BASE = 75;
 
   function calculate() {
-    // Equipment
-    const equipmentCost = parseFloat((document.getElementById('equipment-cost') as HTMLInputElement).value) || 0;
-    const equipmentMarkup = parseFloat((document.getElementById('equipment-markup') as HTMLInputElement).value) || 0;
-    const equipmentSell = equipmentCost * (1 + equipmentMarkup / 100);
+    const totalSqft = parseFloat((document.getElementById('total-sqft') as HTMLInputElement).value) || 2000;
+    const numStories = (document.getElementById('num-stories') as HTMLSelectElement).value;
+    const sidingType = (document.getElementById('siding-type') as HTMLSelectElement).value;
+    const surfaceCondition = (document.getElementById('surface-condition') as HTMLSelectElement).value;
+    const ladderAccess = (document.getElementById('ladder-access') as HTMLSelectElement).value;
+    const paintQuality = (document.getElementById('paint-quality') as HTMLSelectElement).value;
+    const crewSize = parseInt((document.getElementById('crew-size') as HTMLInputElement).value) || 2;
+    const hourlyRate = parseFloat((document.getElementById('hourly-rate') as HTMLInputElement).value) || 60;
+    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 40;
+    const scaffoldRental = parseFloat((document.getElementById('scaffold-rental') as HTMLInputElement).value) || 0;
 
-    // Labor
-    const crewSize = parseFloat((document.getElementById('crew-size') as HTMLInputElement).value) || 0;
-    const installHours = parseFloat((document.getElementById('install-hours') as HTMLInputElement).value) || 0;
-    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
-    const laborSell = crewSize * installHours * billableRate;
-    const laborCost = crewSize * installHours * LOADED_WAGE;
+    // Paint
+    const pricePerGallon = paintPrices[paintQuality] || 35;
+    const paintGallons = Math.ceil((totalSqft * NUM_COATS) / EXTERIOR_COVERAGE);
+    const paintCost = paintGallons * pricePerGallon;
 
-    // Materials
-    const materialsCost = parseFloat((document.getElementById('materials-cost') as HTMLInputElement).value) || 0;
-    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 0;
+    // Primer (always for exterior)
+    const primerGallons = Math.ceil(totalSqft / PRIMER_COVERAGE);
+    const primerCost = primerGallons * PRIMER_PRICE;
+    const totalPaintPrimerCost = paintCost + primerCost;
+
+    // Supplies
+    const suppliesCost = SUPPLIES_BASE + (totalSqft * 0.02);
+
+    // Labor hours
+    const baseRate = sidingRates[sidingType] || 300;
+    const baseHours = totalSqft / baseRate;
+    const storyFactor = storyFactors[numStories] || 1.0;
+    const ladderFactor = ladderFactors[ladderAccess] || 1.0;
+    const prepMultiplier = conditionPrepMultipliers[surfaceCondition] || 0.1;
+
+    const paintingHours = (baseHours * NUM_COATS) * storyFactor * ladderFactor;
+    const prepHours = baseHours * prepMultiplier * storyFactor;
+    const primerHours = (totalSqft / 400) * storyFactor;
+
+    // Add-ons
+    let addonHours = 0;
+    let addonMaterialsCost = 0;
+    document.querySelectorAll('.addon-item').forEach(cb => {
+      const checkbox = cb as HTMLInputElement;
+      if (checkbox.checked) {
+        addonHours += parseFloat(checkbox.dataset.hours || '0');
+        addonMaterialsCost += parseFloat(checkbox.dataset.materials || '0');
+      }
+    });
+    addonHours *= storyFactor;
+
+    const totalLaborHours = paintingHours + prepHours + primerHours + addonHours;
+
+    // Costs
+    const materialsCost = totalPaintPrimerCost + suppliesCost + addonMaterialsCost;
     const materialsSell = materialsCost * (1 + materialsMarkup / 100);
+    const laborSell = totalLaborHours * hourlyRate;
+    const laborCost = totalLaborHours * INTERNAL_LABOR_COST;
 
-    // Other costs (pass-through, no markup)
-    const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
-    const disposalFee = parseFloat((document.getElementById('disposal-fee') as HTMLInputElement).value) || 0;
-    const miscFee = parseFloat((document.getElementById('misc-fee') as HTMLInputElement).value) || 0;
-    const otherTotal = permitFee + disposalFee + miscFee;
-
-    // Tonnage
-    const systemTons = parseFloat((document.getElementById('system-tons') as HTMLInputElement).value) || 1;
-
-    // Totals
-    const totalCost = equipmentCost + laborCost + materialsCost + otherTotal;
-    const totalSell = equipmentSell + laborSell + materialsSell + otherTotal;
+    const totalCost = materialsCost + laborCost + scaffoldRental;
+    const totalSell = materialsSell + laborSell + scaffoldRental;
     const grossProfit = totalSell - totalCost;
     const margin = totalSell > 0 ? (grossProfit / totalSell) * 100 : 0;
-    const pricePerTon = totalSell / systemTons;
+    const perSqft = totalSell / totalSqft;
+    const daysOnSite = Math.ceil(totalLaborHours / (crewSize * 8));
 
-    // Format currency
     const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
 
-    // Main results
     document.getElementById('result-total-sell')!.textContent = fmt(totalSell);
-    document.getElementById('result-gross-profit')!.textContent = fmt(grossProfit);
-    document.getElementById('result-price-per-ton')!.textContent = fmt(pricePerTon);
+    document.getElementById('result-per-sqft')!.textContent = '$' + perSqft.toFixed(2);
 
-    // Profit color
     const profitEl = document.getElementById('result-gross-profit')!;
+    profitEl.textContent = fmt(grossProfit);
     profitEl.className = 'font-heading font-extrabold text-3xl';
-    if (grossProfit >= 0) {
-      profitEl.classList.add('text-[#34D399]');
-    } else {
-      profitEl.classList.add('text-[#EF4444]');
-    }
+    profitEl.classList.add(grossProfit >= 0 ? 'text-[#34D399]' : 'text-[#EF4444]');
 
-    // Margin with color coding
     const marginEl = document.getElementById('result-margin')!;
     marginEl.textContent = margin.toFixed(1) + '%';
     marginEl.className = 'font-heading font-extrabold text-3xl';
-    if (margin >= 30) {
-      marginEl.classList.add('text-[#34D399]');
-    } else if (margin >= 20) {
-      marginEl.classList.add('text-[#FBBF24]');
-    } else {
-      marginEl.classList.add('text-[#EF4444]');
-    }
+    if (margin >= 35) marginEl.classList.add('text-[#34D399]');
+    else if (margin >= 25) marginEl.classList.add('text-[#FBBF24]');
+    else marginEl.classList.add('text-[#EF4444]');
 
-    // Breakdown
-    document.getElementById('breakdown-equip-cost')!.textContent = fmt(equipmentCost);
-    document.getElementById('breakdown-equip-sell')!.textContent = fmt(equipmentSell);
-    document.getElementById('breakdown-labor-cost')!.textContent = fmt(laborCost);
+    document.getElementById('breakdown-paint-cost')!.textContent = fmt(totalPaintPrimerCost);
+    document.getElementById('breakdown-paint-sell')!.textContent = fmt(totalPaintPrimerCost * (1 + materialsMarkup / 100));
+    document.getElementById('breakdown-supplies-cost')!.textContent = fmt(suppliesCost);
+    document.getElementById('breakdown-supplies-sell')!.textContent = fmt(suppliesCost * (1 + materialsMarkup / 100));
+    document.getElementById('breakdown-labor-hours')!.textContent = totalLaborHours.toFixed(1);
     document.getElementById('breakdown-labor-sell')!.textContent = fmt(laborSell);
-    document.getElementById('breakdown-mat-cost')!.textContent = fmt(materialsCost);
-    document.getElementById('breakdown-mat-sell')!.textContent = fmt(materialsSell);
-    document.getElementById('breakdown-other-cost')!.textContent = fmt(otherTotal);
-    document.getElementById('breakdown-other-sell')!.textContent = fmt(otherTotal);
+    document.getElementById('breakdown-addon-cost')!.textContent = fmt(addonMaterialsCost + (addonHours * INTERNAL_LABOR_COST));
+    document.getElementById('breakdown-addon-sell')!.textContent = fmt((addonMaterialsCost * (1 + materialsMarkup / 100)) + (addonHours * hourlyRate));
+    document.getElementById('breakdown-scaffold')!.textContent = fmt(scaffoldRental);
     document.getElementById('breakdown-total-cost')!.textContent = fmt(totalCost);
     document.getElementById('breakdown-total-sell')!.textContent = fmt(totalSell);
-
-    // Reverse calculator
-    const reverseToggle = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    if (reverseToggle) {
-      const targetPrice = parseFloat((document.getElementById('target-price') as HTMLInputElement).value) || 0;
-      const targetProfit = targetPrice - totalCost;
-      const targetMargin = targetPrice > 0 ? (targetProfit / targetPrice) * 100 : 0;
-
-      const reverseMarginEl = document.getElementById('reverse-margin')!;
-      reverseMarginEl.textContent = targetMargin.toFixed(1) + '% margin';
-      reverseMarginEl.className = 'font-heading font-extrabold text-2xl';
-      if (targetMargin >= 30) {
-        reverseMarginEl.classList.add('text-[#34D399]');
-      } else if (targetMargin >= 20) {
-        reverseMarginEl.classList.add('text-[#FBBF24]');
-      } else {
-        reverseMarginEl.classList.add('text-[#EF4444]');
-      }
-    }
-
-    // Show results
+    document.getElementById('timeline-estimate')!.textContent = `${daysOnSite} working days for a ${crewSize}-person crew`;
   }
 
-  // Calculate button
-
-  // Auto-calculate on any input change
-  document.querySelectorAll('#install-calc input[type="number"], #install-calc select').forEach(el => {
+  document.querySelectorAll('#exterior-calc input[type="number"], #exterior-calc select, #exterior-calc input[type="checkbox"]').forEach(el => {
     el.addEventListener('input', calculate);
     el.addEventListener('change', calculate);
   });
 
-  // Initialize materials from checklist and run initial calculation
-  updateMaterialsFromChecklist();
   calculate();
 </script>

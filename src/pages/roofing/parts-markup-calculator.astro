@@ -13,15 +13,15 @@ const faqSchema = {
       "name": "What is the difference between markup and margin?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 200% markup means you charge 3x your cost. The resulting margin is 66.7% because two-thirds of the sell price is profit. Markup is based on cost, margin is based on sell price."
+        "text": "Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 40% markup means you charge 1.4x your cost. The resulting margin is 28.6% because just over a quarter of the sell price is profit. Markup is based on cost, margin is based on sell price."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should HVAC companies use on parts?",
+      "name": "What markup should roofing companies use on materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC companies use 200-400% markup on small parts under $50, 100-200% on mid-range parts between $50 and $300, and 50-100% on major equipment over $300. Refrigerant typically gets 100-300% markup. The target is a blended margin of around 65% across all parts."
+        "text": "Roofing companies typically use 30-40% markup on shingles and ridge cap, 35-45% on flashing and trim, 25-35% on underlayment and ice and water shield, and 40-50% on miscellaneous hardware like nails, sealant, and pipe boots. The target is a blended margin of around 30-35% across all materials."
       }
     },
     {
@@ -29,15 +29,15 @@ const faqSchema = {
       "name": "How do I calculate sell price from wholesale cost and markup percentage?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%."
+        "text": "Multiply the wholesale cost by (1 + markup/100). For example, a $95 bundle of architectural shingles at 35% markup: $95 x (1 + 35/100) = $95 x 1.35 = $128.25 sell price. The profit is $33.25 and the margin is 25.9%."
       }
     },
     {
       "@type": "Question",
-      "name": "Why do HVAC companies mark up parts so much?",
+      "name": "Why do roofing contractors mark up materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible."
+        "text": "Materials markup covers more than just the product itself. It accounts for the cost of ordering, pickup or delivery, loading and staging on the roof, waste factor, warranty handling, and the expertise to specify the correct materials. A 35% markup on a $95 shingle bundle results in a $128 charge, which covers your purchasing time, vehicle costs, and the overhead that makes the job possible."
       }
     }
   ]
@@ -48,45 +48,45 @@ const faqSchema = {
   <div id="markup-calc">
     <!-- Quick Lookup -->
     <div class="mb-6">
-      <label class="block text-sm font-medium text-text-secondary mb-2" for="quick-lookup">Quick Lookup &mdash; Common HVAC Parts</label>
+      <label class="block text-sm font-medium text-text-secondary mb-2" for="quick-lookup">Quick Lookup &mdash; Common Roofing Materials</label>
       <select id="quick-lookup" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-        <option value="">Select a part to auto-fill cost...</option>
-        <option value="15">Capacitor &mdash; $15</option>
-        <option value="25">Contactor &mdash; $25</option>
-        <option value="150">Blower Motor &mdash; $150</option>
-        <option value="800">Compressor &mdash; $800</option>
-        <option value="100">TXV Valve &mdash; $100</option>
-        <option value="200">Control Board &mdash; $200</option>
-        <option value="25">Igniter &mdash; $25</option>
-        <option value="12">Flame Sensor &mdash; $12</option>
-        <option value="35">Thermostat (basic) &mdash; $35</option>
-        <option value="150">Thermostat (smart) &mdash; $150</option>
-        <option value="40">R-410A per lb &mdash; $40</option>
-        <option value="60">R-22 per lb &mdash; $60</option>
+        <option value="">Select a material to auto-fill cost...</option>
+        <option value="95">Architectural Shingle Bundle &mdash; $95</option>
+        <option value="65">3-Tab Shingle Bundle &mdash; $65</option>
+        <option value="45">Ridge Cap Bundle &mdash; $45</option>
+        <option value="65">Ice &amp; Water Shield (roll) &mdash; $65</option>
+        <option value="40">Synthetic Underlayment (roll) &mdash; $40</option>
+        <option value="25">Roll Flashing (aluminum) &mdash; $25</option>
+        <option value="10">Drip Edge (10 ft) &mdash; $10</option>
+        <option value="3">Step Flashing (each) &mdash; $3</option>
+        <option value="12">Pipe Boot &mdash; $12</option>
+        <option value="8">Roofing Sealant (tube) &mdash; $8</option>
+        <option value="15">Roofing Nails (5 lb box) &mdash; $15</option>
+        <option value="18">Ridge Vent (4 ft) &mdash; $18</option>
       </select>
     </div>
 
     <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="part-name">Part Name (optional)</label>
-        <input type="text" id="part-name" placeholder="e.g. Capacitor" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="part-name">Material Name (optional)</label>
+        <input type="text" id="part-name" placeholder="e.g. Architectural Shingle Bundle" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="wholesale-cost">Wholesale Cost ($)</label>
-        <input type="number" id="wholesale-cost" value="15" min="0.01" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="wholesale-cost" value="95" min="0.01" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
     <div class="mb-6">
       <label class="block text-sm font-medium text-text-secondary mb-2" for="markup-pct">Desired Markup (%)</label>
-      <input type="number" id="markup-pct" value="200" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      <input type="number" id="markup-pct" value="35" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       <div class="flex flex-wrap gap-2 mt-3">
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="100">100%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="150">150%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-accent border-accent transition-colors cursor-pointer" data-markup="200">200%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="300">300%</button>
-        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="400">400%</button>
+        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="25">25%</button>
+        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="30">30%</button>
+        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-accent border-accent transition-colors cursor-pointer" data-markup="35">35%</button>
+        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="40">40%</button>
+        <button class="markup-quick-btn bg-bg-dark border border-border rounded-lg px-4 py-2 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer" data-markup="50">50%</button>
       </div>
     </div>
 
@@ -114,26 +114,26 @@ const faqSchema = {
 
       <!-- Benchmarks -->
       <div class="bg-bg-dark rounded-xl p-5 mt-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Industry Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Roofing Industry Benchmarks</h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Small parts (&lt;$50)</span>
-            <span class="text-text-primary font-medium">200-400% markup &middot; 70-80% margin</span>
+            <span class="text-text-secondary">Shingles &amp; Ridge Cap</span>
+            <span class="text-text-primary font-medium">30-40% markup &middot; 23-29% margin</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Medium parts ($50-$300)</span>
-            <span class="text-text-primary font-medium">100-200% markup &middot; 50-67% margin</span>
+            <span class="text-text-secondary">Flashing &amp; Trim</span>
+            <span class="text-text-primary font-medium">35-45% markup &middot; 26-31% margin</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Major equipment ($300+)</span>
-            <span class="text-text-primary font-medium">50-100% markup &middot; 33-50% margin</span>
+            <span class="text-text-secondary">Underlayment &amp; Ice Shield</span>
+            <span class="text-text-primary font-medium">25-35% markup &middot; 20-26% margin</span>
           </div>
           <div class="flex justify-between items-center py-2 border-b border-border">
-            <span class="text-text-secondary">Refrigerant</span>
-            <span class="text-text-primary font-medium">100-300% markup &middot; 50-75% margin</span>
+            <span class="text-text-secondary">Misc Hardware (nails, sealant)</span>
+            <span class="text-text-primary font-medium">40-50% markup &middot; 29-33% margin</span>
           </div>
         </div>
-        <p class="text-text-muted text-xs mt-3 italic">Target: 65% blended margin on all parts combined.</p>
+        <p class="text-text-muted text-xs mt-3 italic">Target: 30-35% blended margin on all materials combined.</p>
       </div>
     </div>
   </div>
@@ -145,10 +145,10 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Pick a part or enter the cost.</strong> Use the Quick Lookup dropdown to select a common HVAC part and auto-fill the wholesale cost, or type your own cost directly.</p>
-          <p><strong class="text-text-primary">2. Set your markup percentage.</strong> Use the quick buttons for common markup levels or type any percentage. The industry standard for small parts is 200-300%.</p>
+          <p><strong class="text-text-primary">1. Pick a material or enter the cost.</strong> Use the Quick Lookup dropdown to select a common roofing material and auto-fill the wholesale cost, or type your own cost directly from your supplier invoice.</p>
+          <p><strong class="text-text-primary">2. Set your markup percentage.</strong> Use the quick buttons for common markup levels or type any percentage. Roofing materials typically use 25-50% markup depending on the category.</p>
           <p><strong class="text-text-primary">3. Read the results.</strong> The calculator instantly shows your sell price, profit per unit, margin percentage, and markup percentage. Compare against the benchmarks below to make sure you are in the right range.</p>
-          <p><strong class="text-text-primary">4. Adjust until it fits.</strong> Try different markups to see how they affect your margin. If you are building a flat rate price book, use this to set consistent pricing across your parts inventory.</p>
+          <p><strong class="text-text-primary">4. Adjust until it fits.</strong> Try different markups to see how they affect your margin. If you are building out your estimate templates, use this to set consistent pricing across your materials list.</p>
         </div>
       </section>
 
@@ -157,15 +157,15 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Markup vs Margin &mdash; What's the Difference</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Markup</strong> is the percentage added on top of your cost. <strong class="text-text-primary">Margin</strong> is the percentage of the final sell price that is profit. They use different denominators, which is why the numbers are always different.</p>
-          <p>Here is a concrete example. You buy a capacitor for <strong class="text-text-primary">$15</strong> and mark it up <strong class="text-text-primary">200%</strong>.</p>
+          <p>Here is a concrete example. You buy an architectural shingle bundle for <strong class="text-text-primary">$95</strong> and mark it up <strong class="text-text-primary">35%</strong>.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Sell Price = $15 x (1 + 200/100) = $15 x 3 = <strong class="text-accent">$45</strong></p>
-            <p>Profit    = $45 - $15 = <strong class="text-text-primary">$30</strong></p>
-            <p>Markup %  = ($30 / $15) x 100 = <strong class="text-text-primary">200%</strong>  (profit / cost)</p>
-            <p>Margin %  = ($30 / $45) x 100 = <strong class="text-text-primary">66.7%</strong> (profit / sell price)</p>
+            <p>Sell Price = $95 x (1 + 35/100) = $95 x 1.35 = <strong class="text-accent">$128.25</strong></p>
+            <p>Profit    = $128.25 - $95 = <strong class="text-text-primary">$33.25</strong></p>
+            <p>Markup %  = ($33.25 / $95) x 100 = <strong class="text-text-primary">35%</strong>  (profit / cost)</p>
+            <p>Margin %  = ($33.25 / $128.25) x 100 = <strong class="text-text-primary">25.9%</strong> (profit / sell price)</p>
           </div>
-          <p>The markup is 200% but the margin is only 66.7%. Markup will always be a larger number than margin for the same transaction. When someone says "we run 65% margins on parts," that translates to roughly a 186% markup. When someone says "we mark up 300%," that is a 75% margin.</p>
-          <p>The most common mistake is confusing the two. If you set your prices thinking 50% markup gives you 50% margin, you are actually only making a 33% margin. This calculator shows both numbers so you always know exactly where you stand.</p>
+          <p>The markup is 35% but the margin is only 25.9%. Markup will always be a larger number than margin for the same transaction. When someone says "we run 30% margins on materials," that translates to roughly a 43% markup. When someone says "we mark up 40%," that is a 28.6% margin.</p>
+          <p>The most common mistake is confusing the two. If you set your prices thinking 30% markup gives you 30% margin, you are actually only making a 23% margin. This calculator shows both numbers so you always know exactly where you stand.</p>
         </div>
       </section>
 
@@ -173,9 +173,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a flat rate price book.</strong> When you are setting up or updating your flat rate pricing, you need consistent markups across every part. Pull up this calculator, go through your parts list, and set a sell price for each one. Use the benchmarks to keep small parts at higher markups and major equipment at lower markups so your blended margin hits 65%.</p>
-          <p><strong class="text-text-primary">Quoting a repair on site.</strong> You diagnose a bad contactor and need to give the customer a price. Open the calculator on your phone, select the part from the dropdown, and you instantly see the sell price at your standard markup. No guessing, no mental math, no accidentally giving away margin.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> New technicians often undercharge on parts because they do not understand the difference between markup and margin. Walk them through this calculator to show why a 200% markup on a $15 capacitor results in a $45 charge, and why that $30 profit is necessary to cover truck inventory, overhead, and warranty.</p>
+          <p><strong class="text-text-primary">Building estimates and proposals.</strong> When you are putting together a roof replacement or repair estimate, you need consistent markups across every material line item. Pull up this calculator, go through your materials list, and set a sell price for each one. Use the benchmarks to keep shingles at 30-40% and hardware at 40-50% so your blended margin hits 30-35%.</p>
+          <p><strong class="text-text-primary">Quoting a repair on site.</strong> You inspect a roof and find damaged flashing that needs replacement. Open the calculator on your phone, select the material from the dropdown, and you instantly see the sell price at your standard markup. No guessing, no mental math, no accidentally giving away margin.</p>
+          <p><strong class="text-text-primary">Training crews on material costs.</strong> New estimators and project managers often undercharge on materials because they do not understand the difference between markup and margin. Walk them through this calculator to show why a 35% markup on a $95 shingle bundle results in a $128 charge, and why that $33 profit is necessary to cover ordering, delivery, waste, and overhead.</p>
         </div>
       </section>
 
@@ -185,19 +185,19 @@ const faqSchema = {
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between markup and margin?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 200% markup means you charge 3x your cost. The resulting margin is 66.7% because two-thirds of the sell price is profit. Markup is based on cost, margin is based on sell price.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Markup is the percentage added to your wholesale cost to get the sell price. Margin is the percentage of the sell price that is profit. A 40% markup means you charge 1.4x your cost. The resulting margin is 28.6% because just over a quarter of the sell price is profit. Markup is based on cost, margin is based on sell price.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should HVAC companies use on parts?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC companies use 200-400% markup on small parts under $50, 100-200% on mid-range parts between $50 and $300, and 50-100% on major equipment over $300. Refrigerant typically gets 100-300% markup. The target is a blended margin of around 65% across all parts.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should roofing companies use on materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Roofing companies typically use 30-40% markup on shingles and ridge cap, 35-45% on flashing and trim, 25-35% on underlayment and ice and water shield, and 40-50% on miscellaneous hardware like nails, sealant, and pipe boots. The target is a blended margin of around 30-35% across all materials.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate sell price from wholesale cost and markup percentage?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiply the wholesale cost by (1 + markup/100). For example, a $95 bundle of architectural shingles at 35% markup: $95 x (1 + 35/100) = $95 x 1.35 = $128.25 sell price. The profit is $33.25 and the margin is 25.9%.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do HVAC companies mark up parts so much?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do roofing contractors mark up materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Materials markup covers more than just the product itself. It accounts for the cost of ordering, pickup or delivery, loading and staging on the roof, waste factor, warranty handling, and the expertise to specify the correct materials. A 35% markup on a $95 shingle bundle results in a $128 charge, which covers your purchasing time, vehicle costs, and the overhead that makes the job possible.</div>
           </details>
         </div>
       </section>
@@ -227,7 +227,7 @@ const faqSchema = {
     const value = select.value;
     if (value) {
       (document.getElementById('wholesale-cost') as HTMLInputElement).value = value;
-      // Extract part name from the selected option text
+      // Extract material name from the selected option text
       const optionText = select.options[select.selectedIndex].text;
       const partName = optionText.split(' \u2014 ')[0];
       (document.getElementById('part-name') as HTMLInputElement).value = partName;

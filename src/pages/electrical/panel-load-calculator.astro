@@ -21,7 +21,7 @@ const faqSchema = {
     {
       "@type": "Question",
       "name": "Do I use the larger of heating or cooling load?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. NEC assumes heating and cooling are not used simultaneously, so you include only the larger of the two loads in your demand calculation. If you have a 10 kW heat pump and a 3-ton AC (about 12 kW), you would include the 12 kW cooling load and omit the heating load." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. NEC assumes heating and cooling are not used simultaneously, so you include only the larger of the two loads in your demand calculation. If you have a 10 kW high-efficiency option and a 3-ton AC (about 12 kW), you would include the 12 kW cooling load and omit the heating load." }
     }
   ]
 };
@@ -39,7 +39,7 @@ const faqSchema = {
         <select id="heatingType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           <option value="none">None / Gas / Oil</option>
           <option value="electric">Electric Resistance</option>
-          <option value="heatpump" selected>Heat Pump</option>
+          <option value="heatpump" selected>Premium Option</option>
         </select>
       </div>
       <div id="heatingKwWrap">

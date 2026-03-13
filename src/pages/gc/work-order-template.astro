@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be on an HVAC work order?",
+      "name": "What should be on a General Contracting work order?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A complete HVAC work order includes dispatch info (date, technician, priority), customer details, equipment identification (make, model, serial number), reported issue and diagnosis, work performed, parts used, refrigerant quantities added or recovered, system readings (pressures, temperatures, superheat, subcooling), a safety checklist, and technician signature with arrival and completion times."
+        "text": "A complete General Contracting work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times."
       }
     },
     {
@@ -26,10 +26,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "Is refrigerant tracking required?",
+      "name": "Is detailed documentation required?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. EPA Section 608 requires tracking refrigerant usage for systems containing 50 or more pounds of refrigerant. However, best practice is to log every refrigerant addition and recovery regardless of system size. Detailed records protect you during EPA audits and help diagnose recurring leak issues."
+        "text": "Yes. Maintaining detailed service records is a best practice for every General Contracting job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust."
       }
     },
     {
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "What's a normal temperature split for AC?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A normal temperature split (return air minus supply air) for an air conditioning system is 15 to 20 degrees Fahrenheit. A split below 15°F may indicate low refrigerant charge, a dirty evaporator coil, or airflow restrictions. A split above 20°F can suggest low airflow from a clogged filter or failing blower motor."
+        "text": "Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation."
       }
     }
   ]
@@ -107,12 +107,12 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Equipment Type</label>
         <select id="equip-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Central AC</option>
-          <option value="Heat Pump">Heat Pump</option>
-          <option value="Furnace">Furnace</option>
-          <option value="Mini Split">Mini Split</option>
-          <option value="Boiler">Boiler</option>
-          <option value="Package Unit">Package Unit</option>
+          <option value="Central AC">New Build</option>
+          <option value="Heat Pump">Addition</option>
+          <option value="Furnace">Mechanical System</option>
+          <option value="Mini Split">Remodel</option>
+          <option value="Boiler">Renovation</option>
+          <option value="Package Unit">Restoration</option>
           <option value="RTU">RTU</option>
         </select>
       </div>
@@ -137,7 +137,7 @@ const faqSchema = {
         <input type="text" id="filter-size" placeholder="e.g., 16x25x1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Refrigerant Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Material Type</label>
         <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           <option value="R-410A" selected>R-410A</option>
           <option value="R-22">R-22</option>
@@ -191,8 +191,8 @@ const faqSchema = {
       <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Part</button>
     </div>
 
-    <!-- Section: Refrigerant Log -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Refrigerant Log</h3>
+    <!-- Section: Materials Log -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Material Log</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-added">Amount Added (lbs)</label>
@@ -315,12 +315,12 @@ const faqSchema = {
 
       <!-- What Goes on a Work Order -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Goes on an HVAC Work Order</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Goes on a General Contracting Work Order</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p>A work order is the single document that proves what happened on a job. Every section exists for a reason.</p>
-          <p><strong class="text-text-primary">System identification</strong> — make, model, and serial number — ties the work to a specific piece of equipment. Manufacturers require this for warranty claims. Without it, you're fighting an uphill battle to get a compressor covered.</p>
+          <p><strong class="text-text-primary">Job identification</strong> — location details, scope of work, and materials used — ties the documentation to a specific service visit. This information is essential for warranty claims, follow-up visits, and customer records.</p>
           <p><strong class="text-text-primary">System readings</strong> document the equipment's operating condition at the time of service. Suction and head pressures, superheat, subcooling, and the temperature split tell the full story. If a customer calls back two weeks later saying the system never worked right, your readings prove otherwise.</p>
-          <p><strong class="text-text-primary">Refrigerant tracking</strong> is not optional. EPA Section 608 requires records of refrigerant added and recovered for commercial systems. Smart contractors track it on every job regardless of size. It protects you during audits and helps identify systems with chronic leak issues.</p>
+          <p><strong class="text-text-primary">Documentation</strong> is essential for every job. Detailed records of work performed, materials used, and before/after conditions protect both you and the customer. Smart contractors document everything regardless of job size. It protects you during disputes and helps maintain service history.</p>
           <p><strong class="text-text-primary">The safety checklist</strong> is your liability shield. Documenting that you checked for CO, inspected gas connections, and tested electrical components shows due diligence. If something goes wrong after you leave, that checklist is your first line of defense.</p>
           <p><strong class="text-text-primary">Parts used</strong> with part numbers create a clear record for inventory management, warranty tracking, and accurate invoicing. No more guessing what capacitor you put in three months ago.</p>
         </div>
@@ -331,7 +331,7 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Service and repair calls.</strong> Every diagnostic visit and repair needs a work order. The tech fills it out on site — reported issue, diagnosis, work performed, parts used, and system readings. It becomes the permanent record of the visit and the basis for the invoice.</p>
-          <p><strong class="text-text-primary">Preventive maintenance visits.</strong> During seasonal tune-ups, the work order captures baseline readings and safety checks. Over multiple visits, these readings show trends — rising amp draws, declining temperature splits, slowly dropping pressures — that help you recommend repairs before failures happen.</p>
+          <p><strong class="text-text-primary">Preventive maintenance visits.</strong> During seasonal maintenance visits, the work order captures baseline readings and safety checks. Over multiple visits, these readings show trends — rising amp draws, declining temperature splits, slowly dropping pressures — that help you recommend repairs before failures happen.</p>
           <p><strong class="text-text-primary">Warranty and callback documentation.</strong> When a manufacturer asks for proof that a system was properly maintained, or when a customer disputes what was done, the work order is your evidence. Complete work orders with readings, parts, and signatures eliminate he-said-she-said situations.</p>
         </div>
       </section>
@@ -341,20 +341,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on an HVAC work order?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete HVAC work order includes dispatch info (date, technician, priority), customer details, equipment identification (make, model, serial number), reported issue and diagnosis, work performed, parts used, refrigerant quantities added or recovered, system readings (pressures, temperatures, superheat, subcooling), a safety checklist, and technician signature with arrival and completion times.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a General Contracting work order?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete General Contracting work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record system readings?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">System readings like suction pressure, head pressure, superheat, subcooling, and temperature split document the system's operating condition at the time of service. These readings are critical for warranty claims, verifying proper charge levels, tracking system degradation over time, and protecting your company from liability disputes.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is refrigerant tracking required?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. EPA Section 608 requires tracking refrigerant usage for systems containing 50 or more pounds of refrigerant. However, best practice is to log every refrigerant addition and recovery regardless of system size. Detailed records protect you during EPA audits and help diagnose recurring leak issues.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is detailed documentation required?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Maintaining detailed service records is a best practice for every General Contracting job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What's a normal temperature split for AC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A normal temperature split (return air minus supply air) for an air conditioning system is 15 to 20 degrees Fahrenheit. A split below 15°F may indicate low refrigerant charge, a dirty evaporator coil, or airflow restrictions. A split above 20°F can suggest low airflow from a clogged filter or failing blower motor.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation.</div>
           </details>
         </div>
       </section>
@@ -547,7 +547,7 @@ const faqSchema = {
 </head><body>
 <div class="header">
   <div class="header-left">
-    <h1>HVAC Work Order</h1>
+    <h1>General Contracting Work Order</h1>
     <div style="font-size:13px;color:#555;">Service Documentation</div>
   </div>
   <div class="header-right">
@@ -580,7 +580,7 @@ const faqSchema = {
   <div class="value">${getVal('equip-model') || '—'}</div><div class="value">${getVal('equip-serial') || '—'}</div>
   <div><span class="label">Install Date:</span></div><div><span class="label">Filter Size:</span></div>
   <div class="value">${getVal('install-date') || '—'}</div><div class="value">${getVal('filter-size') || '—'}</div>
-  <div><span class="label">Refrigerant:</span></div><div></div>
+  <div><span class="label">Materials:</span></div><div></div>
   <div class="value">${getVal('refrigerant-type')}</div><div></div>
 </div>
 
@@ -592,7 +592,7 @@ const faqSchema = {
 ${partsHtml ? `<h2>Parts Used</h2>
 <table><thead><tr><th>Part Name</th><th>Part #</th><th style="text-align:center;">Qty</th></tr></thead><tbody>${partsHtml}</tbody></table>` : ''}
 
-<h2>Refrigerant Log</h2>
+<h2>Material Log</h2>
 <div class="grid2">
   <div><span class="label">Added:</span></div><div><span class="label">Recovered:</span></div>
   <div class="value">${getVal('ref-added') || '0'} lbs</div><div class="value">${getVal('ref-recovered') || '0'} lbs</div>

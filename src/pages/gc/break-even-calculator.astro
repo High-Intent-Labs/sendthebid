@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a good profit margin for HVAC?",
+      "name": "What is a good profit margin for a general contractor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The industry average gross margin for HVAC companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work."
+        "text": "Most general contractors target a net profit margin of 8-12% on remodeling and renovation work. Gross margins (before overhead) typically range from 25-35% depending on project type. Smaller residential remodelers often operate closer to 25% gross margin, while larger commercial GCs with efficient project management can achieve 35% or more. If your margin is consistently below 20%, you are likely underpricing your work or have cost overruns that need to be addressed."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the difference between margin and markup?",
+      "name": "How do I calculate break-even revenue for my contracting business?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Margin is profit as a percentage of revenue (selling price). Markup is profit as a percentage of cost. For example, if a job costs $3,000 and you sell it for $5,000, your profit is $2,000. Your margin is 40% ($2,000 / $5,000) and your markup is 66.7% ($2,000 / $3,000). They describe the same profit from different reference points."
+        "text": "Divide your total annual fixed costs (overhead) by your average gross margin percentage expressed as a decimal. For example, if your annual overhead is $200,000 and your average gross margin is 25%, your break-even revenue is $200,000 / 0.25 = $800,000 per year or about $66,667 per month. Any revenue above that amount is net profit."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I calculate overhead for an HVAC job?",
+      "name": "What fixed costs should a general contractor include in break-even analysis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most HVAC companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue."
+        "text": "Fixed costs for a GC include office or shop rent, insurance premiums (general liability, workers comp, umbrella), vehicle payments, owner salary, office staff wages, software subscriptions, marketing spend, license fees, and utilities. These costs remain roughly the same regardless of how many projects you complete. Variable costs like job-site labor, materials, subcontractors, and permits scale with each project and are not included in fixed overhead."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is my HVAC profit margin so low?",
+      "name": "How many projects does a general contractor need to break even?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Common causes of low HVAC margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
+        "text": "Divide your total annual fixed costs by the average profit per project. If your overhead is $200,000 per year and each project generates $10,000 in gross profit (after subtracting job costs), you need 20 projects per year to break even. This calculation helps you set sales targets and understand the minimum volume your business requires to stay profitable."
       }
     }
   ]
@@ -45,171 +45,213 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="margin-calc">
-    <!-- Input Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="revenue">Job Revenue ($)</label>
-        <input type="number" id="revenue" value="5800" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Equipment &amp; Parts (condenser, coil, refrigerant, line set)</label>
-        <input type="number" id="equipment" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+  <div id="breakeven-calc">
+    <!-- Fixed Costs Section -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Monthly Fixed Costs (Overhead)</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="rent">Office / Shop Rent</label>
+          <input type="number" id="rent" value="2500" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="insurance">Insurance (GL, WC, Umbrella)</label>
+          <input type="number" id="insurance" value="1800" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="vehicles">Vehicles &amp; Equipment</label>
+          <input type="number" id="vehicles" value="1500" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="ownerSalary">Owner Salary</label>
+          <input type="number" id="ownerSalary" value="6000" min="0" step="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="officeStaff">Office Staff / PM Wages</label>
+          <input type="number" id="officeStaff" value="3500" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="marketing">Marketing &amp; Advertising</label>
+          <input type="number" id="marketing" value="1200" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="software">Software &amp; Subscriptions</label>
+          <input type="number" id="software" value="400" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="otherFixed">Other Fixed Costs</label>
+          <input type="number" id="otherFixed" value="600" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
       </div>
     </div>
 
-    <!-- Labor sub-section -->
-    <div class="mb-6">
-      <p class="text-sm font-medium text-text-secondary mb-3">Labor</p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- Project Economics Section -->
+    <div class="mb-8">
+      <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Average Project Economics</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="techs">Number of Techs</label>
-          <input type="number" id="techs" value="2" min="1" max="20" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="avgProjectRevenue">Avg Project Revenue ($)</label>
+          <input type="number" id="avgProjectRevenue" value="50000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="hours">Hours</label>
-          <input type="number" id="hours" value="6" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-xs text-text-muted mb-1" for="hourlyRate">Hourly Rate ($)</label>
-          <input type="number" id="hourlyRate" value="35" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-sm font-medium text-text-secondary mb-1" for="avgGrossMargin">Avg Gross Margin (%)</label>
+          <input type="number" id="avgGrossMargin" value="25" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Revenue minus direct job costs (labor, materials, subs)</p>
         </div>
       </div>
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials">Materials Cost ($)</label>
-        <input type="number" id="materials" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="overhead">Overhead (%)</label>
-        <input type="number" id="overhead" value="35" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">% of revenue allocated to overhead</p>
-      </div>
-    </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Break-Even Analysis</h3>
+
+      <!-- Primary metrics -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit</div>
-          <div id="result-profit" class="font-heading font-extrabold text-3xl text-accent">—</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Fixed Costs</div>
+          <div id="result-monthlyFixed" class="font-heading font-extrabold text-3xl text-accent">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Margin</div>
-          <div id="result-margin" class="font-heading font-extrabold text-3xl">—</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Annual Fixed Costs</div>
+          <div id="result-annualFixed" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Markup</div>
-          <div id="result-markup" class="font-heading font-extrabold text-3xl text-text-primary">—</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Break-Even Revenue / Year</div>
+          <div id="result-beRevenue" class="font-heading font-extrabold text-3xl text-accent">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost per $1 Revenue</div>
-          <div id="result-costper" class="font-heading font-extrabold text-3xl text-text-primary">—</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Break-Even Revenue / Month</div>
+          <div id="result-beMonthly" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
         </div>
       </div>
 
-      <!-- Benchmarks -->
+      <!-- Project metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit per Project</div>
+          <div id="result-profitPerProject" class="font-heading font-extrabold text-2xl text-[#34D399]">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Projects to Break Even / Year</div>
+          <div id="result-projectsBE" class="font-heading font-extrabold text-2xl text-accent">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Projects to Break Even / Month</div>
+          <div id="result-projectsBEmonth" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+
+      <!-- Visual break-even bar -->
+      <div class="bg-bg-dark rounded-xl p-6 mb-8">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Revenue Needed to Hit Profit Targets</h4>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">Break Even (0% net)</span>
+              <span id="target-be" class="text-text-primary font-semibold">--</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">5% Net Profit Target</span>
+              <span id="target-5" class="text-text-primary font-semibold">--</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-text-secondary">10% Net Profit Target</span>
+              <span id="target-10" class="text-text-primary font-semibold">--</span>
+            </div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
+              <div class="bg-[#34D399] h-2 rounded-full" style="width: 90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benchmark -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">HVAC Industry Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">GC Industry Benchmarks</h4>
         <div class="space-y-3">
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Industry Avg Gross Margin</span>
-              <span class="text-text-primary font-semibold">42%</span>
+              <span class="text-text-secondary">Typical GC Gross Margin</span>
+              <span class="text-text-primary font-semibold">25 &ndash; 35%</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 42%"></div>
+              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 30%"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Top Performers</span>
-              <span class="text-text-primary font-semibold">55%+</span>
+              <span class="text-text-secondary">Target Net Profit</span>
+              <span class="text-text-primary font-semibold">8 &ndash; 12%</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#34D399] h-2 rounded-full" style="width: 55%"></div>
+              <div class="bg-[#34D399] h-2 rounded-full" style="width: 10%"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Service Work Target</span>
-              <span class="text-text-primary font-semibold">50 &ndash; 65%</span>
+              <span class="text-text-secondary">Typical Overhead Range</span>
+              <span class="text-text-primary font-semibold">25 &ndash; 35% of revenue</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 57%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Install Work Target</span>
-              <span class="text-text-primary font-semibold">25 &ndash; 40%</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 32%"></div>
+              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 30%"></div>
             </div>
           </div>
           <div id="benchmark-warning" class="hidden mt-3 bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] rounded-lg px-4 py-3 text-sm text-[#FCA5A5]">
-            Your margin is below 35%. You may be underpricing your work.
-          </div>
-        </div>
-        <!-- Your margin indicator -->
-        <div class="mt-4 pt-4 border-t border-border">
-          <div class="flex justify-between text-sm mb-1">
-            <span class="text-text-secondary font-medium">Your Gross Margin</span>
-            <span id="benchmark-your-margin" class="font-heading font-bold">—</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2.5">
-            <div id="benchmark-bar" class="h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            Your gross margin is below 20%. You may be underpricing your work or need to reduce job costs.
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
       <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your job revenue.</strong> This is the total amount you charge the customer. Include all line items: equipment, labor, materials, and any fees.</p>
-          <p><strong class="text-text-primary">2. Enter equipment and parts cost.</strong> Your wholesale cost for the condenser, coil, refrigerant, line set, and any other parts. Use what you actually paid, not list price.</p>
-          <p><strong class="text-text-primary">3. Fill in labor details.</strong> Enter the number of techs on the job, total hours, and your hourly labor cost. This should be your burdened rate (wages + payroll taxes + workers comp), not the billing rate.</p>
-          <p><strong class="text-text-primary">4. Add materials cost.</strong> Consumables like brazing rods, tape, screws, hangers, condensate fittings, and any other supplies used on the job.</p>
-          <p><strong class="text-text-primary">5. Set your overhead percentage.</strong> Most HVAC companies run 25-40% overhead. This covers rent, insurance, trucks, office staff, software, and marketing. If you do not know yours, 35% is a solid starting point.</p>
+          <p><strong class="text-text-primary">1. Enter your monthly fixed costs.</strong> These are expenses you pay regardless of how many projects you complete: office rent, insurance, vehicle payments, owner salary, office staff, marketing, and software. If you already used our Overhead Cost Calculator, pull those numbers directly.</p>
+          <p><strong class="text-text-primary">2. Enter your average project revenue.</strong> This is the typical contract value for one project. If your projects range widely, use the median value or run the calculator multiple times with different project sizes.</p>
+          <p><strong class="text-text-primary">3. Set your average gross margin.</strong> Gross margin is the percentage of project revenue left after direct job costs (field labor, materials, subcontractors, permits). Most GCs land between 25% and 35%. If you are unsure, 25% is a conservative starting point.</p>
+          <p><strong class="text-text-primary">4. Review your results.</strong> The calculator shows how much total revenue you need to cover all fixed costs (break-even revenue), how many projects that translates to, and the revenue targets needed to achieve 5% and 10% net profit.</p>
         </div>
       </section>
 
       <!-- How It Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Profit Margin Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Break-Even Analysis Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Margin and markup describe the same profit from different angles.</strong> Margin is profit as a percentage of the selling price (revenue). Markup is profit as a percentage of your cost. Confusing the two is one of the most common pricing mistakes in the trades.</p>
-          <p>Here is how this calculator computes each number:</p>
+          <p><strong class="text-text-primary">Break-even revenue is the minimum annual revenue your business needs to cover all fixed costs.</strong> Every dollar of revenue above break-even is net profit. Every dollar below means you are losing money.</p>
+          <p>Here is how this calculator computes the key numbers:</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Labor_Cost = Techs x Hours x Hourly_Rate</p>
-            <p>Total_Cost = Equipment + Labor_Cost + Materials + (Revenue x Overhead% / 100)</p>
-            <p>Profit = Revenue - Total_Cost</p>
-            <p>Gross_Margin = (Profit / Revenue) x 100</p>
-            <p>Markup = (Profit / Total_Cost) x 100</p>
+            <p>Annual_Fixed_Costs = Monthly_Fixed_Costs x 12</p>
+            <p>Break_Even_Revenue = Annual_Fixed_Costs / (Gross_Margin% / 100)</p>
+            <p>Gross_Profit_Per_Project = Avg_Project_Revenue x (Gross_Margin% / 100)</p>
+            <p>Projects_to_Break_Even = Annual_Fixed_Costs / Gross_Profit_Per_Project</p>
           </div>
-          <p><strong class="text-text-primary">Example:</strong> A $5,800 install with $2,200 in equipment, $420 in labor (2 techs x 6 hours x $35), $350 in materials, and 35% overhead ($2,030). Total cost is $5,000. Profit is $800. Gross margin is 13.8%. Markup is 16%.</p>
-          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.86, you keep $0.14 in profit for every $1 collected. Top HVAC shops aim for $0.45-$0.55 in cost per revenue dollar on service work.</p>
+          <p><strong class="text-text-primary">Example:</strong> A GC with $17,500/month in overhead ($210,000/year) and a 25% gross margin needs $840,000 in annual revenue to break even. If the average project is $50,000, each project generates $12,500 in gross profit, meaning 17 projects per year (about 1.4 per month) are required just to cover costs.</p>
+          <p>The profit-target section takes it further. To earn a 10% net profit on top of covering overhead, you need to generate even more revenue. The formula adjusts the denominator: Revenue_for_Target = Fixed_Costs / (Gross_Margin% - Target_Net%). This is the revenue level where you are not just surviving but building a sustainable business.</p>
         </div>
       </section>
 
-      <!-- When To Use This -->
+      <!-- When to Use -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">When to Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">After completing a job.</strong> Plug in the actual numbers once the invoice is paid. Compare your real margin to what you estimated during the quote. If there is a gap, figure out whether it was labor overrun, unexpected materials, or scope creep, and adjust future pricing accordingly.</p>
-          <p><strong class="text-text-primary">When quoting new work.</strong> Before you send a proposal, run the numbers here to make sure you are hitting your target margin. Adjust the revenue up or down until you land in the green zone. This prevents the all-too-common mistake of pricing based on gut feel and discovering you barely broke even.</p>
-          <p><strong class="text-text-primary">During annual business review.</strong> Pull your average job revenue, typical equipment cost, and average crew size. See where your overall margin lands relative to industry benchmarks. If you are below 42%, you have a pricing problem, a cost problem, or both.</p>
+          <p><strong class="text-text-primary">Setting annual revenue goals.</strong> Break-even analysis turns vague targets like "grow the business" into a concrete revenue number. You know exactly how many projects you need per month to cover costs and hit your profit goals.</p>
+          <p><strong class="text-text-primary">Deciding whether to hire.</strong> Adding a project manager or another crew increases your fixed costs. Run the new numbers through the calculator to see how much additional revenue you need to justify the hire.</p>
+          <p><strong class="text-text-primary">Evaluating pricing changes.</strong> If you raise your markup from 25% to 30%, your break-even revenue drops significantly. This calculator lets you see the impact before you change your pricing.</p>
+          <p><strong class="text-text-primary">Slow-season planning.</strong> Most GCs have seasonal dips. Knowing your monthly break-even number helps you decide whether to cut costs, pursue smaller projects, or dip into reserves during the off months.</p>
         </div>
       </section>
 
@@ -218,20 +260,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for HVAC companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for a general contractor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most general contractors target a net profit margin of 8-12% on remodeling and renovation work. Gross margins (before overhead) typically range from 25-35% depending on project type. Smaller residential remodelers often operate closer to 25% gross margin, while larger commercial GCs with efficient project management can achieve 35% or more. If your margin is consistently below 20%, you are likely underpricing your work or have cost overruns that need to be addressed.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between margin and markup?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Margin is profit as a percentage of revenue (selling price). Markup is profit as a percentage of cost. For example, if a job costs $3,000 and you sell it for $5,000, your profit is $2,000. Your margin is 40% ($2,000 / $5,000) and your markup is 66.7% ($2,000 / $3,000). They describe the same profit from different reference points.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate break-even revenue for my contracting business?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Divide your total annual fixed costs (overhead) by your average gross margin percentage expressed as a decimal. For example, if your annual overhead is $200,000 and your average gross margin is 25%, your break-even revenue is $200,000 / 0.25 = $800,000 per year or about $66,667 per month. Any revenue above that amount is net profit.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead for an HVAC job?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most HVAC companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What fixed costs should a general contractor include in break-even analysis?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Fixed costs for a GC include office or shop rent, insurance premiums (general liability, workers comp, umbrella), vehicle payments, owner salary, office staff wages, software subscriptions, marketing spend, license fees, and utilities. These costs remain roughly the same regardless of how many projects you complete. Variable costs like job-site labor, materials, subcontractors, and permits scale with each project and are not included in fixed overhead.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is my HVAC profit margin so low?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low HVAC margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How many projects does a general contractor need to break even?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Divide your total annual fixed costs by the average profit per project. If your overhead is $200,000 per year and each project generates $10,000 in gross profit (after subtracting job costs), you need 20 projects per year to break even. This calculation helps you set sales targets and understand the minimum volume your business requires to stay profitable.</div>
           </details>
         </div>
       </section>
@@ -241,92 +283,81 @@ const faqSchema = {
 
 <script>
   function calculate() {
-    const revenue = parseFloat((document.getElementById('revenue') as HTMLInputElement).value) || 0;
-    const equipment = parseFloat((document.getElementById('equipment') as HTMLInputElement).value) || 0;
-    const techs = parseFloat((document.getElementById('techs') as HTMLInputElement).value) || 0;
-    const hours = parseFloat((document.getElementById('hours') as HTMLInputElement).value) || 0;
-    const hourlyRate = parseFloat((document.getElementById('hourlyRate') as HTMLInputElement).value) || 0;
-    const materials = parseFloat((document.getElementById('materials') as HTMLInputElement).value) || 0;
-    const overheadPct = parseFloat((document.getElementById('overhead') as HTMLInputElement).value) || 0;
+    const rent = parseFloat((document.getElementById('rent') as HTMLInputElement).value) || 0;
+    const insurance = parseFloat((document.getElementById('insurance') as HTMLInputElement).value) || 0;
+    const vehicles = parseFloat((document.getElementById('vehicles') as HTMLInputElement).value) || 0;
+    const ownerSalary = parseFloat((document.getElementById('ownerSalary') as HTMLInputElement).value) || 0;
+    const officeStaff = parseFloat((document.getElementById('officeStaff') as HTMLInputElement).value) || 0;
+    const marketing = parseFloat((document.getElementById('marketing') as HTMLInputElement).value) || 0;
+    const software = parseFloat((document.getElementById('software') as HTMLInputElement).value) || 0;
+    const otherFixed = parseFloat((document.getElementById('otherFixed') as HTMLInputElement).value) || 0;
 
-    const laborCost = techs * hours * hourlyRate;
-    const overheadCost = revenue * (overheadPct / 100);
-    const totalCost = equipment + laborCost + materials + overheadCost;
-    const profit = revenue - totalCost;
-    const grossMargin = revenue > 0 ? (profit / revenue) * 100 : 0;
-    const markup = totalCost > 0 ? (profit / totalCost) * 100 : 0;
-    const costPerDollar = revenue > 0 ? totalCost / revenue : 0;
+    const avgProjectRevenue = parseFloat((document.getElementById('avgProjectRevenue') as HTMLInputElement).value) || 0;
+    const avgGrossMargin = parseFloat((document.getElementById('avgGrossMargin') as HTMLInputElement).value) || 0;
 
-    // Format results
-    const profitFormatted = profit >= 0
-      ? '$' + profit.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })
-      : '-$' + Math.abs(profit).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    // Calculate totals
+    const monthlyFixed = rent + insurance + vehicles + ownerSalary + officeStaff + marketing + software + otherFixed;
+    const annualFixed = monthlyFixed * 12;
 
-    document.getElementById('result-profit')!.textContent = profitFormatted;
-    document.getElementById('result-margin')!.textContent = grossMargin.toFixed(1) + '%';
-    document.getElementById('result-markup')!.textContent = markup.toFixed(1) + '%';
-    document.getElementById('result-costper')!.textContent = '$' + costPerDollar.toFixed(2);
+    // Break-even revenue
+    const marginDecimal = avgGrossMargin / 100;
+    const beRevenueAnnual = marginDecimal > 0 ? annualFixed / marginDecimal : 0;
+    const beRevenueMonthly = beRevenueAnnual / 12;
 
-    // Color the margin result
-    const marginEl = document.getElementById('result-margin')!;
-    marginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (grossMargin >= 42) {
-      marginEl.classList.add('text-[#34D399]');
-    } else if (grossMargin >= 35) {
-      marginEl.classList.add('text-[#FBBF24]');
-    } else {
-      marginEl.classList.add('text-[#EF4444]');
+    // Project-based break-even
+    const grossProfitPerProject = avgProjectRevenue * marginDecimal;
+    const projectsBE = grossProfitPerProject > 0 ? annualFixed / grossProfitPerProject : 0;
+    const projectsBEmonth = projectsBE / 12;
+
+    // Profit targets
+    const target5margin = marginDecimal - 0.05;
+    const target10margin = marginDecimal - 0.10;
+    const revenue5 = target5margin > 0 ? annualFixed / target5margin : 0;
+    const revenue10 = target10margin > 0 ? annualFixed / target10margin : 0;
+
+    // Format helper
+    const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    // Update results
+    document.getElementById('result-monthlyFixed')!.textContent = fmt(monthlyFixed);
+    document.getElementById('result-annualFixed')!.textContent = fmt(annualFixed);
+    document.getElementById('result-beRevenue')!.textContent = marginDecimal > 0 ? fmt(beRevenueAnnual) : 'N/A';
+    document.getElementById('result-beMonthly')!.textContent = marginDecimal > 0 ? fmt(beRevenueMonthly) : 'N/A';
+    document.getElementById('result-profitPerProject')!.textContent = fmt(grossProfitPerProject);
+    document.getElementById('result-projectsBE')!.textContent = grossProfitPerProject > 0 ? Math.ceil(projectsBE).toString() : 'N/A';
+    document.getElementById('result-projectsBEmonth')!.textContent = grossProfitPerProject > 0 ? projectsBEmonth.toFixed(1) : 'N/A';
+
+    // Profit targets
+    document.getElementById('target-be')!.textContent = marginDecimal > 0 ? fmt(beRevenueAnnual) + '/yr' : 'N/A';
+    document.getElementById('target-5')!.textContent = target5margin > 0 ? fmt(revenue5) + '/yr' : 'N/A';
+    document.getElementById('target-10')!.textContent = target10margin > 0 ? fmt(revenue10) + '/yr' : 'N/A';
+
+    // Dynamic bar widths based on relative scale
+    const maxRevenue = Math.max(beRevenueAnnual, revenue5 || 0, revenue10 || 0);
+    if (maxRevenue > 0) {
+      const bars = document.querySelectorAll('#results .space-y-4 .rounded-full .rounded-full') as NodeListOf<HTMLElement>;
+      if (bars.length >= 3) {
+        bars[0].style.width = ((beRevenueAnnual / maxRevenue) * 100) + '%';
+        bars[1].style.width = revenue5 > 0 ? ((revenue5 / maxRevenue) * 100) + '%' : '0%';
+        bars[2].style.width = revenue10 > 0 ? ((revenue10 / maxRevenue) * 100) + '%' : '0%';
+      }
     }
 
-    // Color the profit result
-    const profitEl = document.getElementById('result-profit')!;
-    profitEl.classList.remove('text-accent', 'text-[#34D399]', 'text-[#EF4444]');
-    if (profit >= 0) {
-      profitEl.classList.add('text-[#34D399]');
-    } else {
-      profitEl.classList.add('text-[#EF4444]');
-    }
-
-    // Update benchmark bar
-    const clampedMargin = Math.max(0, Math.min(100, grossMargin));
-    const benchmarkBar = document.getElementById('benchmark-bar')!;
-    benchmarkBar.style.width = clampedMargin + '%';
-    benchmarkBar.classList.remove('bg-[#34D399]', 'bg-[#FBBF24]', 'bg-[#EF4444]');
-    if (grossMargin >= 42) {
-      benchmarkBar.classList.add('bg-[#34D399]');
-    } else if (grossMargin >= 35) {
-      benchmarkBar.classList.add('bg-[#FBBF24]');
-    } else {
-      benchmarkBar.classList.add('bg-[#EF4444]');
-    }
-
-    const yourMarginEl = document.getElementById('benchmark-your-margin')!;
-    yourMarginEl.textContent = grossMargin.toFixed(1) + '%';
-    yourMarginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (grossMargin >= 42) {
-      yourMarginEl.classList.add('text-[#34D399]');
-    } else if (grossMargin >= 35) {
-      yourMarginEl.classList.add('text-[#FBBF24]');
-    } else {
-      yourMarginEl.classList.add('text-[#EF4444]');
-    }
-
-    // Show/hide underpricing warning
+    // Benchmark warning
     const warningEl = document.getElementById('benchmark-warning')!;
-    if (grossMargin < 35) {
+    if (avgGrossMargin < 20 && avgGrossMargin > 0) {
+      warningEl.classList.remove('hidden');
     } else {
       warningEl.classList.add('hidden');
     }
-
   }
 
-
   // Auto-calculate on input change
-  document.querySelectorAll('#margin-calc input').forEach(el => {
+  document.querySelectorAll('#breakeven-calc input').forEach(el => {
     el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);
   });
 
-  // Calculate on load with defaults
+  // Calculate on load
   calculate();
 </script>

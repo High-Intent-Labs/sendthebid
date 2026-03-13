@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is flat rate pricing in HVAC?",
+      "name": "What is flat rate pricing in electrical work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful HVAC companies use flat rate pricing for common repairs like capacitor replacements, blower motors, and thermostat installs."
+        "text": "Flat rate pricing means charging a fixed price per repair or installation regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful electrical contractors use flat rate pricing for common jobs like outlet installations, breaker replacements, and ceiling fan installs."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I build a flat rate price book?",
+      "name": "How do I build an electrical flat rate price book?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change."
+        "text": "Start by listing your most common repairs and installations. For each task, calculate your actual parts cost, apply a markup (typically 150-300% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance for wire nuts, tape, and connectors. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as material costs change."
       }
     },
     {
       "@type": "Question",
-      "name": "Is flat rate better than time and material?",
+      "name": "Is flat rate better than time and material for electricians?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing outperforms time and material billing for most HVAC service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable."
+        "text": "Flat rate pricing outperforms time and material billing for most electrical service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Electricians who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex troubleshooting or commercial work where scope is unpredictable."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I use for HVAC flat rate?",
+      "name": "What markup should electricians use for flat rate pricing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the HVAC industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly."
+        "text": "For small commodity parts like outlets, switches, and wire nuts, a 250-300% markup is standard in the electrical industry. For mid-range items like breakers and GFCI devices, 150-250% markup is typical. For major equipment like panels and sub-panels, 75-125% markup is common. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install correctly per NEC code."
       }
     }
   ]
@@ -49,27 +49,27 @@ const faqSchema = {
     <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="repair-type">Repair Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="repair-type">Task Type</label>
         <select id="repair-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="capacitor">Capacitor replacement</option>
-          <option value="contactor">Contactor replacement</option>
-          <option value="blower-motor">Blower motor replacement</option>
-          <option value="compressor">Compressor replacement</option>
-          <option value="txv">TXV replacement</option>
-          <option value="thermostat">Thermostat install</option>
-          <option value="coil-cleaning">Coil cleaning</option>
-          <option value="drain-line">Drain line clearing</option>
-          <option value="duct-sealing">Duct sealing (per duct)</option>
+          <option value="outlet-install">Outlet installation</option>
+          <option value="switch-replace">Switch replacement</option>
+          <option value="breaker-replace">Breaker replacement</option>
+          <option value="gfci-install">GFCI outlet install</option>
+          <option value="new-circuit">New circuit run</option>
+          <option value="ceiling-fan">Ceiling fan install</option>
+          <option value="dimmer-install">Dimmer switch install</option>
+          <option value="sub-panel">Sub-panel install</option>
+          <option value="service-upgrade">200A service upgrade</option>
           <option value="custom">Custom (enter your own)</option>
         </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-cost">Parts Cost ($)</label>
-        <input type="number" id="parts-cost" value="20" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="parts-cost" value="2" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-markup">Parts Markup (%)</label>
-        <input type="number" id="parts-markup" value="200" min="0" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="parts-markup" value="250" min="0" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Estimated Labor Hours</label>
@@ -77,16 +77,16 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="billable-rate" value="115" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-materials">Misc Materials ($)</label>
-        <input type="number" id="misc-materials" value="15" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="misc-materials" value="12" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">Your Loaded Wage ($/hr)</label>
-        <input type="number" id="loaded-wage" value="35" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Tech hourly cost including burden (taxes, insurance, benefits)</p>
+        <input type="number" id="loaded-wage" value="32" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Electrician hourly cost including burden (taxes, insurance, benefits)</p>
       </div>
     </div>
 
@@ -121,7 +121,7 @@ const faqSchema = {
 
       <!-- Warning -->
       <div id="undercharge-warning" class="hidden mb-6 bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg p-4">
-        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this repair. Your price is more than 20% below the national average low end.</p>
+        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this task. Your price is more than 20% below the national average low end.</p>
       </div>
 
       <!-- Breakdown Grid -->
@@ -163,9 +163,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the repair type.</strong> Choose from the pre-built task library. Parts cost and labor hours auto-fill based on industry averages. Pick "Custom" to enter your own values from scratch.</p>
-          <p><strong class="text-text-primary">2. Adjust parts cost and markup.</strong> Override the default parts cost with your actual supplier pricing. Small commodity parts like capacitors typically carry 200% markup. Major components like compressors use 75-100%.</p>
-          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover tech wages, overhead, truck costs, and profit. Adjust labor hours based on your team's average completion time for this repair.</p>
+          <p><strong class="text-text-primary">1. Select the task type.</strong> Choose from the pre-built electrical task library. Parts cost and labor hours auto-fill based on industry averages. Pick "Custom" to enter your own values from scratch.</p>
+          <p><strong class="text-text-primary">2. Adjust parts cost and markup.</strong> Override the default parts cost with your actual supplier pricing. Small commodity parts like outlets and switches typically carry 250% markup. Panels and sub-panels use 75-125%.</p>
+          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover electrician wages, overhead, truck costs, and profit. Adjust labor hours based on your team's average completion time for this task.</p>
           <p><strong class="text-text-primary">4. Review your flat rate against the national average.</strong> The comparison bar shows where your price falls relative to the national range. If you are more than 20% below the low end, you are likely leaving money on the table.</p>
         </div>
       </section>
@@ -174,9 +174,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>Hourly billing penalizes your best technicians. A senior tech who replaces a contactor in 30 minutes earns your company half the revenue of a slower tech who takes an hour. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the repair</strong>, not the speed of the technician.</p>
-          <p>Customers prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $125 an hour plus parts," their anxiety spikes. Every minute the tech spends on the phone or walking to the truck feels like money burning. A flat rate quote of $325 to replace the capacitor removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
-          <p>Flat rate also makes your business predictable. You know exactly what revenue each service call will generate before the tech leaves the shop. That makes dispatching, payroll forecasting, and profit tracking dramatically simpler. Most HVAC companies that switch from hourly to flat rate see revenue increase 15-30% within the first year with no additional marketing spend.</p>
+          <p>Hourly billing penalizes your best electricians. A journeyman who replaces a breaker in 30 minutes earns your company half the revenue of a slower electrician who takes an hour. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the work</strong>, not the speed of the electrician.</p>
+          <p>Customers prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $115 an hour plus parts," their anxiety spikes. Every minute the electrician spends on the phone or walking to the truck feels like money burning. A flat rate quote of $150 to install a GFCI outlet removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
+          <p>Flat rate also makes your business predictable. You know exactly what revenue each service call will generate before the electrician leaves the shop. That makes dispatching, payroll forecasting, and profit tracking dramatically simpler. Most electrical companies that switch from hourly to flat rate see revenue increase 15-30% within the first year with no additional marketing spend.</p>
         </div>
       </section>
 
@@ -184,9 +184,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new HVAC company or transitioning from time-and-material to flat rate. Use this tool to price out every common repair, compare to national averages, and build a complete price book your techs can use in the field.</p>
-          <p><strong class="text-text-primary">Quarterly price updates.</strong> Parts costs change with supply chain shifts. Run your top 10 repairs through the builder each quarter with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> Show a new hire exactly how the flat rate breaks down: parts revenue, labor revenue, cost, and profit. When techs understand the math, they present prices with more confidence and close more jobs.</p>
+          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new electrical company or transitioning from time-and-material to flat rate. Use this tool to price out every common task, compare to national averages, and build a complete price book your electricians can use in the field.</p>
+          <p><strong class="text-text-primary">Quarterly price updates.</strong> Material costs change with copper prices and supply chain shifts. Run your top 10 tasks through the builder each quarter with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
+          <p><strong class="text-text-primary">Training new electricians on pricing.</strong> Show a new hire exactly how the flat rate breaks down: parts revenue, labor revenue, cost, and profit. When electricians understand the math, they present prices with more confidence and close more jobs.</p>
         </div>
       </section>
 
@@ -195,20 +195,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing in HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful HVAC companies use flat rate pricing for common repairs like capacitor replacements, blower motors, and thermostat installs.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing in electrical work?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per repair or installation regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful electrical contractors use flat rate pricing for common jobs like outlet installations, breaker replacements, and ceiling fan installs.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate price book?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build an electrical flat rate price book?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common repairs and installations. For each task, calculate your actual parts cost, apply a markup (typically 150-300% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance for wire nuts, tape, and connectors. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as material costs change.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than time and material?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms time and material billing for most HVAC service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than time and material for electricians?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms time and material billing for most electrical service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Electricians who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex troubleshooting or commercial work where scope is unpredictable.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I use for HVAC flat rate?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the HVAC industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should electricians use for flat rate pricing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For small commodity parts like outlets, switches, and wire nuts, a 250-300% markup is standard in the electrical industry. For mid-range items like breakers and GFCI devices, 150-250% markup is typical. For major equipment like panels and sub-panels, 75-125% markup is common. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install correctly per NEC code.</div>
           </details>
         </div>
       </section>
@@ -217,18 +217,18 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Task library data
+  // Task library data - electrical tasks
   const taskLibrary: Record<string, { partsCost: number; laborHours: number; markup: number; avgLow: number; avgHigh: number; label: string }> = {
-    'capacitor':      { partsCost: 20,  laborHours: 0.75, markup: 200, avgLow: 250,  avgHigh: 400,  label: 'Capacitor replacement' },
-    'contactor':      { partsCost: 30,  laborHours: 0.75, markup: 200, avgLow: 200,  avgHigh: 350,  label: 'Contactor replacement' },
-    'blower-motor':   { partsCost: 250, laborHours: 2,    markup: 75,  avgLow: 500,  avgHigh: 1500, label: 'Blower motor replacement' },
-    'compressor':     { partsCost: 650, laborHours: 4,    markup: 75,  avgLow: 1800, avgHigh: 2800, label: 'Compressor replacement' },
-    'txv':            { partsCost: 85,  laborHours: 2,    markup: 75,  avgLow: 400,  avgHigh: 700,  label: 'TXV replacement' },
-    'thermostat':     { partsCost: 75,  laborHours: 0.75, markup: 200, avgLow: 150,  avgHigh: 350,  label: 'Thermostat install' },
-    'coil-cleaning':  { partsCost: 15,  laborHours: 1.5,  markup: 200, avgLow: 100,  avgHigh: 250,  label: 'Coil cleaning' },
-    'drain-line':     { partsCost: 8,   laborHours: 0.75, markup: 200, avgLow: 75,   avgHigh: 200,  label: 'Drain line clearing' },
-    'duct-sealing':   { partsCost: 35,  laborHours: 1.5,  markup: 200, avgLow: 200,  avgHigh: 400,  label: 'Duct sealing (per duct)' },
-    'custom':         { partsCost: 0,   laborHours: 0,    markup: 200, avgLow: 0,    avgHigh: 0,    label: 'Custom repair' },
+    'outlet-install':   { partsCost: 2,   laborHours: 0.75, markup: 250, avgLow: 120,  avgHigh: 200,  label: 'Outlet installation' },
+    'switch-replace':   { partsCost: 3,   laborHours: 0.5,  markup: 250, avgLow: 100,  avgHigh: 180,  label: 'Switch replacement' },
+    'breaker-replace':  { partsCost: 8,   laborHours: 0.75, markup: 200, avgLow: 150,  avgHigh: 250,  label: 'Breaker replacement' },
+    'gfci-install':     { partsCost: 12,  laborHours: 0.75, markup: 200, avgLow: 130,  avgHigh: 220,  label: 'GFCI outlet install' },
+    'new-circuit':      { partsCost: 25,  laborHours: 2.5,  markup: 150, avgLow: 250,  avgHigh: 450,  label: 'New circuit run' },
+    'ceiling-fan':      { partsCost: 85,  laborHours: 1.5,  markup: 100, avgLow: 180,  avgHigh: 350,  label: 'Ceiling fan install' },
+    'dimmer-install':   { partsCost: 18,  laborHours: 0.5,  markup: 200, avgLow: 100,  avgHigh: 200,  label: 'Dimmer switch install' },
+    'sub-panel':        { partsCost: 150, laborHours: 4,    markup: 100, avgLow: 500,  avgHigh: 800,  label: 'Sub-panel install' },
+    'service-upgrade':  { partsCost: 350, laborHours: 8,    markup: 75,  avgLow: 1500, avgHigh: 3000, label: '200A service upgrade' },
+    'custom':           { partsCost: 0,   laborHours: 0,    markup: 250, avgLow: 0,    avgHigh: 0,    label: 'Custom task' },
   };
 
   const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
@@ -267,7 +267,7 @@ const faqSchema = {
 
     // Display primary result
     document.getElementById('result-flat-rate')!.textContent = fmt(Math.round(flatRate));
-    document.getElementById('result-repair-label')!.textContent = task ? task.label : 'Custom repair';
+    document.getElementById('result-repair-label')!.textContent = task ? task.label : 'Custom task';
 
     // Breakdown
     document.getElementById('result-parts-rev')!.textContent = fmtDec(partsRevenue);
@@ -293,6 +293,7 @@ const faqSchema = {
     const warning = document.getElementById('undercharge-warning')!;
 
     if (task && task.avgLow > 0) {
+      avgSection.classList.remove('hidden');
 
       const avgLow = task.avgLow;
       const avgHigh = task.avgHigh;
@@ -300,7 +301,6 @@ const faqSchema = {
       document.getElementById('result-national-range')!.textContent = fmt(avgLow) + ' - ' + fmt(avgHigh);
 
       // Bar visualization
-      // Scale: bar goes from 60% of avgLow to 140% of avgHigh
       const barMin = avgLow * 0.6;
       const barMax = avgHigh * 1.4;
       const barRange = barMax - barMin;
@@ -324,6 +324,7 @@ const faqSchema = {
 
       // Undercharge warning: >20% below national avg low
       if (flatRate < avgLow * 0.8) {
+        warning.classList.remove('hidden');
       } else {
         warning.classList.add('hidden');
       }

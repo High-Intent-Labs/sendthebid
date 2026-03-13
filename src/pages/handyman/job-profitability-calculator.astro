@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I price an HVAC installation?",
+      "name": "What is a good profit margin for handyman work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
+        "text": "Most profitable handyman businesses target 30-50% gross profit margin on completed jobs. The industry average sits around 35%. Below 25% means you are likely losing money after overhead. Simple tasks like mounting and assembly can hit 50%+ margins because material costs are low. Complex multi-trade jobs (drywall, plumbing, electrical) tend to land closer to 25-35% due to higher material and time costs."
       }
     },
     {
       "@type": "Question",
-      "name": "What profit margin should I target on installs?",
+      "name": "How do I calculate profit on a handyman job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
+        "text": "Add up all your costs for the job: labor (hours times your loaded hourly cost), materials you purchased, any subcontractor fees, and an overhead allocation. Subtract that total from what the customer paid you. The result is your gross profit. Divide gross profit by the customer price and multiply by 100 to get your profit margin percentage. Track this for every job to identify which types of work make you the most money."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a good price per ton for HVAC?",
+      "name": "What should I include in handyman job costs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors."
+        "text": "Include every expense tied to the job: your labor hours at your true cost (not your billing rate, but what it costs you including taxes and benefits), all materials and supplies purchased for the job, any subcontractor payments, travel costs, and an overhead allocation that covers your vehicle, insurance, tools, and business expenses. Many handymen forget to include overhead, which makes jobs look more profitable than they really are."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up HVAC equipment?",
+      "name": "Which handyman jobs are most profitable?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor."
+        "text": "The most profitable handyman jobs are typically quick-turn tasks with low material costs: TV mounting, picture hanging, furniture assembly, door hardware replacement, and minor drywall patches. These jobs often take under two hours and command flat rates of $150-$400 with minimal material spend. Multi-task bundles are also highly profitable because you eliminate redundant travel time. Track your actual profit per job type to find your sweet spot."
       }
     }
   ]
@@ -45,156 +45,87 @@ const faqSchema = {
 ---
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="install-calc">
-    <!-- Equipment Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Equipment</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div id="profitability-calc">
+    <!-- Job Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Details</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-type">System Type</label>
-        <select id="system-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="ac-furnace" selected>AC + Furnace</option>
-          <option value="heat-pump">Heat Pump</option>
-          <option value="mini-split">Mini-Split</option>
-          <option value="package-unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="job-type">Job Type</label>
+        <select id="job-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="general" selected>General Handyman</option>
+          <option value="drywall">Drywall Repair</option>
+          <option value="painting">Painting / Touchup</option>
+          <option value="assembly">Furniture Assembly</option>
+          <option value="mounting">TV / Shelf Mounting</option>
+          <option value="tile">Tile Work</option>
+          <option value="carpentry">Carpentry / Trim</option>
+          <option value="plumbing">Minor Plumbing</option>
+          <option value="electrical">Minor Electrical</option>
+          <option value="doors-windows">Doors / Windows</option>
+          <option value="multi-task">Multi-Task Bundle</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Equipment Cost ($)</label>
-        <input type="number" id="equipment-cost" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-markup">Equipment Markup (%)</label>
-        <input type="number" id="equipment-markup" value="40" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="job-name">Job Name / Description</label>
+        <input type="text" id="job-name" placeholder="e.g. Kitchen drywall patch + paint" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
     <!-- Labor Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Labor Cost</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="crew-size">Crew Size</label>
-        <input type="number" id="crew-size" value="2" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Hours Worked</label>
+        <input type="number" id="labor-hours" value="3" min="0.25" max="100" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-hours">Install Hours</label>
-        <input type="number" id="install-hours" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Auto-fills based on system type</p>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-cost-rate">Your Loaded Cost ($/hr)</label>
+        <input type="number" id="labor-cost-rate" value="30" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Your true cost per hour (wages + taxes + benefits)</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Tech ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="travel-time">Travel Time (hrs)</label>
+        <input type="number" id="travel-time" value="0.5" min="0" max="10" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
     <!-- Materials Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials Cost</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials Cost ($)</label>
-        <input type="number" id="materials-cost" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials / Supplies ($)</label>
+        <input type="number" id="materials-cost" value="45" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Hardware, lumber, fasteners, finishing materials</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
-        <input type="number" id="materials-markup" value="100" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sub-cost">Subcontractor Cost ($)</label>
+        <input type="number" id="sub-cost" value="0" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">If you hired a specialist for part of the job</p>
       </div>
     </div>
 
-    <!-- Materials Checklist -->
-    <div class="bg-bg-dark border border-border rounded-lg p-4 mb-8">
-      <p class="text-sm font-medium text-text-secondary mb-3">Common Material Items <span class="text-text-muted">(check to include in materials cost)</span></p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="125" checked />
-          Copper line set &mdash; $125
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="50" checked />
-          Concrete pad &mdash; $50
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
-          Electrical disconnect &mdash; $30
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Electrical whip &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Thermostat wire &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="15" checked />
-          PVC drain line &mdash; $15
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="40" checked />
-          Duct transitions &mdash; $40
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Refrigerant line insulation &mdash; $25
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Misc &mdash; $25
-        </label>
+    <!-- Overhead Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Overhead Allocation</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="overhead-allocation">Overhead per Job ($)</label>
+        <input type="number" id="overhead-allocation" value="25" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Vehicle, insurance, tools, phone, marketing share</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customer-price">Customer Price ($)</label>
+        <input type="number" id="customer-price" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">What the customer paid for this job</p>
       </div>
     </div>
-
-    <!-- Other Costs Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Other Costs</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit ($)</label>
-        <input type="number" id="permit-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal Fee ($)</label>
-        <input type="number" id="disposal-fee" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-fee">Misc ($)</label>
-        <input type="number" id="misc-fee" value="100" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-tons">System Tons</label>
-        <input type="number" id="system-tons" value="3" min="0.5" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">For price-per-ton calculation</p>
-      </div>
-    </div>
-
-    <!-- Reverse Calculator Toggle -->
-    <div class="bg-bg-dark border border-border rounded-lg p-5 mb-8">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="checkbox" id="reverse-toggle" class="accent-accent w-4 h-4" />
-        <span class="text-sm font-medium text-text-primary">I want to hit a target price</span>
-      </label>
-      <div id="reverse-section" class="hidden mt-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2" for="target-price">Target Sell Price ($)</label>
-            <input type="number" id="target-price" value="7500" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          </div>
-          <div class="flex items-end">
-            <div class="bg-bg-card border border-border rounded-lg p-4 w-full">
-              <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">That Target Gives You</div>
-              <div id="reverse-margin" class="font-heading font-extrabold text-2xl text-text-primary">&mdash;</div>
-              <div class="text-text-muted text-xs mt-1">gross margin</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Install Pricing Summary</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Job Profitability Summary</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Install Price</div>
-          <div id="result-total-sell" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Job Cost</div>
+          <div id="result-total-cost" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Gross Profit</div>
@@ -205,51 +136,60 @@ const faqSchema = {
           <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Ton</div>
-          <div id="result-price-per-ton" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Effective $/Hour</div>
+          <div id="result-effective-rate" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
       <!-- Breakdown -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Cost &amp; Sell Breakdown</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Cost Breakdown</h4>
         <div class="space-y-3">
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Equipment</span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-equip-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-equip-sell" class="text-accent">$0</span></span>
-            </div>
+            <span class="text-text-secondary">Labor <span class="text-text-muted text-xs">(hours x loaded cost + travel)</span></span>
+            <span id="breakdown-labor" class="text-text-primary font-semibold">$0</span>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Labor</span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-labor-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-labor-sell" class="text-accent">$0</span></span>
-            </div>
+            <span class="text-text-secondary">Materials / Supplies</span>
+            <span id="breakdown-materials" class="text-text-primary font-semibold">$0</span>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Materials</span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-mat-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-mat-sell" class="text-accent">$0</span></span>
-            </div>
+            <span class="text-text-secondary">Subcontractor</span>
+            <span id="breakdown-sub" class="text-text-primary font-semibold">$0</span>
           </div>
           <div class="flex justify-between items-center text-sm py-2">
-            <span class="text-text-secondary">Other <span class="text-text-muted text-xs">(permit + disposal + misc)</span></span>
-            <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-other-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-other-sell" class="text-accent">$0</span></span>
-            </div>
+            <span class="text-text-secondary">Overhead Allocation</span>
+            <span id="breakdown-overhead" class="text-text-primary font-semibold">$0</span>
           </div>
         </div>
         <div class="mt-4 pt-4 border-t border-border flex justify-between items-center font-heading font-bold">
-          <span class="text-text-primary">Totals</span>
-          <div class="flex gap-6">
-            <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-total-cost" class="text-text-primary">$0</span></span>
-            <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-total-sell" class="text-accent">$0</span></span>
-          </div>
+          <span class="text-text-primary">Total Cost</span>
+          <span id="breakdown-total-cost" class="text-text-primary">$0</span>
         </div>
+        <div class="flex justify-between items-center font-heading font-bold mt-2">
+          <span class="text-text-primary">Customer Price</span>
+          <span id="breakdown-customer-price" class="text-accent">$0</span>
+        </div>
+        <div class="flex justify-between items-center font-heading font-bold mt-2">
+          <span class="text-text-primary">Gross Profit</span>
+          <span id="breakdown-gross-profit" class="text-[#34D399]">$0</span>
+        </div>
+      </div>
+
+      <!-- Margin Health Indicator -->
+      <div class="bg-bg-dark rounded-xl p-6 mt-6">
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Margin Health</h4>
+        <div class="relative w-full h-4 bg-[rgba(255,255,255,0.05)] rounded-full overflow-hidden mb-3">
+          <div id="margin-bar" class="absolute h-full rounded-full transition-all duration-500 bg-[#34D399]" style="left: 0%; width: 0%;"></div>
+        </div>
+        <div class="flex justify-between text-xs text-text-muted">
+          <span>0%</span>
+          <span class="text-[#EF4444]">Danger &lt;20%</span>
+          <span class="text-[#FBBF24]">OK 20-30%</span>
+          <span class="text-[#34D399]">Target 30-50%</span>
+          <span>100%</span>
+        </div>
+        <div id="margin-advice" class="mt-4 text-sm text-text-secondary"></div>
       </div>
     </div>
   </div>
@@ -261,29 +201,28 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the system type.</strong> Choose the type of HVAC system you are installing. The calculator auto-fills typical install hours based on your selection: AC + Furnace defaults to 8 hours, heat pumps to 10, mini-splits to 4, and package units to 6.</p>
-          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the distributor. A 40% markup is a common starting point, but adjust based on your market and competition. The calculator shows what the customer pays for equipment.</p>
-          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per technician. The billable rate is what you charge the customer per tech per hour, not the tech's wage.</p>
-          <p><strong class="text-text-primary">4. Configure materials.</strong> Use the checklist to toggle common material items on or off. The total auto-fills the materials cost field. Set your materials markup percentage to calculate the customer-facing price.</p>
-          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the system tonnage so the calculator can show your price per ton. Hit calculate to see the full breakdown, profit, and margin.</p>
+          <p><strong class="text-text-primary">1. Select the job type.</strong> Choose the category that best matches the work you completed. This helps you compare profitability across different types of handyman jobs over time.</p>
+          <p><strong class="text-text-primary">2. Enter your labor details.</strong> Put in the total hours you worked on-site, your loaded cost per hour (what it actually costs you including taxes and benefits, not your billing rate), and travel time to and from the job.</p>
+          <p><strong class="text-text-primary">3. Add materials and subcontractor costs.</strong> Enter what you spent on hardware, lumber, fasteners, paint, and any other supplies. If you hired a specialist (plumber, electrician) for part of the job, include their invoice amount.</p>
+          <p><strong class="text-text-primary">4. Set your overhead allocation.</strong> This is the share of your monthly business costs (vehicle, insurance, tools, phone, marketing) that this job should carry. A simple method: divide your monthly overhead by your average number of jobs per month.</p>
+          <p><strong class="text-text-primary">5. Enter the customer price and review.</strong> The calculator instantly shows your gross profit, profit margin, and effective hourly rate. Use this to evaluate whether the job was worth your time and to identify which job types deliver the best margins.</p>
         </div>
       </section>
 
-      <!-- How Install Pricing Works -->
+      <!-- How Job Profitability Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Install Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Job Profitability Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for equipment, labor, and materials, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
+          <p><strong class="text-text-primary">Profitability is what you keep after every cost is accounted for.</strong> Revenue is not profit. A $500 job that cost you $400 in labor, materials, and overhead only netted $100. Knowing this number for every job you complete is the difference between growing a business and running in place.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Equipment_Sell = Equipment_Cost x (1 + Markup / 100)</p>
-            <p>Labor_Sell = Crew_Size x Hours x Billable_Rate</p>
-            <p>Materials_Sell = Materials_Cost x (1 + Materials_Markup / 100)</p>
-            <p>Total_Sell = Equipment_Sell + Labor_Sell + Materials_Sell + Permit + Disposal + Misc</p>
-            <p>Gross_Profit = Total_Sell - Total_Cost</p>
-            <p>Margin = (Gross_Profit / Total_Sell) x 100</p>
+            <p>Labor_Cost = (Hours_Worked + Travel_Time) x Loaded_Cost_Per_Hour</p>
+            <p>Total_Job_Cost = Labor_Cost + Materials + Subcontractor + Overhead</p>
+            <p>Gross_Profit = Customer_Price - Total_Job_Cost</p>
+            <p>Profit_Margin = (Gross_Profit / Customer_Price) x 100</p>
+            <p>Effective_Hourly = Gross_Profit / Hours_Worked</p>
           </div>
-          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most HVAC install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
-          <p><strong class="text-text-primary">Price per ton is a quick benchmark.</strong> Dividing total sell price by system tonnage gives you a per-ton number you can compare across jobs and against competitors. Residential AC installs typically run $2,500 to $4,000 per ton. Heat pump systems tend toward $3,000 to $5,000 per ton. If your number is significantly outside these ranges, investigate why.</p>
+          <p><strong class="text-text-primary">Target 30-50% gross margin on handyman jobs.</strong> Below 25% means you are underpricing or spending too long on the job. Above 50% is strong and usually happens on quick-turn mounting and assembly work. The effective hourly rate tells you what your time is actually worth after all costs. If it is below $40 per hour, you need to raise prices or improve efficiency.</p>
+          <p><strong class="text-text-primary">Track every job to find patterns.</strong> After 20-30 entries, you will see which job types consistently deliver the best margins. Double down on those. If drywall repairs always land at 22% but TV mounting hits 55%, you know where to focus your marketing dollars.</p>
         </div>
       </section>
 
@@ -291,9 +230,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the distributor, set your standard markups, and adjust the hours based on the difficulty of the install. Walk the customer through the price with confidence because you know the margin is healthy.</p>
-          <p><strong class="text-text-primary">Comparing system options for the customer.</strong> Run the calculator for a standard AC and furnace, then again for a heat pump. Show the customer both price points side by side. The tonnage, hours, and equipment cost change, so the total and price per ton shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
-          <p><strong class="text-text-primary">Training your sales team on pricing.</strong> New salespeople often discount too aggressively to close deals. Have them use this calculator to see exactly what happens to profit margin when they knock $500 off the price. When they see the margin drop from 32% to 22%, they learn to protect the price or find other ways to add value.</p>
+          <p><strong class="text-text-primary">After every completed job.</strong> Run your numbers while they are fresh. Enter the actual hours, actual material receipts, and what the customer paid. The five minutes it takes to log a job saves you from repeating unprofitable work for months without realizing it.</p>
+          <p><strong class="text-text-primary">Reviewing your pricing strategy.</strong> If you have been quoting drywall patches at $250 but this calculator consistently shows 18% margins on that work, you know your price needs to go up to $300 or more. Data-driven pricing removes the guesswork and the guilt of raising rates.</p>
+          <p><strong class="text-text-primary">Deciding whether to take on a new job type.</strong> A customer asks about tile work you have never quoted before. Estimate the costs, plug in what you would charge, and see if the margin is worth your time. Better to know before you say yes than to discover after the job that you lost money.</p>
         </div>
       </section>
 
@@ -302,20 +241,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an HVAC installation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for handyman work?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most profitable handyman businesses target 30-50% gross profit margin on completed jobs. The industry average sits around 35%. Below 25% means you are likely losing money after overhead. Simple tasks like mounting and assembly can hit 50%+ margins because material costs are low. Complex multi-trade jobs tend to land closer to 25-35% due to higher material and time costs.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on installs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit on a handyman job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Add up all your costs for the job: labor (hours times your loaded hourly cost), materials you purchased, any subcontractor fees, and an overhead allocation. Subtract that total from what the customer paid you. The result is your gross profit. Divide gross profit by the customer price and multiply by 100 to get your profit margin percentage.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per ton for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should I include in handyman job costs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Include every expense tied to the job: your labor hours at your true cost (not your billing rate), all materials and supplies, any subcontractor payments, travel costs, and an overhead allocation for vehicle, insurance, tools, and business expenses. Many handymen forget to include overhead, which makes jobs look more profitable than they really are.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up HVAC equipment?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Which handyman jobs are most profitable?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The most profitable handyman jobs are typically quick-turn tasks with low material costs: TV mounting, picture hanging, furniture assembly, door hardware replacement, and minor drywall patches. These jobs often take under two hours and command flat rates of $150-$400 with minimal material spend. Multi-task bundles are also highly profitable because you eliminate redundant travel time.</div>
           </details>
         </div>
       </section>
@@ -324,162 +263,114 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Typical install hours by system type
-  const systemHours: Record<string, number> = {
-    'ac-furnace': 8,
-    'heat-pump': 10,
-    'mini-split': 4,
-    'package-unit': 6,
-  };
-
-  // Assumed loaded wage for cost calculation (internal cost per tech per hour)
-  const LOADED_WAGE = 45;
-
-  // Update materials cost from checklist
-  function updateMaterialsFromChecklist() {
-    let total = 0;
-    document.querySelectorAll('.material-item').forEach(cb => {
-      const checkbox = cb as HTMLInputElement;
-      if (checkbox.checked) {
-        total += parseFloat(checkbox.dataset.cost || '0');
-      }
-    });
-    (document.getElementById('materials-cost') as HTMLInputElement).value = String(total);
-  }
-
-  // System type change: auto-fill install hours
-  document.getElementById('system-type')?.addEventListener('change', () => {
-    const systemType = (document.getElementById('system-type') as HTMLSelectElement).value;
-    const hours = systemHours[systemType] || 8;
-    (document.getElementById('install-hours') as HTMLInputElement).value = String(hours);
-    calculate();
-  });
-
-  // Reverse calculator toggle
-  document.getElementById('reverse-toggle')?.addEventListener('change', () => {
-    const checked = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    const section = document.getElementById('reverse-section')!;
-    if (checked) {
-    } else {
-      section.classList.add('hidden');
-    }
-    calculate();
-  });
-
-  // Material checklist changes
-  document.querySelectorAll('.material-item').forEach(cb => {
-    cb.addEventListener('change', () => {
-      updateMaterialsFromChecklist();
-      calculate();
-    });
-  });
-
   function calculate() {
-    // Equipment
-    const equipmentCost = parseFloat((document.getElementById('equipment-cost') as HTMLInputElement).value) || 0;
-    const equipmentMarkup = parseFloat((document.getElementById('equipment-markup') as HTMLInputElement).value) || 0;
-    const equipmentSell = equipmentCost * (1 + equipmentMarkup / 100);
-
     // Labor
-    const crewSize = parseFloat((document.getElementById('crew-size') as HTMLInputElement).value) || 0;
-    const installHours = parseFloat((document.getElementById('install-hours') as HTMLInputElement).value) || 0;
-    const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
-    const laborSell = crewSize * installHours * billableRate;
-    const laborCost = crewSize * installHours * LOADED_WAGE;
+    const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
+    const laborCostRate = parseFloat((document.getElementById('labor-cost-rate') as HTMLInputElement).value) || 0;
+    const travelTime = parseFloat((document.getElementById('travel-time') as HTMLInputElement).value) || 0;
+    const laborCost = (laborHours + travelTime) * laborCostRate;
 
     // Materials
     const materialsCost = parseFloat((document.getElementById('materials-cost') as HTMLInputElement).value) || 0;
-    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 0;
-    const materialsSell = materialsCost * (1 + materialsMarkup / 100);
 
-    // Other costs (pass-through, no markup)
-    const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
-    const disposalFee = parseFloat((document.getElementById('disposal-fee') as HTMLInputElement).value) || 0;
-    const miscFee = parseFloat((document.getElementById('misc-fee') as HTMLInputElement).value) || 0;
-    const otherTotal = permitFee + disposalFee + miscFee;
+    // Subcontractor
+    const subCost = parseFloat((document.getElementById('sub-cost') as HTMLInputElement).value) || 0;
 
-    // Tonnage
-    const systemTons = parseFloat((document.getElementById('system-tons') as HTMLInputElement).value) || 1;
+    // Overhead
+    const overheadAllocation = parseFloat((document.getElementById('overhead-allocation') as HTMLInputElement).value) || 0;
 
-    // Totals
-    const totalCost = equipmentCost + laborCost + materialsCost + otherTotal;
-    const totalSell = equipmentSell + laborSell + materialsSell + otherTotal;
-    const grossProfit = totalSell - totalCost;
-    const margin = totalSell > 0 ? (grossProfit / totalSell) * 100 : 0;
-    const pricePerTon = totalSell / systemTons;
+    // Customer price
+    const customerPrice = parseFloat((document.getElementById('customer-price') as HTMLInputElement).value) || 0;
+
+    // Calculations
+    const totalJobCost = laborCost + materialsCost + subCost + overheadAllocation;
+    const grossProfit = customerPrice - totalJobCost;
+    const profitMargin = customerPrice > 0 ? (grossProfit / customerPrice) * 100 : 0;
+    const effectiveRate = laborHours > 0 ? grossProfit / laborHours : 0;
 
     // Format currency
     const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
 
     // Main results
-    document.getElementById('result-total-sell')!.textContent = fmt(totalSell);
+    document.getElementById('result-total-cost')!.textContent = fmt(totalJobCost);
     document.getElementById('result-gross-profit')!.textContent = fmt(grossProfit);
-    document.getElementById('result-price-per-ton')!.textContent = fmt(pricePerTon);
+    document.getElementById('result-effective-rate')!.textContent = fmt(effectiveRate) + '/hr';
 
     // Profit color
     const profitEl = document.getElementById('result-gross-profit')!;
     profitEl.className = 'font-heading font-extrabold text-3xl';
-    if (grossProfit >= 0) {
-      profitEl.classList.add('text-[#34D399]');
-    } else {
-      profitEl.classList.add('text-[#EF4444]');
-    }
+    profitEl.classList.add(grossProfit >= 0 ? 'text-[#34D399]' : 'text-[#EF4444]');
 
     // Margin with color coding
     const marginEl = document.getElementById('result-margin')!;
-    marginEl.textContent = margin.toFixed(1) + '%';
+    marginEl.textContent = profitMargin.toFixed(1) + '%';
     marginEl.className = 'font-heading font-extrabold text-3xl';
-    if (margin >= 30) {
+    if (profitMargin >= 30) {
       marginEl.classList.add('text-[#34D399]');
-    } else if (margin >= 20) {
+    } else if (profitMargin >= 20) {
       marginEl.classList.add('text-[#FBBF24]');
     } else {
       marginEl.classList.add('text-[#EF4444]');
     }
 
-    // Breakdown
-    document.getElementById('breakdown-equip-cost')!.textContent = fmt(equipmentCost);
-    document.getElementById('breakdown-equip-sell')!.textContent = fmt(equipmentSell);
-    document.getElementById('breakdown-labor-cost')!.textContent = fmt(laborCost);
-    document.getElementById('breakdown-labor-sell')!.textContent = fmt(laborSell);
-    document.getElementById('breakdown-mat-cost')!.textContent = fmt(materialsCost);
-    document.getElementById('breakdown-mat-sell')!.textContent = fmt(materialsSell);
-    document.getElementById('breakdown-other-cost')!.textContent = fmt(otherTotal);
-    document.getElementById('breakdown-other-sell')!.textContent = fmt(otherTotal);
-    document.getElementById('breakdown-total-cost')!.textContent = fmt(totalCost);
-    document.getElementById('breakdown-total-sell')!.textContent = fmt(totalSell);
-
-    // Reverse calculator
-    const reverseToggle = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
-    if (reverseToggle) {
-      const targetPrice = parseFloat((document.getElementById('target-price') as HTMLInputElement).value) || 0;
-      const targetProfit = targetPrice - totalCost;
-      const targetMargin = targetPrice > 0 ? (targetProfit / targetPrice) * 100 : 0;
-
-      const reverseMarginEl = document.getElementById('reverse-margin')!;
-      reverseMarginEl.textContent = targetMargin.toFixed(1) + '% margin';
-      reverseMarginEl.className = 'font-heading font-extrabold text-2xl';
-      if (targetMargin >= 30) {
-        reverseMarginEl.classList.add('text-[#34D399]');
-      } else if (targetMargin >= 20) {
-        reverseMarginEl.classList.add('text-[#FBBF24]');
-      } else {
-        reverseMarginEl.classList.add('text-[#EF4444]');
-      }
+    // Effective rate color
+    const rateEl = document.getElementById('result-effective-rate')!;
+    rateEl.className = 'font-heading font-extrabold text-3xl';
+    if (effectiveRate >= 60) {
+      rateEl.classList.add('text-[#34D399]');
+    } else if (effectiveRate >= 40) {
+      rateEl.classList.add('text-[#FBBF24]');
+    } else {
+      rateEl.classList.add('text-text-primary');
     }
 
-    // Show results
+    // Breakdown
+    document.getElementById('breakdown-labor')!.textContent = fmt(laborCost);
+    document.getElementById('breakdown-materials')!.textContent = fmt(materialsCost);
+    document.getElementById('breakdown-sub')!.textContent = fmt(subCost);
+    document.getElementById('breakdown-overhead')!.textContent = fmt(overheadAllocation);
+    document.getElementById('breakdown-total-cost')!.textContent = fmt(totalJobCost);
+    document.getElementById('breakdown-customer-price')!.textContent = fmt(customerPrice);
+
+    const bpEl = document.getElementById('breakdown-gross-profit')!;
+    bpEl.textContent = fmt(grossProfit);
+    bpEl.className = 'font-heading font-bold';
+    bpEl.classList.add(grossProfit >= 0 ? 'text-[#34D399]' : 'text-[#EF4444]');
+
+    // Margin bar
+    const clampedMargin = Math.max(0, Math.min(100, profitMargin));
+    const marginBar = document.getElementById('margin-bar')!;
+    marginBar.style.width = clampedMargin + '%';
+    marginBar.classList.remove('bg-[#34D399]', 'bg-[#FBBF24]', 'bg-[#EF4444]');
+    if (profitMargin >= 30) {
+      marginBar.classList.add('bg-[#34D399]');
+    } else if (profitMargin >= 20) {
+      marginBar.classList.add('bg-[#FBBF24]');
+    } else {
+      marginBar.classList.add('bg-[#EF4444]');
+    }
+
+    // Margin advice
+    const adviceEl = document.getElementById('margin-advice')!;
+    if (profitMargin >= 50) {
+      adviceEl.innerHTML = '<span class="text-[#34D399] font-medium">Excellent margin.</span> This job type is a strong earner. Consider whether you can do more of this work.';
+    } else if (profitMargin >= 30) {
+      adviceEl.innerHTML = '<span class="text-[#34D399] font-medium">Healthy margin.</span> This job is profitable and sustainable. You are in the target range for handyman work.';
+    } else if (profitMargin >= 20) {
+      adviceEl.innerHTML = '<span class="text-[#FBBF24] font-medium">Thin margin.</span> Consider raising your price by 10-15% or reducing time on-site. At this level, one callback wipes out your profit.';
+    } else if (profitMargin > 0) {
+      adviceEl.innerHTML = '<span class="text-[#EF4444] font-medium">Danger zone.</span> After overhead and unexpected costs, you are likely losing money on this job type. Raise your price significantly or stop offering this service.';
+    } else {
+      adviceEl.innerHTML = '<span class="text-[#EF4444] font-medium">Negative margin.</span> This job lost money. Review your pricing, reduce material costs, or improve efficiency before taking on similar work.';
+    }
   }
 
-  // Calculate button
-
   // Auto-calculate on any input change
-  document.querySelectorAll('#install-calc input[type="number"], #install-calc select').forEach(el => {
+  document.querySelectorAll('#profitability-calc input[type="number"], #profitability-calc select').forEach(el => {
     el.addEventListener('input', calculate);
     el.addEventListener('change', calculate);
   });
 
-  // Initialize materials from checklist and run initial calculation
-  updateMaterialsFromChecklist();
+  // Calculate on load
   calculate();
 </script>

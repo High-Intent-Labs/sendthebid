@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should an HVAC estimate include?",
+      "name": "What should a Electrical estimate include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+        "text": "A professional Electrical estimate should include company information and license number, customer details, current system assessment, equipment specifications with amp ratings and NEC code compliance, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
       }
     },
     {
@@ -21,23 +21,23 @@ const faqSchema = {
       "name": "How do I present Good/Better/Best options?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+        "text": "Start with the Good option as the minimum NEC-compliant system that solves the problem. The Better option adds capacity or safety features like a higher amp rating or whole-house surge protection. The Best option is the premium choice with smart panel technology, arc-fault breakers throughout, and home automation integration. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
       }
     },
     {
       "@type": "Question",
-      "name": "How long should an HVAC estimate be valid?",
+      "name": "How long should a Electrical estimate be valid?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
+        "text": "Most Electrical estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
       }
     },
     {
       "@type": "Question",
-      "name": "Should HVAC estimates include financing?",
+      "name": "Should Electrical estimates include financing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
+        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common Electrical financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
       }
     }
   ]
@@ -52,7 +52,7 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-          <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyName" placeholder="Your Electrical Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -60,11 +60,11 @@ const faqSchema = {
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-          <input type="text" id="companyEmail" placeholder="info@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyEmail" placeholder="info@yourelectrical.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-          <input type="text" id="licenseNum" placeholder="HVAC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="licenseNum" placeholder="ELEC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
@@ -107,12 +107,12 @@ const faqSchema = {
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
           <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Central AC</option>
-            <option value="Heat Pump">Heat Pump</option>
-            <option value="Furnace">Furnace</option>
-            <option value="Mini Split">Mini Split</option>
-            <option value="Boiler">Boiler</option>
-            <option value="Package Unit">Package Unit</option>
+            <option value="Main Panel">Main Panel</option>
+            <option value="Sub-Panel">Sub-Panel</option>
+            <option value="Circuit Breaker">Circuit Breaker</option>
+            <option value="Wiring System">Wiring System</option>
+            <option value="Outlets/Switches">Outlets/Switches</option>
+            <option value="Whole House">Whole House</option>
           </select>
         </div>
         <div>
@@ -149,11 +149,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="goodDesc">Equipment Description</label>
-                <input type="text" id="goodDesc" value="14 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="goodDesc" value="100A Panel Upgrade" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRating">SEER / AFUE Rating</label>
-                <input type="text" id="goodRating" value="14 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodRating">Amp / Voltage Rating</label>
+                <input type="text" id="goodRating" value="100A / 240V" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="goodEquip">Equipment Cost ($)</label>
@@ -199,11 +199,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="betterDesc">Equipment Description</label>
-                <input type="text" id="betterDesc" value="16 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="betterDesc" value="200A Panel Upgrade" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRating">SEER / AFUE Rating</label>
-                <input type="text" id="betterRating" value="16 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterRating">Amp / Voltage Rating</label>
+                <input type="text" id="betterRating" value="200A / 240V" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="betterEquip">Equipment Cost ($)</label>
@@ -246,11 +246,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="bestDesc">Equipment Description</label>
-                <input type="text" id="bestDesc" value="20 SEER2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="bestDesc" value="200A Smart Panel with Whole-House Surge" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRating">SEER / AFUE Rating</label>
-                <input type="text" id="bestRating" value="20 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestRating">Amp / Voltage Rating</label>
+                <input type="text" id="bestRating" value="200A / 240V" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="bestEquip">Equipment Cost ($)</label>
@@ -293,10 +293,10 @@ const faqSchema = {
         <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
         <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Remove and dispose of existing equipment
 &bull; Install new equipment per manufacturer specifications
-&bull; Connect to existing ductwork / line set
-&bull; Electrical and refrigerant connections
+&bull; Connect to existing wiring and conduit
+&bull; All electrical connections per NEC code
 &bull; System startup and performance test
-&bull; Program thermostat and walkthrough with homeowner
+&bull; Label all circuits and walkthrough with homeowner
 &bull; Pull permit and schedule inspection</textarea>
       </div>
     </div>
@@ -340,7 +340,7 @@ const faqSchema = {
           <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
           <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$6,000</div>
           <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">14 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">100A Panel Upgrade</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -349,13 +349,13 @@ const faqSchema = {
           <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
           <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$7,300</div>
           <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">16 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">200A Panel Upgrade</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
           <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
           <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$9,150</div>
           <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">20 SEER2 Central AC with Variable Speed</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">200A Smart Panel with Whole-House Surge</div>
         </div>
       </div>
     </div>
@@ -387,7 +387,7 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals across every study in the home services industry.</p>
           <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect, also known as the center-stage bias. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
-          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major HVAC franchise trains their sales team on this method.</p>
+          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major Electrical franchise trains their sales team on this method.</p>
           <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive system. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
         </div>
       </section>
@@ -407,20 +407,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC estimate include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Electrical estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional Electrical estimate should include company information and license number, customer details, current system assessment, equipment specifications with amp ratings and NEC code compliance, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum NEC-compliant system that solves the problem. The Better option adds capacity or safety features like a higher amp rating or whole-house surge protection. The Best option is the premium choice with smart panel technology, arc-fault breakers throughout, and home automation integration. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should an HVAC estimate be valid?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a Electrical estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Electrical estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should HVAC estimates include financing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should Electrical estimates include financing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common Electrical financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
           </details>
         </div>
       </section>
@@ -520,7 +520,7 @@ const faqSchema = {
 
   // --- Generate print-ready estimate ---
   function generateEstimate() {
-    const companyName = getVal('companyName') || 'HVAC Company';
+    const companyName = getVal('companyName') || 'Electrical Company';
     const companyPhone = getVal('companyPhone');
     const companyEmail = getVal('companyEmail');
     const licenseNum = getVal('licenseNum');

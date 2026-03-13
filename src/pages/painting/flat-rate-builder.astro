@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is flat rate pricing in HVAC?",
+      "name": "What is flat rate pricing for painting contractors?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful HVAC companies use flat rate pricing for common repairs like capacitor replacements, blower motors, and thermostat installs."
+        "text": "Flat rate pricing means quoting a fixed price per job type regardless of how long it takes your crew. Instead of billing hourly, you quote one price that covers paint, materials, labor, and overhead. The homeowner knows the total cost upfront, which increases trust and close rates. Most successful painting companies use flat rate pricing for common jobs like single room repaints, exterior touch-ups, cabinet refinishing, and whole-house interior packages."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I build a flat rate price book?",
+      "name": "How do I build a flat rate price book for painting?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change."
+        "text": "Start by listing your most common job types. For each job, calculate your actual paint and materials cost, apply a markup of 30 to 50 percent, add your labor at a billable rate that covers wages plus overhead, and include a supplies allowance for tape, drop cloths, and caulk. Compare your prices to local market averages. Update your price book seasonally as paint prices and labor costs change."
       }
     },
     {
       "@type": "Question",
-      "name": "Is flat rate better than time and material?",
+      "name": "Is flat rate better than hourly billing for painters?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flat rate pricing outperforms time and material billing for most HVAC service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable."
+        "text": "Flat rate pricing outperforms hourly billing for most painting companies. Homeowners dislike hourly billing because they worry about how long the job will take. A flat rate quote of $650 for a bedroom repaint removes that anxiety entirely. Crews that work efficiently earn more per hour since the price stays the same regardless of speed. Flat rate also simplifies estimating, scheduling, and cash flow forecasting."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I use for HVAC flat rate?",
+      "name": "What markup should painting contractors use on materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the HVAC industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly."
+        "text": "Most painting contractors mark up materials 30 to 50 percent for standard paint and 40 to 60 percent for premium and specialty products. Your markup needs to cover not just the cost of the paint but also waste, returns, color matching time, and the expertise to recommend the right product for each surface. Supplies like tape, caulk, and drop cloths typically carry a 50 to 100 percent markup."
       }
     }
   ]
@@ -49,47 +49,98 @@ const faqSchema = {
     <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="repair-type">Repair Type</label>
-        <select id="repair-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="capacitor">Capacitor replacement</option>
-          <option value="contactor">Contactor replacement</option>
-          <option value="blower-motor">Blower motor replacement</option>
-          <option value="compressor">Compressor replacement</option>
-          <option value="txv">TXV replacement</option>
-          <option value="thermostat">Thermostat install</option>
-          <option value="coil-cleaning">Coil cleaning</option>
-          <option value="drain-line">Drain line clearing</option>
-          <option value="duct-sealing">Duct sealing (per duct)</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="job-type">Job Type</label>
+        <select id="job-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="bedroom">Bedroom repaint (avg 12x12)</option>
+          <option value="bathroom">Bathroom repaint</option>
+          <option value="kitchen">Kitchen repaint</option>
+          <option value="living-room">Living room / great room</option>
+          <option value="cabinet-refinish">Cabinet refinishing (kitchen)</option>
+          <option value="exterior-trim">Exterior trim &amp; fascia</option>
+          <option value="deck-stain">Deck staining (avg 300 sq ft)</option>
+          <option value="accent-wall">Accent wall (single wall)</option>
+          <option value="wallpaper-removal">Wallpaper removal (per room)</option>
+          <option value="popcorn-removal">Popcorn ceiling removal (per room)</option>
           <option value="custom">Custom (enter your own)</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-cost">Parts Cost ($)</label>
-        <input type="number" id="parts-cost" value="20" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Paint &amp; Materials Cost ($)</label>
+        <input type="number" id="materials-cost" value="85" min="0" max="50000" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Paint, primer, caulk, tape, supplies</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="parts-markup">Parts Markup (%)</label>
-        <input type="number" id="parts-markup" value="200" min="0" max="1000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
+        <input type="number" id="materials-markup" value="40" min="0" max="200" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Estimated Labor Hours</label>
-        <input type="number" id="labor-hours" value="0.75" min="0" max="40" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="labor-hours" value="6" min="0" max="200" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="billable-rate" value="55" min="0" max="300" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-materials">Misc Materials ($)</label>
-        <input type="number" id="misc-materials" value="15" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-supplies">Misc Supplies ($)</label>
+        <input type="number" id="misc-supplies" value="25" min="0" max="500" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Drop cloths, plastic sheeting, cleanup</p>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">Your Loaded Wage ($/hr)</label>
-        <input type="number" id="loaded-wage" value="35" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Tech hourly cost including burden (taxes, insurance, benefits)</p>
+        <input type="number" id="loaded-wage" value="22" min="0" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Painter hourly cost including burden (taxes, insurance, WC)</p>
       </div>
     </div>
 
+    <!-- Add-On Adjustments -->
+    <div class="mb-8">
+      <p class="text-sm font-medium text-text-secondary mb-3">Add-On Adjustments</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-heavy-prep" data-cost="75" data-hours="2" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Heavy prep work</span>
+            <span class="text-text-muted text-xs block">+$75 materials, +2 hrs</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-premium-paint" data-cost="45" data-hours="0" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Premium paint upgrade</span>
+            <span class="text-text-muted text-xs block">+$45 materials</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-trim" data-cost="20" data-hours="2" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Trim &amp; baseboards</span>
+            <span class="text-text-muted text-xs block">+$20 materials, +2 hrs</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-ceiling" data-cost="30" data-hours="1.5" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Ceiling painting</span>
+            <span class="text-text-muted text-xs block">+$30 materials, +1.5 hrs</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-color-change" data-cost="35" data-hours="1" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Dark-to-light color change</span>
+            <span class="text-text-muted text-xs block">+$35 materials, +1 hr</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+          <input type="checkbox" id="addon-rush" data-cost="0" data-hours="0" data-pct="15" class="accent-accent w-4 h-4" />
+          <div>
+            <span class="text-text-primary text-sm">Rush / weekend job</span>
+            <span class="text-text-muted text-xs block">+15% surcharge</span>
+          </div>
+        </label>
+      </div>
+    </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
@@ -99,14 +150,14 @@ const faqSchema = {
       <div class="bg-bg-dark rounded-xl p-6 text-center mb-6 border border-accent/30">
         <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Flat Rate Price</div>
         <div id="result-flat-rate" class="font-heading font-extrabold text-5xl text-accent">--</div>
-        <div id="result-repair-label" class="text-text-muted text-sm mt-2">--</div>
+        <div id="result-job-label" class="text-text-muted text-sm mt-2">--</div>
       </div>
 
-      <!-- National Average Comparison -->
-      <div id="national-avg-section" class="mb-6">
+      <!-- Market Average Comparison -->
+      <div id="market-avg-section" class="mb-6">
         <div class="flex justify-between items-center mb-2">
-          <span class="text-text-secondary text-sm font-medium">National Average Range</span>
-          <span id="result-national-range" class="text-text-secondary text-sm font-medium">--</span>
+          <span class="text-text-secondary text-sm font-medium">Market Average Range</span>
+          <span id="result-market-range" class="text-text-secondary text-sm font-medium">--</span>
         </div>
         <div class="relative h-8 bg-bg-dark rounded-full overflow-hidden border border-border">
           <div id="avg-range-bar" class="absolute top-0 h-full bg-[rgba(96,165,250,0.2)] rounded-full border border-[rgba(96,165,250,0.4)]"></div>
@@ -121,22 +172,22 @@ const faqSchema = {
 
       <!-- Warning -->
       <div id="undercharge-warning" class="hidden mb-6 bg-[rgba(251,191,36,0.1)] border border-[rgba(251,191,36,0.3)] rounded-lg p-4">
-        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this repair. Your price is more than 20% below the national average low end.</p>
+        <p class="text-[#FBBF24] text-sm font-medium">&#9888; You may be undercharging for this job. Your price is more than 20% below the market average low end. Review your labor hours and materials markup.</p>
       </div>
 
       <!-- Breakdown Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
-          <div id="result-parts-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Materials Rev</div>
+          <div id="result-materials-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
           <div id="result-labor-rev" class="font-heading font-extrabold text-xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Misc</div>
-          <div id="result-misc" class="font-heading font-extrabold text-xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Add-Ons</div>
+          <div id="result-addons" class="font-heading font-extrabold text-xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-4 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Cost</div>
@@ -152,7 +203,19 @@ const faqSchema = {
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Prices are estimates. Adjust parts cost and markup to match your local supplier pricing. Compare to national averages to stay competitive.</p>
+      <!-- Hours Breakdown -->
+      <div class="bg-bg-dark rounded-xl p-4 mb-6">
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-text-secondary">Total Labor Hours</span>
+          <span id="result-total-hours" class="font-heading font-bold text-text-primary">--</span>
+        </div>
+        <div class="flex justify-between items-center text-sm mt-2">
+          <span class="text-text-secondary">Estimated Duration (1 painter)</span>
+          <span id="result-duration" class="font-heading font-bold text-text-primary">--</span>
+        </div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">Prices are estimates. Adjust materials cost and markup to match your local supplier pricing and market conditions.</p>
     </div>
   </div>
 
@@ -163,20 +226,21 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the repair type.</strong> Choose from the pre-built task library. Parts cost and labor hours auto-fill based on industry averages. Pick "Custom" to enter your own values from scratch.</p>
-          <p><strong class="text-text-primary">2. Adjust parts cost and markup.</strong> Override the default parts cost with your actual supplier pricing. Small commodity parts like capacitors typically carry 200% markup. Major components like compressors use 75-100%.</p>
-          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover tech wages, overhead, truck costs, and profit. Adjust labor hours based on your team's average completion time for this repair.</p>
-          <p><strong class="text-text-primary">4. Review your flat rate against the national average.</strong> The comparison bar shows where your price falls relative to the national range. If you are more than 20% below the low end, you are likely leaving money on the table.</p>
+          <p><strong class="text-text-primary">1. Select the job type.</strong> Choose from common painting jobs. Materials cost and labor hours auto-fill based on industry averages for that job type. Pick "Custom" to enter your own values from scratch.</p>
+          <p><strong class="text-text-primary">2. Adjust materials cost and markup.</strong> Override the default with your actual supplier pricing. Standard paint products typically carry 30-50% markup. Premium and specialty products use 40-60%. Your markup should cover waste, returns, and color matching time.</p>
+          <p><strong class="text-text-primary">3. Set your labor rate and hours.</strong> Your billable rate should cover painter wages, overhead, vehicle costs, and profit. Adjust labor hours based on your crew's average completion time for this type of job.</p>
+          <p><strong class="text-text-primary">4. Add optional extras.</strong> Check any add-ons that apply. Each one adds materials cost and labor hours to the base price. The rush surcharge adds 15% to the total.</p>
+          <p><strong class="text-text-primary">5. Review your flat rate against the market average.</strong> The comparison bar shows where your price falls relative to the typical range. If you are more than 20% below the low end, you may be leaving money on the table.</p>
         </div>
       </section>
 
-      <!-- Why Flat Rate Pricing Works -->
+      <!-- Why Flat Rate Pricing Works for Painters -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Flat Rate Pricing Works for Painters</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>Hourly billing penalizes your best technicians. A senior tech who replaces a contactor in 30 minutes earns your company half the revenue of a slower tech who takes an hour. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the repair</strong>, not the speed of the technician.</p>
-          <p>Customers prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $125 an hour plus parts," their anxiety spikes. Every minute the tech spends on the phone or walking to the truck feels like money burning. A flat rate quote of $325 to replace the capacitor removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
-          <p>Flat rate also makes your business predictable. You know exactly what revenue each service call will generate before the tech leaves the shop. That makes dispatching, payroll forecasting, and profit tracking dramatically simpler. Most HVAC companies that switch from hourly to flat rate see revenue increase 15-30% within the first year with no additional marketing spend.</p>
+          <p>Hourly billing punishes your best painters. An experienced crew that finishes a bedroom in 5 hours earns your company less revenue than a slower crew that takes 8 hours. Flat rate pricing flips that equation. Your price reflects the <strong class="text-text-primary">value of the finished result</strong>, not the time spent painting.</p>
+          <p>Homeowners prefer flat rate because it eliminates uncertainty. When a homeowner hears "it'll be $45 an hour per painter plus materials," their anxiety spikes. Every break, every trip to the van, every minute feels like money ticking away. A flat rate quote of $650 for the bedroom repaint removes that stress entirely. <strong class="text-text-primary">Higher close rates follow directly.</strong></p>
+          <p>Flat rate also makes your business predictable. You know exactly what revenue each job will generate before the crew leaves the shop. That makes scheduling, payroll forecasting, and profit tracking dramatically simpler. Most painting companies that switch from hourly to flat rate see revenue increase 15-25% within the first year with no additional marketing spend.</p>
         </div>
       </section>
 
@@ -184,9 +248,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new HVAC company or transitioning from time-and-material to flat rate. Use this tool to price out every common repair, compare to national averages, and build a complete price book your techs can use in the field.</p>
-          <p><strong class="text-text-primary">Quarterly price updates.</strong> Parts costs change with supply chain shifts. Run your top 10 repairs through the builder each quarter with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> Show a new hire exactly how the flat rate breaks down: parts revenue, labor revenue, cost, and profit. When techs understand the math, they present prices with more confidence and close more jobs.</p>
+          <p><strong class="text-text-primary">Building your price book from scratch.</strong> You are starting a new painting company or transitioning from time-and-material to flat rate. Use this tool to price out every common job type, compare to market averages, and build a complete price book your estimators and crew leads can reference in the field.</p>
+          <p><strong class="text-text-primary">Seasonal price updates.</strong> Paint prices change with supplier costs. Run your top 10 job types through the builder each season with updated supplier pricing to make sure your flat rates still hit your profit margin targets.</p>
+          <p><strong class="text-text-primary">Training new estimators.</strong> Show a new estimator exactly how the flat rate breaks down: materials revenue, labor revenue, cost, and profit. When your team understands the math, they present prices with more confidence and close more jobs.</p>
         </div>
       </section>
 
@@ -195,20 +259,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing in HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means charging a fixed price per repair regardless of how long it takes. Instead of billing hourly, you quote one price that covers parts, labor, and overhead. The customer knows the total cost upfront, which increases trust and close rates. Most successful HVAC companies use flat rate pricing for common repairs like capacitor replacements, blower motors, and thermostat installs.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is flat rate pricing for painting contractors?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing means quoting a fixed price per job type regardless of how long it takes your crew. Instead of billing hourly, you quote one price that covers paint, materials, labor, and overhead. The homeowner knows the total cost upfront, which increases trust and close rates. Most successful painting companies use flat rate pricing for common jobs like single room repaints, exterior touch-ups, cabinet refinishing, and whole-house interior packages.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate price book?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common repairs. For each repair, calculate your actual parts cost, apply a markup (typically 75-200% depending on the part), add your labor at a billable rate that covers wages plus overhead, and include a miscellaneous materials allowance. Compare your prices to national averages to make sure you are competitive but profitable. Update your price book quarterly as parts costs change.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I build a flat rate price book for painting?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by listing your most common job types. For each job, calculate your actual paint and materials cost, apply a markup of 30 to 50 percent, add your labor at a billable rate that covers wages plus overhead, and include a supplies allowance for tape, drop cloths, and caulk. Compare your prices to local market averages. Update your price book seasonally as paint prices and labor costs change.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than time and material?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms time and material billing for most HVAC service companies. It eliminates the customer's fear of a runaway bill, which increases close rates by 20-40%. Techs who work efficiently earn more per hour since the price does not decrease when they finish faster. It also simplifies dispatching and cash flow forecasting. Time and material can still make sense for complex diagnostic work or unusual repairs where scope is unpredictable.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is flat rate better than hourly billing for painters?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat rate pricing outperforms hourly billing for most painting companies. Homeowners dislike hourly billing because they worry about how long the job will take. A flat rate quote of $650 for a bedroom repaint removes that anxiety entirely. Crews that work efficiently earn more per hour since the price stays the same regardless of speed. Flat rate also simplifies estimating, scheduling, and cash flow forecasting.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I use for HVAC flat rate?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For small commodity parts like capacitors, contactors, and fuses, a 200% markup is standard in the HVAC industry. For major components like compressors and blower motors, 75-100% markup is typical. Your markup needs to cover not just the part cost but also your truck stock inventory carrying cost, warranty risk, and the expertise to diagnose and install the part correctly.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should painting contractors use on materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most painting contractors mark up materials 30 to 50 percent for standard paint and 40 to 60 percent for premium and specialty products. Your markup needs to cover not just the cost of the paint but also waste, returns, color matching time, and the expertise to recommend the right product for each surface. Supplies like tape, caulk, and drop cloths typically carry a 50 to 100 percent markup.</div>
           </details>
         </div>
       </section>
@@ -217,113 +281,142 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Task library data
-  const taskLibrary: Record<string, { partsCost: number; laborHours: number; markup: number; avgLow: number; avgHigh: number; label: string }> = {
-    'capacitor':      { partsCost: 20,  laborHours: 0.75, markup: 200, avgLow: 250,  avgHigh: 400,  label: 'Capacitor replacement' },
-    'contactor':      { partsCost: 30,  laborHours: 0.75, markup: 200, avgLow: 200,  avgHigh: 350,  label: 'Contactor replacement' },
-    'blower-motor':   { partsCost: 250, laborHours: 2,    markup: 75,  avgLow: 500,  avgHigh: 1500, label: 'Blower motor replacement' },
-    'compressor':     { partsCost: 650, laborHours: 4,    markup: 75,  avgLow: 1800, avgHigh: 2800, label: 'Compressor replacement' },
-    'txv':            { partsCost: 85,  laborHours: 2,    markup: 75,  avgLow: 400,  avgHigh: 700,  label: 'TXV replacement' },
-    'thermostat':     { partsCost: 75,  laborHours: 0.75, markup: 200, avgLow: 150,  avgHigh: 350,  label: 'Thermostat install' },
-    'coil-cleaning':  { partsCost: 15,  laborHours: 1.5,  markup: 200, avgLow: 100,  avgHigh: 250,  label: 'Coil cleaning' },
-    'drain-line':     { partsCost: 8,   laborHours: 0.75, markup: 200, avgLow: 75,   avgHigh: 200,  label: 'Drain line clearing' },
-    'duct-sealing':   { partsCost: 35,  laborHours: 1.5,  markup: 200, avgLow: 200,  avgHigh: 400,  label: 'Duct sealing (per duct)' },
-    'custom':         { partsCost: 0,   laborHours: 0,    markup: 200, avgLow: 0,    avgHigh: 0,    label: 'Custom repair' },
+  // Job type library with painting-specific defaults
+  const jobLibrary: Record<string, { materialsCost: number; laborHours: number; markup: number; avgLow: number; avgHigh: number; label: string }> = {
+    'bedroom':          { materialsCost: 85,  laborHours: 6,    markup: 40, avgLow: 400,  avgHigh: 800,  label: 'Bedroom repaint (avg 12x12)' },
+    'bathroom':         { materialsCost: 65,  laborHours: 5,    markup: 40, avgLow: 350,  avgHigh: 700,  label: 'Bathroom repaint' },
+    'kitchen':          { materialsCost: 110, laborHours: 8,    markup: 40, avgLow: 500,  avgHigh: 1000, label: 'Kitchen repaint' },
+    'living-room':      { materialsCost: 130, laborHours: 10,   markup: 40, avgLow: 600,  avgHigh: 1200, label: 'Living room / great room' },
+    'cabinet-refinish': { materialsCost: 200, laborHours: 20,   markup: 50, avgLow: 1800, avgHigh: 3500, label: 'Cabinet refinishing (kitchen)' },
+    'exterior-trim':    { materialsCost: 120, laborHours: 12,   markup: 40, avgLow: 800,  avgHigh: 1500, label: 'Exterior trim & fascia' },
+    'deck-stain':       { materialsCost: 95,  laborHours: 8,    markup: 40, avgLow: 500,  avgHigh: 1000, label: 'Deck staining (avg 300 sq ft)' },
+    'accent-wall':      { materialsCost: 40,  laborHours: 3,    markup: 40, avgLow: 200,  avgHigh: 400,  label: 'Accent wall (single wall)' },
+    'wallpaper-removal':{ materialsCost: 50,  laborHours: 8,    markup: 40, avgLow: 400,  avgHigh: 900,  label: 'Wallpaper removal (per room)' },
+    'popcorn-removal':  { materialsCost: 60,  laborHours: 6,    markup: 40, avgLow: 350,  avgHigh: 800,  label: 'Popcorn ceiling removal (per room)' },
+    'custom':           { materialsCost: 0,   laborHours: 0,    markup: 40, avgLow: 0,    avgHigh: 0,    label: 'Custom job' },
   };
 
   const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
   const fmtDec = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  function onRepairTypeChange() {
-    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
-    const task = taskLibrary[repairType];
-    if (!task) return;
+  function onJobTypeChange() {
+    const jobType = (document.getElementById('job-type') as HTMLSelectElement).value;
+    const job = jobLibrary[jobType];
+    if (!job) return;
 
-    (document.getElementById('parts-cost') as HTMLInputElement).value = String(task.partsCost);
-    (document.getElementById('parts-markup') as HTMLInputElement).value = String(task.markup);
-    (document.getElementById('labor-hours') as HTMLInputElement).value = String(task.laborHours);
+    (document.getElementById('materials-cost') as HTMLInputElement).value = String(job.materialsCost);
+    (document.getElementById('materials-markup') as HTMLInputElement).value = String(job.markup);
+    (document.getElementById('labor-hours') as HTMLInputElement).value = String(job.laborHours);
   }
 
   function calculate() {
-    const repairType = (document.getElementById('repair-type') as HTMLSelectElement).value;
-    const partsCost = parseFloat((document.getElementById('parts-cost') as HTMLInputElement).value) || 0;
-    const partsMarkup = parseFloat((document.getElementById('parts-markup') as HTMLInputElement).value) || 0;
-    const laborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
+    const jobType = (document.getElementById('job-type') as HTMLSelectElement).value;
+    const materialsCost = parseFloat((document.getElementById('materials-cost') as HTMLInputElement).value) || 0;
+    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 0;
+    const baseLaborHours = parseFloat((document.getElementById('labor-hours') as HTMLInputElement).value) || 0;
     const billableRate = parseFloat((document.getElementById('billable-rate') as HTMLInputElement).value) || 0;
-    const miscMaterials = parseFloat((document.getElementById('misc-materials') as HTMLInputElement).value) || 0;
+    const miscSupplies = parseFloat((document.getElementById('misc-supplies') as HTMLInputElement).value) || 0;
     const loadedWage = parseFloat((document.getElementById('loaded-wage') as HTMLInputElement).value) || 0;
 
-    const task = taskLibrary[repairType];
+    const job = jobLibrary[jobType];
 
-    // Formula: Flat_Rate = (Parts_Cost x (1 + Parts_Markup/100)) + (Labor_Hours x Billable_Rate) + Misc_Materials
-    const partsRevenue = partsCost * (1 + partsMarkup / 100);
-    const laborRevenue = laborHours * billableRate;
-    const flatRate = partsRevenue + laborRevenue + miscMaterials;
+    // Calculate add-on costs and hours
+    let addonCost = 0;
+    let addonHours = 0;
+    let rushPct = 0;
 
-    // Cost: actual parts + loaded wage * hours
-    const totalCost = partsCost + (loadedWage * laborHours);
+    document.querySelectorAll('#flat-rate-calc input[type="checkbox"]').forEach((cb) => {
+      const checkbox = cb as HTMLInputElement;
+      if (checkbox.checked) {
+        addonCost += parseFloat(checkbox.dataset.cost || '0');
+        addonHours += parseFloat(checkbox.dataset.hours || '0');
+        if (checkbox.dataset.pct) {
+          rushPct = parseFloat(checkbox.dataset.pct) / 100;
+        }
+      }
+    });
+
+    const totalLaborHours = baseLaborHours + addonHours;
+
+    // Materials revenue: (base materials + addon materials) * (1 + markup/100) + misc supplies
+    const totalMaterialsCost = materialsCost + addonCost;
+    const materialsRevenue = totalMaterialsCost * (1 + materialsMarkup / 100);
+    const laborRevenue = totalLaborHours * billableRate;
+
+    // Subtotal before rush
+    const subtotal = materialsRevenue + laborRevenue + miscSupplies;
+    const rushAmount = subtotal * rushPct;
+    const flatRate = subtotal + rushAmount;
+
+    // Your actual cost
+    const totalCost = totalMaterialsCost + miscSupplies + (loadedWage * totalLaborHours);
     const profit = flatRate - totalCost;
     const margin = flatRate > 0 ? (profit / flatRate) * 100 : 0;
 
     // Display primary result
     document.getElementById('result-flat-rate')!.textContent = fmt(Math.round(flatRate));
-    document.getElementById('result-repair-label')!.textContent = task ? task.label : 'Custom repair';
+    document.getElementById('result-job-label')!.textContent = job ? job.label : 'Custom job';
 
     // Breakdown
-    document.getElementById('result-parts-rev')!.textContent = fmtDec(partsRevenue);
+    document.getElementById('result-materials-rev')!.textContent = fmtDec(materialsRevenue);
     document.getElementById('result-labor-rev')!.textContent = fmtDec(laborRevenue);
-    document.getElementById('result-misc')!.textContent = fmtDec(miscMaterials);
+    document.getElementById('result-addons')!.textContent = fmtDec(rushAmount + (addonCost * (materialsMarkup / 100)) + (addonHours * billableRate));
     document.getElementById('result-cost')!.textContent = fmtDec(totalCost);
     document.getElementById('result-profit')!.textContent = fmtDec(profit);
     document.getElementById('result-margin')!.textContent = margin.toFixed(1) + '%';
 
-    // Color profit/margin based on positive/negative
+    // Hours breakdown
+    document.getElementById('result-total-hours')!.textContent = totalLaborHours.toFixed(1) + ' hrs';
+    const days = totalLaborHours / 8;
+    document.getElementById('result-duration')!.textContent = days <= 1 ? totalLaborHours.toFixed(1) + ' hrs' : days.toFixed(1) + ' days';
+
+    // Color profit/margin
     const profitEl = document.getElementById('result-profit')!;
     const marginEl = document.getElementById('result-margin')!;
-    if (profit < 0) {
-      profitEl.className = 'font-heading font-extrabold text-xl text-red-400';
-      marginEl.className = 'font-heading font-extrabold text-xl text-red-400';
-    } else {
+    if (margin >= 35) {
       profitEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
       marginEl.className = 'font-heading font-extrabold text-xl text-[#34D399]';
+    } else if (margin >= 25) {
+      profitEl.className = 'font-heading font-extrabold text-xl text-[#FBBF24]';
+      marginEl.className = 'font-heading font-extrabold text-xl text-[#FBBF24]';
+    } else {
+      profitEl.className = 'font-heading font-extrabold text-xl text-[#EF4444]';
+      marginEl.className = 'font-heading font-extrabold text-xl text-[#EF4444]';
     }
 
-    // National average comparison
-    const avgSection = document.getElementById('national-avg-section')!;
+    // Market average comparison
+    const avgSection = document.getElementById('market-avg-section')!;
     const warning = document.getElementById('undercharge-warning')!;
 
-    if (task && task.avgLow > 0) {
+    if (job && job.avgLow > 0) {
+      avgSection.classList.remove('hidden');
+      const avgLow = job.avgLow;
+      const avgHigh = job.avgHigh;
 
-      const avgLow = task.avgLow;
-      const avgHigh = task.avgHigh;
-
-      document.getElementById('result-national-range')!.textContent = fmt(avgLow) + ' - ' + fmt(avgHigh);
+      document.getElementById('result-market-range')!.textContent = fmt(avgLow) + ' - ' + fmt(avgHigh);
 
       // Bar visualization
-      // Scale: bar goes from 60% of avgLow to 140% of avgHigh
       const barMin = avgLow * 0.6;
       const barMax = avgHigh * 1.4;
       const barRange = barMax - barMin;
 
-      // Position the average range band
       const rangeLeftPct = ((avgLow - barMin) / barRange) * 100;
       const rangeWidthPct = ((avgHigh - avgLow) / barRange) * 100;
       const rangeBar = document.getElementById('avg-range-bar')!;
       rangeBar.style.left = rangeLeftPct + '%';
       rangeBar.style.width = rangeWidthPct + '%';
 
-      // Position the user's price marker
       const pricePct = Math.max(2, Math.min(98, ((flatRate - barMin) / barRange) * 100));
       const marker = document.getElementById('your-price-marker')!;
       marker.style.left = pricePct + '%';
       marker.style.transform = 'translate(-50%, -50%)';
 
-      // Bar labels
       document.getElementById('bar-low')!.textContent = fmt(avgLow);
       document.getElementById('bar-high')!.textContent = fmt(avgHigh);
 
-      // Undercharge warning: >20% below national avg low
+      // Undercharge warning
       if (flatRate < avgLow * 0.8) {
+        warning.classList.remove('hidden');
       } else {
         warning.classList.add('hidden');
       }
@@ -331,15 +424,13 @@ const faqSchema = {
       avgSection.classList.add('hidden');
       warning.classList.add('hidden');
     }
-
   }
 
-  // Wire up event listeners
-  document.getElementById('repair-type')?.addEventListener('change', () => {
-    onRepairTypeChange();
+  // Wire up job type change
+  document.getElementById('job-type')?.addEventListener('change', () => {
+    onJobTypeChange();
     calculate();
   });
-
 
   // Auto-calculate on any input change
   document.querySelectorAll('#flat-rate-calc input, #flat-rate-calc select').forEach(el => {

@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much should I charge for an HVAC service call?",
+      "name": "How much should I charge for a roofing service call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
+        "text": "Most roofing service calls range from $150 to $500 total. This includes a diagnostic or inspection fee of $75-$150, labor at $65-$80 per hour, and marked-up materials. Your price depends on your market, overhead, and target profit margin. Use a service call price calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin."
       }
     },
     {
       "@type": "Question",
-      "name": "What markup should I put on HVAC parts?",
+      "name": "What markup should I put on roofing materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead."
+        "text": "Standard roofing material markups are 30-40% on shingles, 35-45% on flashing and metal trim, 25-35% on underlayment and ice and water shield, and 40-50% on miscellaneous hardware like nails, pipe boots, and sealant. These margins cover material handling, waste, truck inventory, and your expertise in selecting the right products."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should I charge tax on roofing labor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional."
+        "text": "In most US states, labor for repair and maintenance services is not subject to sales tax, but materials are taxable. However, tax rules vary by state and locality. Some states tax the entire invoice including labor when it is part of a construction or improvement project. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I calculate profit margin on a service call?",
+      "name": "How do I calculate profit margin on a roofing service call?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy HVAC service call margin is 40-60%."
+        "text": "Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $400 and your costs are $160, your gross profit is $240 and your margin is 60%. A healthy roofing service call margin is 40-60%."
       }
     }
   ]
@@ -50,74 +50,53 @@ const faqSchema = {
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Details</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnostic-fee">Diagnostic Fee ($)</label>
-        <input type="number" id="diagnostic-fee" value="89" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnostic-fee">Inspection / Trip Fee ($)</label>
+        <input type="number" id="diagnostic-fee" value="100" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="labor-hours">Labor Hours</label>
-        <input type="number" id="labor-hours" value="1.5" min="0" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="labor-hours" value="2" min="0" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="billable-rate" value="75" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="loaded-wage">
           Your Loaded Wage ($/hr)
           <span class="inline-block ml-1 text-text-muted cursor-help" title="Your actual cost per hour including benefits, insurance, workers comp, payroll taxes">&#9432;</span>
         </label>
-        <input type="number" id="loaded-wage" value="45" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="loaded-wage" value="35" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
     <!-- Parts Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts</h3>
-    <div class="mb-2 text-sm text-text-muted">Add parts used on this service call. Select a preset or enter custom values.</div>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials</h3>
+    <div class="mb-2 text-sm text-text-muted">Add materials used on this service call. Select a preset or enter custom values.</div>
     <div id="parts-table" class="space-y-3 mb-4">
       <!-- Part rows inserted here by JS -->
     </div>
     <button id="add-part-btn" class="bg-bg-dark border border-border rounded-lg px-5 py-2.5 text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors cursor-pointer">
-      + Add Part
+      + Add Material
     </button>
 
-    <!-- Refrigerant Section -->
-    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Refrigerant (optional)</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Refrigerant Type</label>
-        <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="none">None</option>
-          <option value="r410a">R-410A</option>
-          <option value="r22">R-22</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-lbs">Pounds Added</label>
-        <input type="number" id="refrigerant-lbs" value="0" min="0" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-cost">Your Cost per lb ($)</label>
-        <input type="number" id="refrigerant-cost" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-price">Customer Price per lb ($)</label>
-        <input type="number" id="refrigerant-price" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" disabled />
-      </div>
-    </div>
-
     <!-- Other -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Other</h3>
+    <h3 class="font-heading font-bold text-lg mt-8 mb-4 text-text-primary">Other Costs</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit Fee ($)</label>
         <input type="number" id="permit-fee" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal / Dump Fee ($)</label>
+        <input type="number" id="disposal-fee" value="0" min="0" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="tax-rate">
           Tax Rate (%)
         </label>
         <input type="number" id="tax-rate" value="0" min="0" max="20" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1.5">Applied to parts and refrigerant only &mdash; labor is typically not taxed.</p>
+        <p class="text-text-muted text-xs mt-1.5">Applied to materials only &mdash; labor is typically not taxed.</p>
       </div>
     </div>
 
@@ -125,22 +104,18 @@ const faqSchema = {
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Customer Price Breakdown</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Customer Total</div>
           <div id="result-customer-total" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Parts Revenue</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Materials Revenue</div>
           <div id="result-parts-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Revenue</div>
           <div id="result-labor-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Refrigerant Revenue</div>
-          <div id="result-refrigerant-revenue" class="font-heading font-extrabold text-xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
@@ -166,7 +141,7 @@ const faqSchema = {
 
       <!-- Benchmark Bar -->
       <div class="bg-bg-dark rounded-xl p-5 mt-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average HVAC Service Call: $200 &ndash; $600</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Benchmark &mdash; Average Roofing Service Call: $150 &ndash; $500</h4>
         <div class="relative h-6 bg-bg-card rounded-full overflow-hidden border border-border">
           <div class="absolute inset-0 flex">
             <div class="w-1/3 bg-[rgba(52,211,153,0.15)] border-r border-border"></div>
@@ -177,10 +152,10 @@ const faqSchema = {
         </div>
         <div class="flex justify-between text-xs text-text-muted mt-2">
           <span>$0</span>
-          <span>$200</span>
-          <span>$400</span>
-          <span>$600</span>
-          <span>$800+</span>
+          <span>$150</span>
+          <span>$350</span>
+          <span>$500</span>
+          <span>$700+</span>
         </div>
         <p id="benchmark-text" class="text-text-secondary text-sm mt-3">Your price: &mdash;</p>
       </div>
@@ -194,26 +169,26 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your service details.</strong> Set your diagnostic fee, estimated labor hours, your billable hourly rate, and your loaded wage (your true cost per hour including benefits, insurance, and workers comp).</p>
-          <p><strong class="text-text-primary">2. Add parts.</strong> Use the preset dropdown to quickly add common HVAC parts with typical wholesale costs, or enter custom parts and costs. Set your markup percentage for each part individually.</p>
-          <p><strong class="text-text-primary">3. Add refrigerant if applicable.</strong> Select the refrigerant type and pounds added. The calculator auto-fills typical cost and customer pricing for R-410A and R-22.</p>
+          <p><strong class="text-text-primary">1. Enter your service details.</strong> Set your inspection or trip fee, estimated labor hours, your billable hourly rate, and your loaded wage (your true cost per hour including benefits, insurance, and workers comp).</p>
+          <p><strong class="text-text-primary">2. Add materials.</strong> Use the preset dropdown to quickly add common roofing materials with typical wholesale costs, or enter custom materials and costs. Set your markup percentage for each item individually.</p>
+          <p><strong class="text-text-primary">3. Include other costs.</strong> Add permit fees and disposal or dump fees if applicable. Set your local tax rate for materials.</p>
           <p><strong class="text-text-primary">4. Review the breakdown.</strong> The calculator shows the customer's total price, your total cost, gross profit, profit margin, and profit per hour. Compare your price to the industry benchmark range.</p>
         </div>
       </section>
 
       <!-- How Pricing Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Service Call Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Roofing Service Call Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A service call price is built from four components: <strong class="text-text-primary">diagnostic fee, labor, parts, and refrigerant</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
+          <p>A roofing service call price is built from three components: <strong class="text-text-primary">inspection fee, labor, and materials</strong>. Each one contributes to revenue differently and has different margin characteristics.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Customer Total = Diagnostic + (Hours x Rate) + Parts Revenue + Refrigerant Revenue + Permit + Tax</p>
-            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Parts + Refrigerant Cost + Permit</p>
+            <p>Customer Total = Inspection Fee + (Hours x Rate) + Materials Revenue + Permit + Disposal + Tax</p>
+            <p>Your Cost = (Hours x Loaded Wage) + Wholesale Materials + Permit + Disposal</p>
             <p>Gross Profit = Customer Total - Your Cost</p>
           </div>
-          <p><strong class="text-text-primary">Why parts markup matters.</strong> Parts are often the highest-margin component of a service call. A 200% markup on a $25 contactor means you charge $75 and keep $50. That $50 covers the cost of stocking the part on your truck, the warehouse overhead, and your diagnostic expertise. Without healthy parts margins, it is very difficult to run a profitable service department.</p>
-          <p><strong class="text-text-primary">Labor vs parts profitability.</strong> Labor revenue depends on how fast you work. If you bill 1.5 hours at $125/hr but the job takes 2 hours, your effective rate drops. Parts profit is locked in the moment you set the price. The most profitable service companies maximize both: fast techs with strong parts margins.</p>
-          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to parts and materials but not to labor for repair services. Refrigerant is typically taxable as a material. Always check your local tax rules because some states tax all services and some tax none.</p>
+          <p><strong class="text-text-primary">Why materials markup matters.</strong> Materials are often the highest-margin component of a roofing service call. A 35% markup on a $50 roll of flashing means you charge $67.50 and keep $17.50 on top. That margin covers the cost of stocking materials on your truck, warehouse overhead, waste factor, and your diagnostic expertise in selecting the right product for the repair.</p>
+          <p><strong class="text-text-primary">Labor vs materials profitability.</strong> Labor revenue depends on how fast you work. If you bill 2 hours at $75/hr but the job takes 3 hours due to access difficulty, your effective rate drops significantly. Materials profit is locked in the moment you set the price. The most profitable roofing service companies maximize both: efficient crews with healthy material margins.</p>
+          <p><strong class="text-text-primary">Tax treatment.</strong> In most US states, sales tax applies to materials but not to labor for repair services. However, some states tax the entire invoice when the work qualifies as a capital improvement. Always check your local tax rules because they vary by jurisdiction.</p>
         </div>
       </section>
 
@@ -221,8 +196,8 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">On-the-fly pricing in the field.</strong> You have diagnosed the problem, you know the parts needed, and you need to give the customer a price before you start work. Pull up this calculator on your phone, plug in the parts and labor, and present a confident total. No guessing, no calling the office, no accidentally undercharging.</p>
-          <p><strong class="text-text-primary">Training new technicians on pricing.</strong> New techs often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how diagnostic fees, labor, parts markup, and refrigerant all add up. Show them what happens to profit margin when they discount the diagnostic fee or undercharge on parts.</p>
+          <p><strong class="text-text-primary">On-the-fly pricing after an inspection.</strong> You have climbed the roof, identified the problem, and you need to give the homeowner a price before you start work. Pull up this calculator on your phone, plug in the materials and labor, and present a confident total. No guessing, no calling the office, no accidentally undercharging.</p>
+          <p><strong class="text-text-primary">Training new estimators on pricing.</strong> New team members often struggle with pricing because they do not see the full picture. Walk them through the calculator to show how inspection fees, labor, and material markup all add up. Show them what happens to profit margin when they discount the trip fee or undercharge on materials.</p>
           <p><strong class="text-text-primary">Comparing time-and-materials to flat rate.</strong> Enter a few common repair scenarios in this calculator and compare the totals to your flat rate price book. If your flat rate prices are consistently lower than what this calculator produces, you may be leaving money on the table. If they are higher, you have room to be competitive.</p>
         </div>
       </section>
@@ -232,20 +207,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for an HVAC service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC service calls range from $200 to $600 total. This includes a diagnostic fee of $75-$125, labor at $100-$175 per hour, and marked-up parts. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a roofing service call?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most roofing service calls range from $150 to $500 total. This includes a diagnostic or inspection fee of $75-$150, labor at $65-$80 per hour, and marked-up materials. Your price depends on your market, overhead, and target profit margin. Use this calculator to build the total from your actual costs and ensure you are hitting at least a 40-50% gross margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on HVAC parts?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry standard is 200-300% markup on small parts like capacitors and contactors, 100-200% on mid-range parts like blower motors and control boards, and 50-100% on major components like compressors. This typically results in a 50-75% margin on parts, which is necessary to cover truck inventory, warranty, and overhead.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What markup should I put on roofing materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Standard roofing material markups are 30-40% on shingles, 35-45% on flashing and metal trim, 25-35% on underlayment and ice and water shield, and 40-50% on miscellaneous hardware like nails, pipe boots, and sealant. These margins cover material handling, waste, truck inventory, and your expertise in selecting the right products.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">In most US states, labor for repair and maintenance services is not subject to sales tax, but parts and materials are taxable. However, tax rules vary by state and locality. Some states tax all services, some tax none. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on roofing labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">In most US states, labor for repair and maintenance services is not subject to sales tax, but materials are taxable. However, tax rules vary by state and locality. Some states tax the entire invoice including labor when it is part of a construction or improvement project. Check your state's department of revenue for specific rules. When in doubt, consult a tax professional.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit margin on a service call?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $450 and your costs are $180, your gross profit is $270 and your margin is 60%. A healthy HVAC service call margin is 40-60%.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate profit margin on a roofing service call?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Subtract your total costs from the customer total to get gross profit. Divide gross profit by the customer total and multiply by 100 for the margin percentage. For example, if you charge $400 and your costs are $160, your gross profit is $240 and your margin is 60%. A healthy roofing service call margin is 40-60%.</div>
           </details>
         </div>
       </section>
@@ -254,25 +229,23 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Preset parts with wholesale costs
+  // Preset roofing materials with wholesale costs
   const presetParts: Record<string, number> = {
-    'Capacitor': 18,
-    'Contactor': 25,
-    'Blower Motor': 175,
-    'TXV Valve': 85,
-    'Compressor': 650,
-    'Control Board': 175,
-    'Thermostat': 35,
-  };
-
-  const refrigerantPricing: Record<string, { cost: number; price: number }> = {
-    'r410a': { cost: 40, price: 85 },
-    'r22': { cost: 60, price: 175 },
+    'Shingle Bundle': 35,
+    'Roll Flashing (50ft)': 25,
+    'Pipe Boot': 12,
+    'Roofing Sealant (tube)': 8,
+    'Roofing Nails (5lb box)': 15,
+    'Ice & Water Shield (roll)': 65,
+    'Drip Edge (10ft)': 10,
+    'Step Flashing (pc)': 3,
+    'Ridge Cap Bundle': 45,
+    'Underlayment Roll': 40,
   };
 
   let partCounter = 0;
 
-  function addPartRow(name = '', cost = 0, markup = 200) {
+  function addPartRow(name = '', cost = 0, markup = 35) {
     const id = partCounter++;
     const table = document.getElementById('parts-table')!;
     const row = document.createElement('div');
@@ -285,9 +258,9 @@ const faqSchema = {
 
     row.innerHTML = `
       <div>
-        <label class="block text-xs font-medium text-text-muted mb-1">Part</label>
+        <label class="block text-xs font-medium text-text-muted mb-1">Material</label>
         <select class="part-preset w-full bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
-          <option value="">Custom part...</option>
+          <option value="">Custom material...</option>
           ${presetOptions}
         </select>
       </div>
@@ -304,7 +277,7 @@ const faqSchema = {
         <div class="part-sell-price bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-accent text-sm font-medium">&mdash;</div>
       </div>
       <div>
-        <button class="remove-part-btn mt-5 text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove part">&times;</button>
+        <button class="remove-part-btn mt-5 text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove material">&times;</button>
       </div>
     `;
 
@@ -360,7 +333,7 @@ const faqSchema = {
     const laborRevenue = laborHours * billableRate;
     const laborCost = laborHours * loadedWage;
 
-    // Parts calculations
+    // Materials calculations
     let partsRevenue = 0;
     let partsCost = 0;
     document.querySelectorAll('.part-row').forEach(row => {
@@ -372,25 +345,18 @@ const faqSchema = {
       partsRevenue += sellPrice;
     });
 
-    // Refrigerant calculations
-    const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
-    const refLbs = parseFloat((document.getElementById('refrigerant-lbs') as HTMLInputElement).value) || 0;
-    const refCostPerLb = parseFloat((document.getElementById('refrigerant-cost') as HTMLInputElement).value) || 0;
-    const refPricePerLb = parseFloat((document.getElementById('refrigerant-price') as HTMLInputElement).value) || 0;
-    const refrigerantCost = refLbs * refCostPerLb;
-    const refrigerantRevenue = refLbs * refPricePerLb;
-
     // Other
     const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
+    const disposalFee = parseFloat((document.getElementById('disposal-fee') as HTMLInputElement).value) || 0;
     const taxRate = parseFloat((document.getElementById('tax-rate') as HTMLInputElement).value) || 0;
 
-    // Tax applies to parts and refrigerant only
-    const taxableAmount = partsRevenue + refrigerantRevenue;
+    // Tax applies to materials only
+    const taxableAmount = partsRevenue;
     const taxAmount = taxableAmount * (taxRate / 100);
 
     // Totals
-    const customerTotal = diagnosticFee + laborRevenue + partsRevenue + refrigerantRevenue + permitFee + taxAmount;
-    const totalCost = laborCost + partsCost + refrigerantCost + permitFee;
+    const customerTotal = diagnosticFee + laborRevenue + partsRevenue + permitFee + disposalFee + taxAmount;
+    const totalCost = laborCost + partsCost + permitFee + disposalFee;
     const grossProfit = customerTotal - totalCost;
     const profitMargin = customerTotal > 0 ? (grossProfit / customerTotal) * 100 : 0;
     const profitPerHour = laborHours > 0 ? grossProfit / laborHours : 0;
@@ -399,7 +365,6 @@ const faqSchema = {
     document.getElementById('result-customer-total')!.textContent = `$${customerTotal.toFixed(0)}`;
     document.getElementById('result-parts-revenue')!.textContent = `$${partsRevenue.toFixed(0)}`;
     document.getElementById('result-labor-revenue')!.textContent = `$${(diagnosticFee + laborRevenue).toFixed(0)}`;
-    document.getElementById('result-refrigerant-revenue')!.textContent = `$${refrigerantRevenue.toFixed(0)}`;
 
     // Update profitability results
     document.getElementById('result-gross-profit')!.textContent = `$${grossProfit.toFixed(0)}`;
@@ -418,64 +383,33 @@ const faqSchema = {
       marginEl.classList.add('text-[#34D399]');
     }
 
-    // Benchmark bar (range $0 - $800+)
-    const maxBenchmark = 800;
+    // Benchmark bar (range $0 - $700+)
+    const maxBenchmark = 700;
     const markerPct = Math.min((customerTotal / maxBenchmark) * 100, 100);
     const marker = document.getElementById('benchmark-marker')!;
     marker.style.left = `${markerPct}%`;
 
     let benchmarkNote = '';
-    if (customerTotal < 200) {
+    if (customerTotal < 150) {
       benchmarkNote = 'Below average range. Make sure your margins are healthy.';
-    } else if (customerTotal <= 600) {
-      benchmarkNote = 'Within the typical range for HVAC service calls.';
+    } else if (customerTotal <= 500) {
+      benchmarkNote = 'Within the typical range for roofing service calls.';
     } else {
-      benchmarkNote = 'Above average. Justified for major repairs or premium service.';
+      benchmarkNote = 'Above average. Justified for major repairs or emergency service.';
     }
     document.getElementById('benchmark-text')!.textContent = `Your price: $${customerTotal.toFixed(0)} \u2014 ${benchmarkNote}`;
-
-    // Show results
   }
-
-  // Refrigerant type change handler
-  document.getElementById('refrigerant-type')?.addEventListener('change', () => {
-    const refType = (document.getElementById('refrigerant-type') as HTMLSelectElement).value;
-    const costInput = document.getElementById('refrigerant-cost') as HTMLInputElement;
-    const priceInput = document.getElementById('refrigerant-price') as HTMLInputElement;
-
-    if (refType === 'none') {
-      costInput.value = '0';
-      priceInput.value = '0';
-      costInput.disabled = true;
-      priceInput.disabled = true;
-      (document.getElementById('refrigerant-lbs') as HTMLInputElement).value = '0';
-    } else {
-      const pricing = refrigerantPricing[refType];
-      costInput.value = String(pricing.cost);
-      priceInput.value = String(pricing.price);
-      costInput.disabled = false;
-      priceInput.disabled = false;
-    }
-    calculate();
-  });
-
-  // Calculate button
 
   // Add Part button
   document.getElementById('add-part-btn')?.addEventListener('click', () => addPartRow());
 
   // Auto-calculate on any input/select change within the calculator
-  document.querySelectorAll('#service-calc > .grid input, #service-calc > .grid select, #service-calc input[id="permit-fee"], #service-calc input[id="tax-rate"]').forEach(el => {
+  document.querySelectorAll('#service-calc input, #service-calc select').forEach(el => {
     el.addEventListener('input', calculate);
     el.addEventListener('change', calculate);
   });
 
-  // Also listen on refrigerant inputs
-  document.getElementById('refrigerant-lbs')?.addEventListener('input', calculate);
-  document.getElementById('refrigerant-cost')?.addEventListener('input', calculate);
-  document.getElementById('refrigerant-price')?.addEventListener('input', calculate);
-
-  // Initialize with one empty part row and run initial calculation
-  addPartRow('Capacitor', 18, 200);
+  // Initialize with one preset material row and run initial calculation
+  addPartRow('Shingle Bundle', 35, 35);
   calculate();
 </script>

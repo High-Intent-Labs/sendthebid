@@ -10,15 +10,15 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much is my HVAC business worth?",
+      "name": "How much is my pest control business worth?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC businesses sell for 2 to 5 times their Seller's Discretionary Earnings (SDE). A company doing $1.5M in revenue with $325K in SDE and strong maintenance agreements might be valued between $900K and $1.6M. The exact multiple depends on recurring revenue, owner dependence, fleet condition, technician certifications, and the quality of your financial records."
+        "text": "Most pest control businesses sell for 1.0 to 2.5 times annual revenue, or 4 to 6 times EBITDA. A company doing $1.2M in revenue with $280K in SDE and a strong base of recurring service agreements might be valued between $750K and $1.4M. The exact multiple depends on recurring revenue mix, owner dependence, fleet condition, state licensing, and the quality of financial records."
       }
     },
     {
       "@type": "Question",
-      "name": "What is SDE in business valuation?",
+      "name": "What is SDE in pest control business valuation?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "SDE stands for Seller's Discretionary Earnings. It is the total financial benefit a single owner-operator takes from the business. SDE equals net profit plus owner salary, owner benefits, one-time or non-recurring expenses, depreciation, and interest. Buyers use SDE to compare businesses on an apples-to-apples basis regardless of how the current owner chooses to pay themselves."
@@ -26,18 +26,18 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "How do maintenance agreements affect HVAC business value?",
+      "name": "How do service agreements affect pest control business value?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Maintenance agreements are the single biggest value driver in HVAC business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 50% or more of revenue from maintenance contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one."
+        "text": "Recurring service agreements are the single biggest value driver in pest control business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 50% or more of revenue from quarterly or monthly service contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one."
       }
     },
     {
       "@type": "Question",
-      "name": "What multiple do HVAC businesses sell for?",
+      "name": "What multiple do pest control businesses sell for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "HVAC businesses typically sell for 2 to 5 times SDE. Smaller companies under $1M in revenue average around 2.5 to 3x. Mid-size companies between $1M and $3M average 3 to 3.5x. Larger companies above $3M often command 3.5 to 4.5x or higher. These multiples shift based on maintenance agreement revenue, owner involvement, fleet condition, technician quality, and financial record keeping."
+        "text": "Pest control businesses typically sell for 2 to 5 times SDE. Smaller companies under $750K in revenue average around 2.25 to 2.75x. Mid-size companies between $750K and $2M average 2.75 to 3.25x. Larger companies above $2M often command 3.25 to 3.75x or higher. These multiples shift based on recurring service revenue, owner involvement, fleet condition, licensing, and financial record keeping."
       }
     }
   ]
@@ -52,29 +52,29 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="block text-xs text-text-muted mb-1" for="revenue">Annual Revenue ($)</label>
-          <input type="number" id="revenue" value="1500000" min="0" step="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="revenue" value="1200000" min="0" step="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="netProfit">Net Profit ($)</label>
-          <input type="number" id="netProfit" value="150000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="netProfit" value="120000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="ownerSalary">Owner Salary ($)</label>
-          <input type="number" id="ownerSalary" value="120000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="ownerSalary" value="110000" min="0" step="5000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="ownerBenefits">Owner Benefits ($)</label>
-          <input type="number" id="ownerBenefits" value="25000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="ownerBenefits" value="20000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           <p class="text-text-muted text-xs mt-1">Health insurance, vehicle, phone, etc.</p>
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="oneTime">One-Time / Non-Recurring Expenses ($)</label>
           <input type="number" id="oneTime" value="10000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          <p class="text-text-muted text-xs mt-1">Lawsuit, equipment replacement, etc.</p>
+          <p class="text-text-muted text-xs mt-1">Lawsuit, vehicle replacement, etc.</p>
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="depreciation">Depreciation ($)</label>
-          <input type="number" id="depreciation" value="15000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="depreciation" value="12000" min="0" step="1000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="interest">Interest ($)</label>
@@ -88,8 +88,8 @@ const faqSchema = {
       <p class="text-sm font-medium text-text-secondary mb-3">Business Factors</p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="maintenance">Maintenance Agreements (% of Revenue)</label>
-          <select id="maintenance" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <label class="block text-xs text-text-muted mb-1" for="serviceAgreements">Recurring Service Agreements (% of Revenue)</label>
+          <select id="serviceAgreements" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
             <option value="-0.5">0 &ndash; 10%</option>
             <option value="0" selected>10 &ndash; 25%</option>
             <option value="0.5">25 &ndash; 50%</option>
@@ -99,7 +99,7 @@ const faqSchema = {
         <div>
           <label class="block text-xs text-text-muted mb-1" for="ownerDependence">Owner Dependence</label>
           <select id="ownerDependence" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="-0.5">Does 50%+ of sales</option>
+            <option value="-0.5">Does 50%+ of sales &amp; service</option>
             <option value="0" selected>Full-time manager runs it</option>
             <option value="0.5">Mostly passive</option>
           </select>
@@ -113,11 +113,11 @@ const faqSchema = {
           </select>
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="nateCerts">NATE Certified Techs</label>
-          <select id="nateCerts" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="-0.25">None</option>
-            <option value="0" selected>Some (&lt; 50%)</option>
-            <option value="0.25">Majority (50%+)</option>
+          <label class="block text-xs text-text-muted mb-1" for="licensing">State Licensing &amp; Certifications</label>
+          <select id="licensing" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="-0.25">Minimum licensing only</option>
+            <option value="0" selected>Licensed with some specialty certs</option>
+            <option value="0.25">All categories licensed, QualityPro or equivalent</option>
           </select>
         </div>
         <div class="md:col-span-2">
@@ -182,8 +182,8 @@ const faqSchema = {
           </div>
           <div class="border-t border-border pt-3 space-y-2">
             <div class="flex justify-between items-center text-sm">
-              <span class="text-text-secondary">Maintenance Agreements</span>
-              <span id="adj-maintenance" class="font-heading font-bold">--</span>
+              <span class="text-text-secondary">Service Agreements</span>
+              <span id="adj-agreements" class="font-heading font-bold">--</span>
             </div>
             <div class="flex justify-between items-center text-sm">
               <span class="text-text-secondary">Owner Dependence</span>
@@ -194,8 +194,8 @@ const faqSchema = {
               <span id="adj-fleet" class="font-heading font-bold">--</span>
             </div>
             <div class="flex justify-between items-center text-sm">
-              <span class="text-text-secondary">NATE Certifications</span>
-              <span id="adj-nate" class="font-heading font-bold">--</span>
+              <span class="text-text-secondary">Licensing &amp; Certifications</span>
+              <span id="adj-licensing" class="font-heading font-bold">--</span>
             </div>
             <div class="flex justify-between items-center text-sm">
               <span class="text-text-secondary">Financial Records</span>
@@ -220,17 +220,17 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your financial numbers.</strong> Pull these from your most recent tax return or profit and loss statement. Use annual figures. Net profit is the bottom line after all expenses, including your salary.</p>
           <p><strong class="text-text-primary">2. Add owner compensation and add-backs.</strong> Include your total salary, benefits (health insurance, vehicle, phone), any one-time expenses that will not recur, depreciation, and interest. These get added back to net profit to calculate SDE.</p>
-          <p><strong class="text-text-primary">3. Select your business factors.</strong> Be honest about where your business stands. Each factor shifts the valuation multiple up or down. Maintenance agreements and owner dependence have the largest impact on value.</p>
+          <p><strong class="text-text-primary">3. Select your business factors.</strong> Be honest about where your business stands. Each factor shifts the valuation multiple up or down. Recurring service agreements and owner dependence have the largest impact on value.</p>
           <p><strong class="text-text-primary">4. Review the estimated value range.</strong> The calculator shows a low, mid, and high estimate. Most deals close near the midpoint, but strong negotiators with well-documented businesses can push toward the high end.</p>
-          <p><strong class="text-text-primary">5. Test different scenarios.</strong> Change the inputs to see what drives value. If you are planning to sell in 2-3 years, focus on the factors you can improve: build up maintenance agreements, reduce owner dependence, and clean up your books.</p>
+          <p><strong class="text-text-primary">5. Test different scenarios.</strong> Change the inputs to see what drives value. If you are planning to sell in 2-3 years, focus on the factors you can improve: build up recurring service agreements, reduce owner dependence, invest in licensing, and clean up your books.</p>
         </div>
       </section>
 
       <!-- How It Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How HVAC Business Valuation Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Pest Control Business Valuation Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">The SDE multiple method is the standard for valuing owner-operated HVAC companies.</strong> SDE (Seller's Discretionary Earnings) represents the total economic benefit available to a single owner. It starts with net profit and adds back the owner's salary, benefits, one-time expenses, depreciation, and interest. This gives buyers a clear picture of what they can expect to earn.</p>
+          <p><strong class="text-text-primary">The SDE multiple method is the standard for valuing owner-operated pest control companies.</strong> SDE (Seller's Discretionary Earnings) represents the total economic benefit available to a single owner. It starts with net profit and adds back the owner's salary, benefits, one-time expenses, depreciation, and interest. This gives buyers a clear picture of what they can expect to earn.</p>
           <p>Here is how this calculator computes the valuation:</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
             <p>SDE = Net_Profit + Owner_Salary + Owner_Benefits + One_Time + Depreciation + Interest</p>
@@ -240,9 +240,9 @@ const faqSchema = {
             <p>Valuation_Low = SDE x (Adjusted_Multiple - 0.5)</p>
             <p>Valuation_High = SDE x (Adjusted_Multiple + 0.5)</p>
           </div>
-          <p><strong class="text-text-primary">Multiples increase with revenue size</strong> because larger businesses carry less risk, have more infrastructure, and are more attractive to a wider pool of buyers. A $500K company might trade at 2.75x SDE while a $5M company could command 4.25x or higher.</p>
-          <p><strong class="text-text-primary">Maintenance agreements are the biggest value driver.</strong> They represent predictable, recurring revenue that transfers to a new owner on day one. A business with 50%+ of revenue from service contracts can see its multiple jump by a full point compared to one that relies entirely on project work and one-time calls. If you are building to sell, growing your maintenance base is the single highest-leverage move.</p>
-          <p><strong class="text-text-primary">Owner dependence is the biggest value killer.</strong> If you are personally selling half the jobs and managing every install, a buyer sees risk. Businesses that run with a full-time manager or are mostly passive command higher multiples because the revenue does not walk out the door with the seller.</p>
+          <p><strong class="text-text-primary">Multiples increase with revenue size</strong> because larger businesses carry less risk, have more infrastructure, and are more attractive to a wider pool of buyers including private equity roll-ups. A $500K pest control company might trade at 2.25x SDE while a $3M company could command 3.75x or higher.</p>
+          <p><strong class="text-text-primary">Recurring service agreements are the biggest value driver.</strong> They represent predictable, recurring revenue that transfers to a new owner on day one. A business with 50%+ of revenue from quarterly or monthly contracts can see its multiple jump by a full point compared to one that relies entirely on one-time treatments. If you are building to sell, growing your recurring service base is the single highest-leverage move.</p>
+          <p><strong class="text-text-primary">Owner dependence is the biggest value killer.</strong> If you are personally running routes and managing every technician, a buyer sees risk. Businesses that run with a full-time manager or are mostly passive command higher multiples because the revenue does not walk out the door with the seller.</p>
         </div>
       </section>
 
@@ -250,9 +250,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Thinking of selling.</strong> If you are considering an exit in the next 1-5 years, run your numbers now to get a baseline. Then focus on the adjustable factors: build maintenance agreements, hire a manager, invest in NATE certifications, and get your books clean with a CPA. Each improvement can add tens or hundreds of thousands to the sale price.</p>
-          <p><strong class="text-text-primary">Buying a business.</strong> Before you make an offer on an HVAC company, run the seller's numbers through this calculator. Compare the asking price to the estimated range. If the seller wants more than the high estimate, you need to understand what justifies the premium. If the asking price is below the midpoint, dig into why and find out what the seller is not telling you.</p>
-          <p><strong class="text-text-primary">Succession planning.</strong> Whether you are passing the business to a family member, selling to a key employee, or planning an ESOP, you need a defensible valuation. This calculator gives you a starting framework. For an actual transaction, hire a business broker or certified valuation analyst, but use this tool to make sure you are in the right ballpark and understand what drives the number.</p>
+          <p><strong class="text-text-primary">Thinking of selling.</strong> If you are considering an exit in the next 1-5 years, run your numbers now to get a baseline. Then focus on the adjustable factors: build recurring service agreements, hire a manager, invest in multi-category licensing and QualityPro certification, and get your books clean with a CPA. Each improvement can add tens or hundreds of thousands to the sale price.</p>
+          <p><strong class="text-text-primary">Buying a business.</strong> Before you make an offer on a pest control company, run the seller's numbers through this calculator. Compare the asking price to the estimated range. If the seller wants more than the high estimate, you need to understand what justifies the premium. If the asking price is below the midpoint, dig into why and find out what the seller is not telling you.</p>
+          <p><strong class="text-text-primary">Succession planning.</strong> Whether you are passing the business to a family member, selling to a key employee, or planning to sell to a consolidator, you need a defensible valuation. This calculator gives you a starting framework. For an actual transaction, hire a business broker or certified valuation analyst, but use this tool to make sure you are in the right ballpark and understand what drives the number.</p>
         </div>
       </section>
 
@@ -261,20 +261,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much is my HVAC business worth?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC businesses sell for 2 to 5 times their Seller's Discretionary Earnings (SDE). A company doing $1.5M in revenue with $325K in SDE and strong maintenance agreements might be valued between $900K and $1.6M. The exact multiple depends on recurring revenue, owner dependence, fleet condition, technician certifications, and the quality of your financial records.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much is my pest control business worth?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most pest control businesses sell for 1.0 to 2.5 times annual revenue, or 4 to 6 times EBITDA. A company doing $1.2M in revenue with $280K in SDE and a strong base of recurring service agreements might be valued between $750K and $1.4M. The exact multiple depends on recurring revenue mix, owner dependence, fleet condition, state licensing, and the quality of financial records.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is SDE in business valuation?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is SDE in pest control business valuation?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">SDE stands for Seller's Discretionary Earnings. It is the total financial benefit a single owner-operator takes from the business. SDE equals net profit plus owner salary, owner benefits, one-time or non-recurring expenses, depreciation, and interest. Buyers use SDE to compare businesses on an apples-to-apples basis regardless of how the current owner chooses to pay themselves.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do maintenance agreements affect HVAC business value?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Maintenance agreements are the single biggest value driver in HVAC business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 50% or more of revenue from maintenance contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do service agreements affect pest control business value?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Recurring service agreements are the single biggest value driver in pest control business sales. They represent predictable, recurring revenue that transfers to a new owner. A business with 50% or more of revenue from quarterly or monthly service contracts can command a full point higher multiple than one with under 10%. Buyers pay a premium because recurring revenue reduces risk and provides a stable cash flow base from day one.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What multiple do HVAC businesses sell for?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">HVAC businesses typically sell for 2 to 5 times SDE. Smaller companies under $1M in revenue average around 2.5 to 3x. Mid-size companies between $1M and $3M average 3 to 3.5x. Larger companies above $3M often command 3.5 to 4.5x or higher. These multiples shift based on maintenance agreement revenue, owner involvement, fleet condition, technician quality, and financial record keeping.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What multiple do pest control businesses sell for?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Pest control businesses typically sell for 2 to 5 times SDE. Smaller companies under $750K in revenue average around 2.25 to 2.75x. Mid-size companies between $750K and $2M average 2.75 to 3.25x. Larger companies above $2M often command 3.25 to 3.75x or higher. These multiples shift based on recurring service revenue, owner involvement, fleet condition, licensing, and financial record keeping.</div>
           </details>
         </div>
       </section>
@@ -292,29 +292,29 @@ const faqSchema = {
     const depreciation = parseFloat((document.getElementById('depreciation') as HTMLInputElement).value) || 0;
     const interest = parseFloat((document.getElementById('interest') as HTMLInputElement).value) || 0;
 
-    const maintenanceAdj = parseFloat((document.getElementById('maintenance') as HTMLSelectElement).value);
+    const agreementsAdj = parseFloat((document.getElementById('serviceAgreements') as HTMLSelectElement).value);
     const ownerAdj = parseFloat((document.getElementById('ownerDependence') as HTMLSelectElement).value);
     const fleetAdj = parseFloat((document.getElementById('fleetAge') as HTMLSelectElement).value);
-    const nateAdj = parseFloat((document.getElementById('nateCerts') as HTMLSelectElement).value);
+    const licensingAdj = parseFloat((document.getElementById('licensing') as HTMLSelectElement).value);
     const recordsAdj = parseFloat((document.getElementById('financialRecords') as HTMLSelectElement).value);
 
     // Calculate SDE
     const sde = netProfit + ownerSalary + ownerBenefits + oneTime + depreciation + interest;
 
-    // Determine base multiple by revenue
+    // Determine base multiple by revenue (pest control specific)
     let baseMultiple: number;
-    if (revenue < 1000000) {
+    if (revenue < 750000) {
+      baseMultiple = 2.25;
+    } else if (revenue < 2000000) {
       baseMultiple = 2.75;
-    } else if (revenue < 3000000) {
+    } else if (revenue < 4000000) {
       baseMultiple = 3.25;
-    } else if (revenue < 5000000) {
-      baseMultiple = 3.75;
     } else {
-      baseMultiple = 4.25;
+      baseMultiple = 3.75;
     }
 
     // Calculate adjusted multiple
-    const totalAdjustment = maintenanceAdj + ownerAdj + fleetAdj + nateAdj + recordsAdj;
+    const totalAdjustment = agreementsAdj + ownerAdj + fleetAdj + licensingAdj + recordsAdj;
     const adjustedMultiple = baseMultiple + totalAdjustment;
 
     // Calculate valuations
@@ -363,9 +363,9 @@ const faqSchema = {
     // Update adjustment breakdown
     document.getElementById('adj-base')!.textContent = baseMultiple.toFixed(2) + 'x';
 
-    const adjMaintEl = document.getElementById('adj-maintenance')!;
-    adjMaintEl.textContent = fmtAdj(maintenanceAdj);
-    colorAdj(adjMaintEl, maintenanceAdj);
+    const adjAgreementsEl = document.getElementById('adj-agreements')!;
+    adjAgreementsEl.textContent = fmtAdj(agreementsAdj);
+    colorAdj(adjAgreementsEl, agreementsAdj);
 
     const adjOwnerEl = document.getElementById('adj-owner')!;
     adjOwnerEl.textContent = fmtAdj(ownerAdj);
@@ -375,9 +375,9 @@ const faqSchema = {
     adjFleetEl.textContent = fmtAdj(fleetAdj);
     colorAdj(adjFleetEl, fleetAdj);
 
-    const adjNateEl = document.getElementById('adj-nate')!;
-    adjNateEl.textContent = fmtAdj(nateAdj);
-    colorAdj(adjNateEl, nateAdj);
+    const adjLicensingEl = document.getElementById('adj-licensing')!;
+    adjLicensingEl.textContent = fmtAdj(licensingAdj);
+    colorAdj(adjLicensingEl, licensingAdj);
 
     const adjRecordsEl = document.getElementById('adj-records')!;
     adjRecordsEl.textContent = fmtAdj(recordsAdj);

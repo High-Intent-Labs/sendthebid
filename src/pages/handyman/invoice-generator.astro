@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be included on an HVAC invoice?",
+      "name": "What should be included on a handyman invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number."
+        "text": "A professional handyman invoice should include your business name, phone, email, and license or registration number. List the customer's name, address, and phone. Itemize every charge — labor hours, materials, and any service call fee — with quantities and unit prices. Include the invoice date, due date, payment terms, and a notes section for warranty or workmanship guarantee language."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I create a professional HVAC invoice?",
+      "name": "How do I create a professional handyman invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use a dedicated HVAC invoice generator that includes fields specific to the trade — equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
+        "text": "Use a handyman invoice generator that includes trade-specific fields like job type, labor hours, and materials breakdown. Fill in your company details and customer info, add itemized line items with quantities and prices, set the tax rate and payment terms, then generate a PDF. A clean, itemized invoice builds trust and speeds up payment."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should I charge tax on handyman labor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
+        "text": "Tax rules vary by state and municipality. In most states, materials and parts are taxable but labor is not. However, some states tax the entire invoice when labor and materials are bundled together. Check your state's department of revenue guidelines or ask your accountant for the rules in your specific jurisdiction."
       }
     },
     {
       "@type": "Question",
-      "name": "What payment terms are standard for HVAC?",
+      "name": "What payment terms are standard for handyman work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues."
+        "text": "For most residential handyman jobs, Due on Receipt or Due on Completion is standard. For larger projects over $1,000, many handymen require a 50% deposit before starting with the balance due on completion. Net 15 is common for repeat customers and small commercial clients. Always state payment terms clearly on the invoice to avoid collection issues."
       }
     }
   ]
@@ -50,8 +50,8 @@ const faqSchema = {
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-        <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Business Name</label>
+        <input type="text" id="companyName" placeholder="Your Handyman Business" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -59,11 +59,11 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-        <input type="text" id="companyEmail" placeholder="office@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyEmail" placeholder="info@yourhandyman.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-        <input type="text" id="licenseNum" placeholder="HVAC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License / Registration #</label>
+        <input type="text" id="licenseNum" placeholder="HM-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceNum">Invoice #</label>
@@ -98,31 +98,27 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <!-- Job Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Details</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipmentType">Equipment Type</label>
-        <select id="equipmentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Central AC</option>
-          <option value="Heat Pump">Heat Pump</option>
-          <option value="Furnace">Furnace</option>
-          <option value="Mini Split">Mini Split</option>
-          <option value="Boiler">Boiler</option>
-          <option value="Package Unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobType">Job Type</label>
+        <select id="jobType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="General Repair">General Repair</option>
+          <option value="Drywall Patch/Repair">Drywall Patch / Repair</option>
+          <option value="Painting/Touchup">Painting / Touchup</option>
+          <option value="Furniture Assembly">Furniture Assembly</option>
+          <option value="TV/Shelf Mounting">TV / Shelf Mounting</option>
+          <option value="Tile Repair">Tile Repair</option>
+          <option value="Door/Window Repair">Door / Window Repair</option>
+          <option value="Caulking/Weatherstripping">Caulking / Weatherstripping</option>
+          <option value="Pressure Washing">Pressure Washing</option>
+          <option value="Multiple Tasks">Multiple Tasks</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipMake">Make</label>
-        <input type="text" id="equipMake" placeholder="Carrier, Trane, Lennox..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipModel">Model</label>
-        <input type="text" id="equipModel" placeholder="Model number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipSerial">Serial #</label>
-        <input type="text" id="equipSerial" placeholder="Serial number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="jobDescription">Brief Description</label>
+        <input type="text" id="jobDescription" placeholder="e.g., Patched 3 drywall holes, repainted wall" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -146,14 +142,14 @@ const faqSchema = {
         + Add Line Item
       </button>
       <span class="text-text-muted text-xs self-center">Quick add:</span>
-      <button data-quick="Diagnostic Fee" data-price="89" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Diagnostic Fee ($89)</button>
-      <button data-quick="Capacitor" data-price="195" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Capacitor ($195)</button>
-      <button data-quick="Contactor" data-price="225" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Contactor ($225)</button>
-      <button data-quick="Blower Motor" data-price="575" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Blower Motor ($575)</button>
-      <button data-quick="Refrigerant R-410A (/lb)" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Refrigerant R-410A (/lb)</button>
+      <button data-quick="Service Call Fee" data-price="75" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Service Call ($75)</button>
+      <button data-quick="Labor (per hour)" data-price="75" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Labor/hr ($75)</button>
+      <button data-quick="Drywall Patch" data-price="125" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Drywall Patch ($125)</button>
+      <button data-quick="Paint Touchup" data-price="95" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Paint Touchup ($95)</button>
+      <button data-quick="Furniture Assembly" data-price="85" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Assembly ($85)</button>
     </div>
 
-    <!-- Bottom Section -->
+    <!-- Invoice Settings -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Invoice Settings</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
@@ -163,17 +159,19 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
         <select id="paymentTerms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Due on Receipt">Due on Receipt</option>
+          <option value="Due on Receipt" selected>Due on Receipt</option>
+          <option value="Due on Completion">Due on Completion</option>
           <option value="Net 15">Net 15</option>
-          <option value="Net 30" selected>Net 30</option>
+          <option value="Net 30">Net 30</option>
         </select>
       </div>
       <div class="md:col-span-1">
-        <!-- spacer for alignment -->
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentMethods">Payment Methods</label>
+        <input type="text" id="paymentMethods" value="Cash, Check, Venmo, Zelle" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div class="md:col-span-3">
         <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Warranty</label>
-        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Equipment: 10 yr parts / 1 yr labor. 30-day workmanship guarantee.</textarea>
+        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">30-day workmanship guarantee on all labor. Materials warranty per manufacturer terms.</textarea>
       </div>
     </div>
 
@@ -210,22 +208,21 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Generator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and contractor license number. These appear in the invoice header and build trust with customers.</p>
-          <p><strong class="text-text-primary">2. Add customer and system info.</strong> Enter the customer's name, address, and phone. Then log the equipment type, make, model, and serial number so every invoice ties back to the specific unit you serviced.</p>
-          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each part and labor charge individually, or use the quick-add buttons for common HVAC items. Set quantities and unit prices, and the totals calculate automatically.</p>
-          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add warranty language or job notes in the notes field.</p>
-          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice in a new window. Use your browser's print function to save it as a PDF or send it directly to a printer.</p>
+          <p><strong class="text-text-primary">1. Enter your business details.</strong> Fill in your business name, phone, email, and license or registration number. These appear in the invoice header and tell the customer exactly who they are paying.</p>
+          <p><strong class="text-text-primary">2. Add customer info.</strong> Enter the customer's name, address, and phone number. This ties the invoice to a specific job at a specific address for your records.</p>
+          <p><strong class="text-text-primary">3. Select the job type and build your line items.</strong> Choose the type of work from the dropdown, then add individual charges. Use the quick-add buttons for common handyman items like service calls, labor hours, drywall patches, or furniture assembly. Set quantities and unit prices, and totals calculate automatically.</p>
+          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate, choose payment terms, and list the payment methods you accept. Add warranty or guarantee language in the notes field.</p>
+          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice. Use your browser's print function to save it as a PDF or print a copy to leave with the customer on-site.</p>
         </div>
       </section>
 
       <!-- What Makes a Professional Invoice -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional HVAC Invoice</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Handyman Invoice</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A professional HVAC invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
-          <p>The system section is what separates an HVAC invoice from a generic template. Logging the equipment type, make, model, and serial number creates a service history for that unit. When the customer calls back in two years, you can pull the serial number and know exactly what was done previously.</p>
-          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "AC repair - $500," break it out: diagnostic fee, capacitor replacement, labor for install. Customers respect transparency, and it makes warranty claims simpler if a specific part fails.</p>
-          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup is a 10-year manufacturer parts warranty, 1-year labor warranty, and a 30-day workmanship guarantee. Having it on the invoice means there is no ambiguity later.</p>
+          <p>A professional invoice is more than a bill. It documents the entire service interaction and protects both you and the customer. Start with your business name, contact info, and license number at the top. Customers want to know who they paid and how to reach you if questions come up later.</p>
+          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "handyman work - $350," break it out: service call fee, 2 hours labor, drywall patch materials, paint touchup. Customers respect the transparency, and it makes it easier to justify your pricing when every charge is visible.</p>
+          <p>Payment terms and accepted methods should be stated clearly. "Due on Receipt" or "Due on Completion" is standard for most residential handyman work. Listing that you accept cash, check, Venmo, or Zelle removes friction and gets you paid faster. Add a workmanship guarantee in the notes to build confidence and reduce callbacks.</p>
         </div>
       </section>
 
@@ -233,9 +230,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">On-site service calls.</strong> You finish a repair, pull up this tool on your phone or tablet, fill in what you replaced and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
-          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the HVAC-specific fields that generic invoice templates miss.</p>
-          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your dispatch or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
+          <p><strong class="text-text-primary">On-site after completing a job.</strong> You finish the work, pull up this tool on your phone or tablet, fill in what you did and the prices, and hand the customer a professional invoice before you leave. No more scribbling on a notepad or promising to email something later.</p>
+          <p><strong class="text-text-primary">Solo operators without invoicing software.</strong> If you are a one-person handyman business and do not want to pay for Jobber, Housecall Pro, or QuickBooks, this generator gives you a professional-looking invoice at no cost. It covers the fields that generic invoice templates miss.</p>
+          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes. Internet goes out. When your invoicing app is unavailable, this tool works in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back up.</p>
         </div>
       </section>
 
@@ -244,20 +241,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on an HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on a handyman invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional handyman invoice should include your business name, phone, email, and license or registration number. List the customer's name, address, and phone. Itemize every charge with quantities and unit prices. Include the invoice date, due date, payment terms, accepted payment methods, and a notes section for warranty or workmanship guarantee language.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated HVAC invoice generator that includes fields specific to the trade -- equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional handyman invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a handyman invoice generator that includes trade-specific fields like job type, labor hours, and materials breakdown. Fill in your business details and customer info, add itemized line items with quantities and prices, set the tax rate and payment terms, then generate a PDF for a clean, professional document.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on handyman labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, materials and parts are taxable but labor is not. However, some states tax the entire invoice when labor and materials are bundled together. Check your state's department of revenue guidelines or ask your accountant for the rules in your jurisdiction.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for handyman work?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For most residential handyman jobs, Due on Receipt or Due on Completion is standard. For larger projects over $1,000, many handymen require a 50% deposit before starting with the balance due on completion. Net 15 is common for repeat customers and small commercial clients. Always state payment terms clearly on the invoice.</div>
           </details>
         </div>
       </section>
@@ -270,12 +267,9 @@ const faqSchema = {
   function initDefaults() {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
-    const due = new Date(today);
-    due.setDate(due.getDate() + 30);
-    const dueStr = due.toISOString().split('T')[0];
-
     (document.getElementById('invoiceDate') as HTMLInputElement).value = todayStr;
-    (document.getElementById('dueDate') as HTMLInputElement).value = dueStr;
+    // Default: Due on Receipt = same day
+    (document.getElementById('dueDate') as HTMLInputElement).value = todayStr;
     (document.getElementById('invoiceNum') as HTMLInputElement).value = 'INV-' + String(Math.floor(Math.random() * 9000) + 1000);
   }
 
@@ -392,9 +386,9 @@ const faqSchema = {
     document.getElementById('result-total')!.textContent = '$' + total.toFixed(2);
   }
 
-  // --- PDF Generation (print-ready HTML) ---
+  // --- PDF Generation ---
   function generatePDF() {
-    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'HVAC Company';
+    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'Handyman Services';
     const companyPhone = (document.getElementById('companyPhone') as HTMLInputElement).value;
     const companyEmail = (document.getElementById('companyEmail') as HTMLInputElement).value;
     const licenseNum = (document.getElementById('licenseNum') as HTMLInputElement).value;
@@ -406,13 +400,12 @@ const faqSchema = {
     const customerAddress = (document.getElementById('customerAddress') as HTMLInputElement).value;
     const customerPhone = (document.getElementById('customerPhone') as HTMLInputElement).value;
 
-    const equipmentType = (document.getElementById('equipmentType') as HTMLSelectElement).value;
-    const equipMake = (document.getElementById('equipMake') as HTMLInputElement).value;
-    const equipModel = (document.getElementById('equipModel') as HTMLInputElement).value;
-    const equipSerial = (document.getElementById('equipSerial') as HTMLInputElement).value;
+    const jobType = (document.getElementById('jobType') as HTMLSelectElement).value;
+    const jobDescription = (document.getElementById('jobDescription') as HTMLInputElement).value;
 
     const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
     const paymentTerms = (document.getElementById('paymentTerms') as HTMLSelectElement).value;
+    const paymentMethods = (document.getElementById('paymentMethods') as HTMLInputElement).value;
     const notes = (document.getElementById('notes') as HTMLTextAreaElement).value;
 
     const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
@@ -436,14 +429,12 @@ const faqSchema = {
         </tr>
       `).join('');
 
-    const systemInfoHtml = (equipmentType || equipMake || equipModel || equipSerial) ? `
+    const jobInfoHtml = (jobType || jobDescription) ? `
       <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
-        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">System Information</div>
+        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">Job Details</div>
         <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: #333;">
-          ${equipmentType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(equipmentType)}</div>` : ''}
-          ${equipMake ? `<div><span style="color: #888;">Make:</span> ${escapeHtml(equipMake)}</div>` : ''}
-          ${equipModel ? `<div><span style="color: #888;">Model:</span> ${escapeHtml(equipModel)}</div>` : ''}
-          ${equipSerial ? `<div><span style="color: #888;">Serial #:</span> ${escapeHtml(equipSerial)}</div>` : ''}
+          ${jobType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(jobType)}</div>` : ''}
+          ${jobDescription ? `<div><span style="color: #888;">Description:</span> ${escapeHtml(jobDescription)}</div>` : ''}
         </div>
       </div>
     ` : '';
@@ -492,8 +483,8 @@ const faqSchema = {
     </div>
   </div>
 
-  <!-- System Info -->
-  ${systemInfoHtml}
+  <!-- Job Info -->
+  ${jobInfoHtml}
 
   <!-- Line Items Table -->
   <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
@@ -529,6 +520,13 @@ const faqSchema = {
       </div>
     </div>
   </div>
+
+  <!-- Payment Methods -->
+  ${paymentMethods ? `
+  <div style="margin-bottom: 20px; font-size: 13px; color: #555;">
+    <span style="font-weight: 600; color: #333;">Payment Methods:</span> ${escapeHtml(paymentMethods)}
+  </div>
+  ` : ''}
 
   <!-- Notes -->
   ${notes ? `

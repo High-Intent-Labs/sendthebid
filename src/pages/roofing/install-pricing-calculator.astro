@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I price an HVAC installation?",
+      "name": "How do I price a roofing installation?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
+        "text": "Start with your material wholesale cost and apply a markup of 30-40%. Add labor by multiplying crew size by hours by your billable rate. Add tear-off and disposal costs, permit fees, and miscellaneous expenses. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
       }
     },
     {
       "@type": "Question",
-      "name": "What profit margin should I target on installs?",
+      "name": "What profit margin should I target on roof installs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
+        "text": "Most successful roofing companies target 25-40% gross margin on installations. The industry average sits around 30-35%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most crews is 30-35%, which covers overhead and leaves healthy net profit."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a good price per ton for HVAC?",
+      "name": "What is a good price per roofing square?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors."
+        "text": "Price per square (100 sq ft) varies by material and region. For architectural shingles, $350 to $550 per square installed is typical. Metal standing seam runs $800 to $1,200 per square. 3-tab shingles are $250 to $400 per square. Premium materials like slate or tile can range from $1,500 to $2,500+ per square. Track your price per square to benchmark against competitors."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up HVAC equipment?",
+      "name": "How much should I mark up roofing materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor."
+        "text": "A 30-45% markup on roofing materials is standard in the industry. A 35% markup on $3,200 in shingles means you charge $4,320 and keep $1,120. This covers your purchasing, delivery coordination, staging, waste factor, and profit. Some contractors go higher in markets with less competition. Never sell materials at cost hoping to make it up on labor."
       }
     }
   ]
@@ -46,25 +46,27 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="install-calc">
-    <!-- Equipment Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Equipment</h3>
+    <!-- Material Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Roofing Material</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-type">System Type</label>
-        <select id="system-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="ac-furnace" selected>AC + Furnace</option>
-          <option value="heat-pump">Heat Pump</option>
-          <option value="mini-split">Mini-Split</option>
-          <option value="package-unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material-type">Material Type</label>
+        <select id="material-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="architectural" selected>Architectural Shingles</option>
+          <option value="3-tab">3-Tab Shingles</option>
+          <option value="metal-standing">Metal Standing Seam</option>
+          <option value="metal-corrugated">Metal Corrugated</option>
+          <option value="tile">Tile (Clay/Concrete)</option>
+          <option value="wood-shake">Wood Shake</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Equipment Cost ($)</label>
-        <input type="number" id="equipment-cost" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material-cost">Material Cost ($)</label>
+        <input type="number" id="material-cost" value="3200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-markup">Equipment Markup (%)</label>
-        <input type="number" id="equipment-markup" value="40" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material-markup">Material Markup (%)</label>
+        <input type="number" id="material-markup" value="35" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -73,71 +75,71 @@ const faqSchema = {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="crew-size">Crew Size</label>
-        <input type="number" id="crew-size" value="2" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="crew-size" value="3" min="1" max="10" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="install-hours">Install Hours</label>
-        <input type="number" id="install-hours" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Auto-fills based on system type</p>
+        <input type="number" id="install-hours" value="16" min="0.5" max="200" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">Auto-fills based on material type</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Tech ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Worker ($/hr)</label>
+        <input type="number" id="billable-rate" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Materials Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials</h3>
+    <!-- Accessories Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Accessories &amp; Supplies</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials Cost ($)</label>
-        <input type="number" id="materials-cost" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="accessories-cost">Accessories Cost ($)</label>
+        <input type="number" id="accessories-cost" value="850" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
-        <input type="number" id="materials-markup" value="100" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="accessories-markup">Accessories Markup (%)</label>
+        <input type="number" id="accessories-markup" value="40" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Materials Checklist -->
+    <!-- Accessories Checklist -->
     <div class="bg-bg-dark border border-border rounded-lg p-4 mb-8">
-      <p class="text-sm font-medium text-text-secondary mb-3">Common Material Items <span class="text-text-muted">(check to include in materials cost)</span></p>
+      <p class="text-sm font-medium text-text-secondary mb-3">Common Accessory Items <span class="text-text-muted">(check to include in accessories cost)</span></p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="125" checked />
-          Copper line set &mdash; $125
+          <input type="checkbox" class="material-item accent-accent" data-cost="250" checked />
+          Underlayment &mdash; $250
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="50" checked />
-          Concrete pad &mdash; $50
+          <input type="checkbox" class="material-item accent-accent" data-cost="180" checked />
+          Ice &amp; Water Shield &mdash; $180
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="120" checked />
+          Drip Edge &mdash; $120
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="90" checked />
+          Ridge Cap &mdash; $90
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="75" checked />
+          Flashing (step &amp; counter) &mdash; $75
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="45" checked />
+          Pipe Boots &amp; Vents &mdash; $45
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="35" checked />
+          Nails &amp; Fasteners &mdash; $35
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
           <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
-          Electrical disconnect &mdash; $30
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Electrical whip &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Thermostat wire &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="15" checked />
-          PVC drain line &mdash; $15
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="40" checked />
-          Duct transitions &mdash; $40
+          Sealant &amp; Caulk &mdash; $30
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
           <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Refrigerant line insulation &mdash; $25
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Misc &mdash; $25
+          Misc (starter strip, etc.) &mdash; $25
         </label>
       </div>
     </div>
@@ -147,20 +149,20 @@ const faqSchema = {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit ($)</label>
-        <input type="number" id="permit-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="permit-fee" value="200" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal Fee ($)</label>
-        <input type="number" id="disposal-fee" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tearoff-fee">Tear-Off &amp; Disposal ($)</label>
+        <input type="number" id="tearoff-fee" value="500" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-fee">Misc ($)</label>
-        <input type="number" id="misc-fee" value="100" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="misc-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-tons">System Tons</label>
-        <input type="number" id="system-tons" value="3" min="0.5" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">For price-per-ton calculation</p>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="roof-squares">Roof Squares (100 sq ft)</label>
+        <input type="number" id="roof-squares" value="24" min="1" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">For price-per-square calculation</p>
       </div>
     </div>
 
@@ -174,7 +176,7 @@ const faqSchema = {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-text-secondary mb-2" for="target-price">Target Sell Price ($)</label>
-            <input type="number" id="target-price" value="7500" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="target-price" value="12000" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-end">
             <div class="bg-bg-card border border-border rounded-lg p-4 w-full">
@@ -205,8 +207,8 @@ const faqSchema = {
           <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Ton</div>
-          <div id="result-price-per-ton" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Square</div>
+          <div id="result-price-per-sq" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
@@ -215,10 +217,10 @@ const faqSchema = {
         <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Cost &amp; Sell Breakdown</h4>
         <div class="space-y-3">
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Equipment</span>
+            <span class="text-text-secondary">Roofing Material</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-equip-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-equip-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-mat-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-mat-sell" class="text-accent">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
@@ -229,14 +231,14 @@ const faqSchema = {
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2 border-b border-border">
-            <span class="text-text-secondary">Materials</span>
+            <span class="text-text-secondary">Accessories</span>
             <div class="flex gap-6">
-              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-mat-cost" class="text-text-primary">$0</span></span>
-              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-mat-sell" class="text-accent">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-acc-cost" class="text-text-primary">$0</span></span>
+              <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-acc-sell" class="text-accent">$0</span></span>
             </div>
           </div>
           <div class="flex justify-between items-center text-sm py-2">
-            <span class="text-text-secondary">Other <span class="text-text-muted text-xs">(permit + disposal + misc)</span></span>
+            <span class="text-text-secondary">Other <span class="text-text-muted text-xs">(permit + tear-off + misc)</span></span>
             <div class="flex gap-6">
               <span class="text-text-muted w-24 text-right">Cost: <span id="breakdown-other-cost" class="text-text-primary">$0</span></span>
               <span class="text-text-muted w-24 text-right">Sell: <span id="breakdown-other-sell" class="text-accent">$0</span></span>
@@ -261,29 +263,29 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the system type.</strong> Choose the type of HVAC system you are installing. The calculator auto-fills typical install hours based on your selection: AC + Furnace defaults to 8 hours, heat pumps to 10, mini-splits to 4, and package units to 6.</p>
-          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the distributor. A 40% markup is a common starting point, but adjust based on your market and competition. The calculator shows what the customer pays for equipment.</p>
-          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per technician. The billable rate is what you charge the customer per tech per hour, not the tech's wage.</p>
-          <p><strong class="text-text-primary">4. Configure materials.</strong> Use the checklist to toggle common material items on or off. The total auto-fills the materials cost field. Set your materials markup percentage to calculate the customer-facing price.</p>
-          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the system tonnage so the calculator can show your price per ton. Hit calculate to see the full breakdown, profit, and margin.</p>
+          <p><strong class="text-text-primary">1. Select the material type.</strong> Choose the type of roofing material you are installing. The calculator auto-fills typical install hours based on your selection: architectural shingles default to 16 hours, metal standing seam to 24, tile to 32, and 3-tab shingles to 12.</p>
+          <p><strong class="text-text-primary">2. Enter material cost and markup.</strong> Use your wholesale cost from the supplier. A 35% markup is a common starting point for shingles, but adjust based on your market and competition. The calculator shows what the customer pays for materials.</p>
+          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per worker. The billable rate is what you charge the customer per person per hour, not the worker's wage.</p>
+          <p><strong class="text-text-primary">4. Configure accessories.</strong> Use the checklist to toggle common accessory items on or off. The total auto-fills the accessories cost field. Set your accessories markup percentage to calculate the customer-facing price.</p>
+          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, tear-off and disposal costs, and miscellaneous expenses. Enter the roof size in squares so the calculator can show your price per square. Review the full breakdown, profit, and margin.</p>
         </div>
       </section>
 
       <!-- How Install Pricing Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Install Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Roofing Install Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for equipment, labor, and materials, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
+          <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for materials, labor, and accessories, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Equipment_Sell = Equipment_Cost x (1 + Markup / 100)</p>
+            <p>Material_Sell = Material_Cost x (1 + Markup / 100)</p>
             <p>Labor_Sell = Crew_Size x Hours x Billable_Rate</p>
-            <p>Materials_Sell = Materials_Cost x (1 + Materials_Markup / 100)</p>
-            <p>Total_Sell = Equipment_Sell + Labor_Sell + Materials_Sell + Permit + Disposal + Misc</p>
+            <p>Accessories_Sell = Accessories_Cost x (1 + Accessories_Markup / 100)</p>
+            <p>Total_Sell = Material_Sell + Labor_Sell + Accessories_Sell + Permit + TearOff + Misc</p>
             <p>Gross_Profit = Total_Sell - Total_Cost</p>
             <p>Margin = (Gross_Profit / Total_Sell) x 100</p>
           </div>
-          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most HVAC install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
-          <p><strong class="text-text-primary">Price per ton is a quick benchmark.</strong> Dividing total sell price by system tonnage gives you a per-ton number you can compare across jobs and against competitors. Residential AC installs typically run $2,500 to $4,000 per ton. Heat pump systems tend toward $3,000 to $5,000 per ton. If your number is significantly outside these ranges, investigate why.</p>
+          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most roofing install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
+          <p><strong class="text-text-primary">Price per square is a quick benchmark.</strong> Dividing total sell price by roof squares (100 sq ft each) gives you a per-square number you can compare across jobs and against competitors. Architectural shingle installs typically run $350 to $550 per square. Metal standing seam tends toward $800 to $1,200 per square. If your number is significantly outside these ranges, investigate why.</p>
         </div>
       </section>
 
@@ -291,8 +293,8 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the distributor, set your standard markups, and adjust the hours based on the difficulty of the install. Walk the customer through the price with confidence because you know the margin is healthy.</p>
-          <p><strong class="text-text-primary">Comparing system options for the customer.</strong> Run the calculator for a standard AC and furnace, then again for a heat pump. Show the customer both price points side by side. The tonnage, hours, and equipment cost change, so the total and price per ton shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
+          <p><strong class="text-text-primary">Building a quote after the inspection.</strong> You have measured the roof and assessed the scope. Plug in your material cost from the supplier, set your standard markups, and adjust the hours based on roof pitch and complexity. Walk the customer through the price with confidence because you know the margin is healthy.</p>
+          <p><strong class="text-text-primary">Comparing material options for the customer.</strong> Run the calculator for architectural shingles, then again for metal standing seam. Show the customer both price points side by side. The material cost, hours, and accessories change, so the total and price per square shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
           <p><strong class="text-text-primary">Training your sales team on pricing.</strong> New salespeople often discount too aggressively to close deals. Have them use this calculator to see exactly what happens to profit margin when they knock $500 off the price. When they see the margin drop from 32% to 22%, they learn to protect the price or find other ways to add value.</p>
         </div>
       </section>
@@ -302,20 +304,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an HVAC installation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price a roofing installation?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your material wholesale cost and apply a markup of 30-40%. Add labor by multiplying crew size by hours by your billable rate. Add tear-off and disposal costs, permit fees, and miscellaneous expenses. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on installs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on roof installs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful roofing companies target 25-40% gross margin on installations. The industry average sits around 30-35%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most crews is 30-35%, which covers overhead and leaves healthy net profit.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per ton for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per roofing square?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per square (100 sq ft) varies by material and region. For architectural shingles, $350 to $550 per square installed is typical. Metal standing seam runs $800 to $1,200 per square. 3-tab shingles are $250 to $400 per square. Premium materials like slate or tile can range from $1,500 to $2,500+ per square. Track your price per square to benchmark against competitors.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up HVAC equipment?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up roofing materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-45% markup on roofing materials is standard in the industry. A 35% markup on $3,200 in shingles means you charge $4,320 and keep $1,120. This covers your purchasing, delivery coordination, staging, waste factor, and profit. Some contractors go higher in markets with less competition. Never sell materials at cost hoping to make it up on labor.</div>
           </details>
         </div>
       </section>
@@ -324,19 +326,21 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Typical install hours by system type
-  const systemHours: Record<string, number> = {
-    'ac-furnace': 8,
-    'heat-pump': 10,
-    'mini-split': 4,
-    'package-unit': 6,
+  // Typical install hours by material type (for a ~24 square roof)
+  const materialHours: Record<string, number> = {
+    'architectural': 16,
+    '3-tab': 12,
+    'metal-standing': 24,
+    'metal-corrugated': 16,
+    'tile': 32,
+    'wood-shake': 24,
   };
 
-  // Assumed loaded wage for cost calculation (internal cost per tech per hour)
-  const LOADED_WAGE = 45;
+  // Assumed loaded wage for cost calculation (internal cost per worker per hour)
+  const LOADED_WAGE = 35;
 
-  // Update materials cost from checklist
-  function updateMaterialsFromChecklist() {
+  // Update accessories cost from checklist
+  function updateAccessoriesFromChecklist() {
     let total = 0;
     document.querySelectorAll('.material-item').forEach(cb => {
       const checkbox = cb as HTMLInputElement;
@@ -344,13 +348,13 @@ const faqSchema = {
         total += parseFloat(checkbox.dataset.cost || '0');
       }
     });
-    (document.getElementById('materials-cost') as HTMLInputElement).value = String(total);
+    (document.getElementById('accessories-cost') as HTMLInputElement).value = String(total);
   }
 
-  // System type change: auto-fill install hours
-  document.getElementById('system-type')?.addEventListener('change', () => {
-    const systemType = (document.getElementById('system-type') as HTMLSelectElement).value;
-    const hours = systemHours[systemType] || 8;
+  // Material type change: auto-fill install hours
+  document.getElementById('material-type')?.addEventListener('change', () => {
+    const materialType = (document.getElementById('material-type') as HTMLSelectElement).value;
+    const hours = materialHours[materialType] || 16;
     (document.getElementById('install-hours') as HTMLInputElement).value = String(hours);
     calculate();
   });
@@ -360,25 +364,26 @@ const faqSchema = {
     const checked = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
     const section = document.getElementById('reverse-section')!;
     if (checked) {
+      section.classList.remove('hidden');
     } else {
       section.classList.add('hidden');
     }
     calculate();
   });
 
-  // Material checklist changes
+  // Accessory checklist changes
   document.querySelectorAll('.material-item').forEach(cb => {
     cb.addEventListener('change', () => {
-      updateMaterialsFromChecklist();
+      updateAccessoriesFromChecklist();
       calculate();
     });
   });
 
   function calculate() {
-    // Equipment
-    const equipmentCost = parseFloat((document.getElementById('equipment-cost') as HTMLInputElement).value) || 0;
-    const equipmentMarkup = parseFloat((document.getElementById('equipment-markup') as HTMLInputElement).value) || 0;
-    const equipmentSell = equipmentCost * (1 + equipmentMarkup / 100);
+    // Material
+    const materialCost = parseFloat((document.getElementById('material-cost') as HTMLInputElement).value) || 0;
+    const materialMarkup = parseFloat((document.getElementById('material-markup') as HTMLInputElement).value) || 0;
+    const materialSell = materialCost * (1 + materialMarkup / 100);
 
     // Labor
     const crewSize = parseFloat((document.getElementById('crew-size') as HTMLInputElement).value) || 0;
@@ -387,26 +392,26 @@ const faqSchema = {
     const laborSell = crewSize * installHours * billableRate;
     const laborCost = crewSize * installHours * LOADED_WAGE;
 
-    // Materials
-    const materialsCost = parseFloat((document.getElementById('materials-cost') as HTMLInputElement).value) || 0;
-    const materialsMarkup = parseFloat((document.getElementById('materials-markup') as HTMLInputElement).value) || 0;
-    const materialsSell = materialsCost * (1 + materialsMarkup / 100);
+    // Accessories
+    const accessoriesCost = parseFloat((document.getElementById('accessories-cost') as HTMLInputElement).value) || 0;
+    const accessoriesMarkup = parseFloat((document.getElementById('accessories-markup') as HTMLInputElement).value) || 0;
+    const accessoriesSell = accessoriesCost * (1 + accessoriesMarkup / 100);
 
     // Other costs (pass-through, no markup)
     const permitFee = parseFloat((document.getElementById('permit-fee') as HTMLInputElement).value) || 0;
-    const disposalFee = parseFloat((document.getElementById('disposal-fee') as HTMLInputElement).value) || 0;
+    const tearoffFee = parseFloat((document.getElementById('tearoff-fee') as HTMLInputElement).value) || 0;
     const miscFee = parseFloat((document.getElementById('misc-fee') as HTMLInputElement).value) || 0;
-    const otherTotal = permitFee + disposalFee + miscFee;
+    const otherTotal = permitFee + tearoffFee + miscFee;
 
-    // Tonnage
-    const systemTons = parseFloat((document.getElementById('system-tons') as HTMLInputElement).value) || 1;
+    // Roof squares
+    const roofSquares = parseFloat((document.getElementById('roof-squares') as HTMLInputElement).value) || 1;
 
     // Totals
-    const totalCost = equipmentCost + laborCost + materialsCost + otherTotal;
-    const totalSell = equipmentSell + laborSell + materialsSell + otherTotal;
+    const totalCost = materialCost + laborCost + accessoriesCost + otherTotal;
+    const totalSell = materialSell + laborSell + accessoriesSell + otherTotal;
     const grossProfit = totalSell - totalCost;
     const margin = totalSell > 0 ? (grossProfit / totalSell) * 100 : 0;
-    const pricePerTon = totalSell / systemTons;
+    const pricePerSq = totalSell / roofSquares;
 
     // Format currency
     const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
@@ -414,7 +419,7 @@ const faqSchema = {
     // Main results
     document.getElementById('result-total-sell')!.textContent = fmt(totalSell);
     document.getElementById('result-gross-profit')!.textContent = fmt(grossProfit);
-    document.getElementById('result-price-per-ton')!.textContent = fmt(pricePerTon);
+    document.getElementById('result-price-per-sq')!.textContent = fmt(pricePerSq);
 
     // Profit color
     const profitEl = document.getElementById('result-gross-profit')!;
@@ -438,12 +443,12 @@ const faqSchema = {
     }
 
     // Breakdown
-    document.getElementById('breakdown-equip-cost')!.textContent = fmt(equipmentCost);
-    document.getElementById('breakdown-equip-sell')!.textContent = fmt(equipmentSell);
+    document.getElementById('breakdown-mat-cost')!.textContent = fmt(materialCost);
+    document.getElementById('breakdown-mat-sell')!.textContent = fmt(materialSell);
     document.getElementById('breakdown-labor-cost')!.textContent = fmt(laborCost);
     document.getElementById('breakdown-labor-sell')!.textContent = fmt(laborSell);
-    document.getElementById('breakdown-mat-cost')!.textContent = fmt(materialsCost);
-    document.getElementById('breakdown-mat-sell')!.textContent = fmt(materialsSell);
+    document.getElementById('breakdown-acc-cost')!.textContent = fmt(accessoriesCost);
+    document.getElementById('breakdown-acc-sell')!.textContent = fmt(accessoriesSell);
     document.getElementById('breakdown-other-cost')!.textContent = fmt(otherTotal);
     document.getElementById('breakdown-other-sell')!.textContent = fmt(otherTotal);
     document.getElementById('breakdown-total-cost')!.textContent = fmt(totalCost);
@@ -467,11 +472,7 @@ const faqSchema = {
         reverseMarginEl.classList.add('text-[#EF4444]');
       }
     }
-
-    // Show results
   }
-
-  // Calculate button
 
   // Auto-calculate on any input change
   document.querySelectorAll('#install-calc input[type="number"], #install-calc select').forEach(el => {
@@ -479,7 +480,7 @@ const faqSchema = {
     el.addEventListener('change', calculate);
   });
 
-  // Initialize materials from checklist and run initial calculation
-  updateMaterialsFromChecklist();
+  // Initialize accessories from checklist and run initial calculation
+  updateAccessoriesFromChecklist();
   calculate();
 </script>

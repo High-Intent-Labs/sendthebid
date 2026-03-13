@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be included on an HVAC invoice?",
+      "name": "What should be included on a pest control invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number."
+        "text": "A professional pest control invoice should include your company name, address, phone, and pest control license number. It should also list the customer's information, the service type performed (general pest, termite, rodent, etc.), target pests treated, chemicals or products applied with EPA registration numbers, itemized labor and materials, any re-service guarantee terms, payment terms, and the invoice date and number."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I create a professional HVAC invoice?",
+      "name": "How do I create a professional pest control invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use a dedicated HVAC invoice generator that includes fields specific to the trade — equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
+        "text": "Use a dedicated pest control invoice generator that includes fields specific to the trade — service type, target pests, chemicals applied, and re-service guarantee terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should I charge tax on pest control services?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
+        "text": "Tax rules vary by state and municipality. In most states, pest control services are considered taxable because they involve the application of tangible personal property (chemicals). However, some states exempt pest control labor or treat recurring service agreements differently. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
       }
     },
     {
       "@type": "Question",
-      "name": "What payment terms are standard for HVAC?",
+      "name": "What payment terms are standard for pest control?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues."
+        "text": "For residential one-time treatments, Due on Receipt is standard. For recurring service plans (monthly or quarterly), many companies bill on the first of each service period or use auto-pay. Commercial pest control work often uses Net 30. Termite treatments and fumigation jobs may require 50% deposit with balance due on completion. Always clearly state payment terms on the invoice."
       }
     }
   ]
@@ -46,12 +46,11 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="invoice-gen">
-    <!-- Company Info -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-        <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyName" placeholder="Your Pest Control Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -59,11 +58,11 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-        <input type="text" id="companyEmail" placeholder="office@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyEmail" placeholder="office@yourpestcontrol.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-        <input type="text" id="licenseNum" placeholder="HVAC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="licenseNum" placeholder="PC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceNum">Invoice #</label>
@@ -81,7 +80,6 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Customer Info -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
@@ -93,40 +91,40 @@ const faqSchema = {
         <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Customer Address</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Service Address</label>
         <input type="text" id="customerAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Service Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipmentType">Equipment Type</label>
-        <select id="equipmentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Central AC</option>
-          <option value="Heat Pump">Heat Pump</option>
-          <option value="Furnace">Furnace</option>
-          <option value="Mini Split">Mini Split</option>
-          <option value="Boiler">Boiler</option>
-          <option value="Package Unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="serviceType">Service Type</label>
+        <select id="serviceType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="General Pest Treatment">General Pest Treatment</option>
+          <option value="Termite Treatment">Termite Treatment</option>
+          <option value="Rodent Control">Rodent Control</option>
+          <option value="Bed Bug Treatment">Bed Bug Treatment</option>
+          <option value="Mosquito Treatment">Mosquito Treatment</option>
+          <option value="Wildlife Exclusion">Wildlife Exclusion</option>
+          <option value="Fumigation">Fumigation</option>
+          <option value="Recurring Service Visit">Recurring Service Visit</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipMake">Make</label>
-        <input type="text" id="equipMake" placeholder="Carrier, Trane, Lennox..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="targetPests">Target Pests</label>
+        <input type="text" id="targetPests" placeholder="Ants, roaches, spiders..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipModel">Model</label>
-        <input type="text" id="equipModel" placeholder="Model number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="chemicalsUsed">Chemicals / Products Applied</label>
+        <input type="text" id="chemicalsUsed" placeholder="Termidor SC, Advion Gel..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipSerial">Serial #</label>
-        <input type="text" id="equipSerial" placeholder="Serial number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="epaRegNum">EPA Reg. #</label>
+        <input type="text" id="epaRegNum" placeholder="EPA Reg. No. 7969-210" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Line Items -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Line Items</h3>
     <div class="mb-3">
       <div class="hidden md:grid grid-cols-[1fr_80px_120px_120px_40px] gap-3 mb-2 px-1">
@@ -136,24 +134,19 @@ const faqSchema = {
         <span class="text-text-muted text-xs font-medium uppercase tracking-wider">Total</span>
         <span></span>
       </div>
-      <div id="line-items" class="space-y-3">
-        <!-- Line items injected by JS -->
-      </div>
+      <div id="line-items" class="space-y-3"></div>
     </div>
 
     <div class="flex flex-wrap gap-3 mb-8">
-      <button id="add-line-btn" class="bg-bg-dark border border-border text-text-primary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">
-        + Add Line Item
-      </button>
+      <button id="add-line-btn" class="bg-bg-dark border border-border text-text-primary text-sm font-medium px-4 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">+ Add Line Item</button>
       <span class="text-text-muted text-xs self-center">Quick add:</span>
-      <button data-quick="Diagnostic Fee" data-price="89" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Diagnostic Fee ($89)</button>
-      <button data-quick="Capacitor" data-price="195" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Capacitor ($195)</button>
-      <button data-quick="Contactor" data-price="225" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Contactor ($225)</button>
-      <button data-quick="Blower Motor" data-price="575" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Blower Motor ($575)</button>
-      <button data-quick="Refrigerant R-410A (/lb)" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Refrigerant R-410A (/lb)</button>
+      <button data-quick="Inspection Fee" data-price="75" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Inspection Fee ($75)</button>
+      <button data-quick="General Pest Treatment" data-price="175" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">General Pest ($175)</button>
+      <button data-quick="Bait Station Install" data-price="125" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Bait Station ($125)</button>
+      <button data-quick="Rodent Exclusion" data-price="350" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Rodent Exclusion ($350)</button>
+      <button data-quick="Bed Bug Heat Treatment" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Bed Bug Heat Treatment</button>
     </div>
 
-    <!-- Bottom Section -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Invoice Settings</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
@@ -163,21 +156,19 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
         <select id="paymentTerms" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Due on Receipt">Due on Receipt</option>
+          <option value="Due on Receipt" selected>Due on Receipt</option>
           <option value="Net 15">Net 15</option>
-          <option value="Net 30" selected>Net 30</option>
+          <option value="Net 30">Net 30</option>
+          <option value="Auto-Pay Monthly">Auto-Pay Monthly</option>
         </select>
       </div>
-      <div class="md:col-span-1">
-        <!-- spacer for alignment -->
-      </div>
+      <div class="md:col-span-1"></div>
       <div class="md:col-span-3">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Warranty</label>
-        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Equipment: 10 yr parts / 1 yr labor. 30-day workmanship guarantee.</textarea>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Guarantee</label>
+        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">30-day re-service guarantee on all treatments. If pests return within 30 days, we will re-treat at no additional charge.</textarea>
       </div>
     </div>
 
-    <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Invoice Totals</h3>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -194,70 +185,61 @@ const faqSchema = {
           <div id="result-total" class="font-heading font-extrabold text-3xl text-accent">$0.00</div>
         </div>
       </div>
-
-      <!-- Generate PDF Button -->
-      <button id="generate-pdf-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">
-        Generate PDF &rarr;
-      </button>
+      <button id="generate-pdf-btn" class="w-full md:w-auto bg-accent text-white font-heading font-bold text-base uppercase tracking-wider px-8 py-3.5 rounded-lg hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(255,107,43,0.3)] transition-all cursor-pointer">Generate PDF &rarr;</button>
       <p class="text-text-muted text-sm italic mt-3">Opens a print-ready invoice in a new window. Use your browser's print dialog to save as PDF.</p>
     </div>
   </div>
 
-  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
-      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Generator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and contractor license number. These appear in the invoice header and build trust with customers.</p>
-          <p><strong class="text-text-primary">2. Add customer and system info.</strong> Enter the customer's name, address, and phone. Then log the equipment type, make, model, and serial number so every invoice ties back to the specific unit you serviced.</p>
-          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each part and labor charge individually, or use the quick-add buttons for common HVAC items. Set quantities and unit prices, and the totals calculate automatically.</p>
-          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add warranty language or job notes in the notes field.</p>
+          <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and pest control license number. These appear in the invoice header and build credibility with customers.</p>
+          <p><strong class="text-text-primary">2. Add customer and service info.</strong> Enter the customer's name, service address, and phone. Then select the service type, target pests treated, and any chemicals or products applied so every invoice documents the specific treatment performed.</p>
+          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each service and material charge individually, or use the quick-add buttons for common pest control services. Set quantities and unit prices, and the totals calculate automatically.</p>
+          <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add re-service guarantee language or job notes in the notes field.</p>
           <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice in a new window. Use your browser's print function to save it as a PDF or send it directly to a printer.</p>
         </div>
       </section>
 
-      <!-- What Makes a Professional Invoice -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional HVAC Invoice</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Pest Control Invoice</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A professional HVAC invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
-          <p>The system section is what separates an HVAC invoice from a generic template. Logging the equipment type, make, model, and serial number creates a service history for that unit. When the customer calls back in two years, you can pull the serial number and know exactly what was done previously.</p>
-          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "AC repair - $500," break it out: diagnostic fee, capacitor replacement, labor for install. Customers respect transparency, and it makes warranty claims simpler if a specific part fails.</p>
-          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup is a 10-year manufacturer parts warranty, 1-year labor warranty, and a 30-day workmanship guarantee. Having it on the invoice means there is no ambiguity later.</p>
+          <p>A professional pest control invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, pest control license number, and contact information. Customers want to know who treated their property and how to reach you for follow-up.</p>
+          <p>The service section is what separates a pest control invoice from a generic template. Logging the service type, target pests, and chemicals applied with EPA registration numbers creates a treatment history for that property. When the customer calls for a follow-up or you return for a quarterly visit, you can reference exactly what was done previously and adjust your approach.</p>
+          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "Pest control service - $250," break it out: inspection fee, interior treatment, exterior perimeter spray, bait station installation. Customers respect transparency, and it justifies your pricing when they can see each component of the service.</p>
+          <p>Re-service guarantee terms on the invoice are important for customer confidence. Spell out what is covered, for how long, and any conditions. A common setup is a 30-day re-service guarantee where you will re-treat at no charge if pests return. Having it on the invoice sets clear expectations.</p>
         </div>
       </section>
 
-      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">On-site service calls.</strong> You finish a repair, pull up this tool on your phone or tablet, fill in what you replaced and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
-          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the HVAC-specific fields that generic invoice templates miss.</p>
-          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your dispatch or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
+          <p><strong class="text-text-primary">On-site service calls.</strong> You finish a treatment, pull up this tool on your phone or tablet, fill in what you applied and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
+          <p><strong class="text-text-primary">Small operations without software.</strong> If you are a one-truck operation and do not want to pay for PestPac or FieldRoutes, this generator gives you a professional-looking invoice at no cost. It covers the pest-control-specific fields that generic invoice templates miss, like chemicals applied and EPA registration numbers.</p>
+          <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your routing or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
         </div>
       </section>
 
-      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on an HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on a pest control invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional pest control invoice should include your company name, address, phone, and pest control license number. It should also list the customer's information, the service type performed (general pest, termite, rodent, etc.), target pests treated, chemicals or products applied with EPA registration numbers, itemized labor and materials, any re-service guarantee terms, payment terms, and the invoice date and number.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated HVAC invoice generator that includes fields specific to the trade -- equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional pest control invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated pest control invoice generator that includes fields specific to the trade -- service type, target pests, chemicals applied, and re-service guarantee terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on pest control services?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, pest control services are considered taxable because they involve the application of tangible personal property (chemicals). However, some states exempt pest control labor or treat recurring service agreements differently. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for pest control?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential one-time treatments, Due on Receipt is standard. For recurring service plans (monthly or quarterly), many companies bill on the first of each service period or use auto-pay. Commercial pest control work often uses Net 30. Termite treatments and fumigation jobs may require 50% deposit with balance due on completion. Always clearly state payment terms on the invoice.</div>
           </details>
         </div>
       </section>
@@ -266,41 +248,34 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // --- Date and Invoice Number Defaults ---
   function initDefaults() {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
     const due = new Date(today);
     due.setDate(due.getDate() + 30);
     const dueStr = due.toISOString().split('T')[0];
-
     (document.getElementById('invoiceDate') as HTMLInputElement).value = todayStr;
     (document.getElementById('dueDate') as HTMLInputElement).value = dueStr;
     (document.getElementById('invoiceNum') as HTMLInputElement).value = 'INV-' + String(Math.floor(Math.random() * 9000) + 1000);
   }
 
-  // --- Line Items ---
-  interface LineItem {
-    id: number;
-    description: string;
-    qty: number;
-    price: number;
-  }
-
-  let lineItems: LineItem[] = [
-    { id: 1, description: '', qty: 1, price: 0 }
-  ];
+  interface LineItem { id: number; description: string; qty: number; price: number; }
+  let lineItems: LineItem[] = [{ id: 1, description: '', qty: 1, price: 0 }];
   let nextId = 2;
+
+  function escapeHtml(str: string): string {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
 
   function renderLineItems() {
     const container = document.getElementById('line-items')!;
     container.innerHTML = '';
-
-    lineItems.forEach((item, index) => {
+    lineItems.forEach((item) => {
       const row = document.createElement('div');
       row.className = 'grid grid-cols-1 md:grid-cols-[1fr_80px_120px_120px_40px] gap-3 items-center bg-bg-dark rounded-lg p-3 md:p-0 md:bg-transparent md:rounded-none';
       const total = (item.qty * item.price).toFixed(2);
-
       row.innerHTML = `
         <div>
           <label class="md:hidden block text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Description</label>
@@ -320,27 +295,12 @@ const faqSchema = {
         </div>
         <div class="flex justify-end">
           ${lineItems.length > 1 ? `<button data-remove="${item.id}" class="remove-line-btn text-text-muted hover:text-red-400 transition-colors cursor-pointer text-lg leading-none" title="Remove">&times;</button>` : '<span></span>'}
-        </div>
-      `;
-
+        </div>`;
       container.appendChild(row);
     });
-
-    // Attach events
-    container.querySelectorAll('.line-input').forEach(input => {
-      input.addEventListener('input', handleLineInput);
-    });
-    container.querySelectorAll('.remove-line-btn').forEach(btn => {
-      btn.addEventListener('click', handleRemoveLine);
-    });
-
+    container.querySelectorAll('.line-input').forEach(input => { input.addEventListener('input', handleLineInput); });
+    container.querySelectorAll('.remove-line-btn').forEach(btn => { btn.addEventListener('click', handleRemoveLine); });
     recalculate();
-  }
-
-  function escapeHtml(str: string): string {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
   }
 
   function handleLineInput(e: Event) {
@@ -349,22 +309,12 @@ const faqSchema = {
     const field = input.dataset.field!;
     const item = lineItems.find(i => i.id === id);
     if (!item) return;
-
-    if (field === 'description') {
-      item.description = input.value;
-    } else if (field === 'qty') {
-      item.qty = parseFloat(input.value) || 0;
-    } else if (field === 'price') {
-      item.price = parseFloat(input.value) || 0;
-    }
-
-    // Update row total without full re-render
+    if (field === 'description') item.description = input.value;
+    else if (field === 'qty') item.qty = parseFloat(input.value) || 0;
+    else if (field === 'price') item.price = parseFloat(input.value) || 0;
     const row = input.closest('.grid')!;
     const totalEl = row.querySelector('div:nth-child(4) div') as HTMLElement;
-    if (totalEl) {
-      totalEl.textContent = '$' + (item.qty * item.price).toFixed(2);
-    }
-
+    if (totalEl) totalEl.textContent = '$' + (item.qty * item.price).toFixed(2);
     recalculate();
   }
 
@@ -380,41 +330,34 @@ const faqSchema = {
     renderLineItems();
   }
 
-  // --- Calculations ---
   function recalculate() {
     const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
     const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
     const tax = subtotal * (taxRate / 100);
     const total = subtotal + tax;
-
     document.getElementById('result-subtotal')!.textContent = '$' + subtotal.toFixed(2);
     document.getElementById('result-tax')!.textContent = '$' + tax.toFixed(2);
     document.getElementById('result-total')!.textContent = '$' + total.toFixed(2);
   }
 
-  // --- PDF Generation (print-ready HTML) ---
   function generatePDF() {
-    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'HVAC Company';
+    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'Pest Control Company';
     const companyPhone = (document.getElementById('companyPhone') as HTMLInputElement).value;
     const companyEmail = (document.getElementById('companyEmail') as HTMLInputElement).value;
     const licenseNum = (document.getElementById('licenseNum') as HTMLInputElement).value;
     const invoiceNum = (document.getElementById('invoiceNum') as HTMLInputElement).value;
     const invoiceDate = (document.getElementById('invoiceDate') as HTMLInputElement).value;
     const dueDate = (document.getElementById('dueDate') as HTMLInputElement).value;
-
     const customerName = (document.getElementById('customerName') as HTMLInputElement).value || 'Customer';
     const customerAddress = (document.getElementById('customerAddress') as HTMLInputElement).value;
     const customerPhone = (document.getElementById('customerPhone') as HTMLInputElement).value;
-
-    const equipmentType = (document.getElementById('equipmentType') as HTMLSelectElement).value;
-    const equipMake = (document.getElementById('equipMake') as HTMLInputElement).value;
-    const equipModel = (document.getElementById('equipModel') as HTMLInputElement).value;
-    const equipSerial = (document.getElementById('equipSerial') as HTMLInputElement).value;
-
+    const serviceType = (document.getElementById('serviceType') as HTMLSelectElement).value;
+    const targetPests = (document.getElementById('targetPests') as HTMLInputElement).value;
+    const chemicalsUsed = (document.getElementById('chemicalsUsed') as HTMLInputElement).value;
+    const epaRegNum = (document.getElementById('epaRegNum') as HTMLInputElement).value;
     const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
     const paymentTerms = (document.getElementById('paymentTerms') as HTMLSelectElement).value;
     const notes = (document.getElementById('notes') as HTMLTextAreaElement).value;
-
     const subtotal = lineItems.reduce((sum, item) => sum + (item.qty * item.price), 0);
     const tax = subtotal * (taxRate / 100);
     const total = subtotal + tax;
@@ -425,150 +368,86 @@ const faqSchema = {
       return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    const lineItemsHtml = lineItems
-      .filter(item => item.description || item.price > 0)
-      .map(item => `
-        <tr>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left;">${escapeHtml(item.description)}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: center;">${item.qty}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right;">$${item.price.toFixed(2)}</td>
-          <td style="padding: 10px 12px; border-bottom: 1px solid #eee; text-align: right; font-weight: 600;">$${(item.qty * item.price).toFixed(2)}</td>
-        </tr>
-      `).join('');
+    const lineItemsHtml = lineItems.filter(item => item.description || item.price > 0).map(item => `
+      <tr>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:left;">${escapeHtml(item.description)}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:center;">${item.qty}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;">$${item.price.toFixed(2)}</td>
+        <td style="padding:10px 12px;border-bottom:1px solid #eee;text-align:right;font-weight:600;">$${(item.qty * item.price).toFixed(2)}</td>
+      </tr>`).join('');
 
-    const systemInfoHtml = (equipmentType || equipMake || equipModel || equipSerial) ? `
-      <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
-        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">System Information</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: #333;">
-          ${equipmentType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(equipmentType)}</div>` : ''}
-          ${equipMake ? `<div><span style="color: #888;">Make:</span> ${escapeHtml(equipMake)}</div>` : ''}
-          ${equipModel ? `<div><span style="color: #888;">Model:</span> ${escapeHtml(equipModel)}</div>` : ''}
-          ${equipSerial ? `<div><span style="color: #888;">Serial #:</span> ${escapeHtml(equipSerial)}</div>` : ''}
+    const serviceInfoHtml = (serviceType || targetPests || chemicalsUsed || epaRegNum) ? `
+      <div style="margin-bottom:30px;padding:15px;background:#f8f9fa;border-radius:6px;">
+        <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#666;margin-bottom:8px;">Service Information</div>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:#333;">
+          ${serviceType ? `<div><span style="color:#888;">Service:</span> ${escapeHtml(serviceType)}</div>` : ''}
+          ${targetPests ? `<div><span style="color:#888;">Target Pests:</span> ${escapeHtml(targetPests)}</div>` : ''}
+          ${chemicalsUsed ? `<div><span style="color:#888;">Products Applied:</span> ${escapeHtml(chemicalsUsed)}</div>` : ''}
+          ${epaRegNum ? `<div><span style="color:#888;">EPA Reg. #:</span> ${escapeHtml(epaRegNum)}</div>` : ''}
         </div>
-      </div>
-    ` : '';
+      </div>` : '';
 
-    const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Invoice ${escapeHtml(invoiceNum)}</title>
-  <style>
-    @media print {
-      body { margin: 0; }
-      .no-print { display: none; }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333; background: #fff; padding: 40px; max-width: 800px; margin: 0 auto; }
-  </style>
-</head>
-<body>
-  <!-- Header -->
-  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 3px solid #333;">
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Invoice ${escapeHtml(invoiceNum)}</title><style>@media print{body{margin:0}.no-print{display:none}}*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#333;background:#fff;padding:40px;max-width:800px;margin:0 auto}</style></head><body>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid #333;">
     <div>
-      <div style="font-size: 28px; font-weight: 800; color: #111; margin-bottom: 4px;">${escapeHtml(companyName)}</div>
-      ${companyPhone ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyPhone)}</div>` : ''}
-      ${companyEmail ? `<div style="font-size: 14px; color: #555;">${escapeHtml(companyEmail)}</div>` : ''}
-      ${licenseNum ? `<div style="font-size: 13px; color: #888; margin-top: 4px;">License: ${escapeHtml(licenseNum)}</div>` : ''}
+      <div style="font-size:28px;font-weight:800;color:#111;margin-bottom:4px;">${escapeHtml(companyName)}</div>
+      ${companyPhone ? `<div style="font-size:14px;color:#555;">${escapeHtml(companyPhone)}</div>` : ''}
+      ${companyEmail ? `<div style="font-size:14px;color:#555;">${escapeHtml(companyEmail)}</div>` : ''}
+      ${licenseNum ? `<div style="font-size:13px;color:#888;margin-top:4px;">License: ${escapeHtml(licenseNum)}</div>` : ''}
     </div>
-    <div style="text-align: right;">
-      <div style="font-size: 36px; font-weight: 800; color: #111; letter-spacing: 0.04em;">INVOICE</div>
-      <div style="font-size: 14px; color: #555; margin-top: 4px;">${escapeHtml(invoiceNum)}</div>
+    <div style="text-align:right;">
+      <div style="font-size:36px;font-weight:800;color:#111;letter-spacing:0.04em;">INVOICE</div>
+      <div style="font-size:14px;color:#555;margin-top:4px;">${escapeHtml(invoiceNum)}</div>
     </div>
   </div>
-
-  <!-- Billing Details -->
-  <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+  <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
     <div>
-      <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Bill To</div>
-      <div style="font-size: 16px; font-weight: 600; color: #111;">${escapeHtml(customerName)}</div>
-      ${customerAddress ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerAddress)}</div>` : ''}
-      ${customerPhone ? `<div style="font-size: 14px; color: #555; margin-top: 2px;">${escapeHtml(customerPhone)}</div>` : ''}
+      <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:6px;">Bill To</div>
+      <div style="font-size:16px;font-weight:600;color:#111;">${escapeHtml(customerName)}</div>
+      ${customerAddress ? `<div style="font-size:14px;color:#555;margin-top:2px;">${escapeHtml(customerAddress)}</div>` : ''}
+      ${customerPhone ? `<div style="font-size:14px;color:#555;margin-top:2px;">${escapeHtml(customerPhone)}</div>` : ''}
     </div>
-    <div style="text-align: right;">
-      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Date:</span> ${formatDate(invoiceDate)}</div>
-      <div style="font-size: 14px; color: #555; margin-bottom: 4px;"><span style="color: #888;">Due:</span> ${formatDate(dueDate)}</div>
-      <div style="font-size: 14px; color: #555;"><span style="color: #888;">Terms:</span> ${escapeHtml(paymentTerms)}</div>
+    <div style="text-align:right;">
+      <div style="font-size:14px;color:#555;margin-bottom:4px;"><span style="color:#888;">Date:</span> ${formatDate(invoiceDate)}</div>
+      <div style="font-size:14px;color:#555;margin-bottom:4px;"><span style="color:#888;">Due:</span> ${formatDate(dueDate)}</div>
+      <div style="font-size:14px;color:#555;"><span style="color:#888;">Terms:</span> ${escapeHtml(paymentTerms)}</div>
     </div>
   </div>
-
-  <!-- System Info -->
-  ${systemInfoHtml}
-
-  <!-- Line Items Table -->
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-    <thead>
-      <tr style="background: #333; color: #fff;">
-        <th style="padding: 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Description</th>
-        <th style="padding: 12px; text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 70px;">Qty</th>
-        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Unit Price</th>
-        <th style="padding: 12px; text-align: right; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; width: 110px;">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${lineItemsHtml}
-    </tbody>
+  ${serviceInfoHtml}
+  <table style="width:100%;border-collapse:collapse;margin-bottom:30px;">
+    <thead><tr style="background:#333;color:#fff;">
+      <th style="padding:12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;">Description</th>
+      <th style="padding:12px;text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:70px;">Qty</th>
+      <th style="padding:12px;text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:110px;">Unit Price</th>
+      <th style="padding:12px;text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;width:110px;">Total</th>
+    </tr></thead>
+    <tbody>${lineItemsHtml}</tbody>
   </table>
-
-  <!-- Totals -->
-  <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
-    <div style="width: 280px;">
-      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555;">
-        <span>Subtotal</span>
-        <span>$${subtotal.toFixed(2)}</span>
-      </div>
-      ${taxRate > 0 ? `
-      <div style="display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #555; border-bottom: 1px solid #eee;">
-        <span>Tax (${taxRate}%)</span>
-        <span>$${tax.toFixed(2)}</span>
-      </div>
-      ` : ''}
-      <div style="display: flex; justify-content: space-between; padding: 12px 0; font-size: 20px; font-weight: 800; color: #111; border-top: 2px solid #333;">
-        <span>Total Due</span>
-        <span>$${total.toFixed(2)}</span>
-      </div>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:40px;">
+    <div style="width:280px;">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;color:#555;"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+      ${taxRate > 0 ? `<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;color:#555;border-bottom:1px solid #eee;"><span>Tax (${taxRate}%)</span><span>$${tax.toFixed(2)}</span></div>` : ''}
+      <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:20px;font-weight:800;color:#111;border-top:2px solid #333;"><span>Total Due</span><span>$${total.toFixed(2)}</span></div>
     </div>
   </div>
-
-  <!-- Notes -->
-  ${notes ? `
-  <div style="padding: 20px; background: #f8f9fa; border-radius: 6px; border-left: 4px solid #333;">
-    <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; margin-bottom: 6px;">Notes & Warranty</div>
-    <div style="font-size: 13px; color: #555; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(notes)}</div>
-  </div>
-  ` : ''}
-
-  <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #aaa;">
-    Thank you for your business.
-  </div>
-
-  <script>window.onload = function() { window.print(); }<\/script>
-</body>
-</html>`;
+  ${notes ? `<div style="padding:20px;background:#f8f9fa;border-radius:6px;border-left:4px solid #333;"><div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:#888;margin-bottom:6px;">Notes & Guarantee</div><div style="font-size:13px;color:#555;line-height:1.6;white-space:pre-wrap;">${escapeHtml(notes)}</div></div>` : ''}
+  <div style="text-align:center;margin-top:50px;padding-top:20px;border-top:1px solid #eee;font-size:12px;color:#aaa;">Thank you for your business.</div>
+  <script>window.onload=function(){window.print();}<\/script>
+</body></html>`;
 
     const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(html);
-      printWindow.document.close();
-    }
+    if (printWindow) { printWindow.document.write(html); printWindow.document.close(); }
   }
 
-  // --- Init ---
   initDefaults();
   renderLineItems();
-
-  // Event listeners
   document.getElementById('add-line-btn')?.addEventListener('click', () => addLineItem());
-
   document.querySelectorAll('.quick-add-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const el = btn as HTMLElement;
-      const desc = el.dataset.quick || '';
-      const price = parseFloat(el.dataset.price || '0');
-      addLineItem(desc, price);
+      addLineItem(el.dataset.quick || '', parseFloat(el.dataset.price || '0'));
     });
   });
-
   document.getElementById('taxRate')?.addEventListener('input', recalculate);
   document.getElementById('generate-pdf-btn')?.addEventListener('click', generatePDF);
 </script>

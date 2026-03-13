@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I price an HVAC installation?",
+      "name": "How do I price an electrical installation job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote."
+        "text": "Start with your material wholesale cost and apply a markup of 50-100%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential jobs. Use a pricing calculator to test different scenarios before you quote."
       }
     },
     {
       "@type": "Question",
-      "name": "What profit margin should I target on installs?",
+      "name": "What profit margin should electricians target on jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
+        "text": "Most successful electrical contractors target 25-40% gross margin on installation jobs. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit."
       }
     },
     {
       "@type": "Question",
-      "name": "What is a good price per ton for HVAC?",
+      "name": "What is a good price per circuit for electrical work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors."
+        "text": "Price per circuit varies by circuit type and complexity. For standard 15A or 20A circuits, $250 to $450 per circuit is typical. Dedicated 240V circuits run $350 to $600. Adding a new sub-panel with circuits can range from $800 to $2,000+. Track your price per circuit to benchmark against competitors and ensure consistent quoting."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up HVAC equipment?",
+      "name": "How much should I mark up electrical materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor."
+        "text": "A 50-100% markup on electrical materials is standard in the industry. A 75% markup on $500 worth of wire, breakers, and boxes means you sell the materials for $875 and keep $375. This covers your purchasing, inventory carrying cost, warehouse space, and warranty handling. Never sell materials at cost hoping to make it up on labor."
       }
     }
   ]
@@ -46,25 +46,27 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="install-calc">
-    <!-- Equipment Section -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Equipment</h3>
+    <!-- Job Type Section -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Type</h3>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-type">System Type</label>
-        <select id="system-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="ac-furnace" selected>AC + Furnace</option>
-          <option value="heat-pump">Heat Pump</option>
-          <option value="mini-split">Mini-Split</option>
-          <option value="package-unit">Package Unit</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="job-type">Job Type</label>
+        <select id="job-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="panel-upgrade" selected>Panel Upgrade (200A)</option>
+          <option value="sub-panel">Sub-Panel Install</option>
+          <option value="whole-house-rewire">Whole House Rewire</option>
+          <option value="ev-charger">EV Charger Install</option>
+          <option value="generator-hookup">Generator Transfer Switch</option>
+          <option value="lighting-retrofit">Lighting Retrofit</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Equipment Cost ($)</label>
-        <input type="number" id="equipment-cost" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-cost">Primary Equipment Cost ($)</label>
+        <input type="number" id="equipment-cost" value="800" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment-markup">Equipment Markup (%)</label>
-        <input type="number" id="equipment-markup" value="40" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="equipment-markup" value="50" min="0" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -78,11 +80,11 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="install-hours">Install Hours</label>
         <input type="number" id="install-hours" value="8" min="0.5" max="100" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">Auto-fills based on system type</p>
+        <p class="text-text-muted text-xs mt-1">Auto-fills based on job type</p>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Tech ($/hr)</label>
-        <input type="number" id="billable-rate" value="125" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="billable-rate">Billable Rate per Electrician ($/hr)</label>
+        <input type="number" id="billable-rate" value="115" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -91,11 +93,11 @@ const faqSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-cost">Materials Cost ($)</label>
-        <input type="number" id="materials-cost" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="materials-cost" value="450" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="materials-markup">Materials Markup (%)</label>
-        <input type="number" id="materials-markup" value="100" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="materials-markup" value="75" min="0" max="500" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -104,40 +106,40 @@ const faqSchema = {
       <p class="text-sm font-medium text-text-secondary mb-3">Common Material Items <span class="text-text-muted">(check to include in materials cost)</span></p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="125" checked />
-          Copper line set &mdash; $125
+          <input type="checkbox" class="material-item accent-accent" data-cost="120" checked />
+          NM-B wire (100ft rolls) &mdash; $120
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="50" checked />
-          Concrete pad &mdash; $50
+          <input type="checkbox" class="material-item accent-accent" data-cost="80" checked />
+          Breakers (assorted) &mdash; $80
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
-          Electrical disconnect &mdash; $30
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Electrical whip &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="20" checked />
-          Thermostat wire &mdash; $20
-        </label>
-        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
-          <input type="checkbox" class="material-item accent-accent" data-cost="15" checked />
-          PVC drain line &mdash; $15
+          <input type="checkbox" class="material-item accent-accent" data-cost="60" checked />
+          Boxes &amp; covers &mdash; $60
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
           <input type="checkbox" class="material-item accent-accent" data-cost="40" checked />
-          Duct transitions &mdash; $40
+          Outlets &amp; switches &mdash; $40
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="35" checked />
+          Conduit &amp; fittings &mdash; $35
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="30" checked />
+          Connectors &amp; clamps &mdash; $30
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
           <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Refrigerant line insulation &mdash; $25
+          Wire nuts &amp; tape &mdash; $25
+        </label>
+        <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+          <input type="checkbox" class="material-item accent-accent" data-cost="35" checked />
+          Ground rods &amp; clamps &mdash; $35
         </label>
         <label class="flex items-center gap-2 text-sm text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
           <input type="checkbox" class="material-item accent-accent" data-cost="25" checked />
-          Misc &mdash; $25
+          Misc (staples, screws, anchors) &mdash; $25
         </label>
       </div>
     </div>
@@ -147,20 +149,20 @@ const faqSchema = {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="permit-fee">Permit ($)</label>
-        <input type="number" id="permit-fee" value="150" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="permit-fee" value="200" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="disposal-fee">Disposal Fee ($)</label>
-        <input type="number" id="disposal-fee" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="disposal-fee" value="50" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="misc-fee">Misc ($)</label>
-        <input type="number" id="misc-fee" value="100" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="misc-fee" value="75" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="system-tons">System Tons</label>
-        <input type="number" id="system-tons" value="3" min="0.5" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">For price-per-ton calculation</p>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="num-circuits">Number of Circuits</label>
+        <input type="number" id="num-circuits" value="4" min="1" max="50" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <p class="text-text-muted text-xs mt-1">For price-per-circuit calculation</p>
       </div>
     </div>
 
@@ -174,7 +176,7 @@ const faqSchema = {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-text-secondary mb-2" for="target-price">Target Sell Price ($)</label>
-            <input type="number" id="target-price" value="7500" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="target-price" value="5000" min="0" step="100" class="w-full bg-bg-dark border border-[rgba(255,107,43,0.4)] rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-end">
             <div class="bg-bg-card border border-border rounded-lg p-4 w-full">
@@ -190,10 +192,10 @@ const faqSchema = {
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Install Pricing Summary</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Job Pricing Summary</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Install Price</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Total Job Price</div>
           <div id="result-total-sell" class="font-heading font-extrabold text-3xl text-accent">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
@@ -205,8 +207,8 @@ const faqSchema = {
           <div id="result-margin" class="font-heading font-extrabold text-3xl">&mdash;</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Ton</div>
-          <div id="result-price-per-ton" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Price per Circuit</div>
+          <div id="result-price-per-circuit" class="font-heading font-extrabold text-3xl text-text-primary">&mdash;</div>
         </div>
       </div>
 
@@ -261,17 +263,17 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the system type.</strong> Choose the type of HVAC system you are installing. The calculator auto-fills typical install hours based on your selection: AC + Furnace defaults to 8 hours, heat pumps to 10, mini-splits to 4, and package units to 6.</p>
-          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the distributor. A 40% markup is a common starting point, but adjust based on your market and competition. The calculator shows what the customer pays for equipment.</p>
-          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per technician. The billable rate is what you charge the customer per tech per hour, not the tech's wage.</p>
+          <p><strong class="text-text-primary">1. Select the job type.</strong> Choose the type of electrical job you are quoting. The calculator auto-fills typical install hours based on your selection: panel upgrades default to 8 hours, sub-panels to 5, whole house rewires to 24, EV charger installs to 4, generator hookups to 6, and lighting retrofits to 6.</p>
+          <p><strong class="text-text-primary">2. Enter equipment cost and markup.</strong> Use your wholesale cost from the supply house. A 50% markup is a common starting point for major equipment like panels and transfer switches. Adjust based on your market.</p>
+          <p><strong class="text-text-primary">3. Set labor details.</strong> Enter crew size, install hours, and your billable rate per electrician. The billable rate is what you charge the customer per electrician per hour, not the electrician's wage.</p>
           <p><strong class="text-text-primary">4. Configure materials.</strong> Use the checklist to toggle common material items on or off. The total auto-fills the materials cost field. Set your materials markup percentage to calculate the customer-facing price.</p>
-          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the system tonnage so the calculator can show your price per ton. Hit calculate to see the full breakdown, profit, and margin.</p>
+          <p><strong class="text-text-primary">5. Add other costs and review.</strong> Include permit fees, disposal fees, and miscellaneous costs. Enter the number of circuits so the calculator can show your price per circuit. Review the full breakdown, profit, and margin.</p>
         </div>
       </section>
 
-      <!-- How Install Pricing Works -->
+      <!-- How Job Pricing Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How Install Pricing Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Electrical Job Pricing Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Cost-plus pricing is the foundation.</strong> You start with your actual costs for equipment, labor, and materials, then add a markup to each category. The markup covers your overhead, warranty reserve, and profit. This method ensures you never sell a job below cost.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
@@ -282,8 +284,8 @@ const faqSchema = {
             <p>Gross_Profit = Total_Sell - Total_Cost</p>
             <p>Margin = (Gross_Profit / Total_Sell) x 100</p>
           </div>
-          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most HVAC install companies aim for 25-40% gross margin. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
-          <p><strong class="text-text-primary">Price per ton is a quick benchmark.</strong> Dividing total sell price by system tonnage gives you a per-ton number you can compare across jobs and against competitors. Residential AC installs typically run $2,500 to $4,000 per ton. Heat pump systems tend toward $3,000 to $5,000 per ton. If your number is significantly outside these ranges, investigate why.</p>
+          <p><strong class="text-text-primary">Target margin drives your pricing.</strong> Most electrical contractors aim for 25-40% gross margin on jobs. If the calculator shows you below 25%, you need to increase your markups, reduce costs, or both. Use the reverse calculator toggle to enter a target sell price and see what margin it gives you before sending the proposal.</p>
+          <p><strong class="text-text-primary">Price per circuit is a quick benchmark.</strong> Dividing total sell price by the number of circuits gives you a per-circuit number you can compare across jobs and against competitors. Standard 20A circuits typically run $250 to $450 per circuit. Dedicated 240V circuits tend toward $350 to $600. If your number is significantly outside these ranges, investigate why.</p>
         </div>
       </section>
 
@@ -291,8 +293,8 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the distributor, set your standard markups, and adjust the hours based on the difficulty of the install. Walk the customer through the price with confidence because you know the margin is healthy.</p>
-          <p><strong class="text-text-primary">Comparing system options for the customer.</strong> Run the calculator for a standard AC and furnace, then again for a heat pump. Show the customer both price points side by side. The tonnage, hours, and equipment cost change, so the total and price per ton shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
+          <p><strong class="text-text-primary">Building a quote in the field.</strong> You have finished the site survey and need to quote the customer before you leave. Plug in your equipment cost from the supply house, set your standard markups, and adjust the hours based on the difficulty of the job. Walk the customer through the price with confidence because you know the margin is healthy.</p>
+          <p><strong class="text-text-primary">Comparing job options for the customer.</strong> Run the calculator for a panel upgrade, then again for a sub-panel install. Show the customer both price points side by side. The equipment, hours, and material costs change, so the total and price per circuit shift. This helps the customer make an informed decision and positions you as a consultant, not just a bidder.</p>
           <p><strong class="text-text-primary">Training your sales team on pricing.</strong> New salespeople often discount too aggressively to close deals. Have them use this calculator to see exactly what happens to profit margin when they knock $500 off the price. When they see the margin drop from 32% to 22%, they learn to protect the price or find other ways to add value.</p>
         </div>
       </section>
@@ -302,20 +304,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an HVAC installation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your equipment wholesale cost and apply a markup of 30-50%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential installs. Use a pricing calculator to test different scenarios before you quote.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price an electrical installation job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your material wholesale cost and apply a markup of 50-100%. Add labor by multiplying crew size by hours by your billable rate. Add marked-up materials, permit fees, disposal, and miscellaneous costs. The total should land you at a 25-40% gross margin on residential jobs. Use a pricing calculator to test different scenarios before you quote.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should I target on installs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful HVAC companies target 25-40% gross margin on installations. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What profit margin should electricians target on jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most successful electrical contractors target 25-40% gross margin on installation jobs. The industry average sits around 30%. Below 20% means you are likely losing money after overhead. Above 40% is strong but may limit your close rate in competitive markets. The sweet spot for most shops is 30-35%, which covers overhead and leaves healthy net profit.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per ton for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per ton varies by system type and region. For a standard residential AC and furnace install, $2,500 to $4,000 per ton is typical. Heat pump systems run $3,000 to $5,000 per ton. Mini-splits can range from $1,500 to $3,000 per ton. Premium brands and complex installs push toward the higher end. Track your price per ton to benchmark against competitors.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good price per circuit for electrical work?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Price per circuit varies by circuit type and complexity. For standard 15A or 20A circuits, $250 to $450 per circuit is typical. Dedicated 240V circuits run $350 to $600. Adding a new sub-panel with circuits can range from $800 to $2,000+. Track your price per circuit to benchmark against competitors and ensure consistent quoting.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up HVAC equipment?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 30-50% markup on equipment is standard in the HVAC industry. A 40% markup on a $2,200 condenser means you sell it for $3,080 and keep $880. This covers your purchasing, warehousing, warranty handling, and profit. Some contractors go higher in markets with less competition. Never sell equipment at cost hoping to make it up on labor.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up electrical materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A 50-100% markup on electrical materials is standard in the industry. A 75% markup on $500 worth of wire, breakers, and boxes means you sell the materials for $875 and keep $375. This covers your purchasing, inventory carrying cost, warehouse space, and warranty handling. Never sell materials at cost hoping to make it up on labor.</div>
           </details>
         </div>
       </section>
@@ -324,16 +326,18 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // Typical install hours by system type
-  const systemHours: Record<string, number> = {
-    'ac-furnace': 8,
-    'heat-pump': 10,
-    'mini-split': 4,
-    'package-unit': 6,
+  // Typical install hours by job type
+  const jobHours: Record<string, number> = {
+    'panel-upgrade': 8,
+    'sub-panel': 5,
+    'whole-house-rewire': 24,
+    'ev-charger': 4,
+    'generator-hookup': 6,
+    'lighting-retrofit': 6,
   };
 
-  // Assumed loaded wage for cost calculation (internal cost per tech per hour)
-  const LOADED_WAGE = 45;
+  // Assumed loaded wage for cost calculation (internal cost per electrician per hour)
+  const LOADED_WAGE = 42;
 
   // Update materials cost from checklist
   function updateMaterialsFromChecklist() {
@@ -347,10 +351,10 @@ const faqSchema = {
     (document.getElementById('materials-cost') as HTMLInputElement).value = String(total);
   }
 
-  // System type change: auto-fill install hours
-  document.getElementById('system-type')?.addEventListener('change', () => {
-    const systemType = (document.getElementById('system-type') as HTMLSelectElement).value;
-    const hours = systemHours[systemType] || 8;
+  // Job type change: auto-fill install hours
+  document.getElementById('job-type')?.addEventListener('change', () => {
+    const jobType = (document.getElementById('job-type') as HTMLSelectElement).value;
+    const hours = jobHours[jobType] || 8;
     (document.getElementById('install-hours') as HTMLInputElement).value = String(hours);
     calculate();
   });
@@ -360,6 +364,7 @@ const faqSchema = {
     const checked = (document.getElementById('reverse-toggle') as HTMLInputElement).checked;
     const section = document.getElementById('reverse-section')!;
     if (checked) {
+      section.classList.remove('hidden');
     } else {
       section.classList.add('hidden');
     }
@@ -398,15 +403,15 @@ const faqSchema = {
     const miscFee = parseFloat((document.getElementById('misc-fee') as HTMLInputElement).value) || 0;
     const otherTotal = permitFee + disposalFee + miscFee;
 
-    // Tonnage
-    const systemTons = parseFloat((document.getElementById('system-tons') as HTMLInputElement).value) || 1;
+    // Circuits
+    const numCircuits = parseFloat((document.getElementById('num-circuits') as HTMLInputElement).value) || 1;
 
     // Totals
     const totalCost = equipmentCost + laborCost + materialsCost + otherTotal;
     const totalSell = equipmentSell + laborSell + materialsSell + otherTotal;
     const grossProfit = totalSell - totalCost;
     const margin = totalSell > 0 ? (grossProfit / totalSell) * 100 : 0;
-    const pricePerTon = totalSell / systemTons;
+    const pricePerCircuit = totalSell / numCircuits;
 
     // Format currency
     const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
@@ -414,7 +419,7 @@ const faqSchema = {
     // Main results
     document.getElementById('result-total-sell')!.textContent = fmt(totalSell);
     document.getElementById('result-gross-profit')!.textContent = fmt(grossProfit);
-    document.getElementById('result-price-per-ton')!.textContent = fmt(pricePerTon);
+    document.getElementById('result-price-per-circuit')!.textContent = fmt(pricePerCircuit);
 
     // Profit color
     const profitEl = document.getElementById('result-gross-profit')!;
@@ -467,11 +472,7 @@ const faqSchema = {
         reverseMarginEl.classList.add('text-[#EF4444]');
       }
     }
-
-    // Show results
   }
-
-  // Calculate button
 
   // Auto-calculate on any input change
   document.querySelectorAll('#install-calc input[type="number"], #install-calc select').forEach(el => {

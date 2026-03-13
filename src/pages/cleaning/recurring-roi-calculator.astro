@@ -10,26 +10,26 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much can I save with a new HVAC system?",
+      "name": "How much can I save with a new Cleaning system?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 SEER / 80% AFUE system with a 16 SEER / 96% AFUE system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the furnace upgrade."
+        "text": "Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 efficiency / 80% efficiency system with a 16 efficiency / 96% efficiency system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the system upgrade."
       }
     },
     {
       "@type": "Question",
-      "name": "What SEER rating should I get?",
+      "name": "What efficiency rating should I get?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For most homeowners, 16 SEER hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 SEER can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 SEER is usually sufficient. Always compare the payback period at different efficiency levels before deciding."
+        "text": "For most homeowners, 16 efficiency hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 efficiency can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 efficiency is usually sufficient. Always compare the payback period at different efficiency levels before deciding."
       }
     },
     {
       "@type": "Question",
-      "name": "Is a higher SEER always worth it?",
+      "name": "Is a higher efficiency always worth it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Not always. Each SEER point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 SEER cuts cooling costs by 37%, but going from 16 to 20 SEER only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ SEER unit may never pay back. Run the comparison to see exact payback for your situation."
+        "text": "Not always. Each efficiency point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 efficiency cuts cooling costs by 37%, but going from 16 to 20 efficiency only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ efficiency unit may never pay back. Run the comparison to see exact payback for your situation."
       }
     },
     {
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "How long does a new AC take to pay for itself?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 SEER to 16 SEER on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly."
+        "text": "Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 efficiency to 16 efficiency on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly."
       }
     }
   ]
@@ -54,14 +54,14 @@ const faqSchema = {
         <p class="text-text-muted text-xs mb-5">Enter your existing equipment specs</p>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-seer">SEER Rating</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-seer">efficiency Rating</label>
             <input type="number" id="old-seer" value="10" min="8" max="26" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
             <p class="text-text-muted text-xs mt-1">Don't know? Use 10 for 15+ year old systems</p>
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-afue">AFUE %</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="old-afue">efficiency %</label>
             <input type="number" id="old-afue" value="80" min="50" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-            <p class="text-text-muted text-xs mt-1">Don't know? Use 80% for older furnaces</p>
+            <p class="text-text-muted text-xs mt-1">Don't know? Use 80% for older systems</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-text-secondary mb-1" for="system-age">System Age (years)</label>
@@ -76,11 +76,11 @@ const faqSchema = {
         <p class="text-text-muted text-xs mb-5">Enter the equipment you're quoting</p>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-seer">SEER Rating</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-seer">efficiency Rating</label>
             <input type="number" id="new-seer" value="16" min="13" max="26" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-afue">AFUE %</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1" for="new-afue">efficiency %</label>
             <input type="number" id="new-afue" value="96" min="50" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
@@ -239,7 +239,7 @@ const faqSchema = {
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Estimates based on average usage patterns. Actual savings depend on equipment condition, duct efficiency, thermostat settings, and local weather. Consult with a licensed HVAC contractor for a detailed energy audit.</p>
+      <p class="text-text-muted text-sm italic">Estimates based on average usage patterns. Actual savings depend on equipment condition, surface condition, cleaning protocol, and facility type. Consult with a licensed Cleaning contractor for a detailed energy audit.</p>
     </div>
   </div>
 
@@ -250,23 +250,23 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Tool</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter the current system specs.</strong> Check the nameplate on the outdoor condenser for SEER and the furnace data plate for AFUE. If the customer doesn't know, use 10 SEER and 80% AFUE as safe defaults for systems over 15 years old.</p>
-          <p><strong class="text-text-primary">2. Enter the proposed system specs.</strong> Use the SEER and AFUE ratings from the equipment you're quoting. A 16 SEER / 96% AFUE combination is a common mid-tier upgrade that shows strong savings.</p>
+          <p><strong class="text-text-primary">1. Enter the current system specs.</strong> Check the nameplate on the outdoor condenser for efficiency and the system data plate for efficiency. If the customer doesn't know, use 10 efficiency and 80% efficiency as safe defaults for systems over 15 years old.</p>
+          <p><strong class="text-text-primary">2. Enter the proposed system specs.</strong> Use the efficiency and efficiency ratings from the equipment you're quoting. A 16 efficiency / 96% efficiency combination is a common mid-tier upgrade that shows strong savings.</p>
           <p><strong class="text-text-primary">3. Set the shared parameters.</strong> Select the system size in tons, enter the customer's electricity and gas rates from their utility bill, choose their region to auto-fill typical cooling and heating hours, and enter your quoted upgrade cost.</p>
           <p><strong class="text-text-primary">4. Review the side-by-side comparison.</strong> Show the customer the annual cost difference, payback period, and 10-year net savings. The visual bar chart makes the savings immediately obvious during a sales presentation.</p>
         </div>
       </section>
 
-      <!-- Understanding SEER and AFUE Ratings -->
+      <!-- Understanding efficiency and efficiency Ratings -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Understanding SEER and AFUE Ratings</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Understanding efficiency and efficiency Ratings</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">SEER (Seasonal Energy Efficiency Ratio)</strong> measures cooling efficiency. It's the total BTU of heat removed per watt-hour of electricity consumed over a typical cooling season. A 10 SEER system uses 60% more electricity than a 16 SEER system to deliver the same cooling. The federal minimum is now 14 SEER in northern states and 15 SEER in the South. Higher SEER means lower electric bills every summer.</p>
-          <p><strong class="text-text-primary">AFUE (Annual Fuel Utilization Efficiency)</strong> measures how efficiently a gas furnace converts fuel to heat. An 80% AFUE furnace loses 20 cents of every dollar as exhaust waste. A 96% AFUE furnace captures nearly all of that energy, reducing gas consumption by 20% compared to the older unit. Standard-efficiency furnaces run at 80% AFUE, while high-efficiency condensing furnaces reach 95-98%.</p>
-          <p><strong class="text-text-primary">Why higher is better:</strong> Both ratings work like miles per gallon for your HVAC system. Higher numbers mean more output per unit of energy consumed. The difference compounds every month the system runs. In a hot climate, the SEER upgrade drives most of the savings. In a cold climate, the AFUE improvement often matters more. This tool models both sides so you can show the customer exactly where their money goes.</p>
+          <p><strong class="text-text-primary">efficiency (Seasonal Energy Efficiency Ratio)</strong> measures cooling efficiency. It's the total BTU of heat removed per watt-hour of electricity consumed over a typical cooling season. A 10 efficiency system uses 60% more electricity than a 16 efficiency system to deliver the same cooling. The federal minimum is now 14 efficiency in northern states and 15 efficiency in the South. Higher efficiency means lower electric bills every summer.</p>
+          <p><strong class="text-text-primary">efficiency (Annual Fuel Utilization Efficiency)</strong> measures how efficiently a gas system converts fuel to heat. An 80% efficiency system loses 20 cents of every dollar as exhaust waste. A 96% efficiency system captures nearly all of that energy, reducing gas consumption by 20% compared to the older unit. Standard-efficiency systems run at 80% efficiency, while high-efficiency condensing systems reach 95-98%.</p>
+          <p><strong class="text-text-primary">Why higher is better:</strong> Both ratings work like miles per gallon for your Cleaning system. Higher numbers mean more output per unit of energy consumed. The difference compounds every month the system runs. In a hot climate, the efficiency upgrade drives most of the savings. In a cold climate, the efficiency improvement often matters more. This tool models both sides so you can show the customer exactly where their money goes.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm">
-            <p>Cooling: kWh = (Tons x 12,000 x Cooling_Hours) / (SEER x 1,000)</p>
-            <p>Heating: Therms = (Tons x 12,000 x Heating_Hours) / (AFUE/100 x 100,000)</p>
+            <p>Cooling: kWh = (Tons x 12,000 x Cooling_Hours) / (efficiency x 1,000)</p>
+            <p>Heating: Therms = (Tons x 12,000 x Heating_Hours) / (efficiency/100 x 100,000)</p>
           </div>
         </div>
       </section>
@@ -276,7 +276,7 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Sales presentations at the kitchen table.</strong> Pull this up on your tablet while sitting with the homeowner. Enter their current system specs on the left, your proposed equipment on the right, and let the visual comparison make the case. The side-by-side layout and bar chart are designed to be shown to customers, not just used behind the scenes.</p>
-          <p><strong class="text-text-primary">Proposal support for premium equipment.</strong> When you're quoting a 16 SEER system against a competitor's 14 SEER bid, this tool proves the long-term value. Show the customer that paying more upfront saves thousands over 10 years. Screenshot the results and attach them to your written proposal for added credibility.</p>
+          <p><strong class="text-text-primary">Proposal support for premium equipment.</strong> When you're quoting a 16 efficiency system against a competitor's 14 efficiency bid, this tool proves the long-term value. Show the customer that paying more upfront saves thousands over 10 years. Screenshot the results and attach them to your written proposal for added credibility.</p>
           <p><strong class="text-text-primary">Customer education on repair vs. replace.</strong> When a customer asks whether to repair their 18-year-old system or replace it, run the comparison. If the annual savings alone cover a significant portion of the repair cost, replacement makes financial sense even before factoring in reliability improvements and reduced breakdown risk.</p>
         </div>
       </section>
@@ -286,20 +286,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much can I save with a new HVAC system?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 SEER / 80% AFUE system with a 16 SEER / 96% AFUE system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the furnace upgrade.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much can I save with a new Cleaning system?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Savings depend on the efficiency gap between your current and new system, local energy prices, and climate. Replacing a 10 efficiency / 80% efficiency system with a 16 efficiency / 96% efficiency system typically saves $500 to $1,200 per year on a 3-ton unit. Hotter climates with more cooling hours see greater savings on the AC side, while colder climates benefit more from the system upgrade.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What SEER rating should I get?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For most homeowners, 16 SEER hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 SEER can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 SEER is usually sufficient. Always compare the payback period at different efficiency levels before deciding.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What efficiency rating should I get?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For most homeowners, 16 efficiency hits the sweet spot of upfront cost and long-term savings. In hot climates like the South or Southwest with 2,500+ cooling hours per year, 18-20 efficiency can pay back faster. In mild climates with under 1,500 cooling hours, 14-16 efficiency is usually sufficient. Always compare the payback period at different efficiency levels before deciding.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is a higher SEER always worth it?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Not always. Each SEER point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 SEER cuts cooling costs by 37%, but going from 16 to 20 SEER only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ SEER unit may never pay back. Run the comparison to see exact payback for your situation.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is a higher efficiency always worth it?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Not always. Each efficiency point above 16 costs more per unit of efficiency gained, and the savings diminish. A jump from 10 to 16 efficiency cuts cooling costs by 37%, but going from 16 to 20 efficiency only saves an additional 12.5%. In mild climates with low cooling hours, the extra cost of a 20+ efficiency unit may never pay back. Run the comparison to see exact payback for your situation.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does a new AC take to pay for itself?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 SEER to 16 SEER on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Payback periods typically range from 5 to 12 years depending on the efficiency jump, system size, local energy costs, and climate. A homeowner in the South upgrading from 10 efficiency to 16 efficiency on a 3-ton system often sees payback in 6-8 years. Utility rebates, manufacturer incentives, and federal tax credits can shorten that timeline significantly.</div>
           </details>
         </div>
       </section>

@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What are typical HVAC business overhead costs?",
+      "name": "What are typical Roofing business overhead costs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials."
+        "text": "Most Roofing businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials."
       }
     },
     {
@@ -29,12 +29,12 @@ const faqSchema = {
       "name": "What percentage of revenue should go to overhead?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The target range for HVAC companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%."
+        "text": "The target range for Roofing companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I reduce HVAC business overhead?",
+      "name": "How do I reduce Roofing business overhead?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, optimizing truck routes to cut fuel costs, switching to cloud-based dispatch software, cross-training office staff to eliminate redundant positions, and auditing subscriptions for unused services. Do not cut marketing below 6% of revenue or you will shrink your pipeline. Focus on efficiency gains rather than blanket cuts."
@@ -162,15 +162,15 @@ const faqSchema = {
       <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Compliance (Monthly)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="epaLicensing">EPA Licensing ($)</label>
-          <input type="number" id="epaLicensing" value="50" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="epaLicensing">Roofing License ($)</label>
+          <input type="number" id="epaLicensing" value="75" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="businessLicenses">Business Licenses ($)</label>
           <input type="number" id="businessLicenses" value="75" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="nateTraining">NATE/Training ($)</label>
+          <label class="block text-xs text-text-muted mb-1" for="nateTraining">Certification/Safety Training ($)</label>
           <input type="number" id="nateTraining" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
@@ -346,7 +346,7 @@ const faqSchema = {
 
       <!-- Benchmarks -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">HVAC Overhead Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Roofing Overhead Benchmarks</h4>
         <div class="space-y-3">
           <div>
             <div class="flex justify-between text-sm mb-1">
@@ -427,11 +427,11 @@ const faqSchema = {
 
       <!-- How Overhead Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How HVAC Overhead Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Roofing Overhead Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Overhead is every cost that keeps the business running but cannot be billed to a specific job.</strong> It includes rent, trucks, insurance, office salaries, software, marketing, and licensing. Unlike materials or tech labor, overhead does not change based on how many jobs you run in a given week.</p>
-          <p>Most HVAC business owners know their overhead exists but have never added it up. That means they are guessing when they set prices. If your overhead is $30,000 per month and you do not know it, you cannot build it into your rates, and every job looks more profitable than it actually is.</p>
-          <p><strong class="text-text-primary">The per-hour number is the most important output.</strong> It tells you exactly how much overhead you burn for every billable hour a tech works. If your overhead per hour is $130 and you bill the customer $150 per hour, you only have $20 left to cover the tech's wages and profit. That math does not work. Knowing this number forces you to price correctly.</p>
+          <p>Most Roofing business owners know their overhead exists but have never added it up. That means they are guessing when they set prices. If your overhead is $30,000 per month and you do not know it, you cannot build it into your rates, and every job looks more profitable than it actually is.</p>
+          <p><strong class="text-text-primary">The per-hour number is the most important output.</strong> It tells you exactly how much overhead you burn for every billable hour a crew member works. If your overhead per hour is $130 and you bill the customer $150 per hour, you only have $20 left to cover the worker's wages and profit. That math does not work. Knowing this number forces you to price correctly.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
             <p>Fleet_Monthly = Trucks &times; (Fuel + Insurance + Maintenance + Payment)</p>
             <p>Total_Monthly = Facility + Fleet + Insurance + People + Operations + Compliance + Marketing + Other</p>
@@ -460,8 +460,8 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are typical HVAC business overhead costs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are typical Roofing business overhead costs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Roofing businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead per hour?</summary>
@@ -469,10 +469,10 @@ const faqSchema = {
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What percentage of revenue should go to overhead?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The target range for HVAC companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The target range for Roofing companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I reduce HVAC business overhead?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I reduce Roofing business overhead?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, optimizing truck routes to cut fuel costs, switching to cloud-based dispatch software, cross-training office staff to eliminate redundant positions, and auditing subscriptions for unused services. Do not cut marketing below 6% of revenue or you will shrink your pipeline. Focus on efficiency gains rather than blanket cuts.</div>
           </details>
         </div>

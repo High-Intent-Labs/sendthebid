@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What are typical HVAC business overhead costs?",
+      "name": "What are typical painting business overhead costs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials."
+        "text": "Most painting businesses carry 20-35% overhead relative to revenue. The largest categories are usually vehicle costs, payroll for non-painter staff (office, estimator, owner salary), insurance (general liability, workers comp), equipment (ladders, sprayers, scaffolding), and marketing. A two-vehicle operation with storage typically runs $12,000-$22,000 per month in overhead before any painter labor or job materials."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I calculate overhead per hour?",
+      "name": "How do I calculate overhead per billable hour for painting?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Divide your total annual overhead by the total billable hours your techs produce in a year. For example, if annual overhead is $300,000 and you have 3 techs each billing 768 hours per year (64 hours per month), your total billable hours are 2,304. Overhead per hour is $300,000 / 2,304 = $130.21. This number must be built into your hourly billing rate on top of labor cost and profit margin."
+        "text": "Divide your total annual overhead by the total billable hours your painters produce in a year. For example, if annual overhead is $180,000 and you have 4 painters each billing 120 hours per month, your total billable hours are 5,760. Overhead per hour is $180,000 / 5,760 = $31.25. This number must be built into your hourly billing rate on top of labor cost and profit margin."
       }
     },
     {
       "@type": "Question",
-      "name": "What percentage of revenue should go to overhead?",
+      "name": "What percentage of revenue should go to overhead for a painting company?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The target range for HVAC companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%."
+        "text": "The target range for painting companies is 20-30% of revenue going to overhead. Below 20% usually means a very lean operation or underinvestment in growth. Above 30% signals you may be overspending or underpricing. Marketing should be 5-8% of revenue for a stable business and 10-15% if you are actively growing. Vehicle costs typically run 5-8% and insurance 3-5%."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I reduce HVAC business overhead?",
+      "name": "How do I reduce painting business overhead?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, optimizing truck routes to cut fuel costs, switching to cloud-based dispatch software, cross-training office staff to eliminate redundant positions, and auditing subscriptions for unused services. Do not cut marketing below 6% of revenue or you will shrink your pipeline. Focus on efficiency gains rather than blanket cuts."
+        "text": "Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, maintaining equipment to extend its life, cross-training office staff, auditing subscriptions for unused services, and negotiating better rates on lift and scaffold rentals. Do not cut marketing below 5% of revenue or you will shrink your pipeline. Focus on efficiency gains rather than blanket cuts."
       }
     }
   ]
@@ -51,39 +51,39 @@ const faqSchema = {
       <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Facility (Monthly)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="shopRent">Shop Rent ($)</label>
-          <input type="number" id="shopRent" value="2000" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="shopRent">Shop / Storage Rent ($)</label>
+          <input type="number" id="shopRent" value="1200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="utilities">Utilities ($)</label>
-          <input type="number" id="utilities" value="400" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="utilities" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
 
-    <!-- Fleet -->
+    <!-- Vehicles -->
     <details class="mb-4 bg-bg-card border border-border rounded-lg" open>
-      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Fleet (Per Truck)</summary>
+      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Vehicles (Per Vehicle)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="sm:col-span-2 lg:col-span-3">
-          <label class="block text-xs text-text-muted mb-1" for="numTrucks">Number of Trucks</label>
-          <input type="number" id="numTrucks" value="3" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="numVehicles">Number of Vehicles</label>
+          <input type="number" id="numVehicles" value="2" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="fuelPerTruck">Fuel per Truck ($)</label>
-          <input type="number" id="fuelPerTruck" value="600" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="fuelPerVehicle">Fuel per Vehicle ($)</label>
+          <input type="number" id="fuelPerVehicle" value="400" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="insurancePerTruck">Insurance per Truck ($)</label>
-          <input type="number" id="insurancePerTruck" value="250" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="insurancePerVehicle">Insurance per Vehicle ($)</label>
+          <input type="number" id="insurancePerVehicle" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="maintPerTruck">Maintenance per Truck ($)</label>
-          <input type="number" id="maintPerTruck" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="maintPerVehicle">Maintenance per Vehicle ($)</label>
+          <input type="number" id="maintPerVehicle" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="paymentPerTruck">Payment per Truck ($)</label>
-          <input type="number" id="paymentPerTruck" value="450" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="paymentPerVehicle">Payment per Vehicle ($)</label>
+          <input type="number" id="paymentPerVehicle" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
@@ -94,38 +94,69 @@ const faqSchema = {
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label class="block text-xs text-text-muted mb-1" for="generalLiability">General Liability ($)</label>
-          <input type="number" id="generalLiability" value="500" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="generalLiability" value="350" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="workersComp">Workers Comp ($)</label>
-          <input type="number" id="workersComp" value="800" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="workersComp" value="600" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="umbrella">Umbrella ($)</label>
-          <input type="number" id="umbrella" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="umbrella">Umbrella / Bonding ($)</label>
+          <input type="number" id="umbrella" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
 
     <!-- People -->
     <details class="mb-4 bg-bg-card border border-border rounded-lg" open>
-      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">People (Monthly, Non-Tech)</summary>
+      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">People (Monthly, Non-Painter)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="officeStaff">Office Staff ($)</label>
-          <input type="number" id="officeStaff" value="3500" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="officeStaff">Office / Admin Staff ($)</label>
+          <input type="number" id="officeStaff" value="2500" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="dispatcher">Dispatcher ($)</label>
-          <input type="number" id="dispatcher" value="3000" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="estimator">Estimator / Project Manager ($)</label>
+          <input type="number" id="estimator" value="0" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Enter $0 if owner handles estimating</p>
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="ownerSalary">Owner Salary ($)</label>
-          <input type="number" id="ownerSalary" value="10000" min="0" step="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="ownerSalary" value="7000" min="0" step="500" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="bookkeeper">Bookkeeper ($)</label>
-          <input type="number" id="bookkeeper" value="500" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="bookkeeper" value="400" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+      </div>
+    </details>
+
+    <!-- Equipment -->
+    <details class="mb-4 bg-bg-card border border-border rounded-lg" open>
+      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Equipment &amp; Supplies (Monthly)</summary>
+      <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="ladderScaffold">Ladder / Scaffold Maintenance ($)</label>
+          <input type="number" id="ladderScaffold" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="sprayerEquipment">Sprayer Equipment ($)</label>
+          <input type="number" id="sprayerEquipment" value="100" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Amortized cost or monthly payment</p>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="liftRental">Lift Rental Reserve ($)</label>
+          <input type="number" id="liftRental" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Monthly avg for boom lift, scissor lift</p>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="protectiveEquipment">PPE / Protective Equipment ($)</label>
+          <input type="number" id="protectiveEquipment" value="75" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Respirators, masks, gloves, coveralls</p>
+        </div>
+        <div>
+          <label class="block text-xs text-text-muted mb-1" for="dropClothsSupplies">Drop Cloths / Reusable Supplies ($)</label>
+          <input type="number" id="dropClothsSupplies" value="50" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
@@ -135,43 +166,37 @@ const faqSchema = {
       <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Operations (Monthly)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="softwareDispatch">Software/Dispatch ($)</label>
-          <input type="number" id="softwareDispatch" value="400" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="softwareCRM">Software / CRM ($)</label>
+          <input type="number" id="softwareCRM" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="answeringService">Answering Service ($)</label>
-          <input type="number" id="answeringService" value="300" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="phoneInternet">Phone / Internet ($)</label>
+          <input type="number" id="phoneInternet" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="phoneInternet">Phone/Internet ($)</label>
-          <input type="number" id="phoneInternet" value="250" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-xs text-text-muted mb-1" for="toolsEquipment">Tools/Equipment ($)</label>
-          <input type="number" id="toolsEquipment" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-xs text-text-muted mb-1" for="uniforms">Uniforms ($)</label>
-          <input type="number" id="uniforms" value="100" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="uniforms">Uniforms / Branded Apparel ($)</label>
+          <input type="number" id="uniforms" value="75" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
 
-    <!-- Compliance -->
+    <!-- Licensing & Compliance -->
     <details class="mb-4 bg-bg-card border border-border rounded-lg" open>
-      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Compliance (Monthly)</summary>
+      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Licensing &amp; Compliance (Monthly)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="epaLicensing">EPA Licensing ($)</label>
-          <input type="number" id="epaLicensing" value="50" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="leadPaintCert">Lead Paint / RRP Certification ($)</label>
+          <input type="number" id="leadPaintCert" value="25" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">EPA RRP cert amortized monthly</p>
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="businessLicenses">Business Licenses ($)</label>
-          <input type="number" id="businessLicenses" value="75" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="businessLicenses" value="50" min="0" step="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="nateTraining">NATE/Training ($)</label>
-          <input type="number" id="nateTraining" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="safetyTraining">Safety Training ($)</label>
+          <input type="number" id="safetyTraining" value="75" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Fall protection, VOC handling, etc.</p>
         </div>
       </div>
     </details>
@@ -182,19 +207,19 @@ const faqSchema = {
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block text-xs text-text-muted mb-1" for="onlineAds">Online Ads ($)</label>
-          <input type="number" id="onlineAds" value="1500" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="onlineAds" value="800" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="seoWebsite">SEO/Website ($)</label>
-          <input type="number" id="seoWebsite" value="500" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="seoWebsite">SEO / Website ($)</label>
+          <input type="number" id="seoWebsite" value="300" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="printMail">Print/Mail ($)</label>
-          <input type="number" id="printMail" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="printMail">Print / Door Hangers ($)</label>
+          <input type="number" id="printMail" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="referralPrograms">Referral Programs ($)</label>
-          <input type="number" id="referralPrograms" value="300" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="referralPrograms" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
@@ -204,53 +229,47 @@ const faqSchema = {
       <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Other (Monthly)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="accountingLegal">Accounting/Legal ($)</label>
-          <input type="number" id="accountingLegal" value="400" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="accountingLegal">Accounting / Legal ($)</label>
+          <input type="number" id="accountingLegal" value="300" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="badDebt">Bad Debt Allowance ($)</label>
-          <input type="number" id="badDebt" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="badDebt" value="150" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="misc">Misc ($)</label>
-          <input type="number" id="misc" value="300" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="misc" value="200" min="0" step="25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
 
     <!-- Context -->
     <details class="mb-8 bg-bg-card border border-border rounded-lg" open>
-      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Context (For Per-Hour &amp; Per-Call Math)</summary>
+      <summary class="px-5 py-4 cursor-pointer text-text-primary font-heading font-bold text-sm uppercase tracking-wider hover:text-accent transition-colors">Context (For Per-Hour &amp; Per-Job Math)</summary>
       <div class="px-5 pb-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="numTechs">Number of Techs</label>
-          <input type="number" id="numTechs" value="3" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="numPainters">Number of Painters</label>
+          <input type="number" id="numPainters" value="4" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="billableHours">Billable Hours/Month per Tech</label>
-          <input type="number" id="billableHours" value="64" min="1" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="billableHours">Billable Hours/Month per Painter</label>
+          <input type="number" id="billableHours" value="120" min="1" max="200" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <p class="text-text-muted text-xs mt-1">Avg 6 hrs/day x 20 days</p>
         </div>
         <div>
           <label class="block text-xs text-text-muted mb-1" for="annualRevenue">Annual Revenue ($)</label>
-          <input type="number" id="annualRevenue" value="1500000" min="0" step="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="number" id="annualRevenue" value="800000" min="0" step="10000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="callsPerDay">Avg Service Calls per Day</label>
-          <input type="number" id="callsPerDay" value="6" min="1" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-xs text-text-muted mb-1" for="workingDays">Working Days per Month</label>
-          <input type="number" id="workingDays" value="22" min="1" max="31" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <label class="block text-xs text-text-muted mb-1" for="jobsPerMonth">Avg Jobs per Month</label>
+          <input type="number" id="jobsPerMonth" value="15" min="1" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
     </details>
 
-
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
-
-      <!-- Primary results -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center sm:col-span-2">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Monthly Overhead</div>
@@ -261,19 +280,18 @@ const faqSchema = {
           <div id="result-annual" class="font-heading font-extrabold text-3xl text-text-primary">--</div>
         </div>
       </div>
-
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Per Tech (Annual)</div>
-          <div id="result-per-tech" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Per Painter (Annual)</div>
+          <div id="result-per-painter" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Per Billable Hour</div>
           <div id="result-per-hour" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Per Service Call</div>
-          <div id="result-per-call" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Per Job (Avg)</div>
+          <div id="result-per-job" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Overhead % of Revenue</div>
@@ -285,195 +303,113 @@ const faqSchema = {
       <div class="bg-bg-dark rounded-xl p-6 mb-8">
         <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Category Breakdown (Monthly)</h4>
         <div class="space-y-3" id="category-breakdown">
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Facility</span>
-            <span id="cat-facility" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-facility" class="bg-[#60A5FA] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Fleet</span>
-            <span id="cat-fleet" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-fleet" class="bg-[#34D399] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Insurance</span>
-            <span id="cat-insurance" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-insurance" class="bg-[#C084FC] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">People</span>
-            <span id="cat-people" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-people" class="bg-[#FBBF24] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Operations</span>
-            <span id="cat-operations" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-operations" class="bg-[#F472B6] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Compliance</span>
-            <span id="cat-compliance" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-compliance" class="bg-[#A78BFA] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Marketing</span>
-            <span id="cat-marketing" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-marketing" class="bg-[#FB923C] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-text-secondary">Other</span>
-            <span id="cat-other" class="text-text-primary font-semibold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-            <div id="bar-other" class="bg-[#94A3B8] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Facility</span><span id="cat-facility" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-facility" class="bg-[#60A5FA] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Vehicles</span><span id="cat-vehicles" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-vehicles" class="bg-[#34D399] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Insurance</span><span id="cat-insurance" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-insurance" class="bg-[#C084FC] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">People</span><span id="cat-people" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-people" class="bg-[#FBBF24] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Equipment</span><span id="cat-equipment" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-equipment" class="bg-[#F472B6] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Operations</span><span id="cat-operations" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-operations" class="bg-[#A78BFA] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Licensing</span><span id="cat-licensing" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-licensing" class="bg-[#2DD4BF] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Marketing</span><span id="cat-marketing" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-marketing" class="bg-[#FB923C] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+          <div class="flex justify-between text-sm"><span class="text-text-secondary">Other</span><span id="cat-other" class="text-text-primary font-semibold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div id="bar-other" class="bg-[#94A3B8] h-2 rounded-full transition-all duration-500" style="width: 0%"></div></div>
         </div>
       </div>
 
       <!-- Benchmarks -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">HVAC Overhead Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Painting Overhead Benchmarks</h4>
         <div class="space-y-3">
           <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Target Overhead</span>
-              <span class="text-text-primary font-semibold">25 &ndash; 35% of revenue</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#34D399] h-2 rounded-full" style="width: 30%"></div>
-            </div>
+            <div class="flex justify-between text-sm mb-1"><span class="text-text-secondary">Target Overhead</span><span class="text-text-primary font-semibold">20 &ndash; 30% of revenue</span></div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div class="bg-[#34D399] h-2 rounded-full" style="width: 25%"></div></div>
           </div>
           <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Marketing</span>
-              <span class="text-text-primary font-semibold">6% of revenue (12%+ for growth)</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#FB923C] h-2 rounded-full" style="width: 12%"></div>
-            </div>
+            <div class="flex justify-between text-sm mb-1"><span class="text-text-secondary">Marketing</span><span class="text-text-primary font-semibold">5 &ndash; 8% of revenue (10%+ for growth)</span></div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div class="bg-[#FB923C] h-2 rounded-full" style="width: 10%"></div></div>
           </div>
           <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Fleet</span>
-              <span class="text-text-primary font-semibold">$800 &ndash; $1,500/mo per truck</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 25%"></div>
-            </div>
+            <div class="flex justify-between text-sm mb-1"><span class="text-text-secondary">Vehicles</span><span class="text-text-primary font-semibold">$500 &ndash; $1,100/mo per vehicle</span></div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div class="bg-[#60A5FA] h-2 rounded-full" style="width: 20%"></div></div>
           </div>
           <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Software</span>
-              <span class="text-text-primary font-semibold">$200 &ndash; $500/mo per tech</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 18%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Insurance</span>
-              <span class="text-text-primary font-semibold">3 &ndash; 5% of revenue</span>
-            </div>
-            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 5%"></div>
-            </div>
+            <div class="flex justify-between text-sm mb-1"><span class="text-text-secondary">Insurance</span><span class="text-text-primary font-semibold">3 &ndash; 5% of revenue</span></div>
+            <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2"><div class="bg-[#C084FC] h-2 rounded-full" style="width: 5%"></div></div>
           </div>
           <div id="benchmark-warning" class="hidden mt-3 bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] rounded-lg px-4 py-3 text-sm text-[#FCA5A5]">
-            Your overhead exceeds 35% of revenue. Review your largest categories for cost reduction opportunities.
+            Your overhead exceeds 30% of revenue. Review your largest categories for cost reduction opportunities.
           </div>
         </div>
-        <!-- Your overhead indicator -->
         <div class="mt-4 pt-4 border-t border-border">
-          <div class="flex justify-between text-sm mb-1">
-            <span class="text-text-secondary font-medium">Your Overhead % of Revenue</span>
-            <span id="benchmark-your-pct" class="font-heading font-bold">--</span>
-          </div>
-          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2.5">
-            <div id="benchmark-bar" class="h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
-          </div>
+          <div class="flex justify-between text-sm mb-1"><span class="text-text-secondary font-medium">Your Overhead % of Revenue</span><span id="benchmark-your-pct" class="font-heading font-bold">--</span></div>
+          <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2.5"><div id="benchmark-bar" class="h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
-      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Fill in each overhead category.</strong> Start with the defaults and adjust to match your actual expenses. Every dollar you spend to keep the business running that is not tied to a specific job belongs here. Open each section and enter your real monthly numbers.</p>
-          <p><strong class="text-text-primary">2. Set your fleet size.</strong> Enter the number of trucks you operate. The calculator multiplies per-truck costs (fuel, insurance, maintenance, payments) by your fleet size to get the total fleet overhead.</p>
-          <p><strong class="text-text-primary">3. Enter your context numbers.</strong> The number of techs, billable hours per tech, annual revenue, daily service calls, and working days let the calculator translate raw overhead into per-hour and per-call figures you can use for pricing.</p>
-          <p><strong class="text-text-primary">4. Review your results.</strong> Check whether your overhead percentage falls within the 25-35% target range. Use the per-hour and per-call numbers to make sure your billing rates cover overhead plus profit.</p>
+          <p><strong class="text-text-primary">1. Fill in each overhead category.</strong> Start with the defaults and adjust to match your actual expenses. Every dollar you spend to keep the business running that is not tied to a specific paint job belongs here.</p>
+          <p><strong class="text-text-primary">2. Set your vehicle count.</strong> Enter the number of vehicles you operate. The calculator multiplies per-vehicle costs by your fleet size to get the total vehicle overhead.</p>
+          <p><strong class="text-text-primary">3. Enter your context numbers.</strong> The number of painters, billable hours per painter, annual revenue, and jobs per month let the calculator translate raw overhead into per-hour and per-job figures you can use for pricing.</p>
+          <p><strong class="text-text-primary">4. Review your results.</strong> Check whether your overhead percentage falls within the 20-30% target range. Use the per-hour and per-job numbers to make sure your billing rates cover overhead plus profit.</p>
         </div>
       </section>
-
-      <!-- How Overhead Works -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How HVAC Overhead Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How Painting Overhead Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Overhead is every cost that keeps the business running but cannot be billed to a specific job.</strong> It includes rent, trucks, insurance, office salaries, software, marketing, and licensing. Unlike materials or tech labor, overhead does not change based on how many jobs you run in a given week.</p>
-          <p>Most HVAC business owners know their overhead exists but have never added it up. That means they are guessing when they set prices. If your overhead is $30,000 per month and you do not know it, you cannot build it into your rates, and every job looks more profitable than it actually is.</p>
-          <p><strong class="text-text-primary">The per-hour number is the most important output.</strong> It tells you exactly how much overhead you burn for every billable hour a tech works. If your overhead per hour is $130 and you bill the customer $150 per hour, you only have $20 left to cover the tech's wages and profit. That math does not work. Knowing this number forces you to price correctly.</p>
+          <p><strong class="text-text-primary">Overhead is every cost that keeps the business running but cannot be billed to a specific job.</strong> It includes rent, vehicles, insurance, office salaries, equipment maintenance, software, marketing, and licensing. Unlike paint and painter labor, overhead does not change based on how many jobs you run in a given week.</p>
+          <p>Painting businesses typically have lower overhead than HVAC or plumbing companies because they do not need expensive diagnostic equipment, specialized trucks, or complex inventory. However, many painting contractors underestimate their true overhead because they forget to include equipment depreciation, lift rental reserves, and lead paint certification costs.</p>
+          <p><strong class="text-text-primary">The per-hour number is the most important output.</strong> It tells you exactly how much overhead you burn for every billable hour a painter works. If your overhead per hour is $30 and you bill the customer $55 per hour, you only have $25 left to cover the painter's wages and profit. Knowing this number forces you to price correctly.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Fleet_Monthly = Trucks &times; (Fuel + Insurance + Maintenance + Payment)</p>
-            <p>Total_Monthly = Facility + Fleet + Insurance + People + Operations + Compliance + Marketing + Other</p>
-            <p>Annual_Overhead = Total_Monthly &times; 12</p>
-            <p>Per_Tech = Annual_Overhead / Number_of_Techs</p>
-            <p>Per_Hour = Annual_Overhead / (Techs &times; Billable_Hours &times; 12)</p>
-            <p>Per_Call = Annual_Overhead / (Calls_Per_Day &times; Working_Days &times; 12)</p>
-            <p>Overhead_Pct = (Annual_Overhead / Annual_Revenue) &times; 100</p>
+            <p>Vehicles_Monthly = Num_Vehicles x (Fuel + Insurance + Maintenance + Payment)</p>
+            <p>Total_Monthly = Facility + Vehicles + Insurance + People + Equipment + Operations + Licensing + Marketing + Other</p>
+            <p>Annual_Overhead = Total_Monthly x 12</p>
+            <p>Per_Painter = Annual_Overhead / Number_of_Painters</p>
+            <p>Per_Hour = Annual_Overhead / (Painters x Billable_Hours x 12)</p>
+            <p>Per_Job = Total_Monthly / Jobs_Per_Month</p>
+            <p>Overhead_Pct = (Annual_Overhead / Annual_Revenue) x 100</p>
           </div>
-          <p>The category breakdown shows where your money goes so you can identify the biggest line items. People and fleet are almost always the top two. If marketing is below 6% of revenue, you may be underinvesting in growth.</p>
         </div>
       </section>
-
-      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Setting billing rates.</strong> Before you decide what to charge per hour or per call, you need to know your overhead per hour. This calculator gives you that number so you can build rates that actually cover your costs and leave room for profit. Without it, you are guessing.</p>
-          <p><strong class="text-text-primary">Annual budgeting and planning.</strong> At the start of each year, plug in your expected costs to see where you will land. If overhead is creeping above 35% of projected revenue, you know you need to either cut costs or grow revenue before the year gets away from you.</p>
-          <p><strong class="text-text-primary">Evaluating growth decisions.</strong> Thinking about adding a truck, hiring a dispatcher, or increasing your ad spend? Enter the new numbers and see how they change your overhead per hour and overhead percentage. This prevents surprises when the bills start rolling in after you have already committed.</p>
+          <p><strong class="text-text-primary">Setting billing rates.</strong> Before you decide what to charge per hour or per job, you need to know your overhead per hour. This calculator gives you that number so you can build rates that actually cover your costs and leave room for profit.</p>
+          <p><strong class="text-text-primary">Annual budgeting and planning.</strong> At the start of each year, plug in your expected costs. If overhead is creeping above 30% of projected revenue, you need to either cut costs or grow revenue.</p>
+          <p><strong class="text-text-primary">Evaluating growth decisions.</strong> Thinking about adding a vehicle, hiring an estimator, or increasing your ad spend? Enter the new numbers and see how they change your overhead per hour and overhead percentage.</p>
         </div>
       </section>
-
-      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are typical HVAC business overhead costs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC businesses carry 25-40% overhead relative to revenue. The largest categories are usually fleet costs (fuel, insurance, payments), payroll for non-tech staff (office, dispatch, owner salary), insurance (general liability, workers comp), and marketing. A three-truck shop with an office typically runs $18,000-$28,000 per month in overhead before any tech labor or job materials.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are typical painting business overhead costs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most painting businesses carry 20-35% overhead relative to revenue. The largest categories are usually vehicle costs, payroll for non-painter staff, insurance, equipment, and marketing. A two-vehicle operation with storage typically runs $12,000-$22,000 per month in overhead before any painter labor or job materials.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead per hour?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Divide your total annual overhead by the total billable hours your techs produce in a year. For example, if annual overhead is $300,000 and you have 3 techs each billing 768 hours per year (64 hours per month), your total billable hours are 2,304. Overhead per hour is $300,000 / 2,304 = $130.21. This number must be built into your hourly billing rate on top of labor cost and profit margin.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead per billable hour for painting?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Divide your total annual overhead by the total billable hours your painters produce in a year. For example, if annual overhead is $180,000 and you have 4 painters each billing 120 hours per month, your total billable hours are 5,760. Overhead per hour is $180,000 / 5,760 = $31.25.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What percentage of revenue should go to overhead?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The target range for HVAC companies is 25-35% of revenue going to overhead. Below 25% usually means a lean operation or underinvestment in growth. Above 35% signals you may be overspending or underpricing. Marketing alone should be 6-8% of revenue for a stable business and 10-15% if you are actively growing. Fleet costs typically run 8-12% and insurance 3-5%.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The target range for painting companies is 20-30% of revenue going to overhead. Below 20% usually means a lean operation. Above 30% signals overspending or underpricing. Marketing should be 5-8% for a stable business and 10-15% if actively growing.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I reduce HVAC business overhead?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, optimizing truck routes to cut fuel costs, switching to cloud-based dispatch software, cross-training office staff to eliminate redundant positions, and auditing subscriptions for unused services. Do not cut marketing below 6% of revenue or you will shrink your pipeline. Focus on efficiency gains rather than blanket cuts.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I reduce painting business overhead?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start by identifying your top three overhead categories. Common wins include renegotiating insurance annually, maintaining equipment to extend its life, cross-training office staff, auditing subscriptions, and negotiating better lift rental rates. Do not cut marketing below 5% of revenue.</div>
           </details>
         </div>
       </section>
@@ -483,105 +419,92 @@ const faqSchema = {
 
 <script>
   function calculate() {
-    // Facility
     const shopRent = parseFloat((document.getElementById('shopRent') as HTMLInputElement).value) || 0;
     const utilities = parseFloat((document.getElementById('utilities') as HTMLInputElement).value) || 0;
     const facilityTotal = shopRent + utilities;
 
-    // Fleet
-    const numTrucks = parseFloat((document.getElementById('numTrucks') as HTMLInputElement).value) || 0;
-    const fuelPerTruck = parseFloat((document.getElementById('fuelPerTruck') as HTMLInputElement).value) || 0;
-    const insurancePerTruck = parseFloat((document.getElementById('insurancePerTruck') as HTMLInputElement).value) || 0;
-    const maintPerTruck = parseFloat((document.getElementById('maintPerTruck') as HTMLInputElement).value) || 0;
-    const paymentPerTruck = parseFloat((document.getElementById('paymentPerTruck') as HTMLInputElement).value) || 0;
-    const fleetTotal = numTrucks * (fuelPerTruck + insurancePerTruck + maintPerTruck + paymentPerTruck);
+    const numVehicles = parseFloat((document.getElementById('numVehicles') as HTMLInputElement).value) || 0;
+    const fuelPerVehicle = parseFloat((document.getElementById('fuelPerVehicle') as HTMLInputElement).value) || 0;
+    const insurancePerVehicle = parseFloat((document.getElementById('insurancePerVehicle') as HTMLInputElement).value) || 0;
+    const maintPerVehicle = parseFloat((document.getElementById('maintPerVehicle') as HTMLInputElement).value) || 0;
+    const paymentPerVehicle = parseFloat((document.getElementById('paymentPerVehicle') as HTMLInputElement).value) || 0;
+    const vehiclesTotal = numVehicles * (fuelPerVehicle + insurancePerVehicle + maintPerVehicle + paymentPerVehicle);
 
-    // Insurance
     const generalLiability = parseFloat((document.getElementById('generalLiability') as HTMLInputElement).value) || 0;
     const workersComp = parseFloat((document.getElementById('workersComp') as HTMLInputElement).value) || 0;
     const umbrella = parseFloat((document.getElementById('umbrella') as HTMLInputElement).value) || 0;
     const insuranceTotal = generalLiability + workersComp + umbrella;
 
-    // People
     const officeStaff = parseFloat((document.getElementById('officeStaff') as HTMLInputElement).value) || 0;
-    const dispatcher = parseFloat((document.getElementById('dispatcher') as HTMLInputElement).value) || 0;
+    const estimator = parseFloat((document.getElementById('estimator') as HTMLInputElement).value) || 0;
     const ownerSalary = parseFloat((document.getElementById('ownerSalary') as HTMLInputElement).value) || 0;
     const bookkeeper = parseFloat((document.getElementById('bookkeeper') as HTMLInputElement).value) || 0;
-    const peopleTotal = officeStaff + dispatcher + ownerSalary + bookkeeper;
+    const peopleTotal = officeStaff + estimator + ownerSalary + bookkeeper;
 
-    // Operations
-    const softwareDispatch = parseFloat((document.getElementById('softwareDispatch') as HTMLInputElement).value) || 0;
-    const answeringService = parseFloat((document.getElementById('answeringService') as HTMLInputElement).value) || 0;
+    const ladderScaffold = parseFloat((document.getElementById('ladderScaffold') as HTMLInputElement).value) || 0;
+    const sprayerEquipment = parseFloat((document.getElementById('sprayerEquipment') as HTMLInputElement).value) || 0;
+    const liftRental = parseFloat((document.getElementById('liftRental') as HTMLInputElement).value) || 0;
+    const protectiveEquipment = parseFloat((document.getElementById('protectiveEquipment') as HTMLInputElement).value) || 0;
+    const dropClothsSupplies = parseFloat((document.getElementById('dropClothsSupplies') as HTMLInputElement).value) || 0;
+    const equipmentTotal = ladderScaffold + sprayerEquipment + liftRental + protectiveEquipment + dropClothsSupplies;
+
+    const softwareCRM = parseFloat((document.getElementById('softwareCRM') as HTMLInputElement).value) || 0;
     const phoneInternet = parseFloat((document.getElementById('phoneInternet') as HTMLInputElement).value) || 0;
-    const toolsEquipment = parseFloat((document.getElementById('toolsEquipment') as HTMLInputElement).value) || 0;
     const uniforms = parseFloat((document.getElementById('uniforms') as HTMLInputElement).value) || 0;
-    const operationsTotal = softwareDispatch + answeringService + phoneInternet + toolsEquipment + uniforms;
+    const operationsTotal = softwareCRM + phoneInternet + uniforms;
 
-    // Compliance
-    const epaLicensing = parseFloat((document.getElementById('epaLicensing') as HTMLInputElement).value) || 0;
+    const leadPaintCert = parseFloat((document.getElementById('leadPaintCert') as HTMLInputElement).value) || 0;
     const businessLicenses = parseFloat((document.getElementById('businessLicenses') as HTMLInputElement).value) || 0;
-    const nateTraining = parseFloat((document.getElementById('nateTraining') as HTMLInputElement).value) || 0;
-    const complianceTotal = epaLicensing + businessLicenses + nateTraining;
+    const safetyTraining = parseFloat((document.getElementById('safetyTraining') as HTMLInputElement).value) || 0;
+    const licensingTotal = leadPaintCert + businessLicenses + safetyTraining;
 
-    // Marketing
     const onlineAds = parseFloat((document.getElementById('onlineAds') as HTMLInputElement).value) || 0;
     const seoWebsite = parseFloat((document.getElementById('seoWebsite') as HTMLInputElement).value) || 0;
     const printMail = parseFloat((document.getElementById('printMail') as HTMLInputElement).value) || 0;
     const referralPrograms = parseFloat((document.getElementById('referralPrograms') as HTMLInputElement).value) || 0;
     const marketingTotal = onlineAds + seoWebsite + printMail + referralPrograms;
 
-    // Other
     const accountingLegal = parseFloat((document.getElementById('accountingLegal') as HTMLInputElement).value) || 0;
     const badDebt = parseFloat((document.getElementById('badDebt') as HTMLInputElement).value) || 0;
     const misc = parseFloat((document.getElementById('misc') as HTMLInputElement).value) || 0;
     const otherTotal = accountingLegal + badDebt + misc;
 
-    // Context
-    const numTechs = parseFloat((document.getElementById('numTechs') as HTMLInputElement).value) || 1;
+    const numPainters = parseFloat((document.getElementById('numPainters') as HTMLInputElement).value) || 1;
     const billableHours = parseFloat((document.getElementById('billableHours') as HTMLInputElement).value) || 1;
     const annualRevenue = parseFloat((document.getElementById('annualRevenue') as HTMLInputElement).value) || 0;
-    const callsPerDay = parseFloat((document.getElementById('callsPerDay') as HTMLInputElement).value) || 1;
-    const workingDays = parseFloat((document.getElementById('workingDays') as HTMLInputElement).value) || 1;
+    const jobsPerMonth = parseFloat((document.getElementById('jobsPerMonth') as HTMLInputElement).value) || 1;
 
-    // Totals
-    const totalMonthly = facilityTotal + fleetTotal + insuranceTotal + peopleTotal + operationsTotal + complianceTotal + marketingTotal + otherTotal;
+    const totalMonthly = facilityTotal + vehiclesTotal + insuranceTotal + peopleTotal + equipmentTotal + operationsTotal + licensingTotal + marketingTotal + otherTotal;
     const totalAnnual = totalMonthly * 12;
-    const perTech = totalAnnual / numTechs;
-    const perHour = totalAnnual / (numTechs * billableHours * 12);
-    const perCall = totalAnnual / (callsPerDay * workingDays * 12);
+    const perPainter = totalAnnual / numPainters;
+    const perHour = totalAnnual / (numPainters * billableHours * 12);
+    const perJob = totalMonthly / jobsPerMonth;
     const overheadPct = annualRevenue > 0 ? (totalAnnual / annualRevenue) * 100 : 0;
 
-    // Format currency
     const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     const fmtDec = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    // Primary results
     document.getElementById('result-monthly')!.textContent = fmt(totalMonthly);
     document.getElementById('result-annual')!.textContent = fmt(totalAnnual);
-    document.getElementById('result-per-tech')!.textContent = fmt(perTech);
+    document.getElementById('result-per-painter')!.textContent = fmt(perPainter);
     document.getElementById('result-per-hour')!.textContent = fmtDec(perHour);
-    document.getElementById('result-per-call')!.textContent = fmtDec(perCall);
+    document.getElementById('result-per-job')!.textContent = fmtDec(perJob);
     document.getElementById('result-pct')!.textContent = overheadPct.toFixed(1) + '%';
 
-    // Color overhead percentage
     const pctEl = document.getElementById('result-pct')!;
     pctEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (overheadPct <= 25) {
-      pctEl.classList.add('text-[#34D399]');
-    } else if (overheadPct <= 35) {
-      pctEl.classList.add('text-[#FBBF24]');
-    } else {
-      pctEl.classList.add('text-[#EF4444]');
-    }
+    if (overheadPct <= 20) pctEl.classList.add('text-[#34D399]');
+    else if (overheadPct <= 30) pctEl.classList.add('text-[#FBBF24]');
+    else pctEl.classList.add('text-[#EF4444]');
 
-    // Category breakdown
     const categories = [
       { id: 'facility', total: facilityTotal },
-      { id: 'fleet', total: fleetTotal },
+      { id: 'vehicles', total: vehiclesTotal },
       { id: 'insurance', total: insuranceTotal },
       { id: 'people', total: peopleTotal },
+      { id: 'equipment', total: equipmentTotal },
       { id: 'operations', total: operationsTotal },
-      { id: 'compliance', total: complianceTotal },
+      { id: 'licensing', total: licensingTotal },
       { id: 'marketing', total: marketingTotal },
       { id: 'other', total: otherTotal },
     ];
@@ -592,46 +515,30 @@ const faqSchema = {
       (document.getElementById('bar-' + cat.id) as HTMLElement).style.width = barPct + '%';
     });
 
-    // Benchmark bar
     const clampedPct = Math.max(0, Math.min(100, overheadPct));
     const benchmarkBar = document.getElementById('benchmark-bar')!;
     benchmarkBar.style.width = Math.min(clampedPct, 60) / 60 * 100 + '%';
     benchmarkBar.classList.remove('bg-[#34D399]', 'bg-[#FBBF24]', 'bg-[#EF4444]');
-    if (overheadPct <= 25) {
-      benchmarkBar.classList.add('bg-[#34D399]');
-    } else if (overheadPct <= 35) {
-      benchmarkBar.classList.add('bg-[#FBBF24]');
-    } else {
-      benchmarkBar.classList.add('bg-[#EF4444]');
-    }
+    if (overheadPct <= 20) benchmarkBar.classList.add('bg-[#34D399]');
+    else if (overheadPct <= 30) benchmarkBar.classList.add('bg-[#FBBF24]');
+    else benchmarkBar.classList.add('bg-[#EF4444]');
 
     const yourPctEl = document.getElementById('benchmark-your-pct')!;
     yourPctEl.textContent = overheadPct.toFixed(1) + '%';
     yourPctEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (overheadPct <= 25) {
-      yourPctEl.classList.add('text-[#34D399]');
-    } else if (overheadPct <= 35) {
-      yourPctEl.classList.add('text-[#FBBF24]');
-    } else {
-      yourPctEl.classList.add('text-[#EF4444]');
-    }
+    if (overheadPct <= 20) yourPctEl.classList.add('text-[#34D399]');
+    else if (overheadPct <= 30) yourPctEl.classList.add('text-[#FBBF24]');
+    else yourPctEl.classList.add('text-[#EF4444]');
 
-    // Show/hide warning
     const warningEl = document.getElementById('benchmark-warning')!;
-    if (overheadPct > 35) {
-    } else {
-      warningEl.classList.add('hidden');
-    }
-
+    if (overheadPct > 30) warningEl.classList.remove('hidden');
+    else warningEl.classList.add('hidden');
   }
 
-
-  // Auto-calculate on input change
   document.querySelectorAll('#overhead-calc input').forEach(el => {
     el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);
   });
 
-  // Calculate on load with defaults
   calculate();
 </script>

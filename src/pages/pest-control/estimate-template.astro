@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should an HVAC estimate include?",
+      "name": "What should a Pest Control estimate include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+        "text": "A professional pest control estimate should include company information and pest control license number, customer details, current pest activity assessment, treatment specifications with methods and chemicals to be used, itemized costs for treatments, labor, materials, and any required permits, applicable discounts, scope of work, service guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
       }
     },
     {
@@ -21,23 +21,23 @@ const faqSchema = {
       "name": "How do I present Good/Better/Best options?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+        "text": "Start with the Good option as the minimum effective treatment that solves the problem. The Better option adds extended coverage or additional treatment methods like perimeter barriers or monitoring stations. The Best option is the premium choice with comprehensive treatment, ongoing monitoring, and maximum warranty coverage. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
       }
     },
     {
       "@type": "Question",
-      "name": "How long should an HVAC estimate be valid?",
+      "name": "How long should a Pest Control estimate be valid?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
+        "text": "Most pest control estimates are valid for 30 days. Chemical and material pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak pest season or periods of supply chain disruption, some operators shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
       }
     },
     {
       "@type": "Question",
-      "name": "Should HVAC estimates include financing?",
+      "name": "Should Pest Control estimates include financing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
+        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for large-scale treatments like termite jobs over $2,000. Customers focus on monthly affordability rather than total cost. Common pest control financing terms are 12, 24, or 36 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
       }
     }
   ]
@@ -52,7 +52,7 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-          <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyName" placeholder="Your Pest Control Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -60,11 +60,11 @@ const faqSchema = {
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-          <input type="text" id="companyEmail" placeholder="info@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyEmail" placeholder="info@yourpestcontrol.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-          <input type="text" id="licenseNum" placeholder="HVAC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="licenseNum" placeholder="PC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
@@ -100,31 +100,31 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Current System Assessment -->
+    <!-- Current Pest Assessment -->
     <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Current System Assessment</h3>
+      <h3 class="font-heading font-bold text-xl mb-4">Current Pest Assessment</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Pest Type</label>
           <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Central AC</option>
-            <option value="Heat Pump">Heat Pump</option>
-            <option value="Furnace">Furnace</option>
-            <option value="Mini Split">Mini Split</option>
-            <option value="Boiler">Boiler</option>
-            <option value="Package Unit">Package Unit</option>
+            <option value="General Pest">General Pest</option>
+            <option value="Termites">Termites</option>
+            <option value="Rodents">Rodents</option>
+            <option value="Bed Bugs">Bed Bugs</option>
+            <option value="Mosquitoes">Mosquitoes</option>
+            <option value="Wildlife">Wildlife</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="systemAge">Current System Age (years)</label>
+          <label class="block text-sm font-medium text-text-secondary mb-2" for="systemAge">Infestation Duration (months)</label>
           <input type="number" id="systemAge" value="15" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="currentCondition">Current Condition</label>
           <select id="currentCondition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Working - needs replacement soon">Working - needs replacement soon</option>
-            <option value="Failing - intermittent issues">Failing - intermittent issues</option>
-            <option value="Failed - not operational">Failed - not operational</option>
+            <option value="Minor - occasional sightings">Minor - occasional sightings</option>
+            <option value="Moderate - regular activity">Moderate - regular activity</option>
+            <option value="Severe - heavy infestation">Severe - heavy infestation</option>
           </select>
         </div>
         <div>
@@ -148,12 +148,12 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Equipment Description</label>
-                <input type="text" id="goodDesc" value="14 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Treatment Description</label>
+                <input type="text" id="goodDesc" value="One-Time Interior Treatment" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRating">SEER / AFUE Rating</label>
-                <input type="text" id="goodRating" value="14 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodRating">Coverage Level</label>
+                <input type="text" id="goodRating" value="Interior Only" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="goodEquip">Equipment Cost ($)</label>
@@ -198,12 +198,12 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Equipment Description</label>
-                <input type="text" id="betterDesc" value="16 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Treatment Description</label>
+                <input type="text" id="betterDesc" value="Interior + Exterior Perimeter Treatment" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRating">SEER / AFUE Rating</label>
-                <input type="text" id="betterRating" value="16 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterRating">Coverage Level</label>
+                <input type="text" id="betterRating" value="Interior + Exterior" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="betterEquip">Equipment Cost ($)</label>
@@ -245,12 +245,12 @@ const faqSchema = {
             </div>
             <div class="space-y-4">
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Equipment Description</label>
-                <input type="text" id="bestDesc" value="20 SEER2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Treatment Description</label>
+                <input type="text" id="bestDesc" value="Full Property Treatment + Quarterly Plan" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRating">SEER / AFUE Rating</label>
-                <input type="text" id="bestRating" value="20 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestRating">Coverage Level</label>
+                <input type="text" id="bestRating" value="Full Property + Ongoing" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="bestEquip">Equipment Cost ($)</label>
@@ -291,13 +291,13 @@ const faqSchema = {
       <h3 class="font-heading font-bold text-xl mb-4">Scope of Work</h3>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
-        <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Remove and dispose of existing equipment
-&bull; Install new equipment per manufacturer specifications
-&bull; Connect to existing ductwork / line set
-&bull; Electrical and refrigerant connections
-&bull; System startup and performance test
-&bull; Program thermostat and walkthrough with homeowner
-&bull; Pull permit and schedule inspection</textarea>
+        <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Thorough inspection of property interior and exterior
+&bull; Identify pest entry points, harborage areas, and activity zones
+&bull; Apply treatment per product label specifications
+&bull; Install bait stations and monitoring traps as needed
+&bull; Seal accessible entry points and exclusion work
+&bull; Provide post-treatment instructions to homeowner
+&bull; Schedule follow-up monitoring visit</textarea>
       </div>
     </div>
 
@@ -327,7 +327,7 @@ const faqSchema = {
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="warrantyTerms">Warranty</label>
-          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Equipment: 10-year parts manufacturer warranty. Labor: 1-year workmanship guarantee.</textarea>
+          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Treatment guaranteed for 30 days. Re-treatment at no charge if pest activity returns within guarantee period.</textarea>
         </div>
       </div>
     </div>
@@ -340,7 +340,7 @@ const faqSchema = {
           <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
           <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$6,000</div>
           <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">14 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">One-Time Interior Treatment</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -349,13 +349,13 @@ const faqSchema = {
           <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
           <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$7,300</div>
           <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">16 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">Interior + Exterior Perimeter Treatment</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
           <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
           <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$9,150</div>
           <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">20 SEER2 Central AC with Variable Speed</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">Full Property Treatment + Quarterly Plan</div>
         </div>
       </div>
     </div>
@@ -375,8 +375,8 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license number. These appear in the header of your estimate. The estimate number auto-generates but you can change it to match your numbering system.</p>
           <p><strong class="text-text-primary">2. Add the customer details.</strong> Enter the customer name, address, and phone. This information populates the estimate header so the customer knows exactly who it was prepared for.</p>
-          <p><strong class="text-text-primary">3. Assess the current system.</strong> Document the existing equipment type, age, and condition. This builds credibility and gives the customer context for why replacement is recommended. Add notes about specific issues you found during your inspection.</p>
-          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter equipment descriptions, efficiency ratings, and costs for each tier. The Good option should be the minimum code-compliant solution. Better adds efficiency. Best is the premium package. Totals calculate automatically as you type.</p>
+          <p><strong class="text-text-primary">3. Assess the current pest situation.</strong> Document the pest type, infestation duration, and severity. This builds credibility and gives the customer context for why treatment is recommended. Add notes about specific activity you found during your inspection.</p>
+          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter treatment descriptions, coverage levels, and costs for each tier. The Good option should be the minimum effective solution. Better adds extended coverage. Best is the premium package. Totals calculate automatically as you type.</p>
           <p><strong class="text-text-primary">5. Generate and print.</strong> Click "Generate Estimate PDF" to open a clean, print-ready estimate in a new window. Use your browser's print function to save as PDF or print directly. The estimate includes all three options, scope of work, and terms.</p>
         </div>
       </section>
@@ -387,7 +387,7 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals across every study in the home services industry.</p>
           <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect, also known as the center-stage bias. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
-          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major HVAC franchise trains their sales team on this method.</p>
+          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major pest control franchise trains their sales team on this method.</p>
           <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive system. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
         </div>
       </section>
@@ -396,9 +396,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Replacement consultations.</strong> After inspecting a failing system, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the efficiency differences, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
-          <p><strong class="text-text-primary">Insurance work and emergency replacements.</strong> When a system has failed completely, the customer needs to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them upgrade if the budget allows. Include financing to make the decision even easier.</p>
-          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of investment without going back and forth on revisions.</p>
+          <p><strong class="text-text-primary">Initial treatment consultations.</strong> After inspecting a property with pest activity, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the coverage differences, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
+          <p><strong class="text-text-primary">Emergency pest situations.</strong> When a customer has a severe infestation and needs immediate help, they need to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them upgrade to comprehensive coverage if the budget allows. Include financing to make the decision even easier.</p>
+          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of coverage without going back and forth on revisions.</p>
         </div>
       </section>
 
@@ -407,20 +407,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC estimate include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Pest Control estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional pest control estimate should include company information and pest control license number, customer details, current pest activity assessment, treatment specifications with methods and chemicals to be used, itemized costs for treatments, labor, materials, and any required permits, applicable discounts, scope of work, service guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum effective treatment that solves the problem. The Better option adds extended coverage or additional treatment methods like perimeter barriers or monitoring stations. The Best option is the premium choice with comprehensive treatment, ongoing monitoring, and maximum warranty coverage. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should an HVAC estimate be valid?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a Pest Control estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most pest control estimates are valid for 30 days. Chemical and material pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak pest season or periods of supply chain disruption, some operators shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should HVAC estimates include financing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should Pest Control estimates include financing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for large-scale treatments like termite jobs over $2,000. Customers focus on monthly affordability rather than total cost. Common pest control financing terms are 12, 24, or 36 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
           </details>
         </div>
       </section>
@@ -520,7 +520,7 @@ const faqSchema = {
 
   // --- Generate print-ready estimate ---
   function generateEstimate() {
-    const companyName = getVal('companyName') || 'HVAC Company';
+    const companyName = getVal('companyName') || 'Pest Control Company';
     const companyPhone = getVal('companyPhone');
     const companyEmail = getVal('companyEmail');
     const licenseNum = getVal('licenseNum');

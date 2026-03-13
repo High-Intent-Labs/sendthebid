@@ -10,31 +10,31 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be included on an HVAC invoice?",
+      "name": "What should be included on a Roofing invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number."
+        "text": "A professional Roofing invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, roof type, material, manufacturer, and warranty info, itemized materials and labor, warranty terms, payment terms, and the invoice date and number."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I create a professional HVAC invoice?",
+      "name": "How do I create a professional Roofing invoice?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use a dedicated HVAC invoice generator that includes fields specific to the trade — equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
+        "text": "Use a dedicated Roofing invoice generator that includes fields specific to the trade — roof type, materials used, manufacturer warranty info, and scope of work. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge tax on HVAC labor?",
+      "name": "Should I charge tax on Roofing labor?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
+        "text": "Tax rules vary by state and municipality. In most states, roofing materials are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction."
       }
     },
     {
       "@type": "Question",
-      "name": "What payment terms are standard for HVAC?",
+      "name": "What payment terms are standard for Roofing?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues."
@@ -51,7 +51,7 @@ const faqSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-        <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyName" placeholder="Your Roofing Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -59,11 +59,11 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-        <input type="text" id="companyEmail" placeholder="office@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyEmail" placeholder="office@yourroofing.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-        <input type="text" id="licenseNum" placeholder="HVAC-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="licenseNum" placeholder="ROOF-123456" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="invoiceNum">Invoice #</label>
@@ -98,31 +98,31 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <!-- Roof Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Roof Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipmentType">Equipment Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipmentType">Roof Type</label>
         <select id="equipmentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Central AC</option>
-          <option value="Heat Pump">Heat Pump</option>
-          <option value="Furnace">Furnace</option>
-          <option value="Mini Split">Mini Split</option>
-          <option value="Boiler">Boiler</option>
-          <option value="Package Unit">Package Unit</option>
+          <option value="Asphalt Shingles">Asphalt Shingles</option>
+          <option value="Metal Roofing">Metal Roofing</option>
+          <option value="Tile Roofing">Tile Roofing</option>
+          <option value="Flat/TPO">Flat / TPO</option>
+          <option value="Flat/EPDM">Flat / EPDM</option>
+          <option value="Cedar Shake">Cedar Shake</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipMake">Make</label>
-        <input type="text" id="equipMake" placeholder="Carrier, Trane, Lennox..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipMake">Material Manufacturer</label>
+        <input type="text" id="equipMake" placeholder="GAF, Owens Corning, CertainTeed..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipModel">Model</label>
-        <input type="text" id="equipModel" placeholder="Model number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipModel">Product Line</label>
+        <input type="text" id="equipModel" placeholder="Timberline HDZ, Duration, etc." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipSerial">Serial #</label>
-        <input type="text" id="equipSerial" placeholder="Serial number" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipSerial">Warranty Info</label>
+        <input type="text" id="equipSerial" placeholder="Lifetime, 30-year, etc." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -146,11 +146,11 @@ const faqSchema = {
         + Add Line Item
       </button>
       <span class="text-text-muted text-xs self-center">Quick add:</span>
-      <button data-quick="Diagnostic Fee" data-price="89" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Diagnostic Fee ($89)</button>
-      <button data-quick="Capacitor" data-price="195" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Capacitor ($195)</button>
-      <button data-quick="Contactor" data-price="225" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Contactor ($225)</button>
-      <button data-quick="Blower Motor" data-price="575" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Blower Motor ($575)</button>
-      <button data-quick="Refrigerant R-410A (/lb)" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Refrigerant R-410A (/lb)</button>
+      <button data-quick="Roof Inspection Fee" data-price="150" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Roof Inspection Fee ($150)</button>
+      <button data-quick="Leak Repair" data-price="350" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Leak Repair ($350)</button>
+      <button data-quick="Flashing Repair" data-price="275" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Flashing Repair ($275)</button>
+      <button data-quick="Ridge Cap Replacement" data-price="450" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Ridge Cap Replacement ($450)</button>
+      <button data-quick="Shingle Bundle (/bundle)" data-price="0" class="quick-add-btn bg-bg-dark border border-border text-text-secondary text-xs px-3 py-2 rounded-lg hover:border-accent hover:text-accent transition-colors cursor-pointer">Shingle Bundle (/bundle)</button>
     </div>
 
     <!-- Bottom Section -->
@@ -173,7 +173,7 @@ const faqSchema = {
       </div>
       <div class="md:col-span-3">
         <label class="block text-sm font-medium text-text-secondary mb-2" for="notes">Notes / Warranty</label>
-        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Equipment: 10 yr parts / 1 yr labor. 30-day workmanship guarantee.</textarea>
+        <textarea id="notes" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">Materials: Manufacturer warranty per product spec. 5-year workmanship guarantee on all labor.</textarea>
       </div>
     </div>
 
@@ -211,8 +211,8 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Generator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your company details.</strong> Fill in your company name, phone, email, and contractor license number. These appear in the invoice header and build trust with customers.</p>
-          <p><strong class="text-text-primary">2. Add customer and system info.</strong> Enter the customer's name, address, and phone. Then log the equipment type, make, model, and serial number so every invoice ties back to the specific unit you serviced.</p>
-          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each part and labor charge individually, or use the quick-add buttons for common HVAC items. Set quantities and unit prices, and the totals calculate automatically.</p>
+          <p><strong class="text-text-primary">2. Add customer and roof info.</strong> Enter the customer's name, address, and phone. Then log the roof type, material manufacturer, product line, and warranty info so every invoice ties back to the specific project you completed.</p>
+          <p><strong class="text-text-primary">3. Build your line items.</strong> Add each part and labor charge individually, or use the quick-add buttons for common roofing items. Set quantities and unit prices, and the totals calculate automatically.</p>
           <p><strong class="text-text-primary">4. Set tax and payment terms.</strong> Enter your local tax rate and choose payment terms. Add warranty language or job notes in the notes field.</p>
           <p><strong class="text-text-primary">5. Generate the PDF.</strong> Click "Generate PDF" to open a clean, print-ready invoice in a new window. Use your browser's print function to save it as a PDF or send it directly to a printer.</p>
         </div>
@@ -220,12 +220,12 @@ const faqSchema = {
 
       <!-- What Makes a Professional Invoice -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional HVAC Invoice</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Makes a Professional Roofing Invoice</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>A professional HVAC invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
-          <p>The system section is what separates an HVAC invoice from a generic template. Logging the equipment type, make, model, and serial number creates a service history for that unit. When the customer calls back in two years, you can pull the serial number and know exactly what was done previously.</p>
-          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "AC repair - $500," break it out: diagnostic fee, capacitor replacement, labor for install. Customers respect transparency, and it makes warranty claims simpler if a specific part fails.</p>
-          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup is a 10-year manufacturer parts warranty, 1-year labor warranty, and a 30-day workmanship guarantee. Having it on the invoice means there is no ambiguity later.</p>
+          <p>A professional Roofing invoice goes beyond a basic receipt. It documents the entire service interaction and protects both you and the customer. At the top, you need your company name, license number, and contact information. Customers want to know who they paid and how to reach you if something goes wrong.</p>
+          <p>The roof info section is what separates a Roofing invoice from a generic template. Logging the roof type, material manufacturer, product line, and warranty details creates a complete project record. When the customer calls back about a warranty issue, you can pull the details and know exactly what materials were installed.</p>
+          <p>Itemized line items with clear descriptions prevent disputes. Instead of writing "roof repair - $500," break it out: inspection fee, flashing repair, materials, labor. Customers respect transparency, and it makes warranty claims simpler if a specific issue arises.</p>
+          <p>Warranty terms on the invoice are legally important. Spell out what is covered, for how long, and any conditions. A common setup is a manufacturer material warranty (25-year to lifetime depending on product), plus a 5-year workmanship guarantee on labor. Having it on the invoice means there is no ambiguity later.</p>
         </div>
       </section>
 
@@ -234,7 +234,7 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">On-site service calls.</strong> You finish a repair, pull up this tool on your phone or tablet, fill in what you replaced and the prices, and hand the customer a professional invoice before you leave. No more scribbling on carbon copies or promising to email something later.</p>
-          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the HVAC-specific fields that generic invoice templates miss.</p>
+          <p><strong class="text-text-primary">Small shops without software.</strong> If you are a one-truck operation and do not want to pay for ServiceTitan or Housecall Pro, this generator gives you a professional-looking invoice at no cost. It covers the Roofing-specific fields that generic invoice templates miss.</p>
           <p><strong class="text-text-primary">Backup when your system is down.</strong> Software crashes happen. Internet goes out. When your dispatch or invoicing platform is unavailable, this tool works offline in your browser. Generate a clean invoice, save the PDF, and enter it into your system later when things are back online.</p>
         </div>
       </section>
@@ -244,19 +244,19 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on an HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, equipment make/model/serial number, itemized parts and labor, warranty terms, payment terms, and the invoice date and number.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be included on a Roofing invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional Roofing invoice should include your company name, address, phone, and contractor license number. It should also list the customer's information, a description of work performed, roof type, material, manufacturer, and warranty info, itemized materials and labor, warranty terms, payment terms, and the invoice date and number.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional HVAC invoice?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated HVAC invoice generator that includes fields specific to the trade -- equipment type, serial numbers, refrigerant used, and warranty terms. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I create a professional Roofing invoice?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Use a dedicated Roofing invoice generator that includes fields specific to the trade -- roof type, materials used, manufacturer warranty info, and scope of work. Fill in your company details, customer info, itemized line items with quantities and prices, applicable tax, and payment terms. Generate a PDF for a clean, professional document.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on HVAC labor?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, HVAC parts are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge tax on Roofing labor?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tax rules vary by state and municipality. In most states, roofing materials are taxable but labor is not. However, some states tax the entire invoice including labor when it is part of an installation. Check your state's department of revenue guidelines or consult your accountant for your specific jurisdiction.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for HVAC?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What payment terms are standard for Roofing?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For residential service calls and repairs, Due on Receipt or Net 15 is standard. For larger installations, many contractors require 50% deposit with the balance due on completion. Commercial work often uses Net 30. Always clearly state payment terms on the invoice to avoid collection issues.</div>
           </details>
         </div>
@@ -394,7 +394,7 @@ const faqSchema = {
 
   // --- PDF Generation (print-ready HTML) ---
   function generatePDF() {
-    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'HVAC Company';
+    const companyName = (document.getElementById('companyName') as HTMLInputElement).value || 'Roofing Company';
     const companyPhone = (document.getElementById('companyPhone') as HTMLInputElement).value;
     const companyEmail = (document.getElementById('companyEmail') as HTMLInputElement).value;
     const licenseNum = (document.getElementById('licenseNum') as HTMLInputElement).value;
@@ -438,12 +438,12 @@ const faqSchema = {
 
     const systemInfoHtml = (equipmentType || equipMake || equipModel || equipSerial) ? `
       <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
-        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">System Information</div>
+        <div style="font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 8px;">Roof Information</div>
         <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: #333;">
           ${equipmentType ? `<div><span style="color: #888;">Type:</span> ${escapeHtml(equipmentType)}</div>` : ''}
-          ${equipMake ? `<div><span style="color: #888;">Make:</span> ${escapeHtml(equipMake)}</div>` : ''}
-          ${equipModel ? `<div><span style="color: #888;">Model:</span> ${escapeHtml(equipModel)}</div>` : ''}
-          ${equipSerial ? `<div><span style="color: #888;">Serial #:</span> ${escapeHtml(equipSerial)}</div>` : ''}
+          ${equipMake ? `<div><span style="color: #888;">Manufacturer:</span> ${escapeHtml(equipMake)}</div>` : ''}
+          ${equipModel ? `<div><span style="color: #888;">Product Line:</span> ${escapeHtml(equipModel)}</div>` : ''}
+          ${equipSerial ? `<div><span style="color: #888;">Warranty:</span> ${escapeHtml(equipSerial)}</div>` : ''}
         </div>
       </div>
     ` : '';

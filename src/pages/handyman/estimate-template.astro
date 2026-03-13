@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should an HVAC estimate include?",
+      "name": "What should a handyman estimate include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+        "text": "A professional handyman estimate should include your company name, phone, email, and license or registration number. List the customer's name and address, a clear project description with scope of work, itemized costs for labor and materials, optional add-ons, tax, deposit and balance amounts, warranty terms, payment methods accepted, and a validity period with expiration date."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I present Good/Better/Best options?",
+      "name": "How long should a handyman estimate be valid?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+        "text": "Most handyman estimates are valid for 30 days. Material prices at home improvement stores are relatively stable within that window. During peak season or periods of supply chain disruption, some handymen shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate so the customer knows the price is not open-ended."
       }
     },
     {
       "@type": "Question",
-      "name": "How long should an HVAC estimate be valid?",
+      "name": "Should I require a deposit before starting handyman work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
+        "text": "For jobs over $500, requiring a 50% deposit is standard practice and protects both parties. The deposit covers your material costs and reserves your schedule. For smaller jobs under $500, most handymen collect full payment on completion. Always state the deposit amount and balance due on completion clearly on the estimate so there are no surprises."
       }
     },
     {
       "@type": "Question",
-      "name": "Should HVAC estimates include financing?",
+      "name": "How do I present optional add-ons on a handyman estimate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
+        "text": "List add-ons as separate optional line items below the main scope of work. Common handyman add-ons include paint touchup, haul-away and disposal, minor adjacent repairs, and extended cleanup. Presenting add-ons increases your average ticket by 15 to 25 percent because customers feel in control of the decision rather than being upsold during the job."
       }
     }
   ]
@@ -47,315 +47,241 @@ const faqSchema = {
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="estimate-builder">
     <!-- Company Info -->
-    <div class="mb-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Company Information</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-          <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
-          <input type="text" id="companyPhone" placeholder="(555) 123-4567" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-          <input type="text" id="companyEmail" placeholder="info@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-          <input type="text" id="licenseNum" placeholder="HVAC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
-          <input type="text" id="estimateNum" value="EST-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateDate">Estimate Date</label>
-          <input type="date" id="estimateDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="validUntil">Valid Until</label>
-          <input type="date" id="validUntil" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Company Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
+        <input type="text" id="companyName" placeholder="Your Handyman Co." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
+        <input type="text" id="companyPhone" placeholder="(555) 123-4567" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
+        <input type="text" id="companyEmail" placeholder="info@yourhandyman.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License / Registration #</label>
+        <input type="text" id="licenseNum" placeholder="HM-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
+        <input type="text" id="estimateNum" value="EST-001" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateDate">Estimate Date</label>
+        <input type="date" id="estimateDate" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="validDays">Valid For (days)</label>
+        <select id="validDays" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="14">14 days</option>
+          <option value="30" selected>30 days</option>
+          <option value="60">60 days</option>
+        </select>
       </div>
     </div>
 
     <!-- Customer Info -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Customer Information</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
-          <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerPhone">Phone</label>
-          <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
-          <input type="text" id="customerAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Current System Assessment -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Current System Assessment</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
-          <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Central AC</option>
-            <option value="Heat Pump">Heat Pump</option>
-            <option value="Furnace">Furnace</option>
-            <option value="Mini Split">Mini Split</option>
-            <option value="Boiler">Boiler</option>
-            <option value="Package Unit">Package Unit</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="systemAge">Current System Age (years)</label>
-          <input type="number" id="systemAge" value="15" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="currentCondition">Current Condition</label>
-          <select id="currentCondition" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Working - needs replacement soon">Working - needs replacement soon</option>
-            <option value="Failing - intermittent issues">Failing - intermittent issues</option>
-            <option value="Failed - not operational">Failed - not operational</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="issuesNotes">Issues / Notes</label>
-          <textarea id="issuesNotes" rows="3" placeholder="Describe current issues..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- Good / Better / Best Options -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Good / Better / Best Options</h3>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        <!-- GOOD -->
-        <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-good">
-          <div class="h-1.5 bg-[#60A5FA]"></div>
-          <div class="p-5">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#60A5FA] bg-[rgba(96,165,250,0.1)] px-3 py-1 rounded-full">Good</span>
-            </div>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodDesc">Equipment Description</label>
-                <input type="text" id="goodDesc" value="14 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRating">SEER / AFUE Rating</label>
-                <input type="text" id="goodRating" value="14 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodEquip">Equipment Cost ($)</label>
-                <input type="number" id="goodEquip" value="3200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodLabor">Labor Cost ($)</label>
-                <input type="number" id="goodLabor" value="2200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodMaterials">Materials ($)</label>
-                <input type="number" id="goodMaterials" value="350" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodPermits">Permits ($)</label>
-                <input type="number" id="goodPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRebates">Rebates ($)</label>
-                <input type="number" id="goodRebates" value="0" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div class="border-t border-border pt-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="goodTotal" class="font-heading font-extrabold text-2xl text-[#60A5FA]">$6,000</span>
-                </div>
-                <div id="goodMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BETTER -->
-        <div class="bg-bg-dark border-2 border-[#34D399] rounded-xl overflow-hidden relative" id="card-better">
-          <div class="h-1.5 bg-[#34D399]"></div>
-          <div class="absolute top-3 right-4">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#34D399] bg-[rgba(52,211,153,0.15)] px-2.5 py-1 rounded-full">Most Popular</span>
-          </div>
-          <div class="p-5">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#34D399] bg-[rgba(52,211,153,0.1)] px-3 py-1 rounded-full">Better</span>
-            </div>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterDesc">Equipment Description</label>
-                <input type="text" id="betterDesc" value="16 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRating">SEER / AFUE Rating</label>
-                <input type="text" id="betterRating" value="16 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterEquip">Equipment Cost ($)</label>
-                <input type="number" id="betterEquip" value="4800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterLabor">Labor Cost ($)</label>
-                <input type="number" id="betterLabor" value="2400" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterMaterials">Materials ($)</label>
-                <input type="number" id="betterMaterials" value="350" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterPermits">Permits ($)</label>
-                <input type="number" id="betterPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRebates">Rebates ($)</label>
-                <input type="number" id="betterRebates" value="500" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div class="border-t border-border pt-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="betterTotal" class="font-heading font-extrabold text-2xl text-[#34D399]">$7,300</span>
-                </div>
-                <div id="betterMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BEST -->
-        <div class="bg-bg-dark border border-border rounded-xl overflow-hidden" id="card-best">
-          <div class="h-1.5 bg-[#FBBF24]"></div>
-          <div class="p-5">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#FBBF24] bg-[rgba(251,191,36,0.1)] px-3 py-1 rounded-full">Best</span>
-            </div>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestDesc">Equipment Description</label>
-                <input type="text" id="bestDesc" value="20 SEER2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRating">SEER / AFUE Rating</label>
-                <input type="text" id="bestRating" value="20 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestEquip">Equipment Cost ($)</label>
-                <input type="number" id="bestEquip" value="7200" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestLabor">Labor Cost ($)</label>
-                <input type="number" id="bestLabor" value="2800" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestMaterials">Materials ($)</label>
-                <input type="number" id="bestMaterials" value="400" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestPermits">Permits ($)</label>
-                <input type="number" id="bestPermits" value="250" min="0" step="25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRebates">Rebates ($)</label>
-                <input type="number" id="bestRebates" value="1500" min="0" step="50" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
-              </div>
-              <div class="border-t border-border pt-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-sm text-text-secondary font-medium">Total</span>
-                  <span id="bestTotal" class="font-heading font-extrabold text-2xl text-[#FBBF24]">$9,150</span>
-                </div>
-                <div id="bestMonthly" class="text-right text-xs text-text-muted mt-1 hidden"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Scope of Work -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Scope of Work</h3>
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Customer Info</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
-        <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Remove and dispose of existing equipment
-&bull; Install new equipment per manufacturer specifications
-&bull; Connect to existing ductwork / line set
-&bull; Electrical and refrigerant connections
-&bull; System startup and performance test
-&bull; Program thermostat and walkthrough with homeowner
-&bull; Pull permit and schedule inspection</textarea>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerName">Customer Name</label>
+        <input type="text" id="customerName" placeholder="John Smith" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerPhone">Phone</label>
+        <input type="text" id="customerPhone" placeholder="(555) 987-6543" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="customerAddress">Address</label>
+        <input type="text" id="customerAddress" placeholder="123 Main St, Anytown, ST 12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Financing -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Financing</h3>
-      <div class="flex items-center gap-3 mb-4">
-        <input type="checkbox" id="showFinancing" class="w-5 h-5 rounded border-border bg-bg-dark accent-accent cursor-pointer" />
-        <label class="text-sm font-medium text-text-secondary cursor-pointer" for="showFinancing">Show financing options on estimate</label>
+    <!-- Project Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Project Details</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="projectType">Project Type</label>
+        <select id="projectType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="General Repair">General Repair</option>
+          <option value="Drywall Repair">Drywall Repair</option>
+          <option value="Painting / Touchup">Painting / Touchup</option>
+          <option value="Furniture Assembly">Furniture Assembly</option>
+          <option value="Door / Window Repair">Door / Window Repair</option>
+          <option value="Shelving / Mounting">Shelving / Mounting</option>
+          <option value="Tile Repair">Tile Repair</option>
+          <option value="Caulking / Weatherproofing">Caulking / Weatherproofing</option>
+          <option value="Fixture Replacement">Fixture Replacement</option>
+          <option value="Multi-Task Bundle">Multi-Task Bundle</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
-      <div id="financingFields" class="hidden">
-        <div class="max-w-xs">
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="financeTerm">Term (months)</label>
-          <input type="number" id="financeTerm" value="60" min="12" max="240" step="12" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-          <p class="text-text-muted text-xs mt-1">Monthly payments calculated at 7.99% APR</p>
-        </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="projectLocation">Location in Home</label>
+        <input type="text" id="projectLocation" placeholder="e.g., Kitchen, Master Bedroom" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
-    </div>
-
-    <!-- Terms -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Terms</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentTerms">Payment Terms</label>
-          <textarea id="paymentTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">50% deposit required. Balance due on completion.</textarea>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-text-secondary mb-2" for="warrantyTerms">Warranty</label>
-          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Equipment: 10-year parts manufacturer warranty. Labor: 1-year workmanship guarantee.</textarea>
-        </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeDescription">Scope of Work</label>
+        <textarea id="scopeDescription" rows="4" placeholder="Describe what work will be performed..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
       </div>
     </div>
 
-    <!-- Live Preview -->
-    <div class="mb-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-4">Estimate Summary</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
-          <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
-          <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$6,000</div>
-          <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">14 SEER2 Central AC</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#34D399] bg-bg-dark border border-[#34D399] px-2.5 py-0.5 rounded-full">Most Popular</span>
+    <!-- Scope Checklist -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Scope Checklist</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-remove" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Remove existing</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-prep" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Prep / protect area</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-install" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Install / repair</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-paint" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Paint / finish</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-cleanup" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Cleanup / haul away</span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" id="chk-materials" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <span class="text-text-primary text-sm">Materials included</span>
+      </label>
+    </div>
+
+    <!-- Cost Breakdown (Line Items) -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Cost Breakdown</h3>
+    <div class="mb-4">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button type="button" class="quick-add-btn bg-accent/10 text-accent border border-accent/30 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-accent/20 transition-colors cursor-pointer" data-desc="Service Call" data-qty="1" data-price="75">+ Service Call $75</button>
+        <button type="button" class="quick-add-btn bg-accent/10 text-accent border border-accent/30 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-accent/20 transition-colors cursor-pointer" data-desc="Labor (per hour)" data-qty="1" data-price="75">+ Labor/hr $75</button>
+        <button type="button" class="quick-add-btn bg-accent/10 text-accent border border-accent/30 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-accent/20 transition-colors cursor-pointer" data-desc="Drywall Patch &amp; Repair" data-qty="1" data-price="125">+ Drywall Patch $125</button>
+        <button type="button" class="quick-add-btn bg-accent/10 text-accent border border-accent/30 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-accent/20 transition-colors cursor-pointer" data-desc="Paint Touchup" data-qty="1" data-price="95">+ Paint Touchup $95</button>
+        <button type="button" class="quick-add-btn bg-accent/10 text-accent border border-accent/30 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-accent/20 transition-colors cursor-pointer" data-desc="Furniture Assembly" data-qty="1" data-price="85">+ Assembly $85</button>
+      </div>
+      <div id="line-items" class="space-y-3">
+        <div class="grid grid-cols-[1fr_60px_100px_40px] gap-3 items-end line-row">
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Description</label>
+            <input type="text" class="line-desc w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
-          <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
-          <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$7,300</div>
-          <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">16 SEER2 Central AC</div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Qty</label>
+            <input type="number" value="1" min="1" class="line-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Price ($)</label>
+            <input type="number" value="0" min="0" step="5" class="line-price w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-text-secondary mb-2">&nbsp;</label>
+            <button type="button" class="remove-line-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove">&times;</button>
+          </div>
         </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
-          <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
-          <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$9,150</div>
-          <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">20 SEER2 Central AC with Variable Speed</div>
+      </div>
+      <button type="button" id="add-line-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Line Item</button>
+    </div>
+
+    <!-- Optional Add-Ons -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Optional Add-Ons</h3>
+    <div class="space-y-3 mb-8">
+      <label class="flex items-center justify-between bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="addon-paint" class="addon-check w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" data-price="150" />
+          <span class="text-text-primary">Paint touchup (matching color)</span>
+        </div>
+        <span class="text-accent font-bold">$150</span>
+      </label>
+      <label class="flex items-center justify-between bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="addon-haul" class="addon-check w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" data-price="75" />
+          <span class="text-text-primary">Haul away / disposal</span>
+        </div>
+        <span class="text-accent font-bold">$75</span>
+      </label>
+      <label class="flex items-center justify-between bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="addon-minor" class="addon-check w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" data-price="100" />
+          <span class="text-text-primary">Minor adjacent repairs</span>
+        </div>
+        <span class="text-accent font-bold">$100</span>
+      </label>
+      <label class="flex items-center justify-between bg-bg-dark border border-border rounded-lg px-4 py-3 cursor-pointer hover:border-accent/50 transition-colors">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" id="addon-cleanup" class="addon-check w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" data-price="50" />
+          <span class="text-text-primary">Extended cleanup</span>
+        </div>
+        <span class="text-accent font-bold">$50</span>
+      </label>
+    </div>
+
+    <!-- Estimate Settings -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Estimate Settings</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="taxRate">Tax Rate (%)</label>
+        <input type="number" id="taxRate" value="0" min="0" max="15" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="depositPct">Deposit (%)</label>
+        <select id="depositPct" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0">None</option>
+          <option value="25">25%</option>
+          <option value="50" selected>50%</option>
+          <option value="100">100% upfront</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="warranty">Warranty</label>
+        <select id="warranty" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="30-day workmanship guarantee" selected>30-day workmanship</option>
+          <option value="90-day workmanship guarantee">90-day workmanship</option>
+          <option value="1-year workmanship guarantee">1-year workmanship</option>
+          <option value="No warranty">No warranty</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paymentMethods">Payment Methods</label>
+        <input type="text" id="paymentMethods" value="Cash, Check, Venmo, Zelle" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="bg-bg-dark border border-border rounded-xl p-6 mb-8">
+      <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Estimate Summary</h3>
+      <div class="space-y-3 text-lg">
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Subtotal</span>
+          <span id="r-subtotal" class="text-text-primary font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Add-Ons</span>
+          <span id="r-addons" class="text-text-primary font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Tax</span>
+          <span id="r-tax" class="text-text-primary font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between border-t border-border pt-3">
+          <span class="text-text-primary font-bold text-xl">Total</span>
+          <span id="r-total" class="text-accent font-extrabold text-2xl">$0.00</span>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span class="text-text-secondary">Deposit Due</span>
+          <span id="r-deposit" class="text-text-primary font-bold">$0.00</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-text-secondary">Balance on Completion</span>
+          <span id="r-balance" class="text-text-primary font-bold">$0.00</span>
         </div>
       </div>
     </div>
@@ -371,24 +297,25 @@ const faqSchema = {
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
       <!-- How to Use -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimate Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license number. These appear in the header of your estimate. The estimate number auto-generates but you can change it to match your numbering system.</p>
-          <p><strong class="text-text-primary">2. Add the customer details.</strong> Enter the customer name, address, and phone. This information populates the estimate header so the customer knows exactly who it was prepared for.</p>
-          <p><strong class="text-text-primary">3. Assess the current system.</strong> Document the existing equipment type, age, and condition. This builds credibility and gives the customer context for why replacement is recommended. Add notes about specific issues you found during your inspection.</p>
-          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter equipment descriptions, efficiency ratings, and costs for each tier. The Good option should be the minimum code-compliant solution. Better adds efficiency. Best is the premium package. Totals calculate automatically as you type.</p>
-          <p><strong class="text-text-primary">5. Generate and print.</strong> Click "Generate Estimate PDF" to open a clean, print-ready estimate in a new window. Use your browser's print function to save as PDF or print directly. The estimate includes all three options, scope of work, and terms.</p>
+          <p><strong class="text-text-primary">1. Fill in your company and customer details.</strong> Start with your business name, phone, email, and license number. Add the customer's name, address, and phone. This information appears at the top of the PDF and establishes your professionalism before the customer reads a single line item.</p>
+          <p><strong class="text-text-primary">2. Describe the project.</strong> Select the project type, note the location in the home, and write a clear scope of work. Use the scope checklist to confirm what is included — removal, prep, install, paint, cleanup, and whether materials are part of the price.</p>
+          <p><strong class="text-text-primary">3. Add line items.</strong> Use the quick-add buttons for common handyman charges or add custom line items. Enter a description, quantity, and unit price for each line. The totals update automatically as you type.</p>
+          <p><strong class="text-text-primary">4. Select add-ons and settings.</strong> Check any optional add-ons the customer might want. Set your tax rate, deposit percentage, warranty level, and accepted payment methods. The estimate summary recalculates in real time.</p>
+          <p><strong class="text-text-primary">5. Generate the PDF.</strong> Hit the button to create a clean, print-ready estimate with your branding, itemized costs, deposit and balance amounts, warranty terms, and signature lines for both parties.</p>
         </div>
       </section>
 
-      <!-- Why Good/Better/Best Works -->
+      <!-- Why Estimates Matter -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Why Good/Better/Best Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Written Estimates Win More Jobs</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals across every study in the home services industry.</p>
-          <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect, also known as the center-stage bias. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
-          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major HVAC franchise trains their sales team on this method.</p>
-          <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive system. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
+          <p>A verbal quote is forgotten before you leave the driveway. A written estimate lives on the customer's kitchen counter, gets forwarded to a spouse, and sits in an email inbox waiting for a decision. It keeps working for you after you walk away.</p>
+          <p><strong class="text-text-primary">Itemized costs build trust.</strong> When customers see each charge broken out — service call, labor hours, materials, cleanup — they understand what they are paying for. Lump-sum quotes invite suspicion. Itemized estimates invite acceptance.</p>
+          <p><strong class="text-text-primary">Add-ons increase your average ticket.</strong> Listing optional services like paint touchup, haul-away, and minor adjacent repairs gives customers a reason to spend more without feeling pressured. The customer decides which extras to include, and your revenue per job grows 15 to 25 percent.</p>
+          <p><strong class="text-text-primary">Deposit and payment terms set expectations.</strong> A 50 percent deposit protects you from no-shows and covers material costs. Listing accepted payment methods — including Venmo and Zelle — eliminates the awkward conversation at the end of the job when the customer says they do not have a check.</p>
+          <p><strong class="text-text-primary">Warranty language reduces callbacks.</strong> Stating a 30-day workmanship guarantee clearly on the estimate defines what is covered and for how long. Customers know what to expect, and you have documentation to reference if a dispute arises months later.</p>
         </div>
       </section>
 
@@ -396,9 +323,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Replacement consultations.</strong> After inspecting a failing system, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the efficiency differences, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
-          <p><strong class="text-text-primary">Insurance work and emergency replacements.</strong> When a system has failed completely, the customer needs to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them upgrade if the budget allows. Include financing to make the decision even easier.</p>
-          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of investment without going back and forth on revisions.</p>
+          <p><strong class="text-text-primary">Any job over $200.</strong> For small tasks that take less than an hour, a verbal price and a receipt after completion is fine. For anything more involved — drywall repairs, painting, assembly, shelving — a written estimate shows the customer you are professional and organized.</p>
+          <p><strong class="text-text-primary">Multi-task bundles.</strong> When a customer has a list of five or six items they want done in a single visit, an estimate keeps everyone aligned on scope and price. It also makes it easy to show the savings of bundling tasks together versus separate service calls.</p>
+          <p><strong class="text-text-primary">New customers.</strong> An estimate is your first impression. Repeat customers may be comfortable with a quick text message price, but new customers are comparing you to two or three other handymen. The one who sends a clean, professional estimate is the one who gets the job.</p>
         </div>
       </section>
 
@@ -407,20 +334,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC estimate include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a handyman estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional handyman estimate should include your company name, phone, email, and license or registration number. List the customer's name and address, a clear project description with scope of work, itemized costs for labor and materials, optional add-ons, tax, deposit and balance amounts, warranty terms, payment methods accepted, and a validity period with expiration date.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a handyman estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most handyman estimates are valid for 30 days. Material prices at home improvement stores are relatively stable within that window. During peak season or periods of supply chain disruption, some handymen shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate so the customer knows the price is not open-ended.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should an HVAC estimate be valid?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I require a deposit before starting handyman work?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">For jobs over $500, requiring a 50% deposit is standard practice and protects both parties. The deposit covers your material costs and reserves your schedule. For smaller jobs under $500, most handymen collect full payment on completion. Always state the deposit amount and balance due on completion clearly on the estimate so there are no surprises.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should HVAC estimates include financing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present optional add-ons on a handyman estimate?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">List add-ons as separate optional line items below the main scope of work. Common handyman add-ons include paint touchup, haul-away and disposal, minor adjacent repairs, and extended cleanup. Presenting add-ons increases your average ticket by 15 to 25 percent because customers feel in control of the decision rather than being upsold during the job.</div>
           </details>
         </div>
       </section>
@@ -429,283 +356,260 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  // --- Utility functions ---
-  function getVal(id: string): string {
-    return (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)?.value || '';
+  // --- Default dates ---
+  const now = new Date();
+  const dateInput = document.getElementById('estimateDate') as HTMLInputElement;
+  if (dateInput && !dateInput.value) {
+    dateInput.value = now.toISOString().slice(0, 10);
   }
-  function getNum(id: string): number {
-    return parseFloat((document.getElementById(id) as HTMLInputElement)?.value) || 0;
-  }
+
+  // --- Helpers ---
   function fmt(n: number): string {
-    return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  // --- Set default dates ---
-  function setDefaultDates() {
-    const today = new Date();
-    const dateStr = today.toISOString().split('T')[0];
-    (document.getElementById('estimateDate') as HTMLInputElement).value = dateStr;
-
-    const valid = new Date(today);
-    valid.setDate(valid.getDate() + 30);
-    (document.getElementById('validUntil') as HTMLInputElement).value = valid.toISOString().split('T')[0];
+  // --- Dynamic Line Items ---
+  function addLineRow(desc = '', qty = '1', price = '0') {
+    const table = document.getElementById('line-items')!;
+    const row = document.createElement('div');
+    row.className = 'grid grid-cols-[1fr_60px_100px_40px] gap-3 items-end line-row';
+    row.innerHTML = `
+      <div>
+        <input type="text" value="${desc}" class="line-desc w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <input type="number" value="${qty}" min="1" class="line-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <input type="number" value="${price}" min="0" step="5" class="line-price w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <button type="button" class="remove-line-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove">&times;</button>
+      </div>
+    `;
+    table.appendChild(row);
+    calculate();
   }
 
-  // --- Calculate option total ---
-  function calcOption(prefix: string): number {
-    const equip = getNum(prefix + 'Equip');
-    const labor = getNum(prefix + 'Labor');
-    const materials = getNum(prefix + 'Materials');
-    const permits = getNum(prefix + 'Permits');
-    const rebates = getNum(prefix + 'Rebates');
-    return equip + labor + materials + permits - rebates;
-  }
+  document.getElementById('add-line-btn')?.addEventListener('click', () => addLineRow());
 
-  // --- Calculate monthly payment (simple amortization) ---
-  function calcMonthly(total: number, termMonths: number, apr: number): number {
-    const r = apr / 100 / 12;
-    if (r === 0) return total / termMonths;
-    return total * (r * Math.pow(1 + r, termMonths)) / (Math.pow(1 + r, termMonths) - 1);
-  }
+  // Quick-add buttons
+  document.querySelectorAll('.quick-add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      addLineRow(el.dataset.desc || '', el.dataset.qty || '1', el.dataset.price || '0');
+    });
+  });
 
-  // --- Update all totals and preview ---
-  function updateAll() {
-    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const term = getNum('financeTerm') || 60;
-    const apr = 7.99;
+  // Remove line item
+  document.getElementById('line-items')?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('remove-line-btn')) {
+      const row = target.closest('.line-row');
+      const allRows = document.querySelectorAll('.line-row');
+      if (allRows.length > 1 && row) {
+        row.remove();
+        calculate();
+      }
+    }
+  });
 
-    const tiers = ['good', 'better', 'best'] as const;
-    tiers.forEach(tier => {
-      const total = calcOption(tier);
-      const totalEl = document.getElementById(tier + 'Total')!;
-      totalEl.textContent = fmt(total);
+  // --- Calculate ---
+  function calculate() {
+    let subtotal = 0;
+    document.querySelectorAll('.line-row').forEach(row => {
+      const qty = parseFloat((row.querySelector('.line-qty') as HTMLInputElement)?.value) || 0;
+      const price = parseFloat((row.querySelector('.line-price') as HTMLInputElement)?.value) || 0;
+      subtotal += qty * price;
+    });
 
-      // Preview totals
-      const previewTotalEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Total')!;
-      previewTotalEl.textContent = fmt(total);
-
-      // Preview descriptions
-      const previewDescEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Desc')!;
-      previewDescEl.textContent = getVal(tier + 'Desc');
-
-      // Monthly payments
-      const monthlyEl = document.getElementById(tier + 'Monthly')!;
-      const previewMonthlyEl = document.getElementById('preview' + tier.charAt(0).toUpperCase() + tier.slice(1) + 'Monthly')!;
-
-      if (financing && total > 0) {
-        const monthly = calcMonthly(total, term, apr);
-        const monthlyStr = fmt(Math.round(monthly)) + '/mo';
-        monthlyEl.textContent = monthlyStr + ' for ' + term + ' months';
-        monthlyEl.classList.remove('hidden');
-        previewMonthlyEl.textContent = 'or ' + monthlyStr;
-        previewMonthlyEl.classList.remove('hidden');
-      } else {
-        monthlyEl.classList.add('hidden');
-        previewMonthlyEl.classList.add('hidden');
+    let addons = 0;
+    document.querySelectorAll('.addon-check').forEach(chk => {
+      const el = chk as HTMLInputElement;
+      if (el.checked) {
+        addons += parseFloat(el.dataset.price || '0');
       }
     });
+
+    const taxRate = parseFloat((document.getElementById('taxRate') as HTMLInputElement).value) || 0;
+    const tax = (subtotal + addons) * (taxRate / 100);
+    const total = subtotal + addons + tax;
+
+    const depositPct = parseFloat((document.getElementById('depositPct') as HTMLSelectElement).value) || 0;
+    const deposit = total * (depositPct / 100);
+    const balance = total - deposit;
+
+    document.getElementById('r-subtotal')!.textContent = fmt(subtotal);
+    document.getElementById('r-addons')!.textContent = fmt(addons);
+    document.getElementById('r-tax')!.textContent = fmt(tax);
+    document.getElementById('r-total')!.textContent = fmt(total);
+    document.getElementById('r-deposit')!.textContent = fmt(deposit);
+    document.getElementById('r-balance')!.textContent = fmt(balance);
   }
 
-  // --- Toggle financing fields ---
-  function toggleFinancing() {
-    const checked = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const fields = document.getElementById('financingFields')!;
-    if (checked) {
-      fields.classList.remove('hidden');
-    } else {
-      fields.classList.add('hidden');
-    }
-    updateAll();
+  // Attach listeners for auto-calculate
+  document.getElementById('line-items')?.addEventListener('input', calculate);
+  document.querySelectorAll('.addon-check').forEach(chk => chk.addEventListener('change', calculate));
+  document.getElementById('taxRate')?.addEventListener('input', calculate);
+  document.getElementById('depositPct')?.addEventListener('change', calculate);
+
+  // Initial calculate
+  calculate();
+
+  // --- Generate Estimate PDF ---
+  function getVal(id: string): string {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+    return el ? el.value : '';
   }
 
-  // --- Generate print-ready estimate ---
   function generateEstimate() {
-    const companyName = getVal('companyName') || 'HVAC Company';
-    const companyPhone = getVal('companyPhone');
-    const companyEmail = getVal('companyEmail');
-    const licenseNum = getVal('licenseNum');
-    const estimateNum = getVal('estimateNum');
-    const estimateDate = getVal('estimateDate');
-    const validUntil = getVal('validUntil');
-
-    const customerName = getVal('customerName') || 'Customer';
-    const customerPhone = getVal('customerPhone');
-    const customerAddress = getVal('customerAddress');
-
-    const currentType = getVal('currentType');
-    const systemAge = getVal('systemAge');
-    const currentCondition = getVal('currentCondition');
-    const issuesNotes = getVal('issuesNotes');
-
-    const scopeOfWork = getVal('scopeOfWork');
-    const paymentTerms = getVal('paymentTerms');
-    const warrantyTerms = getVal('warrantyTerms');
-
-    const financing = (document.getElementById('showFinancing') as HTMLInputElement).checked;
-    const term = getNum('financeTerm') || 60;
-    const apr = 7.99;
-
-    const goodTotal = calcOption('good');
-    const betterTotal = calcOption('better');
-    const bestTotal = calcOption('best');
-
-    const goodMonthly = financing ? calcMonthly(goodTotal, term, apr) : 0;
-    const betterMonthly = financing ? calcMonthly(betterTotal, term, apr) : 0;
-    const bestMonthly = financing ? calcMonthly(bestTotal, term, apr) : 0;
-
-    function fmtDate(d: string): string {
-      if (!d) return '';
-      const parts = d.split('-');
-      return parts[1] + '/' + parts[2] + '/' + parts[0];
+    const estDate = getVal('estimateDate');
+    const validDays = parseInt(getVal('validDays')) || 30;
+    let validUntil = '';
+    if (estDate) {
+      const d = new Date(estDate);
+      d.setDate(d.getDate() + validDays);
+      validUntil = d.toISOString().slice(0, 10);
     }
 
-    function escHtml(s: string): string {
-      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    const rows = document.querySelectorAll('.line-row');
+    let lineItemsHtml = '';
+    let subtotal = 0;
+    rows.forEach(row => {
+      const desc = (row.querySelector('.line-desc') as HTMLInputElement)?.value || '';
+      const qty = parseFloat((row.querySelector('.line-qty') as HTMLInputElement)?.value) || 0;
+      const price = parseFloat((row.querySelector('.line-price') as HTMLInputElement)?.value) || 0;
+      const lineTotal = qty * price;
+      subtotal += lineTotal;
+      if (desc || price > 0) {
+        lineItemsHtml += `<tr><td style="border:1px solid #ddd;padding:8px 12px;">${desc}</td><td style="border:1px solid #ddd;padding:8px 12px;text-align:center;">${qty}</td><td style="border:1px solid #ddd;padding:8px 12px;text-align:right;">${fmt(price)}</td><td style="border:1px solid #ddd;padding:8px 12px;text-align:right;">${fmt(lineTotal)}</td></tr>`;
+      }
+    });
 
-    function scopeToHtml(s: string): string {
-      return s.split('\n').map(line => {
-        const trimmed = line.trim();
-        if (!trimmed) return '';
-        return '<div style="margin-bottom:4px;">' + escHtml(trimmed) + '</div>';
-      }).join('');
-    }
+    let addonsTotal = 0;
+    let addonsHtml = '';
+    document.querySelectorAll('.addon-check').forEach(chk => {
+      const el = chk as HTMLInputElement;
+      if (el.checked) {
+        const price = parseFloat(el.dataset.price || '0');
+        addonsTotal += price;
+        const label = el.closest('label')?.querySelector('span.text-text-primary')?.textContent || '';
+        addonsHtml += `<tr><td style="border:1px solid #ddd;padding:8px 12px;" colspan="3">${label} (add-on)</td><td style="border:1px solid #ddd;padding:8px 12px;text-align:right;">${fmt(price)}</td></tr>`;
+      }
+    });
 
-    const optionRow = (label: string, good: string, better: string, best: string, isBold?: boolean) => {
-      const weight = isBold ? 'font-weight:700;' : '';
-      const size = isBold ? 'font-size:18px;' : 'font-size:14px;';
-      return `<tr>
-        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;${weight}${size}">${label}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}">${good}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}background:#f0fdf4;">${better}</td>
-        <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;${weight}${size}">${best}</td>
-      </tr>`;
-    };
+    const taxRate = parseFloat(getVal('taxRate')) || 0;
+    const tax = (subtotal + addonsTotal) * (taxRate / 100);
+    const total = subtotal + addonsTotal + tax;
+    const depositPct = parseFloat(getVal('depositPct')) || 0;
+    const deposit = total * (depositPct / 100);
+    const balance = total - deposit;
+
+    const scopeItems = [
+      { id: 'chk-remove', label: 'Remove existing' },
+      { id: 'chk-prep', label: 'Prep / protect area' },
+      { id: 'chk-install', label: 'Install / repair' },
+      { id: 'chk-paint', label: 'Paint / finish' },
+      { id: 'chk-cleanup', label: 'Cleanup / haul away' },
+      { id: 'chk-materials', label: 'Materials included' },
+    ];
+    let scopeHtml = '';
+    scopeItems.forEach(item => {
+      const checked = (document.getElementById(item.id) as HTMLInputElement)?.checked;
+      if (checked) {
+        scopeHtml += `<span style="display:inline-block;background:#f0f9f0;color:#166534;padding:2px 10px;border-radius:4px;font-size:12px;margin:2px 4px 2px 0;">&#10003; ${item.label}</span>`;
+      }
+    });
 
     const html = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Estimate ${escHtml(estimateNum)} - ${escHtml(companyName)}</title>
+<html><head><meta charset="UTF-8"><title>Estimate ${getVal('estimateNum')}</title>
 <style>
-  @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .no-print { display: none !important; }
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1f2937; margin: 0; padding: 40px; line-height: 1.5; max-width: 900px; margin: 0 auto; }
-  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 3px solid #111827; }
-  .company-name { font-size: 28px; font-weight: 800; color: #111827; margin: 0 0 4px 0; }
-  .company-detail { font-size: 13px; color: #6b7280; margin: 2px 0; }
-  .estimate-meta { text-align: right; }
-  .estimate-meta .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; }
-  .estimate-meta .value { font-size: 14px; font-weight: 600; color: #111827; }
-  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-weight: 700; margin: 28px 0 12px 0; }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; font-size: 14px; }
-  .info-grid .label { color: #6b7280; }
-  .info-grid .value { color: #111827; font-weight: 500; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-  table th { background: #f9fafb; padding: 10px 12px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; font-weight: 700; border-bottom: 2px solid #e5e7eb; }
-  table th.popular { background: #f0fdf4; color: #059669; }
-  .scope-box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; font-size: 14px; color: #374151; }
-  .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 13px; color: #374151; }
-  .terms-grid h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin: 0 0 6px 0; }
-  .signature-line { border-top: 1px solid #d1d5db; margin-top: 48px; padding-top: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-  .sig-block { font-size: 13px; color: #6b7280; }
-  .sig-block .line { border-bottom: 1px solid #9ca3af; height: 40px; margin-bottom: 4px; }
-  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center; font-size: 12px; color: #9ca3af; }
-  .financing-row td { font-size: 13px; color: #6b7280; font-style: italic; }
-  .badge-popular { display: inline-block; background: #dcfce7; color: #059669; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a1a; padding:40px; max-width:850px; margin:0 auto; font-size:14px; line-height:1.5; }
+  h1 { font-size:24px; margin-bottom:4px; }
+  h2 { font-size:15px; color:#333; margin:24px 0 10px; padding-bottom:4px; border-bottom:2px solid #e5e5e5; text-transform:uppercase; letter-spacing:0.5px; }
+  .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; padding-bottom:16px; border-bottom:3px solid #1a1a1a; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:4px 24px; }
+  .label { font-weight:600; font-size:12px; color:#666; text-transform:uppercase; letter-spacing:0.3px; }
+  .value { font-size:14px; margin-bottom:6px; }
+  table { width:100%; border-collapse:collapse; margin-bottom:8px; }
+  th { background:#f0f0f0; border:1px solid #ddd; padding:8px 12px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
+  td { border:1px solid #ddd; padding:8px 12px; }
+  .totals { width:300px; margin-left:auto; margin-top:12px; }
+  .totals td { border:none; padding:4px 8px; }
+  .totals .total-row td { border-top:2px solid #1a1a1a; font-weight:700; font-size:16px; padding-top:8px; }
+  .signature-block { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; padding-top:16px; }
+  .sig-line { border-top:1px solid #1a1a1a; padding-top:6px; font-size:12px; color:#666; text-transform:uppercase; }
+  .footer { margin-top:30px; padding-top:12px; border-top:1px solid #e5e5e5; font-size:11px; color:#888; text-align:center; }
+  @media print { body { padding:20px; } }
 </style>
-</head>
-<body>
-  <div class="no-print" style="text-align:center;margin-bottom:24px;">
-    <button onclick="window.print()" style="background:#FF6B2B;color:white;border:none;padding:12px 32px;font-size:16px;font-weight:700;border-radius:8px;cursor:pointer;">Print / Save as PDF</button>
+</head><body>
+<div class="header">
+  <div>
+    <h1>${getVal('companyName') || 'Your Handyman Co.'}</h1>
+    <div style="font-size:13px;color:#555;">${getVal('companyPhone')}${getVal('companyEmail') ? ' | ' + getVal('companyEmail') : ''}</div>
+    ${getVal('licenseNum') ? '<div style="font-size:12px;color:#888;">License: ' + getVal('licenseNum') + '</div>' : ''}
   </div>
-
-  <div class="header">
-    <div>
-      <div class="company-name">${escHtml(companyName)}</div>
-      ${companyPhone ? '<div class="company-detail">' + escHtml(companyPhone) + '</div>' : ''}
-      ${companyEmail ? '<div class="company-detail">' + escHtml(companyEmail) + '</div>' : ''}
-      ${licenseNum ? '<div class="company-detail">License: ' + escHtml(licenseNum) + '</div>' : ''}
-    </div>
-    <div class="estimate-meta">
-      <div style="margin-bottom:8px;"><div class="label">Estimate</div><div class="value">${escHtml(estimateNum)}</div></div>
-      <div style="margin-bottom:8px;"><div class="label">Date</div><div class="value">${fmtDate(estimateDate)}</div></div>
-      <div><div class="label">Valid Until</div><div class="value">${fmtDate(validUntil)}</div></div>
-    </div>
+  <div style="text-align:right;">
+    <div style="font-size:12px;color:#666;text-transform:uppercase;letter-spacing:0.5px;">Estimate</div>
+    <div style="font-size:22px;font-weight:700;">${getVal('estimateNum')}</div>
+    <div style="font-size:13px;color:#555;">Date: ${estDate}</div>
+    <div style="font-size:13px;color:#555;">Valid until: ${validUntil}</div>
   </div>
+</div>
 
-  <div class="section-title">Customer</div>
-  <div class="info-grid">
-    <div><span class="label">Name:</span> <span class="value">${escHtml(customerName)}</span></div>
-    <div><span class="label">Phone:</span> <span class="value">${escHtml(customerPhone)}</span></div>
-    <div style="grid-column:1/-1;"><span class="label">Address:</span> <span class="value">${escHtml(customerAddress)}</span></div>
+<h2>Customer</h2>
+<div class="grid2">
+  <div><span class="label">Name:</span></div><div><span class="label">Phone:</span></div>
+  <div class="value">${getVal('customerName') || '\u2014'}</div><div class="value">${getVal('customerPhone') || '\u2014'}</div>
+  <div><span class="label">Address:</span></div><div></div>
+  <div class="value">${getVal('customerAddress') || '\u2014'}</div><div></div>
+</div>
+
+<h2>Project Details</h2>
+<div class="grid2">
+  <div><span class="label">Project Type:</span></div><div><span class="label">Location:</span></div>
+  <div class="value">${getVal('projectType')}</div><div class="value">${getVal('projectLocation') || '\u2014'}</div>
+</div>
+${getVal('scopeDescription') ? '<div style="margin-top:8px;"><span class="label">Scope of Work:</span><div class="value" style="background:#f9f9f9;padding:8px 10px;border-radius:4px;margin-top:4px;white-space:pre-wrap;">' + getVal('scopeDescription') + '</div></div>' : ''}
+${scopeHtml ? '<div style="margin-top:8px;">' + scopeHtml + '</div>' : ''}
+
+<h2>Cost Breakdown</h2>
+<table>
+  <thead><tr><th>Description</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Unit Price</th><th style="text-align:right;">Amount</th></tr></thead>
+  <tbody>${lineItemsHtml}${addonsHtml}</tbody>
+</table>
+
+<table class="totals">
+  <tr><td style="text-align:right;color:#666;">Subtotal:</td><td style="text-align:right;">${fmt(subtotal)}</td></tr>
+  ${addonsTotal > 0 ? '<tr><td style="text-align:right;color:#666;">Add-Ons:</td><td style="text-align:right;">' + fmt(addonsTotal) + '</td></tr>' : ''}
+  ${tax > 0 ? '<tr><td style="text-align:right;color:#666;">Tax (' + taxRate + '%):</td><td style="text-align:right;">' + fmt(tax) + '</td></tr>' : ''}
+  <tr class="total-row"><td style="text-align:right;">TOTAL:</td><td style="text-align:right;">${fmt(total)}</td></tr>
+  ${depositPct > 0 && depositPct < 100 ? '<tr><td style="text-align:right;color:#666;font-size:12px;">Deposit (' + depositPct + '%):</td><td style="text-align:right;font-size:12px;">' + fmt(deposit) + '</td></tr><tr><td style="text-align:right;color:#666;font-size:12px;">Balance on completion:</td><td style="text-align:right;font-size:12px;">' + fmt(balance) + '</td></tr>' : ''}
+</table>
+
+<h2>Terms</h2>
+<div class="grid2">
+  <div><span class="label">Warranty:</span></div><div><span class="label">Payment Methods:</span></div>
+  <div class="value">${getVal('warranty')}</div><div class="value">${getVal('paymentMethods')}</div>
+</div>
+
+<div class="signature-block">
+  <div>
+    <div style="min-height:40px;">&nbsp;</div>
+    <div class="sig-line">Customer Signature &amp; Date</div>
   </div>
-
-  <div class="section-title">Current System Assessment</div>
-  <div class="info-grid">
-    <div><span class="label">System Type:</span> <span class="value">${escHtml(currentType)}</span></div>
-    <div><span class="label">System Age:</span> <span class="value">${escHtml(systemAge)} years</span></div>
-    <div style="grid-column:1/-1;"><span class="label">Condition:</span> <span class="value">${escHtml(currentCondition)}</span></div>
-    ${issuesNotes ? '<div style="grid-column:1/-1;"><span class="label">Notes:</span> <span class="value">' + escHtml(issuesNotes) + '</span></div>' : ''}
+  <div>
+    <div style="min-height:40px;">&nbsp;</div>
+    <div class="sig-line">Contractor Signature &amp; Date</div>
   </div>
+</div>
 
-  <div class="section-title">Replacement Options</div>
-  <table>
-    <thead>
-      <tr>
-        <th style="width:30%;">&nbsp;</th>
-        <th style="width:23%;text-align:right;">Good</th>
-        <th class="popular" style="width:23%;text-align:right;">Better <span class="badge-popular">Recommended</span></th>
-        <th style="width:23%;text-align:right;">Best</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${optionRow('Equipment', escHtml(getVal('goodDesc')), escHtml(getVal('betterDesc')), escHtml(getVal('bestDesc')))}
-      ${optionRow('Efficiency Rating', escHtml(getVal('goodRating')), escHtml(getVal('betterRating')), escHtml(getVal('bestRating')))}
-      ${optionRow('Equipment Cost', fmt(getNum('goodEquip')), fmt(getNum('betterEquip')), fmt(getNum('bestEquip')))}
-      ${optionRow('Labor', fmt(getNum('goodLabor')), fmt(getNum('betterLabor')), fmt(getNum('bestLabor')))}
-      ${optionRow('Materials', fmt(getNum('goodMaterials')), fmt(getNum('betterMaterials')), fmt(getNum('bestMaterials')))}
-      ${optionRow('Permits', fmt(getNum('goodPermits')), fmt(getNum('betterPermits')), fmt(getNum('bestPermits')))}
-      ${optionRow('Rebates', getNum('goodRebates') > 0 ? '-' + fmt(getNum('goodRebates')) : '$0', getNum('betterRebates') > 0 ? '-' + fmt(getNum('betterRebates')) : '$0', getNum('bestRebates') > 0 ? '-' + fmt(getNum('bestRebates')) : '$0')}
-      ${optionRow('Total', fmt(goodTotal), fmt(betterTotal), fmt(bestTotal), true)}
-      ${financing ? '<tr class="financing-row"><td style="padding:8px 12px;">Monthly Payment (' + term + ' mo @ ' + apr + '% APR)</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(goodMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;background:#f0fdf4;">' + fmt(Math.round(betterMonthly)) + '/mo</td><td style="padding:8px 12px;text-align:right;">' + fmt(Math.round(bestMonthly)) + '/mo</td></tr>' : ''}
-    </tbody>
-  </table>
+<div class="footer">
+  This estimate is valid for ${validDays} days from the date shown above. Prices may change after the expiration date. Customer signature constitutes acceptance of the scope, pricing, and terms described in this document.
+</div>
 
-  <div class="section-title">Scope of Work</div>
-  <div class="scope-box">${scopeToHtml(scopeOfWork)}</div>
-
-  <div class="section-title">Terms &amp; Warranty</div>
-  <div class="terms-grid">
-    <div>
-      <h4>Payment Terms</h4>
-      <p style="margin:0;white-space:pre-line;">${escHtml(paymentTerms)}</p>
-    </div>
-    <div>
-      <h4>Warranty</h4>
-      <p style="margin:0;white-space:pre-line;">${escHtml(warrantyTerms)}</p>
-    </div>
-  </div>
-
-  <div class="signature-line">
-    <div class="sig-block">
-      <div class="line"></div>
-      Customer Signature &nbsp;&nbsp;&nbsp;&nbsp; Date
-    </div>
-    <div class="sig-block">
-      <div class="line"></div>
-      Option Selected: &nbsp; Good &nbsp;|&nbsp; Better &nbsp;|&nbsp; Best
-    </div>
-  </div>
-
-  <div class="footer">
-    This estimate is valid for 30 days from the date above. Prices subject to change after expiration.
-    ${companyName ? '<br>' + escHtml(companyName) : ''}${licenseNum ? ' &bull; License ' + escHtml(licenseNum) : ''}${companyPhone ? ' &bull; ' + escHtml(companyPhone) : ''}
-  </div>
-</body>
-</html>`;
+</body></html>`;
 
     const printWindow = window.open('', '_blank');
     if (printWindow) {
@@ -714,18 +618,5 @@ const faqSchema = {
     }
   }
 
-  // --- Event listeners ---
-  setDefaultDates();
-
-  document.getElementById('showFinancing')?.addEventListener('change', toggleFinancing);
   document.getElementById('generate-btn')?.addEventListener('click', generateEstimate);
-
-  // Auto-calculate on any input change
-  document.querySelectorAll('#estimate-builder input, #estimate-builder select, #estimate-builder textarea').forEach(el => {
-    el.addEventListener('change', updateAll);
-    el.addEventListener('input', updateAll);
-  });
-
-  // Calculate on load with defaults
-  updateAll();
 </script>

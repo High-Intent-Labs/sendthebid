@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should an HVAC estimate include?",
+      "name": "What should a Cleaning estimate include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
+        "text": "A professional cleaning estimate should include company information and business license or bonding/insurance details, customer details, property assessment, service specifications with property size, number of rooms, and frequency, itemized costs for labor, supplies, and any add-ons, applicable discounts, scope of work, satisfaction guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision."
       }
     },
     {
@@ -21,23 +21,23 @@ const faqSchema = {
       "name": "How do I present Good/Better/Best options?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
+        "text": "Start with the Good option as a basic standard clean that covers the essentials. The Better option adds extras like inside appliances, baseboards, or window sills. The Best option is the premium choice with a deep clean, inside cabinets, and detailed attention to every surface. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option."
       }
     },
     {
       "@type": "Question",
-      "name": "How long should an HVAC estimate be valid?",
+      "name": "How long should a Cleaning estimate be valid?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate."
+        "text": "Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days due to limited crew availability. Always include a clear expiration date on the estimate."
       }
     },
     {
       "@type": "Question",
-      "name": "Should HVAC estimates include financing?",
+      "name": "Should Cleaning estimates include financing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock."
+        "text": "For recurring cleaning contracts, showing per-visit pricing alongside monthly totals significantly increases close rates. Customers focus on the per-visit value rather than the annual total. Even if you bill monthly, breaking it down per visit helps the customer see the value. Offering a discount for recurring service compared to one-time pricing reduces hesitation and locks in long-term revenue."
       }
     }
   ]
@@ -52,7 +52,7 @@ const faqSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-          <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyName" placeholder="Your Cleaning Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -60,11 +60,11 @@ const faqSchema = {
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-          <input type="text" id="companyEmail" placeholder="info@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="companyEmail" placeholder="info@yourcleaning.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="licenseNum">License #</label>
-          <input type="text" id="licenseNum" placeholder="HVAC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+          <input type="text" id="licenseNum" placeholder="CLN-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="estimateNum">Estimate #</label>
@@ -107,12 +107,12 @@ const faqSchema = {
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="currentType">Current System Type</label>
           <select id="currentType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Central AC</option>
-            <option value="Heat Pump">Heat Pump</option>
-            <option value="Furnace">Furnace</option>
-            <option value="Mini Split">Mini Split</option>
-            <option value="Boiler">Boiler</option>
-            <option value="Package Unit">Package Unit</option>
+            <option value="Central AC">Office Space</option>
+            <option value="Heat Pump">Retail Space</option>
+            <option value="Furnace">Equipment</option>
+            <option value="Mini Split">Warehouse</option>
+            <option value="Boiler">Medical</option>
+            <option value="Package Unit">Restaurant</option>
           </select>
         </div>
         <div>
@@ -149,11 +149,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="goodDesc">Equipment Description</label>
-                <input type="text" id="goodDesc" value="14 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="goodDesc" value="14 efficiency2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="goodRating">SEER / AFUE Rating</label>
-                <input type="text" id="goodRating" value="14 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="goodRating">efficiency / efficiency Rating</label>
+                <input type="text" id="goodRating" value="14 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="goodEquip">Equipment Cost ($)</label>
@@ -199,11 +199,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="betterDesc">Equipment Description</label>
-                <input type="text" id="betterDesc" value="16 SEER2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="betterDesc" value="16 efficiency2 Central AC" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="betterRating">SEER / AFUE Rating</label>
-                <input type="text" id="betterRating" value="16 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="betterRating">efficiency / efficiency Rating</label>
+                <input type="text" id="betterRating" value="16 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="betterEquip">Equipment Cost ($)</label>
@@ -246,11 +246,11 @@ const faqSchema = {
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="bestDesc">Equipment Description</label>
-                <input type="text" id="bestDesc" value="20 SEER2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <input type="text" id="bestDesc" value="20 efficiency2 Central AC with Variable Speed" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
-                <label class="block text-xs text-text-muted mb-1" for="bestRating">SEER / AFUE Rating</label>
-                <input type="text" id="bestRating" value="20 SEER2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+                <label class="block text-xs text-text-muted mb-1" for="bestRating">efficiency / efficiency Rating</label>
+                <input type="text" id="bestRating" value="20 efficiency2" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-text-muted mb-1" for="bestEquip">Equipment Cost ($)</label>
@@ -293,10 +293,10 @@ const faqSchema = {
         <label class="block text-sm font-medium text-text-secondary mb-2" for="scopeOfWork">Work included in this estimate</label>
         <textarea id="scopeOfWork" rows="8" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm leading-relaxed focus:border-accent focus:outline-none transition-colors resize-y">&bull; Remove and dispose of existing equipment
 &bull; Install new equipment per manufacturer specifications
-&bull; Connect to existing ductwork / line set
-&bull; Electrical and refrigerant connections
+&bull; Set up equipment and cleaning zones
+&bull; Chemical and supply connections
 &bull; System startup and performance test
-&bull; Program thermostat and walkthrough with homeowner
+&bull; Final inspection and walkthrough with client
 &bull; Pull permit and schedule inspection</textarea>
       </div>
     </div>
@@ -327,7 +327,7 @@ const faqSchema = {
         </div>
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-2" for="warrantyTerms">Warranty</label>
-          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">Equipment: 10-year parts manufacturer warranty. Labor: 1-year workmanship guarantee.</textarea>
+          <textarea id="warrantyTerms" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y">100% satisfaction guarantee. We will re-clean any area you are not happy with within 24 hours at no additional charge.</textarea>
         </div>
       </div>
     </div>
@@ -340,7 +340,7 @@ const faqSchema = {
           <div class="text-[#60A5FA] text-xs font-bold uppercase tracking-wider mb-2">Good</div>
           <div id="previewGoodTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$6,000</div>
           <div id="previewGoodMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">14 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewGoodDesc">Standard Clean — Kitchen, Bathrooms, Floors</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border-2 border-[#34D399] relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -349,13 +349,13 @@ const faqSchema = {
           <div class="text-[#34D399] text-xs font-bold uppercase tracking-wider mb-2">Better</div>
           <div id="previewBetterTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$7,300</div>
           <div id="previewBetterMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">16 SEER2 Central AC</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBetterDesc">Deep Clean — Inside Appliances, Baseboards</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center border border-border">
           <div class="text-[#FBBF24] text-xs font-bold uppercase tracking-wider mb-2">Best</div>
           <div id="previewBestTotal" class="font-heading font-extrabold text-2xl text-text-primary mb-1">$9,150</div>
           <div id="previewBestMonthly" class="text-text-muted text-xs hidden"></div>
-          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">20 SEER2 Central AC with Variable Speed</div>
+          <div class="text-text-muted text-xs mt-1" id="previewBestDesc">Premium Deep Clean — Inside Cabinets, Windows</div>
         </div>
       </div>
     </div>
@@ -375,8 +375,8 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Fill in your company information.</strong> Enter your company name, phone, email, and license number. These appear in the header of your estimate. The estimate number auto-generates but you can change it to match your numbering system.</p>
           <p><strong class="text-text-primary">2. Add the customer details.</strong> Enter the customer name, address, and phone. This information populates the estimate header so the customer knows exactly who it was prepared for.</p>
-          <p><strong class="text-text-primary">3. Assess the current system.</strong> Document the existing equipment type, age, and condition. This builds credibility and gives the customer context for why replacement is recommended. Add notes about specific issues you found during your inspection.</p>
-          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter equipment descriptions, efficiency ratings, and costs for each tier. The Good option should be the minimum code-compliant solution. Better adds efficiency. Best is the premium package. Totals calculate automatically as you type.</p>
+          <p><strong class="text-text-primary">3. Assess the current situation.</strong> Document the property type, current condition, and any special needs. This builds credibility and gives the customer context for your recommended service level. Add notes about specific areas that need extra attention from your walkthrough.</p>
+          <p><strong class="text-text-primary">4. Build your Good/Better/Best options.</strong> Enter service descriptions and costs for each tier. The Good option should be a basic standard clean. Better adds extras like inside appliances and baseboards. Best is the premium deep clean package. Totals calculate automatically as you type.</p>
           <p><strong class="text-text-primary">5. Generate and print.</strong> Click "Generate Estimate PDF" to open a clean, print-ready estimate in a new window. Use your browser's print function to save as PDF or print directly. The estimate includes all three options, scope of work, and terms.</p>
         </div>
       </section>
@@ -387,8 +387,8 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Customers want to choose, not be told.</strong> Presenting a single option forces a yes-or-no decision, and "no" is easy. Three options shift the conversation from "should I buy" to "which one should I pick." This psychological reframe is why tiered pricing consistently outperforms single-option proposals across every study in the home services industry.</p>
           <p><strong class="text-text-primary">The middle option wins most of the time.</strong> This is the compromise effect, also known as the center-stage bias. When presented with three choices, most people avoid the cheapest (feels like cutting corners) and the most expensive (feels excessive). The Better option feels reasonable and safe. If you use Good/Better/Best, expect 50 to 60 percent of customers to pick the middle tier.</p>
-          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major HVAC franchise trains their sales team on this method.</p>
-          <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive system. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
+          <p><strong class="text-text-primary">Your average ticket goes up without a hard sell.</strong> Even the customers who pick Good are choosing from a menu rather than haggling on price. And the 15 to 20 percent who pick Best are upselling themselves. The net effect is a higher average ticket with less sales friction, which is exactly why every major cleaning franchise trains their sales team on this method.</p>
+          <p><strong class="text-text-primary">It builds trust and positions you as an advisor.</strong> Presenting options shows the customer you are not just pushing the most expensive service. You are giving them information and letting them make an informed decision. That transparency builds trust, which leads to referrals and repeat business.</p>
         </div>
       </section>
 
@@ -396,9 +396,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Replacement consultations.</strong> After inspecting a failing system, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the efficiency differences, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
-          <p><strong class="text-text-primary">Insurance work and emergency replacements.</strong> When a system has failed completely, the customer needs to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them upgrade if the budget allows. Include financing to make the decision even easier.</p>
-          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of investment without going back and forth on revisions.</p>
+          <p><strong class="text-text-primary">New client walkthroughs.</strong> After doing a walkthrough of the property, sit down with the homeowner and fill this out on your tablet or laptop. Walk them through each option, explain the differences in scope, and show the totals. Print or email the estimate before you leave. Customers who receive a professional, multi-option estimate on the spot close at significantly higher rates than those who get a handwritten number on a notepad.</p>
+          <p><strong class="text-text-primary">Move-out cleans and deep cleans.</strong> When a tenant is moving out or a homeowner needs a one-time deep clean, they need to make a fast decision. Having a clean estimate template ready means you can put professional-looking numbers in front of them within minutes. The Good option gives them an affordable path forward, while Better and Best let them add extras like inside appliances and windows. Include recurring contract pricing to make the decision even easier.</p>
+          <p><strong class="text-text-primary">Commercial bids and property managers.</strong> Property managers and commercial clients expect itemized, professional estimates. This template gives them the breakdown they need to compare bids and get approval from ownership. The Good/Better/Best format works especially well for commercial because it lets the decision maker choose the level of service without going back and forth on revisions.</p>
         </div>
       </section>
 
@@ -407,20 +407,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC estimate include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional HVAC estimate should include company information and license number, customer details, current system assessment, equipment specifications with model numbers and SEER/AFUE ratings, itemized costs for equipment, labor, materials, and permits, applicable rebates, scope of work, warranty terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Cleaning estimate include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A professional cleaning estimate should include company information and business license or bonding/insurance details, customer details, property assessment, service specifications with property size, number of rooms, and frequency, itemized costs for labor, supplies, and any add-ons, applicable discounts, scope of work, satisfaction guarantee terms, payment terms, and a validity period. Presenting Good/Better/Best options increases close rates by giving the customer control over the decision.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I present Good/Better/Best options?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as the minimum code-compliant system that solves the problem. The Better option adds efficiency or comfort features like a higher SEER rating or two-stage compressor. The Best option is the premium choice with top-tier efficiency, variable-speed technology, and smart controls. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with the Good option as a basic standard clean that covers the essentials. The Better option adds extras like inside appliances, baseboards, or window sills. The Best option is the premium choice with a deep clean, inside cabinets, and detailed attention to every surface. Present all three side by side and let the customer choose. Most customers pick Better, which is typically your best margin option.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should an HVAC estimate be valid?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC estimates are valid for 30 days. Equipment pricing from distributors typically holds for 30 to 60 days, and labor costs are relatively stable within that window. During peak season or periods of supply chain disruption, some contractors shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long should a Cleaning estimate be valid?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most cleaning estimates are valid for 30 days. Supply costs and labor rates are relatively stable within that window. During busy season or move-out season, some cleaning companies shorten validity to 14 or 21 days. Always include a clear expiration date on the estimate. For recurring service contracts, consider offering a per-visit price that locks in for the contract term.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should HVAC estimates include financing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including monthly payment options on estimates significantly increases close rates, especially for replacements over $5,000. Customers focus on monthly affordability rather than total cost. Common HVAC financing terms are 36, 60, or 120 months. Even if you do not offer in-house financing, showing approximate monthly payments helps the customer visualize affordability and reduces sticker shock.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should cleaning estimates include recurring pricing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Including per-visit pricing for recurring contracts significantly increases close rates, especially for deep cleans and move-out cleans where the one-time price feels high. Customers focus on the per-visit cost rather than the one-time total. Show them what bi-weekly or monthly service would cost per visit alongside the one-time price. Even if they start with a one-time clean, showing the recurring option plants the seed for long-term revenue.</div>
           </details>
         </div>
       </section>
@@ -520,7 +520,7 @@ const faqSchema = {
 
   // --- Generate print-ready estimate ---
   function generateEstimate() {
-    const companyName = getVal('companyName') || 'HVAC Company';
+    const companyName = getVal('companyName') || 'Cleaning Company';
     const companyPhone = getVal('companyPhone');
     const companyEmail = getVal('companyEmail');
     const licenseNum = getVal('licenseNum');

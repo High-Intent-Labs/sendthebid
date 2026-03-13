@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should an HVAC service agreement include?",
+      "name": "What should a Painting service agreement include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An HVAC service agreement should include company and customer information, covered equipment with make, model, and serial numbers, the coverage tier detailing what is included (tune-ups, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties."
+        "text": "A Painting service agreement should include company and customer information, covered properties with addresses and surface details, the coverage tier detailing what is included (touch-ups, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties."
       }
     },
     {
@@ -21,7 +21,7 @@ const faqSchema = {
       "name": "How much should I charge for a maintenance agreement?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC companies charge between $150 and $500 per system per year depending on the coverage tier. A basic plan with one tune-up typically runs $150 to $200. A standard plan with two tune-ups and a repair discount runs $250 to $350. Premium plans with priority service, included refrigerant, and deeper discounts run $400 to $500. Price to cover your costs plus a healthy margin — aim for 50% or higher gross profit on agreement revenue."
+        "text": "Most Painting companies charge between $150 and $500 per property per year depending on the coverage tier. A basic plan with one annual touch-up typically runs $150 to $200. A standard plan with two touch-up visits and a repair discount runs $250 to $350. Premium plans with priority service, included paint, and deeper discounts run $400 to $500. Price to cover your costs plus a healthy margin — aim for 50% or higher gross profit on agreement revenue."
       }
     },
     {
@@ -29,7 +29,7 @@ const faqSchema = {
       "name": "How do maintenance agreements increase business value?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $300 each has $150,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during tune-up visits."
+        "text": "Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $300 each has $150,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during touch-up visits."
       }
     },
     {
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "What is the difference between a service agreement and a warranty?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A warranty is a manufacturer guarantee that covers defects in equipment or workmanship for a set period — typically 5 to 10 years on parts. A service agreement is a contract between the HVAC company and the customer for ongoing maintenance and service benefits like tune-ups, repair discounts, and priority scheduling. Warranties cover equipment failure while service agreements cover preventive maintenance and service perks. Many HVAC companies require active maintenance agreements to honor extended labor warranties."
+        "text": "A warranty is a manufacturer guarantee that covers defects in paint products or workmanship for a set period. A service agreement is a contract between the Painting company and the customer for ongoing maintenance and service benefits like touch-ups, repair discounts, and priority scheduling. Warranties cover product failure while service agreements cover preventive maintenance and service perks. Many Painting companies require active maintenance agreements to honor extended labor warranties."
       }
     }
   ]
@@ -51,7 +51,7 @@ const faqSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyName">Company Name</label>
-        <input type="text" id="companyName" placeholder="Your HVAC Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyName" placeholder="Your Painting Company" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyPhone">Phone</label>
@@ -59,11 +59,11 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyEmail">Email</label>
-        <input type="email" id="companyEmail" placeholder="service@yourhvac.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="email" id="companyEmail" placeholder="service@yourpainting.com" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="companyLicense">License #</label>
-        <input type="text" id="companyLicense" placeholder="HVAC-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="companyLicense" placeholder="PAINT-12345" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="agreementNumber">Agreement #</label>
@@ -104,36 +104,36 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Systems Covered -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Systems Covered</h3>
+    <!-- Properties Covered -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Properties Covered</h3>
     <div id="systemsList" class="space-y-4 mb-4">
       <div class="system-entry bg-bg-dark border border-border rounded-lg p-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Surface Type</label>
             <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-              <option value="Central AC">Central AC</option>
-              <option value="Heat Pump">Heat Pump</option>
-              <option value="Furnace">Furnace</option>
-              <option value="Mini Split">Mini Split</option>
-              <option value="Boiler">Boiler</option>
-              <option value="Package Unit">Package Unit</option>
+              <option value="Interior Walls">Interior Walls</option>
+              <option value="Exterior Siding">Exterior Siding</option>
+              <option value="Trim & Fascia">Trim & Fascia</option>
+              <option value="Deck / Fence">Deck / Fence</option>
+              <option value="Cabinets">Cabinets</option>
+              <option value="Full Property">Full Property</option>
             </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
-            <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Carrier" />
+            <label class="block text-sm font-medium text-text-secondary mb-1">Address</label>
+            <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="123 Main St" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
-            <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="24ACC636A003" />
+            <label class="block text-sm font-medium text-text-secondary mb-1">Surface Details</label>
+            <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Drywall, wood trim, stucco" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
-            <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
+            <label class="block text-sm font-medium text-text-secondary mb-1">Approx. Sq Ft</label>
+            <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="2500" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
+            <label class="block text-sm font-medium text-text-secondary mb-1">Last Painted</label>
             <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-end">
@@ -143,7 +143,7 @@ const faqSchema = {
       </div>
     </div>
     <button id="addSystemBtn" type="button" class="text-accent hover:text-accent-hover text-sm font-semibold transition-colors mb-8">
-      + Add Another System
+      + Add Another Property
     </button>
 
     <!-- Coverage Tiers -->
@@ -157,11 +157,11 @@ const faqSchema = {
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Property / Year ($)</label>
             <input type="number" id="basicPrice" value="179" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Touch-Ups / Year</label>
             <input type="number" id="basicTuneups" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
@@ -181,7 +181,7 @@ const faqSchema = {
             <label for="basicNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Refrigerant Included (lbs)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
             <input type="number" id="basicRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
@@ -196,11 +196,11 @@ const faqSchema = {
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Property / Year ($)</label>
             <input type="number" id="standardPrice" value="299" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Touch-Ups / Year</label>
             <input type="number" id="standardTuneups" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
@@ -220,7 +220,7 @@ const faqSchema = {
             <label for="standardNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Refrigerant Included (lbs)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
             <input type="number" id="standardRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
@@ -234,11 +234,11 @@ const faqSchema = {
         </div>
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Price / System / Year ($)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Price / Property / Year ($)</label>
             <input type="number" id="premiumPrice" value="449" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Tune-Ups / Year</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Touch-Ups / Year</label>
             <input type="number" id="premiumTuneups" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
@@ -258,12 +258,12 @@ const faqSchema = {
             <label for="premiumNoDiag" class="text-sm text-text-secondary cursor-pointer">No Diagnostic Fee</label>
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted mb-1">Refrigerant Included (lbs)</label>
+            <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
             <input type="number" id="premiumRefrigerant" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
             <input type="checkbox" id="premiumIAQ" checked class="accent-accent w-4 h-4" />
-            <label for="premiumIAQ" class="text-sm text-text-secondary cursor-pointer">IAQ Check Included</label>
+            <label for="premiumIAQ" class="text-sm text-text-secondary cursor-pointer">Color Consultation Included</label>
           </div>
         </div>
       </div>
@@ -311,7 +311,7 @@ const faqSchema = {
           <input type="number" id="techCost" value="45" min="0" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-text-muted mb-1">Hours / Tune-Up</label>
+          <label class="block text-xs font-medium text-text-muted mb-1">Hours / Touch-Up</label>
           <input type="number" id="hoursPerTuneup" value="1.5" min="0" step="0.25" class="w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
         </div>
       </div>
@@ -349,20 +349,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your company and customer details.</strong> Fill in your company name, license number, and contact info. Then add the customer's name, address, and contact information. The agreement number auto-generates but you can customize it to match your numbering system.</p>
-          <p><strong class="text-text-primary">2. Add the covered systems.</strong> List every piece of equipment the agreement covers. Include the equipment type, make, model, serial number, and install date. Click "Add Another System" for homes with multiple units. More systems means more revenue per agreement.</p>
-          <p><strong class="text-text-primary">3. Select and customize a coverage tier.</strong> Choose Basic, Standard, or Premium. Each tier comes pre-loaded with industry-standard pricing and benefits. Adjust the price, tune-up count, repair discount, and included perks to match what your company offers.</p>
+          <p><strong class="text-text-primary">2. Add the covered properties.</strong> List every property or surface area the agreement covers. Include the surface type, address, surface details, approximate square footage, and date last painted. Click "Add Another Property" for customers with multiple properties. More properties means more revenue per agreement.</p>
+          <p><strong class="text-text-primary">3. Select and customize a coverage tier.</strong> Choose Basic, Standard, or Premium. Each tier comes pre-loaded with industry-standard pricing and benefits. Adjust the price, touch-up count, repair discount, and included perks to match what your company offers.</p>
           <p><strong class="text-text-primary">4. Generate and print.</strong> Click Generate to create a professional, printable service agreement. It includes all the details you entered, the selected coverage tier, payment terms, cancellation policy, and signature lines for both parties.</p>
         </div>
       </section>
 
       <!-- Why Service Agreements Are Essential -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">Why Service Agreements Are Essential for HVAC</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Why Service Agreements Are Essential for Painting</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>Service agreements transform an HVAC business from a reactive, seasonal operation into one with <strong class="text-text-primary">predictable recurring revenue</strong>. Instead of waiting for the phone to ring when something breaks, agreements guarantee scheduled work throughout the year and build a backlog of committed revenue before the season even starts.</p>
+          <p>Service agreements transform a Painting business from a reactive, seasonal operation into one with <strong class="text-text-primary">predictable recurring revenue</strong>. Instead of waiting for the phone to ring when something breaks, agreements guarantee scheduled work throughout the year and build a backlog of committed revenue before the season even starts.</p>
           <p><strong class="text-text-primary">Customer retention skyrockets.</strong> A customer with an active agreement is 5 to 8 times more likely to call you for their next repair or replacement than a one-time service customer. They are already paying you, they know your technicians, and they trust your company. That loyalty means fewer leads you need to buy and a lower cost of acquisition for every job.</p>
-          <p><strong class="text-text-primary">Agreements increase business value.</strong> When buyers or investors evaluate an HVAC company, recurring revenue from maintenance agreements is valued at a significantly higher multiple than one-time service revenue. A company with 500 active agreements is worth materially more than one without — even if total revenue is similar. Agreements also smooth out seasonal cash flow, making it easier to manage payroll, inventory, and growth investments year-round.</p>
-          <p>Every tune-up visit is also a <strong class="text-text-primary">sales opportunity</strong>. Technicians identify aging capacitors, corroded coils, and inefficient systems during routine maintenance. Agreement customers trust your recommendations because they already have a relationship with your company, leading to higher close rates on repairs and replacements.</p>
+          <p><strong class="text-text-primary">Agreements increase business value.</strong> When buyers or investors evaluate a Painting company, recurring revenue from maintenance agreements is valued at a significantly higher multiple than one-time service revenue. A company with 500 active agreements is worth materially more than one without — even if total revenue is similar. Agreements also smooth out seasonal cash flow, making it easier to manage payroll, inventory, and growth investments year-round.</p>
+          <p>Every touch-up visit is also a <strong class="text-text-primary">sales opportunity</strong>. Your crew identifies peeling paint, faded surfaces, and deteriorating caulk during routine maintenance. Agreement customers trust your recommendations because they already have a relationship with your company, leading to higher close rates on repaints and additional services.</p>
         </div>
       </section>
 
@@ -371,8 +371,8 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Launching a maintenance agreement program.</strong> You know you need recurring revenue but have never offered agreements before. Use this template to design your tier structure, set competitive pricing, and generate professional contracts. The profitability calculator helps you price tiers that actually make money after accounting for technician labor and materials.</p>
-          <p><strong class="text-text-primary">Closing new installs.</strong> After completing a system installation, present the customer with a service agreement before you leave the job site. Offer a first-year discount or include the first year with the installation. This is the highest-conversion moment — the customer just invested thousands of dollars and wants to protect their new equipment.</p>
-          <p><strong class="text-text-primary">Renewing and upgrading existing agreements.</strong> At renewal time, generate an updated agreement with the customer's current equipment details. Use the tier comparison to show customers the value of upgrading from Basic to Standard or Standard to Premium. The incremental revenue from tier upgrades adds up fast across your entire agreement base.</p>
+          <p><strong class="text-text-primary">Closing new paint jobs.</strong> After completing an interior or exterior repaint, present the customer with a service agreement before you leave the job site. Offer a first-year discount or include the first year with the project. This is the highest-conversion moment — the customer just invested thousands of dollars and wants to protect their fresh paint.</p>
+          <p><strong class="text-text-primary">Renewing and upgrading existing agreements.</strong> At renewal time, generate an updated agreement with the customer's current property details. Use the tier comparison to show customers the value of upgrading from Basic to Standard or Standard to Premium. The incremental revenue from tier upgrades adds up fast across your entire agreement base.</p>
         </div>
       </section>
 
@@ -381,20 +381,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an HVAC service agreement include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">An HVAC service agreement should include company and customer information, covered equipment with make, model, and serial numbers, the coverage tier detailing what is included (tune-ups, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should a Painting service agreement include?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A Painting service agreement should include company and customer information, covered properties with addresses and surface details, the coverage tier detailing what is included (touch-ups, discounts, priority scheduling), pricing and payment terms, agreement duration, auto-renewal and cancellation policies, exclusions and limitations, and signature lines for both parties.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I charge for a maintenance agreement?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC companies charge between $150 and $500 per system per year depending on the coverage tier. A basic plan with one tune-up typically runs $150 to $200. A standard plan with two tune-ups and a repair discount runs $250 to $350. Premium plans with priority service, included refrigerant, and deeper discounts run $400 to $500. Price to cover your costs plus a healthy margin.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Painting companies charge between $150 and $500 per property per year depending on the coverage tier. A basic plan with one annual touch-up typically runs $150 to $200. A standard plan with two touch-up visits and a repair discount runs $250 to $350. Premium plans with priority service, included paint, and deeper discounts run $400 to $500. Price to cover your costs plus a healthy margin.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do maintenance agreements increase business value?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $300 each has $150,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during tune-up visits.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Maintenance agreements create predictable recurring revenue, which business buyers and lenders value highly. A company with 500 active agreements at $300 each has $150,000 in predictable annual revenue. This recurring revenue typically sells at a higher multiple than one-time service revenue. Agreements also improve customer retention, reduce seasonal revenue swings, and generate upsell opportunities during touch-up visits.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between a service agreement and a warranty?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A warranty is a manufacturer guarantee that covers defects in equipment or workmanship for a set period — typically 5 to 10 years on parts. A service agreement is a contract between the HVAC company and the customer for ongoing maintenance and service benefits like tune-ups, repair discounts, and priority scheduling. Warranties cover equipment failure while service agreements cover preventive maintenance and service perks.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A warranty is a manufacturer guarantee that covers defects in paint or workmanship for a set period — typically 1 to 2 years on labor. A service agreement is a contract between the Painting company and the customer for ongoing maintenance and service benefits like touch-ups, repair discounts, and priority scheduling. Warranties cover paint failure while service agreements cover preventive maintenance and service perks.</div>
           </details>
         </div>
       </section>
@@ -420,30 +420,30 @@ const faqSchema = {
     div.innerHTML = `
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Surface Type</label>
           <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Central AC</option>
-            <option value="Heat Pump">Heat Pump</option>
-            <option value="Furnace">Furnace</option>
-            <option value="Mini Split">Mini Split</option>
-            <option value="Boiler">Boiler</option>
-            <option value="Package Unit">Package Unit</option>
+            <option value="Interior Walls">Interior Walls</option>
+            <option value="Exterior Siding">Exterior Siding</option>
+            <option value="Trim & Fascia">Trim & Fascia</option>
+            <option value="Deck / Fence">Deck / Fence</option>
+            <option value="Cabinets">Cabinets</option>
+            <option value="Full Property">Full Property</option>
           </select>
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Make</label>
-          <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Carrier" />
+          <label class="block text-sm font-medium text-text-secondary mb-1">Address</label>
+          <input type="text" class="sys-make w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="123 Main St" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Model</label>
-          <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="24ACC636A003" />
+          <label class="block text-sm font-medium text-text-secondary mb-1">Surface Details</label>
+          <input type="text" class="sys-model w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="Drywall, wood trim, stucco" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Serial #</label>
-          <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="1234567890" />
+          <label class="block text-sm font-medium text-text-secondary mb-1">Approx. Sq Ft</label>
+          <input type="text" class="sys-serial w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" placeholder="2500" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-text-secondary mb-1">Install Date</label>
+          <label class="block text-sm font-medium text-text-secondary mb-1">Last Painted</label>
           <input type="date" class="sys-install w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div class="flex items-end">
@@ -622,7 +622,7 @@ const faqSchema = {
   }
 
   document.getElementById('generateBtn')?.addEventListener('click', () => {
-    const companyName = $('companyName').value || 'Your HVAC Company';
+    const companyName = $('companyName').value || 'Your Painting Company';
     const companyPhone = $('companyPhone').value || '';
     const companyEmail = $('companyEmail').value || '';
     const companyLicense = $('companyLicense').value || '';
@@ -664,13 +664,13 @@ const faqSchema = {
     `).join('');
 
     const benefitsList = [
-      `${tier.tuneups} comprehensive tune-up${tier.tuneups > 1 ? 's' : ''} per system per year`,
+      `${tier.tuneups} comprehensive touch-up${tier.tuneups > 1 ? 's' : ''} per property per year`,
       tier.scheduling,
       `${tier.discount}% discount on all repairs`,
       tier.noOvertime ? 'No overtime charges on service calls' : null,
       tier.noDiag ? 'No diagnostic fee' : null,
-      tier.refrigerant > 0 ? `Up to ${tier.refrigerant} lb${tier.refrigerant > 1 ? 's' : ''} of refrigerant included per visit` : null,
-      tier.iaq ? 'Indoor air quality check included with each tune-up' : null,
+      tier.refrigerant > 0 ? `Up to ${tier.refrigerant} gallon${tier.refrigerant > 1 ? 's' : ''} of paint included per visit` : null,
+      tier.iaq ? 'Color consultation included with each touch-up' : null,
     ].filter(Boolean);
 
     const benefitsHtml = benefitsList.map(b => `<li style="margin-bottom:6px;">${b}</li>`).join('');
@@ -716,7 +716,7 @@ const faqSchema = {
         <div class="header">
           <div class="header-left">
             <h1>${companyName}</h1>
-            <div style="font-size:13px;color:#555;margin-top:4px;">HVAC Service Agreement</div>
+            <div style="font-size:13px;color:#555;margin-top:4px;">Painting Service Agreement</div>
           </div>
           <div class="header-right">
             ${companyPhone ? `<div>${companyPhone}</div>` : ''}
@@ -749,16 +749,16 @@ const faqSchema = {
           </div>
         </div>
 
-        <h2>Covered Equipment</h2>
+        <h2>Covered Properties</h2>
         <table>
           <thead>
             <tr style="background:#f0f0f0;">
               <th style="border:1px solid #ddd;padding:8px;text-align:left;">#</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Type</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Make</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Model</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Serial #</th>
-              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Installed</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Surface Type</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Address</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Surface Details</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Sq Ft</th>
+              <th style="border:1px solid #ddd;padding:8px;text-align:left;">Last Painted</th>
             </tr>
           </thead>
           <tbody>
@@ -769,7 +769,7 @@ const faqSchema = {
         <div class="tier-banner">
           <div>
             <div class="tier-name">${tier.name}</div>
-            <div style="font-size:12px;opacity:0.8;">${tier.tier} Coverage &middot; ${numSystems} System${numSystems > 1 ? 's' : ''}</div>
+            <div style="font-size:12px;opacity:0.8;">${tier.tier} Coverage &middot; ${numSystems} Propert${numSystems > 1 ? 'ies' : 'y'}</div>
           </div>
           <div class="tier-price">$${fmt(totalAnnual)}<span style="font-size:12px;font-weight:400;opacity:0.8;">/year</span></div>
         </div>
@@ -782,11 +782,11 @@ const faqSchema = {
         <h2>Payment Terms</h2>
         <table>
           <tr>
-            <td style="border:1px solid #ddd;padding:8px;width:40%;background:#f8f8f8;font-weight:600;">Price per System per Year</td>
+            <td style="border:1px solid #ddd;padding:8px;width:40%;background:#f8f8f8;font-weight:600;">Price per Property per Year</td>
             <td style="border:1px solid #ddd;padding:8px;">$${fmt(tier.price)}</td>
           </tr>
           <tr>
-            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Number of Systems</td>
+            <td style="border:1px solid #ddd;padding:8px;background:#f8f8f8;font-weight:600;">Number of Properties</td>
             <td style="border:1px solid #ddd;padding:8px;">${numSystems}</td>
           </tr>
           <tr>
@@ -805,16 +805,16 @@ const faqSchema = {
 
         <h2>Terms &amp; Conditions</h2>
         <h3>1. Scope of Service</h3>
-        <p>This agreement covers scheduled preventive maintenance for the equipment listed above. The Service Provider will perform ${tier.tuneups} comprehensive tune-up${tier.tuneups > 1 ? 's' : ''} per covered system per year. Tune-ups include inspection, cleaning, calibration, and safety checks per manufacturer specifications.</p>
+        <p>This agreement covers scheduled preventive maintenance for the properties listed above. The Service Provider will perform ${tier.tuneups} comprehensive touch-up${tier.tuneups > 1 ? 's' : ''} per covered property per year. Touch-ups include inspection, cleaning, surface prep, and minor paint repairs to maintain appearance and protection.</p>
 
         <h3>2. Scheduling</h3>
-        <p>The Service Provider will contact the Customer to schedule tune-ups at mutually convenient times. ${tier.scheduling === 'Same-Day Guarantee' ? 'For service calls, the Customer is guaranteed same-day service when the call is placed before noon.' : tier.scheduling === 'Same-Day Scheduling' ? 'For service calls, the Service Provider will make every reasonable effort to provide same-day scheduling.' : 'Agreement customers receive priority scheduling ahead of non-agreement customers.'}</p>
+        <p>The Service Provider will contact the Customer to schedule touch-ups at mutually convenient times. ${tier.scheduling === 'Same-Day Guarantee' ? 'For service calls, the Customer is guaranteed same-day service when the call is placed before noon.' : tier.scheduling === 'Same-Day Scheduling' ? 'For service calls, the Service Provider will make every reasonable effort to provide same-day scheduling.' : 'Agreement customers receive priority scheduling ahead of non-agreement customers.'}</p>
 
         <h3>3. Repair Discounts</h3>
-        <p>The Customer receives a ${tier.discount}% discount on all repair labor and parts for covered equipment during the agreement term. Discounts do not apply to new equipment installation or equipment replacement.</p>
+        <p>The Customer receives a ${tier.discount}% discount on all repair labor and materials for covered properties during the agreement term. Discounts do not apply to full repaints or new construction projects.</p>
 
         <h3>4. Exclusions</h3>
-        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; duct cleaning or modification; new equipment installation; code upgrades required by local authorities; or cosmetic damage. Pre-existing conditions identified during the first tune-up may be excluded at the Service Provider's discretion.</p>
+        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; structural repairs; full repaints or new construction; code upgrades required by local authorities; or water damage remediation. Pre-existing conditions identified during the first touch-up may be excluded at the Service Provider's discretion.</p>
 
         <h3>5. Cancellation</h3>
         <p>Either party may cancel this agreement with ${cancelNotice} days written notice. If the Customer cancels before the agreement term expires, a pro-rated refund will be issued less the retail value of any services already performed. The Service Provider reserves the right to cancel with ${cancelNotice} days notice and a full refund of unused services.</p>

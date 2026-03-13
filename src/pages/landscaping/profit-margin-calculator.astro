@@ -10,10 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a good profit margin for HVAC?",
+      "name": "What is a good profit margin for Landscaping?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The industry average gross margin for HVAC companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work."
+        "text": "The industry average gross margin for Landscaping companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work."
       }
     },
     {
@@ -26,18 +26,18 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "How do I calculate overhead for an HVAC job?",
+      "name": "How do I calculate overhead for a Landscaping job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most HVAC companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue."
+        "text": "Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most Landscaping companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is my HVAC profit margin so low?",
+      "name": "Why is my Landscaping profit margin so low?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Common causes of low HVAC margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
+        "text": "Common causes of low Landscaping margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
       }
     }
   ]
@@ -53,7 +53,7 @@ const faqSchema = {
         <input type="number" id="revenue" value="5800" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Equipment &amp; Parts (condenser, coil, refrigerant, line set)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Equipment &amp; Parts (materials, parts, supplies, and fittings)</label>
         <input type="number" id="equipment" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
@@ -114,7 +114,7 @@ const faqSchema = {
 
       <!-- Benchmarks -->
       <div class="bg-bg-dark rounded-xl p-6">
-        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">HVAC Industry Benchmarks</h4>
+        <h4 class="font-heading font-bold text-sm uppercase tracking-wider text-text-muted mb-4">Landscaping Industry Benchmarks</h4>
         <div class="space-y-3">
           <div>
             <div class="flex justify-between text-sm mb-1">
@@ -178,10 +178,10 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your job revenue.</strong> This is the total amount you charge the customer. Include all line items: equipment, labor, materials, and any fees.</p>
-          <p><strong class="text-text-primary">2. Enter equipment and parts cost.</strong> Your wholesale cost for the condenser, coil, refrigerant, line set, and any other parts. Use what you actually paid, not list price.</p>
+          <p><strong class="text-text-primary">2. Enter equipment and parts cost.</strong> Your wholesale cost for the materials, parts, supplies, and fittings, and any other parts. Use what you actually paid, not list price.</p>
           <p><strong class="text-text-primary">3. Fill in labor details.</strong> Enter the number of techs on the job, total hours, and your hourly labor cost. This should be your burdened rate (wages + payroll taxes + workers comp), not the billing rate.</p>
           <p><strong class="text-text-primary">4. Add materials cost.</strong> Consumables like brazing rods, tape, screws, hangers, condensate fittings, and any other supplies used on the job.</p>
-          <p><strong class="text-text-primary">5. Set your overhead percentage.</strong> Most HVAC companies run 25-40% overhead. This covers rent, insurance, trucks, office staff, software, and marketing. If you do not know yours, 35% is a solid starting point.</p>
+          <p><strong class="text-text-primary">5. Set your overhead percentage.</strong> Most Landscaping companies run 25-40% overhead. This covers rent, insurance, trucks, office staff, software, and marketing. If you do not know yours, 35% is a solid starting point.</p>
         </div>
       </section>
 
@@ -199,7 +199,7 @@ const faqSchema = {
             <p>Markup = (Profit / Total_Cost) x 100</p>
           </div>
           <p><strong class="text-text-primary">Example:</strong> A $5,800 install with $2,200 in equipment, $420 in labor (2 techs x 6 hours x $35), $350 in materials, and 35% overhead ($2,030). Total cost is $5,000. Profit is $800. Gross margin is 13.8%. Markup is 16%.</p>
-          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.86, you keep $0.14 in profit for every $1 collected. Top HVAC shops aim for $0.45-$0.55 in cost per revenue dollar on service work.</p>
+          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.86, you keep $0.14 in profit for every $1 collected. Top Landscaping shops aim for $0.45-$0.55 in cost per revenue dollar on service work.</p>
         </div>
       </section>
 
@@ -218,20 +218,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for HVAC companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for Landscaping?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for Landscaping companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between margin and markup?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Margin is profit as a percentage of revenue (selling price). Markup is profit as a percentage of cost. For example, if a job costs $3,000 and you sell it for $5,000, your profit is $2,000. Your margin is 40% ($2,000 / $5,000) and your markup is 66.7% ($2,000 / $3,000). They describe the same profit from different reference points.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead for an HVAC job?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most HVAC companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate overhead for a Landscaping job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Overhead includes all costs to run the business that are not tied to a specific job: rent, insurance, vehicle payments, office staff, software, marketing, and utilities. Most Landscaping companies allocate overhead as a percentage of revenue, typically 25-40%. To find yours, divide total annual overhead costs by total annual revenue.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is my HVAC profit margin so low?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low HVAC margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is my Landscaping profit margin so low?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low Landscaping margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
           </details>
         </div>
       </section>

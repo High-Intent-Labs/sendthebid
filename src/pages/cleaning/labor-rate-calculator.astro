@@ -10,7 +10,7 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I calculate my HVAC labor rate?",
+      "name": "How do I calculate my Cleaning labor rate?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Start with your tech's base wage and add the burden rate (benefits, taxes, workers comp). Divide your total annual overhead by the number of billable hours across all techs. Add the loaded wage and overhead per hour to get your break-even rate. Then divide by (1 minus your desired profit margin) to get your billable rate."
@@ -18,26 +18,26 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "What is a good utilization rate for HVAC techs?",
+      "name": "What is a good utilization rate for Cleaning techs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most HVAC companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service techs who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time."
+        "text": "Most Cleaning companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service techs who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time."
       }
     },
     {
       "@type": "Question",
-      "name": "What should HVAC techs charge per hour?",
+      "name": "What should Cleaning techs charge per hour?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The average HVAC billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs."
+        "text": "The average Cleaning billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs."
       }
     },
     {
       "@type": "Question",
-      "name": "What is burden rate in HVAC?",
+      "name": "What is burden rate in Cleaning?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Burden rate is the additional cost on top of a tech's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, and uniforms. For HVAC companies, burden rate typically runs 25-40% of base wages depending on the benefits package."
+        "text": "Burden rate is the additional cost on top of a tech's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, and uniforms. For Cleaning companies, burden rate typically runs 25-40% of base wages depending on the benefits package."
       }
     }
   ]
@@ -153,7 +153,7 @@ const faqSchema = {
 
       <!-- Benchmark -->
       <div class="bg-bg-dark rounded-xl p-5 mb-4">
-        <p class="text-text-secondary text-sm"><strong class="text-text-primary">Benchmark:</strong> Average HVAC billable rate: $85-150/hr residential, $95-175/hr commercial.</p>
+        <p class="text-text-secondary text-sm"><strong class="text-text-primary">Benchmark:</strong> Average Cleaning billable rate: $85-150/hr residential, $95-175/hr commercial.</p>
       </div>
 
       <!-- Warning -->
@@ -171,11 +171,11 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your base tech wage.</strong> This is the hourly rate you pay a technician before any extras. If you pay different rates, use the average across your team.</p>
-          <p><strong class="text-text-primary">2. Set the burden rate.</strong> This covers everything on top of wages: employer payroll taxes, workers comp, health insurance, retirement match, uniforms, and training. Most HVAC companies land between 25-40%.</p>
+          <p><strong class="text-text-primary">2. Set the burden rate.</strong> This covers everything on top of wages: employer payroll taxes, workers comp, health insurance, retirement match, uniforms, and training. Most Cleaning companies land between 25-40%.</p>
           <p><strong class="text-text-primary">3. Input PTO hours per year.</strong> Count vacation, sick days, holidays, and training days. Four weeks (160 hours) is standard. This reduces your available billing hours.</p>
           <p><strong class="text-text-primary">4. Set your utilization rate.</strong> This is the percentage of available hours your techs actually spend on billable work. The rest goes to drive time, paperwork, callbacks, and downtime. 40% is realistic for residential service.</p>
           <p><strong class="text-text-primary">5. Enter your team size and overhead.</strong> Annual overhead includes rent, trucks, insurance, software, marketing, office staff, and everything else that isn't direct labor or parts.</p>
-          <p><strong class="text-text-primary">6. Choose your profit margin.</strong> This is the net margin you want after covering all costs. 15-25% is the target range for healthy HVAC businesses.</p>
+          <p><strong class="text-text-primary">6. Choose your profit margin.</strong> This is the net margin you want after covering all costs. 15-25% is the target range for healthy Cleaning businesses.</p>
         </div>
       </section>
 
@@ -183,7 +183,7 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How Labor Rate Calculation Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>This calculator uses the <strong class="text-text-primary">ServiceTitan multi-step method</strong> that most HVAC business coaches teach. It builds your rate from the bottom up so every dollar of cost is covered.</p>
+          <p>This calculator uses the <strong class="text-text-primary">ServiceTitan multi-step method</strong> that most Cleaning business coaches teach. It builds your rate from the bottom up so every dollar of cost is covered.</p>
           <p><strong class="text-text-primary">Step 1 -- Loaded Wage.</strong> Take the base wage and add the burden rate. A $35/hr tech with 30% burden actually costs you $45.50/hr when you factor in taxes, insurance, and benefits.</p>
           <p><strong class="text-text-primary">Step 2 -- Available Hours.</strong> Start with 2,080 annual work hours (40 hrs/week x 52 weeks) and subtract PTO. This gives you the hours a tech is actually working.</p>
           <p><strong class="text-text-primary">Step 3 -- Billable Hours.</strong> Multiply available hours by the utilization rate. This is the number of hours you can actually charge customers for. The gap between available and billable hours is where most shops lose money.</p>
@@ -211,20 +211,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate my HVAC labor rate?</summary>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate my Cleaning labor rate?</summary>
             <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with your tech's base wage and add the burden rate (benefits, taxes, workers comp). Divide your total annual overhead by the number of billable hours across all techs. Add the loaded wage and overhead per hour to get your break-even rate. Then divide by (1 minus your desired profit margin) to get your billable rate.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good utilization rate for HVAC techs?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most HVAC companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service techs who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good utilization rate for Cleaning techs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most Cleaning companies run between 35% and 55% utilization. A 40% utilization rate is typical for residential service techs who spend significant time driving, doing paperwork, and waiting between calls. Install crews can hit 50-60% because jobs are scheduled back-to-back with less windshield time.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should HVAC techs charge per hour?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average HVAC billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should Cleaning techs charge per hour?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The average Cleaning billable rate is $85-150 per hour for residential work and $95-175 per hour for commercial. Your specific rate depends on your labor costs, overhead, and profit targets. Charging less than $85 per hour for residential service usually means you are losing money after accounting for all costs.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is burden rate in HVAC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Burden rate is the additional cost on top of a tech's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, and uniforms. For HVAC companies, burden rate typically runs 25-40% of base wages depending on the benefits package.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is burden rate in Cleaning?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Burden rate is the additional cost on top of a tech's base wage for employer-paid benefits, payroll taxes, workers compensation insurance, health insurance, retirement contributions, and uniforms. For Cleaning companies, burden rate typically runs 25-40% of base wages depending on the benefits package.</div>
           </details>
         </div>
       </section>

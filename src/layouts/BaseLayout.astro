@@ -21,7 +21,7 @@ const {
   schema = []
 } = Astro.props;
 
-const siteUrl = 'https://sendthebid.com';
+const siteUrl = 'https://nailthequote.com';
 const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
 ---
 
@@ -33,6 +33,7 @@ const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  <meta name="google-site-verification" content="fjqa3ABRAdp_e1EXOy5tFvEKZN6PUbS60yaODrru9DY" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +46,7 @@ const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={`${siteUrl}${ogImage}`} />
-  <meta property="og:site_name" content="SendTheBid" />
+  <meta property="og:site_name" content="NailTheQuote" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />

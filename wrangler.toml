@@ -1,0 +1,4 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "sendthebid"
+compatibility_date = "2026-03-12"
+pages_build_output_dir = "./dist"

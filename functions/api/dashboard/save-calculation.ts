@@ -39,3 +39,38 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return new Response(JSON.stringify({ error: 'Internal error', detail: err?.message }), { status: 500 });
   }
 };
+
+export const onRequestDelete: PagesFunction<Env> = async (context) => {
+  try {
+    const supabase = getSupabaseAdmin(context.env);
+    const authHeader = context.request.headers.get('Authorization');
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Not authenticated' }), { status: 401 });
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: 'Not authenticated' }), { status: 401 });
+    }
+
+    const body: any = await context.request.json();
+    if (!body.id) {
+      return new Response(JSON.stringify({ error: 'Missing ID' }), { status: 400 });
+    }
+
+    const { error } = await supabase
+      .from('saved_calculations')
+      .delete()
+      .eq('id', body.id)
+      .eq('user_id', user.id); // Ensure user can only delete their own
+
+    if (error) {
+      return new Response(JSON.stringify({ error: 'Failed to delete' }), { status: 500 });
+    }
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch {
+    return new Response(JSON.stringify({ error: 'Internal error' }), { status: 500 });
+  }
+};

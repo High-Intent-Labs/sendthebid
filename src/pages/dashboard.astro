@@ -277,8 +277,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     // Quick action links based on trade
     const trade = profile?.trade || 'hvac';
-    document.getElementById('qa-invoice')?.setAttribute('href', `/${trade}/invoice-generator`);
-    document.getElementById('qa-estimate')?.setAttribute('href', `/${trade}/estimate-template`);
+    document.getElementById('qa-invoice')?.setAttribute('href', `/${trade}/invoice-generator/`);
+    document.getElementById('qa-estimate')?.setAttribute('href', `/${trade}/estimate-template/`);
     document.getElementById('qa-tool1')?.setAttribute('href', `/${trade}/`);
     document.getElementById('qa-profile')?.setAttribute('href', '#profile-business');
 
@@ -308,15 +308,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         document.getElementById('calcs-empty')?.remove();
         const container = document.getElementById('calcs-list')!;
         calcs.slice(0, 6).forEach((calc: any) => {
+          const title = calc.inputs?.['Customer Name'] || calc.inputs?.['customerName'] || calc.label || calc.tool_slug.replace(/-/g, ' ');
           container.innerHTML += `
             <div class="bg-bg-card border border-border rounded-xl p-5">
               <div class="flex items-center gap-2 mb-2">
                 <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[rgba(96,165,250,0.15)] text-[#60A5FA]">${calc.trade}</span>
               </div>
-              <h3 class="font-heading font-bold text-base text-text-primary mb-1">${calc.label || calc.tool_slug.replace(/-/g, ' ')}</h3>
-              <p class="text-text-muted text-xs mb-3">${new Date(calc.created_at).toLocaleDateString()}</p>
-              <a href="/${calc.trade}/${calc.tool_slug}/?restore=${calc.id}" class="text-accent text-sm font-medium hover:underline no-underline">View &rarr;</a>
+              <h3 class="font-heading font-bold text-base text-text-primary mb-1">${title}</h3>
+              <p class="text-text-muted text-xs mb-1">${calc.label !== title ? calc.label || '' : ''}</p>
+              <p class="text-text-muted text-xs mb-3">${new Date(calc.created_at).toLocaleDateString('en-US')}</p>
+              <div class="flex items-center gap-4">
+                <a href="/${calc.trade}/${calc.tool_slug}/?restore=${calc.id}" class="text-accent text-sm font-medium hover:underline no-underline">View &rarr;</a>
+                <button data-delete-calc="${calc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer">Delete</button>
+              </div>
             </div>`;
+        });
+
+        // Wire up delete buttons
+        container.querySelectorAll('[data-delete-calc]').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = (e.currentTarget as HTMLElement).dataset.deleteCalc;
+            if (!confirm('Delete this saved calculation?')) return;
+            try {
+              const session = JSON.parse(localStorage.getItem('ntq_session') || '{}');
+              const res = await fetch('/api/dashboard/save-calculation', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+                body: JSON.stringify({ id }),
+              });
+              if (res.ok) (e.currentTarget as HTMLElement).closest('.bg-bg-card')?.remove();
+            } catch {}
+          });
         });
       }
     } catch { /* silent */ }
@@ -350,9 +372,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
               <h3 class="font-heading font-bold text-base text-text-primary mb-1">${doc.client_name || 'Untitled'}</h3>
               <p class="text-text-muted text-xs mb-1">${doc.amount ? '$' + Number(doc.amount).toLocaleString() : ''}</p>
-              <p class="text-text-muted text-xs mb-3">${new Date(doc.created_at).toLocaleDateString()}</p>
-              <a href="/${doc.trade}/${doc.tool_slug}/?restore=${doc.id}" class="text-accent text-sm font-medium hover:underline no-underline">Open &rarr;</a>
+              <p class="text-text-muted text-xs mb-3">${new Date(doc.created_at).toLocaleDateString('en-US')}</p>
+              <div class="flex items-center gap-4">
+                <a href="/${doc.trade}/${doc.tool_slug}/?restore=${doc.id}" class="text-accent text-sm font-medium hover:underline no-underline">Open &rarr;</a>
+                <button data-delete-doc="${doc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer">Delete</button>
+              </div>
             </div>`;
+        });
+
+        // Wire up delete buttons for docs
+        container.querySelectorAll('[data-delete-doc]').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            const id = (e.currentTarget as HTMLElement).dataset.deleteDoc;
+            if (!confirm('Delete this saved document?')) return;
+            try {
+              const session = JSON.parse(localStorage.getItem('ntq_session') || '{}');
+              const res = await fetch('/api/dashboard/save-calculation', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+                body: JSON.stringify({ id }),
+              });
+              if (res.ok) (e.currentTarget as HTMLElement).closest('.bg-bg-card')?.remove();
+            } catch {}
+          });
         });
       }
     } catch { /* silent */ }

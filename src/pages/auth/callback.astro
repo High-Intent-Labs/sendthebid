@@ -31,24 +31,10 @@
     const refreshToken = hashParams.get('refresh_token');
 
     if (accessToken && refreshToken) {
-      // Store session
+      // Store session and go straight to dashboard
       localStorage.setItem('ntq_has_account', '1');
-
-      // Check if user needs onboarding (new user)
-      try {
-        const res = await fetch('/api/auth/me', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        const data = await res.json();
-
-        if (data.needsOnboarding) {
-          window.location.href = '/dashboard?onboard=1';
-        } else {
-          window.location.href = '/dashboard';
-        }
-      } catch {
-        window.location.href = '/dashboard';
-      }
+      localStorage.setItem('ntq_session', JSON.stringify({ access_token: accessToken, refresh_token: refreshToken }));
+      window.location.href = '/dashboard';
     } else {
       // No tokens — may be an error or the user navigated here directly
       window.location.href = '/';

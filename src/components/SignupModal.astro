@@ -44,7 +44,7 @@
             type="button"
             class="w-full bg-accent hover:bg-accent-hover text-white font-semibold py-3 rounded-lg transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send me a login link
+            Create my free account
           </button>
 
           <!-- Divider -->
@@ -100,48 +100,6 @@
           <p class="text-text-muted text-xs">No password needed. Click the link in your email to log in.</p>
         </div>
 
-        <!-- Onboarding state (post-signup) -->
-        <div id="signup-onboarding" class="hidden">
-          <h3 class="font-heading font-bold text-xl text-text-primary mb-2">Almost done!</h3>
-          <p class="text-text-secondary text-sm mb-6">Help us personalize your experience. All fields are optional.</p>
-
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-text-secondary mb-1">Business name</label>
-              <input type="text" id="onboard-business" placeholder="Mike's Plumbing" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary focus:border-accent focus:outline-none transition-colors placeholder:text-text-muted" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-text-secondary mb-1">Your trade</label>
-              <select id="onboard-trade" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary focus:border-accent focus:outline-none transition-colors">
-                <option value="">Select a trade</option>
-                <option value="hvac">HVAC</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="electrical">Electrical</option>
-                <option value="roofing">Roofing</option>
-                <option value="painting">Painting</option>
-                <option value="landscaping">Landscaping</option>
-                <option value="gc">General Contractor</option>
-                <option value="handyman">Handyman</option>
-                <option value="pest-control">Pest Control</option>
-                <option value="cleaning">Cleaning</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-text-secondary mb-1">ZIP code</label>
-              <input type="text" id="onboard-zip" placeholder="90210" maxlength="5" pattern="[0-9]{5}" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary focus:border-accent focus:outline-none transition-colors placeholder:text-text-muted" />
-            </div>
-          </div>
-
-          <button id="onboard-save" type="button" class="w-full bg-accent hover:bg-accent-hover text-white font-semibold py-3 rounded-lg transition-colors mt-6">
-            Save &amp; Continue
-          </button>
-          <div class="text-center mt-3">
-            <button id="onboard-skip" type="button" class="text-text-muted text-sm hover:text-text-secondary transition-colors">
-              Skip for now
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -154,7 +112,6 @@
   const skipBtn = document.getElementById('signup-skip')!;
   const signupForm = document.getElementById('signup-form')!;
   const linkSent = document.getElementById('signup-link-sent')!;
-  const onboarding = document.getElementById('signup-onboarding')!;
   const contextBanner = document.getElementById('signup-context')!;
   const emailInput = document.getElementById('signup-email') as HTMLInputElement;
   const magicLinkBtn = document.getElementById('signup-magic-link') as HTMLButtonElement;
@@ -184,7 +141,6 @@
     // Reset to form state
     signupForm.classList.remove('hidden');
     linkSent.classList.add('hidden');
-    onboarding.classList.add('hidden');
   }
 
   function closeModal() {
@@ -236,7 +192,7 @@
       signupError.textContent = 'Something went wrong. Please try again.';
       signupError.classList.remove('hidden');
       magicLinkBtn.disabled = false;
-      magicLinkBtn.textContent = 'Send me a login link';
+      magicLinkBtn.textContent = 'Create my free account';
     }
   });
 
@@ -262,27 +218,6 @@
   // Enter key on email input
   emailInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') magicLinkBtn.click();
-  });
-
-  // Onboarding save
-  document.getElementById('onboard-save')?.addEventListener('click', async () => {
-    const business = (document.getElementById('onboard-business') as HTMLInputElement).value.trim();
-    const trade = (document.getElementById('onboard-trade') as HTMLSelectElement).value;
-    const zip = (document.getElementById('onboard-zip') as HTMLInputElement).value.trim();
-
-    await fetch('/api/auth/onboard', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ businessName: business, trade, zipCode: zip }),
-    });
-
-    closeModal();
-    window.location.reload();
-  });
-
-  document.getElementById('onboard-skip')?.addEventListener('click', () => {
-    closeModal();
-    window.location.reload();
   });
 
   // Expose openModal globally for trigger points

@@ -279,16 +279,9 @@
 
   // Repeat visit detection
   let visitCount = 0;
-  let toolsUsed: string[] = [];
   try {
     visitCount = parseInt(localStorage.getItem('ntq_visit_count') || '0', 10) + 1;
     localStorage.setItem('ntq_visit_count', String(visitCount));
-    toolsUsed = JSON.parse(localStorage.getItem('ntq_tools_used') || '[]') as string[];
-    const currentSlug = window.location.pathname.split('/').filter(Boolean).pop() || '';
-    if (currentSlug && !toolsUsed.includes(currentSlug)) {
-      toolsUsed.push(currentSlug);
-      localStorage.setItem('ntq_tools_used', JSON.stringify(toolsUsed));
-    }
   } catch { /* localStorage unavailable or corrupt — skip */ }
 
   // Show repeat visit prompt every 5th visit (not per session — per total visits)

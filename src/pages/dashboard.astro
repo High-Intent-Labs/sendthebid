@@ -75,7 +75,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <!-- Stats Row -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div class="grid grid-cols-3 gap-4 mb-10">
         <div class="bg-bg-card border border-border rounded-xl p-5">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Saved Calcs</div>
           <div id="stat-calcs" class="font-heading font-extrabold text-2xl text-text-primary">0</div>
@@ -83,10 +83,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="bg-bg-card border border-border rounded-xl p-5">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Documents</div>
           <div id="stat-docs" class="font-heading font-extrabold text-2xl text-text-primary">0</div>
-        </div>
-        <div class="bg-bg-card border border-border rounded-xl p-5">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Tools Used</div>
-          <div id="stat-tools" class="font-heading font-extrabold text-2xl text-text-primary">0</div>
         </div>
         <div class="bg-bg-card border border-border rounded-xl p-5">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Member Since</div>
@@ -248,8 +244,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     document.getElementById('stat-since')!.textContent = new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
     // Tools used from localStorage
-    const toolsUsed = JSON.parse(localStorage.getItem('ntq_tools_used') || '[]');
-    document.getElementById('stat-tools')!.textContent = String(toolsUsed.length);
+    // Tools Used stat removed — was browser-local, not account-level
 
     // Populate profile fields
     if (profile) {

@@ -95,8 +95,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="flex items-center justify-between mb-4">
           <h2 class="font-heading font-bold text-2xl">Recent Calculations</h2>
         </div>
-        <div id="calcs-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div id="calcs-empty" class="col-span-full bg-bg-card border border-border rounded-xl p-8 text-center">
+        <div id="calcs-list" class="flex flex-col gap-2">
+          <div id="calcs-empty" class="bg-bg-card border border-border rounded-xl p-8 text-center">
             <p class="text-text-muted mb-3">No saved calculations yet.</p>
             <p class="text-text-secondary text-sm">Use any calculator tool and click "Save to Dashboard" to see your results here.</p>
           </div>
@@ -108,8 +108,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="flex items-center justify-between mb-4">
           <h2 class="font-heading font-bold text-2xl">My Documents</h2>
         </div>
-        <div id="docs-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div id="docs-empty" class="col-span-full bg-bg-card border border-border rounded-xl p-8 text-center">
+        <div id="docs-list" class="flex flex-col gap-2">
+          <div id="docs-empty" class="bg-bg-card border border-border rounded-xl p-8 text-center">
             <p class="text-text-muted mb-3">No documents yet.</p>
             <p class="text-text-secondary text-sm">Create an invoice, estimate, or work order to get started.</p>
           </div>
@@ -307,20 +307,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if (calcs.length > 0) {
         document.getElementById('calcs-empty')?.remove();
         const container = document.getElementById('calcs-list')!;
-        calcs.slice(0, 6).forEach((calc: any) => {
+        calcs.slice(0, 10).forEach((calc: any) => {
           const title = calc.inputs?.['Customer Name'] || calc.inputs?.['customerName'] || calc.label || calc.tool_slug.replace(/-/g, ' ');
+          const subtitle = calc.label !== title ? calc.label || '' : '';
           container.innerHTML += `
-            <div class="bg-bg-card border border-border rounded-xl p-5">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[rgba(96,165,250,0.15)] text-[#60A5FA]">${calc.trade}</span>
+            <div class="bg-bg-card border border-border rounded-lg px-5 py-3 flex items-center gap-4">
+              <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[rgba(96,165,250,0.15)] text-[#60A5FA] shrink-0">${calc.trade}</span>
+              <div class="flex-1 min-w-0">
+                <span class="font-heading font-bold text-sm text-text-primary">${title}</span>
+                ${subtitle ? '<span class="text-text-muted text-xs ml-2">' + subtitle + '</span>' : ''}
               </div>
-              <h3 class="font-heading font-bold text-base text-text-primary mb-1">${title}</h3>
-              <p class="text-text-muted text-xs mb-1">${calc.label !== title ? calc.label || '' : ''}</p>
-              <p class="text-text-muted text-xs mb-3">${new Date(calc.created_at).toLocaleDateString('en-US')}</p>
-              <div class="flex items-center gap-4">
-                <a href="/${calc.trade}/${calc.tool_slug}/?restore=${calc.id}" class="text-accent text-sm font-medium hover:underline no-underline">View &rarr;</a>
-                <button data-delete-calc="${calc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer">Delete</button>
-              </div>
+              <span class="text-text-muted text-xs shrink-0">${new Date(calc.created_at).toLocaleDateString('en-US')}</span>
+              <a href="/${calc.trade}/${calc.tool_slug}/?restore=${calc.id}" class="text-accent text-sm font-medium hover:underline no-underline shrink-0">View &rarr;</a>
+              <button data-delete-calc="${calc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer shrink-0">Delete</button>
             </div>`;
         });
 
@@ -363,21 +362,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           draft: 'bg-[rgba(251,191,36,0.15)] text-[#FBBF24]',
           sent: 'bg-[rgba(52,211,153,0.15)] text-[#34D399]',
         };
-        docs.slice(0, 6).forEach((doc: any) => {
+        docs.slice(0, 10).forEach((doc: any) => {
           const sc = statusColors[doc.status] || statusColors.draft;
           container.innerHTML += `
-            <div class="bg-bg-card border border-border rounded-xl p-5">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[rgba(192,132,252,0.15)] text-[#C084FC]">${doc.doc_type}</span>
-                <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${sc}">${doc.status}</span>
+            <div class="bg-bg-card border border-border rounded-lg px-5 py-3 flex items-center gap-4">
+              <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[rgba(192,132,252,0.15)] text-[#C084FC] shrink-0">${doc.doc_type}</span>
+              <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${sc} shrink-0">${doc.status}</span>
+              <div class="flex-1 min-w-0">
+                <span class="font-heading font-bold text-sm text-text-primary">${doc.client_name || 'Untitled'}</span>
+                ${doc.amount ? '<span class="text-text-muted text-xs ml-2">$' + Number(doc.amount).toLocaleString() + '</span>' : ''}
               </div>
-              <h3 class="font-heading font-bold text-base text-text-primary mb-1">${doc.client_name || 'Untitled'}</h3>
-              <p class="text-text-muted text-xs mb-1">${doc.amount ? '$' + Number(doc.amount).toLocaleString() : ''}</p>
-              <p class="text-text-muted text-xs mb-3">${new Date(doc.created_at).toLocaleDateString('en-US')}</p>
-              <div class="flex items-center gap-4">
-                <a href="/${doc.trade}/${doc.tool_slug}/?restore=${doc.id}" class="text-accent text-sm font-medium hover:underline no-underline">Open &rarr;</a>
-                <button data-delete-doc="${doc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer">Delete</button>
-              </div>
+              <span class="text-text-muted text-xs shrink-0">${new Date(doc.created_at).toLocaleDateString('en-US')}</span>
+              <a href="/${doc.trade}/${doc.tool_slug}/?restore=${doc.id}" class="text-accent text-sm font-medium hover:underline no-underline shrink-0">Open &rarr;</a>
+              <button data-delete-doc="${doc.id}" class="text-text-muted text-sm hover:text-red-400 transition-colors cursor-pointer shrink-0">Delete</button>
             </div>`;
         });
 

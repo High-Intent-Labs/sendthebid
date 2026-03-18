@@ -29,7 +29,7 @@ const faqSchema = {
       "name": "How do I calculate sell price from wholesale cost and markup percentage?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%."
+        "text": "Multiply the wholesale cost by (1 + markup/100). For example, a $35 bag of mulch at 200% markup: $35 x (1 + 200/100) = $35 x 3 = $105 sell price. The profit is $70 and the margin is 66.7%."
       }
     },
     {
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "Why do Landscaping companies mark up parts so much?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible."
+        "text": "Materials markup covers more than just the material itself. It accounts for the cost of stocking inventory, yard storage space, delivery vehicle costs, ordering and shipping, waste and breakage, and the expertise to select the right materials for the job. A 200% markup on a $35 bag of mulch results in a $105 charge, which covers delivery, handling, and business overhead that made the project possible."
       }
     }
   ]
@@ -50,19 +50,17 @@ const faqSchema = {
     <div class="mb-6">
       <label class="block text-sm font-medium text-text-secondary mb-2" for="quick-lookup">Quick Lookup &mdash; Common Landscaping Parts</label>
       <select id="quick-lookup" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-        <option value="">Select a part to auto-fill cost...</option>
-        <option value="15">Capacitor &mdash; $15</option>
-        <option value="25">Contactor &mdash; $25</option>
-        <option value="150">Blower Motor &mdash; $150</option>
-        <option value="800">Compressor &mdash; $800</option>
-        <option value="100">TXV Valve &mdash; $100</option>
-        <option value="200">Control Board &mdash; $200</option>
-        <option value="25">Igniter &mdash; $25</option>
-        <option value="12">Flame Sensor &mdash; $12</option>
-        <option value="35">Timer (basic) &mdash; $35</option>
-        <option value="150">Timer (smart) &mdash; $150</option>
-        <option value="40">R-410A per lb &mdash; $40</option>
-        <option value="60">R-22 per lb &mdash; $60</option>
+        <option value="">Select a material to auto-fill cost...</option>
+        <option value="35">Mulch per yard &mdash; $35</option>
+        <option value="30">Topsoil per yard &mdash; $30</option>
+        <option value="3">Paver per sqft &mdash; $3</option>
+        <option value="0.45">Sod per sqft &mdash; $0.45</option>
+        <option value="8">Irrigation head &mdash; $8</option>
+        <option value="25">Landscape fabric per roll &mdash; $25</option>
+        <option value="15">Edging per 20ft section &mdash; $15</option>
+        <option value="120">River rock per ton &mdash; $120</option>
+        <option value="4">Retaining wall block &mdash; $4</option>
+        <option value="35">Fertilizer per bag &mdash; $35</option>
       </select>
     </div>
 
@@ -70,11 +68,11 @@ const faqSchema = {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="part-name">Part Name (optional)</label>
-        <input type="text" id="part-name" placeholder="e.g. Capacitor" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="text" id="part-name" placeholder="e.g. Mulch per yard" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="wholesale-cost">Wholesale Cost ($)</label>
-        <input type="number" id="wholesale-cost" value="15" min="0.01" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="wholesale-cost" value="35" min="0.01" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -157,12 +155,12 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Markup vs Margin &mdash; What's the Difference</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Markup</strong> is the percentage added on top of your cost. <strong class="text-text-primary">Margin</strong> is the percentage of the final sell price that is profit. They use different denominators, which is why the numbers are always different.</p>
-          <p>Here is a concrete example. You buy a capacitor for <strong class="text-text-primary">$15</strong> and mark it up <strong class="text-text-primary">200%</strong>.</p>
+          <p>Here is a concrete example. You buy a bag of mulch for <strong class="text-text-primary">$35</strong> and mark it up <strong class="text-text-primary">200%</strong>.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm space-y-1">
-            <p>Sell Price = $15 x (1 + 200/100) = $15 x 3 = <strong class="text-accent">$45</strong></p>
-            <p>Profit    = $45 - $15 = <strong class="text-text-primary">$30</strong></p>
-            <p>Markup %  = ($30 / $15) x 100 = <strong class="text-text-primary">200%</strong>  (profit / cost)</p>
-            <p>Margin %  = ($30 / $45) x 100 = <strong class="text-text-primary">66.7%</strong> (profit / sell price)</p>
+            <p>Sell Price = $35 x (1 + 200/100) = $35 x 3 = <strong class="text-accent">$105</strong></p>
+            <p>Profit    = $105 - $35 = <strong class="text-text-primary">$70</strong></p>
+            <p>Markup %  = ($70 / $35) x 100 = <strong class="text-text-primary">200%</strong>  (profit / cost)</p>
+            <p>Margin %  = ($70 / $105) x 100 = <strong class="text-text-primary">66.7%</strong> (profit / sell price)</p>
           </div>
           <p>The markup is 200% but the margin is only 66.7%. Markup will always be a larger number than margin for the same transaction. When someone says "we run 65% margins on parts," that translates to roughly a 186% markup. When someone says "we mark up 300%," that is a 75% margin.</p>
           <p>The most common mistake is confusing the two. If you set your prices thinking 50% markup gives you 50% margin, you are actually only making a 33% margin. This calculator shows both numbers so you always know exactly where you stand.</p>
@@ -174,8 +172,8 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Building a flat rate price book.</strong> When you are setting up or updating your flat rate pricing, you need consistent markups across every part. Pull up this calculator, go through your parts list, and set a sell price for each one. Use the benchmarks to keep small parts at higher markups and major equipment at lower markups so your blended margin hits 65%.</p>
-          <p><strong class="text-text-primary">Quoting a repair on site.</strong> You diagnose a bad contactor and need to give the customer a price. Open the calculator on your phone, select the part from the dropdown, and you instantly see the sell price at your standard markup. No guessing, no mental math, no accidentally giving away margin.</p>
-          <p><strong class="text-text-primary">Training new techs on pricing.</strong> New technicians often undercharge on parts because they do not understand the difference between markup and margin. Walk them through this calculator to show why a 200% markup on a $15 capacitor results in a $45 charge, and why that $30 profit is necessary to cover truck inventory, overhead, and warranty.</p>
+          <p><strong class="text-text-primary">Quoting a project on site.</strong> A client wants a mulch refresh and you need to give them a price for materials. Open the calculator on your phone, select the material from the dropdown, and you instantly see the sell price at your standard markup. No guessing, no mental math, no accidentally giving away margin.</p>
+          <p><strong class="text-text-primary">Training new crew members on pricing.</strong> New crew members often undercharge on materials because they do not understand the difference between markup and margin. Walk them through this calculator to show why a 200% markup on a $35 bag of mulch results in a $105 charge, and why that $70 profit is necessary to cover delivery, storage, overhead, and waste.</p>
         </div>
       </section>
 
@@ -193,11 +191,11 @@ const faqSchema = {
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate sell price from wholesale cost and markup percentage?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiply the wholesale cost by (1 + markup/100). For example, a $25 contactor at 200% markup: $25 x (1 + 200/100) = $25 x 3 = $75 sell price. The profit is $50 and the margin is 66.7%.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multiply the wholesale cost by (1 + markup/100). For example, a $35 bag of mulch at 200% markup: $35 x (1 + 200/100) = $35 x 3 = $105 sell price. The profit is $70 and the margin is 66.7%.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do Landscaping companies mark up parts so much?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Parts markup covers more than just the part itself. It accounts for the cost of stocking inventory, warehouse space, vehicle inventory, ordering and shipping costs, warranty coverage, and the expertise to diagnose which part is needed. A 200% markup on a $25 capacitor results in a $75 charge, which covers the truck roll, diagnostic time, and business overhead that made the repair possible.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Materials markup covers more than just the material itself. It accounts for the cost of stocking inventory, yard storage space, delivery vehicle costs, ordering and shipping, waste and breakage, and the expertise to select the right materials for the job. A 200% markup on a $35 bag of mulch results in a $105 charge, which covers delivery, handling, and business overhead that made the project possible.</div>
           </details>
         </div>
       </section>

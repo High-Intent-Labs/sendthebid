@@ -147,14 +147,14 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Surface Preparation</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="heat-exchanger">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="surface-prep">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="heat-exchanger"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="surface-prep"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="heat-exchanger" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="surface-prep" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Paint System -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -173,40 +173,40 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Coating Adhesion</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="refrigerant">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="coating-adhesion">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="refrigerant"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="coating-adhesion"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="refrigerant" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="coating-adhesion" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Trim & Detail Work -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Trim &amp; Detail Work</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="ductwork">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="trim-detail">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="ductwork"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="trim-detail"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="ductwork" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="trim-detail" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Color & Finish -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Color &amp; Finish</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="thermostat">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="color-finish">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="thermostat"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="color-finish"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="thermostat" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="color-finish" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Coverage & Uniformity -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -497,7 +497,7 @@ const faqSchema = {
     el.addEventListener('change', updateRatingIndicators);
   });
 
-  // No HVAC-specific temperature or CO calculations needed for painting completion reports
+  // No additional trade-specific calculations needed for painting completion reports
 
   // --- Dynamic Findings Table ---
   function addFindingRow() {
@@ -601,11 +601,11 @@ const faqSchema = {
   function generateReport() {
     // Collect component ratings
     const components = [
-      { key: 'heat-exchanger', label: 'Surface Preparation' },
+      { key: 'surface-prep', label: 'Surface Preparation' },
       { key: 'electrical', label: 'Paint System' },
-      { key: 'refrigerant', label: 'Coating Adhesion' },
-      { key: 'ductwork', label: 'Trim & Detail Work' },
-      { key: 'thermostat', label: 'Color & Finish' },
+      { key: 'coating-adhesion', label: 'Coating Adhesion' },
+      { key: 'trim-detail', label: 'Trim & Detail Work' },
+      { key: 'color-finish', label: 'Color & Finish' },
       { key: 'filtration', label: 'Coverage & Uniformity' },
       { key: 'safety', label: 'Masking & Protection' },
       { key: 'drainage', label: 'Cleanup & Final Inspection' },

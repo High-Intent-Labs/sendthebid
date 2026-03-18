@@ -147,14 +147,14 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Interior Areas</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="heat-exchanger">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="interior-areas">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="heat-exchanger"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="interior-areas"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="heat-exchanger" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="interior-areas" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Exterior Perimeter -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -173,40 +173,40 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Treatment Areas</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="refrigerant">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="treatment-areas">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="refrigerant"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="treatment-areas"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="refrigerant" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="treatment-areas" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Entry Points -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Entry Points</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="ductwork">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="entry-points">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="ductwork"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="entry-points"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="ductwork" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="entry-points" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Monitoring Stations -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Monitoring Stations</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="thermostat">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="monitoring-stations">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="thermostat"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="monitoring-stations"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="thermostat" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="monitoring-stations" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Sanitation Conditions -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -645,11 +645,11 @@ const faqSchema = {
   function generateReport() {
     // Collect component ratings
     const components = [
-      { key: 'heat-exchanger', label: 'Interior Areas' },
+      { key: 'interior-areas', label: 'Interior Areas' },
       { key: 'electrical', label: 'Exterior Perimeter' },
-      { key: 'refrigerant', label: 'Treatment Areas' },
-      { key: 'ductwork', label: 'Entry Points' },
-      { key: 'thermostat', label: 'Monitoring Stations' },
+      { key: 'treatment-areas', label: 'Treatment Areas' },
+      { key: 'entry-points', label: 'Entry Points' },
+      { key: 'monitoring-stations', label: 'Monitoring Stations' },
       { key: 'filtration', label: 'Sanitation Conditions' },
       { key: 'safety', label: 'Conducive Conditions' },
       { key: 'drainage', label: 'Moisture & Drainage' },

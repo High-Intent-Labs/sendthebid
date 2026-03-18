@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be on a Painting work order?",
+      "name": "What should be on a painting work order?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A complete Painting work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times."
+        "text": "A complete painting work order includes dispatch info (date, painter, priority), customer details, surface information (wall area, ceiling area, trim linear feet, window/door count), reported issue and scope, surface prep and painting work performed, materials used (paint brand, color, finish), a safety checklist, and painter signature with arrival and completion times."
       }
     },
     {
       "@type": "Question",
-      "name": "Why do I need to record system readings?",
+      "name": "Why do I need to record surface measurements?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "System readings like suction pressure, head pressure, superheat, subcooling, and temperature split document the system's operating condition at the time of service. These readings are critical for warranty claims, verifying proper charge levels, tracking system degradation over time, and protecting your company from liability disputes."
+        "text": "Surface measurements like wall square footage, ceiling area, trim linear feet, and window/door count document the scope of the job. These measurements are critical for accurate paint quantity estimation, quoting future touch-ups, verifying coverage rates, and resolving billing disputes about what was painted."
       }
     },
     {
       "@type": "Question",
-      "name": "Is detailed documentation required?",
+      "name": "Is detailed documentation required for painting jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Maintaining detailed service records is a best practice for every Painting job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust."
+        "text": "Yes. Maintaining detailed service records is a best practice for every painting job. Document all surfaces prepped, coats applied, paint colors and formulas, and any issues found like moisture damage or lead paint. Thorough records protect you during disputes, support warranty claims, and provide a color history the customer will appreciate for years."
       }
     },
     {
       "@type": "Question",
-      "name": "What's a normal temperature split for AC?",
+      "name": "What paint information should I record on a work order?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation."
+        "text": "Record the paint brand, product line, color name, color code or formula number, finish (flat, eggshell, satin, semi-gloss, gloss), and number of coats applied. Also note primer used and any specialty coatings. This information is invaluable for touch-ups, warranty claims, and repainting the same property later."
       }
     }
   ]
@@ -63,7 +63,7 @@ const faqSchema = {
         <input type="time" id="wo-time" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-name">Technician Name</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-name">Painter Name</label>
         <input type="text" id="tech-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -101,48 +101,50 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <!-- Section: Job Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Equipment Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Surface Type</label>
         <select id="equip-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Interior Wall</option>
-          <option value="Heat Pump">Exterior Siding</option>
-          <option value="Furnace">Exterior</option>
-          <option value="Mini Split">Cabinet</option>
-          <option value="Boiler">Trim Work</option>
-          <option value="Package Unit">Deck/Fence</option>
-          <option value="RTU">RTU</option>
+          <option value="Interior Walls">Interior Walls</option>
+          <option value="Exterior Siding">Exterior Siding</option>
+          <option value="Ceiling">Ceiling</option>
+          <option value="Trim / Molding">Trim / Molding</option>
+          <option value="Cabinets">Cabinets</option>
+          <option value="Deck / Fence">Deck / Fence</option>
+          <option value="Full Interior">Full Interior</option>
+          <option value="Full Exterior">Full Exterior</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Make</label>
-        <input type="text" id="equip-make" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Paint Brand</label>
+        <input type="text" id="equip-make" placeholder="Sherwin-Williams, Benjamin Moore..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Model</label>
-        <input type="text" id="equip-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Color Name / Code</label>
+        <input type="text" id="equip-model" placeholder="e.g., SW 7015 Repose Gray" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Serial #</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Formula #</label>
         <input type="text" id="equip-serial" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Install Date</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Start Date</label>
         <input type="date" id="install-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="filter-size">Filter Size</label>
-        <input type="text" id="filter-size" placeholder="e.g., 16x25x1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="filter-size">Coats Applied</label>
+        <input type="text" id="filter-size" placeholder="e.g., 2 coats" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Paint Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Finish</label>
         <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="R-410A" selected>R-410A</option>
-          <option value="R-22">R-22</option>
-          <option value="R-32">R-32</option>
-          <option value="R-134a">R-134a</option>
+          <option value="Flat" selected>Flat</option>
+          <option value="Eggshell">Eggshell</option>
+          <option value="Satin">Satin</option>
+          <option value="Semi-Gloss">Semi-Gloss</option>
+          <option value="Gloss">Gloss</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -156,7 +158,7 @@ const faqSchema = {
         <textarea id="reported-issue" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnosis">Diagnosis</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnosis">Surface Assessment</label>
         <textarea id="diagnosis" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
       </div>
       <div>
@@ -165,17 +167,17 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: Parts Used -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts Used</h3>
+    <!-- Section: Materials Used -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials Used</h3>
     <div class="mb-8">
       <div id="parts-table" class="space-y-3">
         <div class="grid grid-cols-[1fr_1fr_80px_40px] gap-3 items-end part-row">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2">Part Name</label>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Material Name</label>
             <input type="text" class="part-name w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2">Part #</label>
+            <label class="block text-sm font-medium text-text-secondary mb-2">SKU / Color</label>
             <input type="text" class="part-number w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
@@ -184,60 +186,60 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-sm font-medium text-text-secondary mb-2">&nbsp;</label>
-            <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+            <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove material">&times;</button>
           </div>
         </div>
       </div>
-      <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Part</button>
+      <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Material</button>
     </div>
 
-    <!-- Section: Materials Log -->
+    <!-- Section: Paint Log -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Paint Log</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-added">Amount Added (lbs)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-added">Paint Used (gallons)</label>
         <input type="number" id="ref-added" min="0" step="0.25" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-recovered">Amount Recovered (lbs)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-recovered">Primer Used (gallons)</label>
         <input type="number" id="ref-recovered" min="0" step="0.25" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Section: System Readings -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Readings</h3>
+    <!-- Section: Surface Measurements -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Surface Measurements</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="suction-psi">Suction Pressure (PSI)</label>
-        <input type="number" id="suction-psi" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="wall-area">Wall Area (sq ft)</label>
+        <input type="number" id="wall-area" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="head-psi">Head/Liquid Pressure (PSI)</label>
-        <input type="number" id="head-psi" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ceiling-area">Ceiling Area (sq ft)</label>
+        <input type="number" id="ceiling-area" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="superheat">Superheat (&deg;F)</label>
-        <input type="number" id="superheat" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="trim-lf">Trim (LF)</label>
+        <input type="number" id="trim-lf" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="subcooling">Subcooling (&deg;F)</label>
-        <input type="number" id="subcooling" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="window-door-count">Windows / Doors</label>
+        <input type="number" id="window-door-count" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-temp">Supply Air Temp (&deg;F)</label>
-        <input type="number" id="supply-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="cabinet-faces">Cabinet Faces</label>
+        <input type="number" id="cabinet-faces" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="return-temp">Return Air Temp (&deg;F)</label>
-        <input type="number" id="return-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="exterior-sqft">Exterior Siding (sq ft)</label>
+        <input type="number" id="exterior-sqft" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Temperature Split (&deg;F)</label>
-        <div id="temp-split-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Total Paintable (sq ft)</label>
+        <div id="total-paintable-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="comp-amps">Compressor Amps</label>
-        <input type="number" id="comp-amps" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="rooms-count">Number of Rooms</label>
+        <input type="number" id="rooms-count" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -245,29 +247,28 @@ const faqSchema = {
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Safety Checklist</h3>
     <div class="space-y-3 mb-8">
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-co" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-co" class="text-text-primary cursor-pointer">CO Test</label>
-        <input type="number" id="co-ppm" placeholder="PPM" min="0" class="w-24 bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        <input type="checkbox" id="chk-ventilation" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-ventilation" class="text-text-primary cursor-pointer">Ventilation Adequate</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-gasleak" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-gasleak" class="text-text-primary cursor-pointer">Gas Leak Check</label>
+        <input type="checkbox" id="chk-dropcloths" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-dropcloths" class="text-text-primary cursor-pointer">Drop Cloths / Floor Protection</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-electrical" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-electrical" class="text-text-primary cursor-pointer">Electrical Connections Inspected</label>
+        <input type="checkbox" id="chk-ladder" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-ladder" class="text-text-primary cursor-pointer">Ladder Safety Inspected</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-capacitor" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-capacitor" class="text-text-primary cursor-pointer">Capacitor Tested</label>
+        <input type="checkbox" id="chk-leadtest" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-leadtest" class="text-text-primary cursor-pointer">Lead Paint Test (pre-1978)</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-contactor" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-contactor" class="text-text-primary cursor-pointer">Contactor Inspected</label>
+        <input type="checkbox" id="chk-masking" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-masking" class="text-text-primary cursor-pointer">Masking / Taping Completed</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-drain" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-drain" class="text-text-primary cursor-pointer">Drain Line Clear</label>
+        <input type="checkbox" id="chk-cleansite" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-cleansite" class="text-text-primary cursor-pointer">Site Cleanup Completed</label>
       </div>
     </div>
 
@@ -287,7 +288,7 @@ const faqSchema = {
         <div id="total-hours-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-signature">Technician Signature</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-signature">Painter Signature</label>
         <input type="text" id="tech-signature" placeholder="Type full name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
@@ -305,10 +306,10 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Fill in dispatch and customer info.</strong> Start with the work order number, date, and technician assignment. Add the customer's name, address, phone, and any access instructions like gate codes or lockbox combos.</p>
-          <p><strong class="text-text-primary">2. Identify the system.</strong> Select the equipment type and enter the make, model, and serial number from the data plate. Record the install date and current filter size so the next tech has a complete picture.</p>
-          <p><strong class="text-text-primary">3. Document the service.</strong> Write what the customer reported, your diagnosis, and exactly what work you performed. Be specific — vague notes cause problems during warranty claims and callbacks.</p>
-          <p><strong class="text-text-primary">4. Record readings and safety checks.</strong> Log all system pressures, temperatures, and amp draws. Run through the safety checklist. These readings prove the system was operating correctly when you left.</p>
+          <p><strong class="text-text-primary">1. Fill in dispatch and customer info.</strong> Start with the work order number, date, and painter assignment. Add the customer's name, address, phone, and any access instructions like gate codes or lockbox combos.</p>
+          <p><strong class="text-text-primary">2. Describe the job.</strong> Select the surface type and enter paint details — brand, color code, finish, and number of coats. This color record is invaluable for future touch-ups.</p>
+          <p><strong class="text-text-primary">3. Document the service.</strong> Write what the customer reported, your surface assessment (peeling, moisture, cracks), and exactly what prep and painting work you performed.</p>
+          <p><strong class="text-text-primary">4. Record measurements and safety checks.</strong> Log wall area, ceiling area, trim linear feet, and window/door counts. Run through the safety checklist — ventilation, lead testing, ladder safety, and site protection.</p>
           <p><strong class="text-text-primary">5. Generate the work order.</strong> Hit the button to create a clean, printable work order. Have the customer review it, then use it for your records, warranty documentation, or office filing.</p>
         </div>
       </section>
@@ -318,11 +319,11 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">What Goes on a Painting Work Order</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p>A work order is the single document that proves what happened on a job. Every section exists for a reason.</p>
-          <p><strong class="text-text-primary">Job identification</strong> — location details, scope of work, and materials used — ties the documentation to a specific service visit. This information is essential for warranty claims, follow-up visits, and customer records.</p>
-          <p><strong class="text-text-primary">System readings</strong> document the equipment's operating condition at the time of service. Suction and head pressures, superheat, subcooling, and the temperature split tell the full story. If a customer calls back two weeks later saying the system never worked right, your readings prove otherwise.</p>
-          <p><strong class="text-text-primary">Documentation</strong> is essential for every job. Detailed records of work performed, materials used, and before/after conditions protect both you and the customer. Smart contractors document everything regardless of job size. It protects you during disputes and helps maintain service history.</p>
-          <p><strong class="text-text-primary">The safety checklist</strong> is your liability shield. Documenting that you checked for CO, inspected gas connections, and tested electrical components shows due diligence. If something goes wrong after you leave, that checklist is your first line of defense.</p>
-          <p><strong class="text-text-primary">Parts used</strong> with part numbers create a clear record for inventory management, warranty tracking, and accurate invoicing. No more guessing what capacitor you put in three months ago.</p>
+          <p><strong class="text-text-primary">Job identification</strong> — surface type, paint brand, color code, and finish — ties the documentation to a specific job. This information is essential for warranty claims, touch-up work, and maintaining a color history for the property.</p>
+          <p><strong class="text-text-primary">Surface measurements</strong> document the scope of the painting job. Wall area, ceiling square footage, trim linear feet, and window/door counts tell the full story. If a customer questions billing or needs a touch-up quote, your measurements provide an accurate reference.</p>
+          <p><strong class="text-text-primary">Material tracking</strong> is essential for every painting job. Recording gallons of paint and primer used, plus the exact color formula, protects you during billing disputes and makes future touch-ups seamless. Smart painters document every color used regardless of job size.</p>
+          <p><strong class="text-text-primary">The safety checklist</strong> is your liability shield. Documenting ventilation, lead paint testing (for pre-1978 homes), ladder inspection, and site protection shows due diligence. If property damage or health claims arise, that checklist is your first line of defense.</p>
+          <p><strong class="text-text-primary">Materials used</strong> with product details create a clear record for inventory management, warranty tracking, and accurate invoicing.</p>
         </div>
       </section>
 
@@ -330,9 +331,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Service and repair calls.</strong> Every diagnostic visit and repair needs a work order. The tech fills it out on site — reported issue, diagnosis, work performed, parts used, and system readings. It becomes the permanent record of the visit and the basis for the invoice.</p>
-          <p><strong class="text-text-primary">Preventive maintenance visits.</strong> During seasonal maintenance visits, the work order captures baseline readings and safety checks. Over multiple visits, these readings show trends — rising amp draws, declining temperature splits, slowly dropping pressures — that help you recommend repairs before failures happen.</p>
-          <p><strong class="text-text-primary">Warranty and callback documentation.</strong> When a manufacturer asks for proof that a system was properly maintained, or when a customer disputes what was done, the work order is your evidence. Complete work orders with readings, parts, and signatures eliminate he-said-she-said situations.</p>
+          <p><strong class="text-text-primary">Interior and exterior painting jobs.</strong> Every painting job needs a work order. The painter fills it out on site — surfaces prepped, coats applied, colors used, and measurements taken. It becomes the permanent record of the visit and the basis for the invoice.</p>
+          <p><strong class="text-text-primary">Touch-up and warranty work.</strong> When a customer calls back for touch-ups or reports paint failure, the original work order provides the exact color codes, surface prep details, and product used. This makes warranty claims straightforward and touch-ups accurate.</p>
+          <p><strong class="text-text-primary">Multi-day projects.</strong> For large jobs spanning multiple days, each day gets its own work order documenting what rooms or surfaces were completed. This tracks progress, helps with scheduling, and provides clear documentation if there are questions about timeline or scope.</p>
         </div>
       </section>
 
@@ -341,20 +342,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a Painting work order?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete Painting work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a painting work order?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete painting work order includes dispatch info (date, painter, priority), customer details, surface information (wall area, ceiling area, trim linear feet, window/door count), reported issue and scope, surface prep and painting work performed, materials used (paint brand, color, finish), a safety checklist, and painter signature with arrival and completion times.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record system readings?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">System readings like suction pressure, head pressure, superheat, subcooling, and temperature split document the system's operating condition at the time of service. These readings are critical for warranty claims, verifying proper charge levels, tracking system degradation over time, and protecting your company from liability disputes.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record surface measurements?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Surface measurements like wall square footage, ceiling area, trim linear feet, and window/door count document the scope of the job. These measurements are critical for accurate paint quantity estimation, quoting future touch-ups, verifying coverage rates, and resolving billing disputes about what was painted.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is detailed documentation required?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Maintaining detailed service records is a best practice for every Painting job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is detailed documentation required for painting jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Maintaining detailed service records is a best practice for every painting job. Document all surfaces prepped, coats applied, paint colors and formulas, and any issues found like moisture damage or lead paint. Thorough records protect you during disputes, support warranty claims, and provide a color history the customer will appreciate for years.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What's a normal temperature split for AC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What paint information should I record on a work order?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Record the paint brand, product line, color name, color code or formula number, finish (flat, eggshell, satin, semi-gloss, gloss), and number of coats applied. Also note primer used and any specialty coatings. This information is invaluable for touch-ups, warranty claims, and repainting the same property later.</div>
           </details>
         </div>
       </section>
@@ -374,26 +375,24 @@ const faqSchema = {
     timeInput.value = now.toTimeString().slice(0, 5);
   }
 
-  // --- Temperature Split auto-calculation ---
-  function updateTempSplit() {
-    const supply = parseFloat((document.getElementById('supply-temp') as HTMLInputElement).value);
-    const ret = parseFloat((document.getElementById('return-temp') as HTMLInputElement).value);
-    const display = document.getElementById('temp-split-display')!;
-    if (!isNaN(supply) && !isNaN(ret)) {
-      const split = ret - supply;
-      display.textContent = split.toFixed(1) + '°F';
-      if (split >= 15 && split <= 20) {
-        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else {
-        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
-      }
+  // --- Total Paintable Area auto-calculation ---
+  function updateTotalPaintable() {
+    const wall = parseFloat((document.getElementById('wall-area') as HTMLInputElement).value) || 0;
+    const ceiling = parseFloat((document.getElementById('ceiling-area') as HTMLInputElement).value) || 0;
+    const exterior = parseFloat((document.getElementById('exterior-sqft') as HTMLInputElement).value) || 0;
+    const display = document.getElementById('total-paintable-display')!;
+    if (wall > 0 || ceiling > 0 || exterior > 0) {
+      const total = wall + ceiling + exterior;
+      display.textContent = total.toLocaleString() + ' sq ft';
+      display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
     } else {
       display.textContent = '\u2014';
       display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
     }
   }
-  document.getElementById('supply-temp')?.addEventListener('input', updateTempSplit);
-  document.getElementById('return-temp')?.addEventListener('input', updateTempSplit);
+  document.getElementById('wall-area')?.addEventListener('input', updateTotalPaintable);
+  document.getElementById('ceiling-area')?.addEventListener('input', updateTotalPaintable);
+  document.getElementById('exterior-sqft')?.addEventListener('input', updateTotalPaintable);
 
   // --- Total Hours auto-calculation ---
   function updateTotalHours() {
@@ -404,7 +403,7 @@ const faqSchema = {
       const [ah, am] = arrived.split(':').map(Number);
       const [ch, cm] = completed.split(':').map(Number);
       let totalMinutes = (ch * 60 + cm) - (ah * 60 + am);
-      if (totalMinutes < 0) totalMinutes += 24 * 60; // handle overnight
+      if (totalMinutes < 0) totalMinutes += 24 * 60;
       const hours = Math.floor(totalMinutes / 60);
       const minutes = totalMinutes % 60;
       display.textContent = hours + 'h ' + minutes + 'm';
@@ -433,7 +432,7 @@ const faqSchema = {
         <input type="number" value="1" min="1" class="part-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+        <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove material">&times;</button>
       </div>
     `;
     table.appendChild(row);
@@ -462,7 +461,6 @@ const faqSchema = {
   }
 
   function generateWorkOrder() {
-    // Collect parts
     const partRows = document.querySelectorAll('.part-row');
     let partsHtml = '';
     partRows.forEach(row => {
@@ -474,18 +472,13 @@ const faqSchema = {
       }
     });
 
-    // Temperature split
-    const supplyT = parseFloat(getVal('supply-temp'));
-    const returnT = parseFloat(getVal('return-temp'));
-    let splitVal = '';
-    let splitColor = '#666';
-    if (!isNaN(supplyT) && !isNaN(returnT)) {
-      const s = returnT - supplyT;
-      splitVal = s.toFixed(1) + '°F';
-      splitColor = (s >= 15 && s <= 20) ? '#16a34a' : '#ca8a04';
-    }
+    // Total paintable
+    const wallA = parseFloat(getVal('wall-area')) || 0;
+    const ceilA = parseFloat(getVal('ceiling-area')) || 0;
+    const extA = parseFloat(getVal('exterior-sqft')) || 0;
+    const totalPaint = wallA + ceilA + extA;
+    const totalPaintStr = totalPaint > 0 ? totalPaint.toLocaleString() + ' sq ft' : '';
 
-    // Total hours
     const arrived = getVal('time-arrived');
     const completed = getVal('time-completed');
     let totalHours = '';
@@ -497,14 +490,13 @@ const faqSchema = {
       totalHours = Math.floor(totalMin / 60) + 'h ' + (totalMin % 60) + 'm';
     }
 
-    // Safety checklist
     const safetyItems = [
-      { id: 'chk-co', label: 'CO Test', extra: getVal('co-ppm') ? ' — ' + getVal('co-ppm') + ' PPM' : '' },
-      { id: 'chk-gasleak', label: 'Gas Leak Check', extra: '' },
-      { id: 'chk-electrical', label: 'Electrical Connections Inspected', extra: '' },
-      { id: 'chk-capacitor', label: 'Capacitor Tested', extra: '' },
-      { id: 'chk-contactor', label: 'Contactor Inspected', extra: '' },
-      { id: 'chk-drain', label: 'Drain Line Clear', extra: '' },
+      { id: 'chk-ventilation', label: 'Ventilation Adequate', extra: '' },
+      { id: 'chk-dropcloths', label: 'Drop Cloths / Floor Protection', extra: '' },
+      { id: 'chk-ladder', label: 'Ladder Safety Inspected', extra: '' },
+      { id: 'chk-leadtest', label: 'Lead Paint Test (pre-1978)', extra: '' },
+      { id: 'chk-masking', label: 'Masking / Taping Completed', extra: '' },
+      { id: 'chk-cleansite', label: 'Site Cleanup Completed', extra: '' },
     ];
     let safetyHtml = '';
     safetyItems.forEach(item => {
@@ -533,7 +525,6 @@ const faqSchema = {
   th { background:#f0f0f0; border:1px solid #ddd; padding:6px 10px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
   td { border:1px solid #ddd; padding:6px 10px; }
   .readings-table td { text-align:center; }
-  .split-val { font-weight:700; color:${splitColor}; }
   .safety { font-size:14px; }
   .signature-block { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; padding-top:16px; }
   .sig-line { border-top:1px solid #1a1a1a; padding-top:6px; font-size:12px; color:#666; text-transform:uppercase; }
@@ -551,78 +542,78 @@ const faqSchema = {
     <div style="font-size:13px;color:#555;">Service Documentation</div>
   </div>
   <div class="header-right">
-    <div style="font-size:20px;font-weight:700;">${getVal('wo-number')}</div>
-    <div>${getVal('wo-date')}</div>
-    <div>${getVal('wo-time')}</div>
-    <span class="priority-badge priority-${getVal('priority')}">${getVal('priority')}</span>
+    <div style="font-size:20px;font-weight:700;">\${getVal('wo-number')}</div>
+    <div>\${getVal('wo-date')}</div>
+    <div>\${getVal('wo-time')}</div>
+    <span class="priority-badge priority-\${getVal('priority')}">\${getVal('priority')}</span>
   </div>
 </div>
 
 <h2>Dispatch</h2>
 <div class="grid2">
-  <div><span class="label">Technician:</span></div><div><span class="label">Truck #:</span></div>
-  <div class="value">${getVal('tech-name') || '—'}</div><div class="value">${getVal('truck-number') || '—'}</div>
+  <div><span class="label">Painter:</span></div><div><span class="label">Truck #:</span></div>
+  <div class="value">\${getVal('tech-name') || '\u2014'}</div><div class="value">\${getVal('truck-number') || '\u2014'}</div>
 </div>
 
 <h2>Customer</h2>
 <div class="grid2">
   <div><span class="label">Name:</span></div><div><span class="label">Phone:</span></div>
-  <div class="value">${getVal('cust-name') || '—'}</div><div class="value">${getVal('cust-phone') || '—'}</div>
+  <div class="value">\${getVal('cust-name') || '\u2014'}</div><div class="value">\${getVal('cust-phone') || '\u2014'}</div>
   <div><span class="label">Address:</span></div><div><span class="label">Access:</span></div>
-  <div class="value">${getVal('cust-address') || '—'}</div><div class="value">${getVal('access-instructions') || '—'}</div>
+  <div class="value">\${getVal('cust-address') || '\u2014'}</div><div class="value">\${getVal('access-instructions') || '\u2014'}</div>
 </div>
 
-<h2>Equipment</h2>
+<h2>Job Info</h2>
 <div class="grid2">
-  <div><span class="label">Type:</span></div><div><span class="label">Make:</span></div>
-  <div class="value">${getVal('equip-type')}</div><div class="value">${getVal('equip-make') || '—'}</div>
-  <div><span class="label">Model:</span></div><div><span class="label">Serial #:</span></div>
-  <div class="value">${getVal('equip-model') || '—'}</div><div class="value">${getVal('equip-serial') || '—'}</div>
-  <div><span class="label">Install Date:</span></div><div><span class="label">Filter Size:</span></div>
-  <div class="value">${getVal('install-date') || '—'}</div><div class="value">${getVal('filter-size') || '—'}</div>
-  <div><span class="label">Paint:</span></div><div></div>
-  <div class="value">${getVal('refrigerant-type')}</div><div></div>
+  <div><span class="label">Surface Type:</span></div><div><span class="label">Paint Brand:</span></div>
+  <div class="value">\${getVal('equip-type')}</div><div class="value">\${getVal('equip-make') || '\u2014'}</div>
+  <div><span class="label">Color:</span></div><div><span class="label">Formula #:</span></div>
+  <div class="value">\${getVal('equip-model') || '\u2014'}</div><div class="value">\${getVal('equip-serial') || '\u2014'}</div>
+  <div><span class="label">Start Date:</span></div><div><span class="label">Coats:</span></div>
+  <div class="value">\${getVal('install-date') || '\u2014'}</div><div class="value">\${getVal('filter-size') || '\u2014'}</div>
+  <div><span class="label">Finish:</span></div><div></div>
+  <div class="value">\${getVal('refrigerant-type')}</div><div></div>
 </div>
 
 <h2>Service Details</h2>
-<div class="text-block"><div class="label">Reported Issue</div><div class="value">${getVal('reported-issue') || '—'}</div></div>
-<div class="text-block"><div class="label">Diagnosis</div><div class="value">${getVal('diagnosis') || '—'}</div></div>
-<div class="text-block"><div class="label">Work Performed</div><div class="value">${getVal('work-performed') || '—'}</div></div>
+<div class="text-block"><div class="label">Reported Issue</div><div class="value">\${getVal('reported-issue') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Surface Assessment</div><div class="value">\${getVal('diagnosis') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Work Performed</div><div class="value">\${getVal('work-performed') || '\u2014'}</div></div>
 
-${partsHtml ? `<h2>Parts Used</h2>
-<table><thead><tr><th>Part Name</th><th>Part #</th><th style="text-align:center;">Qty</th></tr></thead><tbody>${partsHtml}</tbody></table>` : ''}
+\${partsHtml ? \`<h2>Materials Used</h2>
+<table><thead><tr><th>Material</th><th>SKU / Color</th><th style="text-align:center;">Qty</th></tr></thead><tbody>\${partsHtml}</tbody></table>\` : ''}
 
 <h2>Paint Log</h2>
 <div class="grid2">
-  <div><span class="label">Added:</span></div><div><span class="label">Recovered:</span></div>
-  <div class="value">${getVal('ref-added') || '0'} lbs</div><div class="value">${getVal('ref-recovered') || '0'} lbs</div>
+  <div><span class="label">Paint Used:</span></div><div><span class="label">Primer Used:</span></div>
+  <div class="value">\${getVal('ref-added') || '0'} gal</div><div class="value">\${getVal('ref-recovered') || '0'} gal</div>
 </div>
 
-<h2>System Readings</h2>
+<h2>Surface Measurements</h2>
 <table class="readings-table">
-  <thead><tr><th>Suction PSI</th><th>Head PSI</th><th>Superheat</th><th>Subcooling</th></tr></thead>
-  <tbody><tr><td>${getVal('suction-psi') || '—'}</td><td>${getVal('head-psi') || '—'}</td><td>${getVal('superheat') ? getVal('superheat') + '°F' : '—'}</td><td>${getVal('subcooling') ? getVal('subcooling') + '°F' : '—'}</td></tr></tbody>
+  <thead><tr><th>Wall Area</th><th>Ceiling Area</th><th>Trim LF</th><th>Windows/Doors</th></tr></thead>
+  <tbody><tr><td>\${getVal('wall-area') ? getVal('wall-area') + ' sq ft' : '\u2014'}</td><td>\${getVal('ceiling-area') ? getVal('ceiling-area') + ' sq ft' : '\u2014'}</td><td>\${getVal('trim-lf') ? getVal('trim-lf') + ' LF' : '\u2014'}</td><td>\${getVal('window-door-count') || '\u2014'}</td></tr></tbody>
 </table>
 <table class="readings-table" style="margin-top:8px;">
-  <thead><tr><th>Supply Air</th><th>Return Air</th><th>Temp Split</th><th>Comp. Amps</th></tr></thead>
-  <tbody><tr><td>${getVal('supply-temp') ? getVal('supply-temp') + '°F' : '—'}</td><td>${getVal('return-temp') ? getVal('return-temp') + '°F' : '—'}</td><td class="split-val">${splitVal || '—'}</td><td>${getVal('comp-amps') || '—'}</td></tr></tbody>
+  <thead><tr><th>Cabinet Faces</th><th>Exterior Siding</th><th>Total Paintable</th><th>Rooms</th></tr></thead>
+  <tbody><tr><td>\${getVal('cabinet-faces') || '\u2014'}</td><td>\${getVal('exterior-sqft') ? getVal('exterior-sqft') + ' sq ft' : '\u2014'}</td><td>\${totalPaintStr || '\u2014'}</td><td>\${getVal('rooms-count') || '\u2014'}</td></tr></tbody>
 </table>
 
 <h2>Safety Checklist</h2>
-<div class="safety">${safetyHtml}</div>
+<div class="safety">\${safetyHtml}</div>
 
 <h2>Completion</h2>
 <div class="grid2">
   <div><span class="label">Time Arrived:</span></div><div><span class="label">Time Completed:</span></div>
-  <div class="value">${arrived || '—'}</div><div class="value">${completed || '—'}</div>
+  <div class="value">\${arrived || '\u2014'}</div><div class="value">\${completed || '\u2014'}</div>
   <div><span class="label">Total Hours:</span></div><div></div>
-  <div class="value">${totalHours || '—'}</div><div></div>
+  <div class="value">\${totalHours || '\u2014'}</div><div></div>
 </div>
 
 <div class="signature-block">
   <div>
-    <div class="sig-name">${getVal('tech-signature') || ''}</div>
-    <div class="sig-line">Technician Signature</div>
+    <div class="sig-name">\${getVal('tech-signature') || ''}</div>
+    <div class="sig-line">Painter Signature</div>
   </div>
   <div>
     <div class="sig-name">&nbsp;</div>

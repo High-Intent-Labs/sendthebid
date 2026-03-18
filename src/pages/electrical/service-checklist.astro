@@ -31,413 +31,240 @@ const faqSchema = {
     <!-- Tab Toggle -->
     <div class="flex gap-2 mb-8">
       <button id="tab-cooling" class="flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-accent text-white" data-tab="cooling">
-        Cooling Season
+        Panel &amp; Circuits
       </button>
       <button id="tab-heating" class="flex-1 py-3 px-4 rounded-lg font-heading font-bold text-sm uppercase tracking-wider transition-all bg-bg-dark text-text-muted border border-border hover:border-accent hover:text-text-primary" data-tab="heating">
-        Heating Season
+        Safety &amp; Testing
       </button>
     </div>
 
-    <!-- ============ COOLING SEASON ============ -->
+    <!-- ============ PANEL & CIRCUITS ============ -->
     <div id="panel-cooling">
 
-      <!-- Controls -->
+      <!-- Panel Inspection -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Thermostat
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Panel Inspection
         </h3>
         <div class="space-y-3">
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test all modes (heat, cool, auto, fan)</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Panel cover secure, no damage</span>
           </label>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Verify calibration (&plusmn;1&deg;F)</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">No signs of overheating or corrosion</span>
           </label>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check programming / schedule</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Bus bars clean and connections tight</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Panel brand and type noted (no recalled panels)</span>
           </label>
         </div>
       </div>
 
-      <!-- Air Distribution -->
+      <!-- Breaker Condition -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Air Distribution
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Breaker Condition
         </h3>
         <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Replace / clean filter</span>
-            </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Size:</label>
-              <input type="text" data-field="filter-size-cool" placeholder="e.g. 20x25x1" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-28 focus:border-accent focus:outline-none" />
-              <label class="text-xs text-text-muted">Condition:</label>
-              <select data-field="filter-condition-cool" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm focus:border-accent focus:outline-none">
-                <option value="">Select</option>
-                <option value="New">New</option>
-                <option value="Clean">Clean</option>
-                <option value="Dirty">Dirty</option>
-                <option value="Clogged">Clogged</option>
-              </select>
-            </div>
-          </div>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect all systems for damage or issues</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All breakers properly rated for wire gauge</span>
           </label>
           <label class="flex items-start gap-3 cursor-pointer group">
             <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check supply and return registers (open, clean)</span>
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">No double-tapped breakers (unless listed)</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Breakers snap firmly on and off</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">No warm breakers (infrared check)</span>
           </label>
         </div>
       </div>
 
-      <!-- Electrical -->
+      <!-- Wire Connections -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Electrical
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Wire Connections
+        </h3>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All connections torqued to spec</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">No aluminum wiring issues (or properly remediated)</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">No melted or discolored insulation</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wire routing neat and secured</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Circuit Labeling -->
+      <div class="mb-8">
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Circuit Labeling
+        </h3>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Panel directory complete and accurate</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All breakers labeled legibly</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Labels match actual circuits (verified)</span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ SAFETY & TESTING ============ -->
+    <div id="panel-heating" class="hidden">
+
+      <!-- GFCI / AFCI Testing -->
+      <div class="mb-8">
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> GFCI / AFCI Testing
+        </h3>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All GFCI outlets trip and reset</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">GFCI protection in all required locations</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">AFCI breakers test properly</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">AFCI protection in bedrooms and living areas</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Grounding & Bonding -->
+      <div class="mb-8">
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Grounding &amp; Bonding
+        </h3>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Ground rod connection secure</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Water pipe bonding intact</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Ground and neutral separated in sub-panels</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer group">
+            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Equipment grounding conductors continuous</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Voltage Checks -->
+      <div class="mb-8">
+        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Voltage Checks
         </h3>
         <div class="space-y-3">
           <div class="flex flex-wrap items-start gap-3">
             <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test capacitor</span>
+              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Line-to-Neutral (L1)</span>
             </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Reading:</label>
-              <input type="number" data-field="cap-reading" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&mu;F</span>
-              <label class="text-xs text-text-muted ml-2">Rated:</label>
-              <input type="number" data-field="cap-rated" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&mu;F</span>
+            <div class="flex items-center gap-2 ml-8">
+              <input type="number" data-field="voltage-l1n" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">V</span>
+              <span class="text-xs text-text-muted ml-1">Target: 114-126V</span>
+              <span id="ind-voltage-l1" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
             </div>
           </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect contactor (pitting, arcing)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Check all electrical connections</span>
-          </label>
           <div class="flex flex-wrap items-start gap-3">
             <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Measure amp draws</span>
+              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Line-to-Neutral (L2)</span>
             </label>
-            <div class="flex flex-wrap items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Compressor:</label>
-              <input type="number" data-field="amp-compressor" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-              <label class="text-xs text-text-muted ml-2">Blower:</label>
-              <input type="number" data-field="amp-blower" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-              <label class="text-xs text-text-muted ml-2">Condenser fan:</label>
-              <input type="number" data-field="amp-condenser" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
+            <div class="flex items-center gap-2 ml-8">
+              <input type="number" data-field="voltage-l2n" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">V</span>
+              <span class="text-xs text-text-muted ml-1">Target: 114-126V</span>
+              <span id="ind-voltage-l2" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-start gap-3">
+            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
+              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Line-to-Line</span>
+            </label>
+            <div class="flex items-center gap-2 ml-8">
+              <input type="number" data-field="voltage-ll" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">V</span>
+              <span class="text-xs text-text-muted ml-1">Target: 228-252V</span>
+              <span id="ind-voltage-ll" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Wiring System -->
+      <!-- Load Balance -->
       <div class="mb-8">
         <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Refrigerant System
+          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Load Balance
         </h3>
         <div class="space-y-3">
           <div class="flex flex-wrap items-start gap-3">
             <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Suction Pressure</span>
+              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Leg 1 amperage</span>
             </label>
             <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="suction-psi" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-24 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PSI</span>
+              <input type="number" data-field="amps-leg1" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
             </div>
           </div>
           <div class="flex flex-wrap items-start gap-3">
             <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Liquid / Head Pressure</span>
+              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
+              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Leg 2 amperage</span>
             </label>
             <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="head-psi" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-24 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PSI</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Superheat</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="superheat" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1">Target: 10-15&deg;F</span>
-              <span id="ind-superheat" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Subcooling</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="subcooling" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1">Target: 10-12&deg;F</span>
-              <span id="ind-subcooling" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Leak inspection performed</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Outdoor Unit -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Outdoor Unit
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean condenser coil</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clear debris (2 ft clearance)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Level check</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Fan blade condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Service valves accessible</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Indoor Unit -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Indoor Unit
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean evaporator coil</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clear condensate drain</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test float switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect blower wheel</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Performance (Cooling) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Performance
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Supply Air Temp</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="supply-temp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-            </div>
-          </div>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="cooling" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Return Air Temp</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="return-temp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
+              <input type="number" data-field="amps-leg2" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-3 ml-8">
-            <span class="text-text-secondary text-sm">Temperature Split:</span>
-            <span id="temp-split" class="font-heading font-bold text-lg text-text-primary">--</span>
-            <span class="text-xs text-text-muted">&deg;F</span>
-            <span class="text-xs text-text-muted ml-1">Target: 15-20&deg;F</span>
-            <span id="ind-split" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
+            <span class="text-text-secondary text-sm">Imbalance:</span>
+            <span id="load-imbalance" class="font-heading font-bold text-lg text-text-primary">--</span>
+            <span class="text-xs text-text-muted">%</span>
+            <span class="text-xs text-text-muted ml-1">Target: &lt; 10%</span>
+            <span id="ind-imbalance" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
           </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ============ HEATING SEASON ============ -->
-    <div id="panel-heating" class="hidden">
-
-      <!-- Heat Exchanger -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Heat Exchanger
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Visual inspection (cracks, rust, holes)</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">CO test</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <label class="text-xs text-text-muted">Reading:</label>
-              <input type="number" data-field="co-reading" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">PPM</span>
-              <span class="text-xs text-text-muted ml-1">Must be &lt; 9 PPM</span>
-              <span id="ind-co" class="w-3 h-3 rounded-full bg-border inline-block ml-1"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Burner Assembly -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Burner Assembly
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Inspect burners (clean, aligned)</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Clean flame sensor</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Test igniter</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Gas pressure</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="gas-pressure" step="0.1" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">"WC</span>
-              <span class="text-xs text-text-muted ml-1">Target: 3.5" WC</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Safety Controls -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Safety Controls
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">High-limit switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Pressure switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Rollout switch</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Flue pipe condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">CO detector present</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Electrical (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Electrical
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Wiring condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">All connections tight</span>
-          </label>
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Amp draw</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="heat-amp" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">A</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Air Distribution (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Air Distribution
-        </h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Filter replaced / cleaned</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Blower motor condition</span>
-          </label>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Conduit inspection</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- Performance (Heating) -->
-      <div class="mb-8">
-        <h3 class="font-heading font-bold text-lg text-text-primary mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-accent inline-block"></span> Performance
-        </h3>
-        <div class="space-y-3">
-          <div class="flex flex-wrap items-start gap-3">
-            <label class="flex items-start gap-3 cursor-pointer group shrink-0">
-              <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-              <span class="text-text-secondary group-hover:text-text-primary transition-colors">Temperature rise</span>
-            </label>
-            <div class="flex items-center gap-2 ml-8">
-              <input type="number" data-field="temp-rise" placeholder="0" class="bg-bg-dark border border-border rounded px-3 py-1.5 text-text-primary text-sm w-20 focus:border-accent focus:outline-none" /> <span class="text-xs text-text-muted">&deg;F</span>
-              <span class="text-xs text-text-muted ml-1 italic">Check nameplate for range</span>
-            </div>
-          </div>
-          <label class="flex items-start gap-3 cursor-pointer group">
-            <input type="checkbox" class="cl-check mt-1 w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent shrink-0" data-season="heating" />
-            <span class="text-text-secondary group-hover:text-text-primary transition-colors">Verify proper cycling</span>
-          </label>
         </div>
       </div>
 
@@ -486,31 +313,31 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Checklist</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Choose your inspection type.</strong> Toggle between the tabs at the top. Each tab has its own checklist tailored to the components and procedures for that scope of work.</p>
-          <p><strong class="text-text-primary">2. Work through each section.</strong> Check off items as you complete them. Enter readings directly into the fields — voltage, amperage, resistance values — and the tool will flag anything outside normal range.</p>
+          <p><strong class="text-text-primary">1. Choose your scope.</strong> Toggle between Panel/Circuits and Safety/Testing tabs at the top. Each tab covers the relevant areas for that phase of the electrical service visit.</p>
+          <p><strong class="text-text-primary">2. Work through each section.</strong> Check off items as you complete them. Enter voltage and amperage readings directly into the fields — the tool will flag anything outside normal range.</p>
           <p><strong class="text-text-primary">3. Monitor your progress.</strong> The progress bar updates in real time. The summary section shows your completion percentage and a health grade based on items checked and flagged readings.</p>
           <p><strong class="text-text-primary">4. Generate a report.</strong> When finished, hit Generate Report to create a printable summary of everything checked, every reading recorded, and any items that need attention. Your progress auto-saves so you never lose work.</p>
         </div>
       </section>
 
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete Electrical Service Covers</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What a Complete Electrical Service Visit Covers</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Panel inspection.</strong> Checking the main panel and sub-panels for proper labeling, correct breaker sizing, signs of overheating, and overall condition. Loose bus bar connections and corroded terminals are common issues that create fire hazards if left unchecked.</p>
-          <p><strong class="text-text-primary">Breaker and circuit testing.</strong> Each breaker should be checked for proper operation and correct amperage rating for its wire gauge. Double-tapped breakers, oversized breakers on undersized wire, and breakers that won't trip are among the most common and dangerous findings.</p>
-          <p><strong class="text-text-primary">Wiring and connections.</strong> Insulation resistance testing and continuity checks are the two most important measurements in electrical diagnostics. They reveal insulation breakdown, loose connections, and load problems that visual inspection alone cannot identify. Torque checks on all accessible connections prevent the loose-connection fires that cause billions in property damage annually.</p>
-          <p><strong class="text-text-primary">Grounding and bonding.</strong> Proper grounding is the foundation of electrical safety. Verify the grounding electrode conductor, bonding jumpers on water and gas lines, and equipment grounding conductors. Improper grounding creates shock hazards and prevents breakers from tripping during ground faults.</p>
-          <p><strong class="text-text-primary">GFCI and AFCI protection.</strong> Test every GFCI and AFCI device in the system. GFCI outlets in kitchens, bathrooms, garages, and outdoor locations prevent electrocution. AFCI breakers in bedrooms and living areas prevent arc-fault fires. These devices have a limited lifespan and must be tested regularly.</p>
-          <p><strong class="text-text-primary">Voltage and load measurements.</strong> Measuring voltage at the panel and at outlets under load reveals problems invisible to the eye. Voltage drop greater than 5 percent indicates undersized wiring, loose connections, or overloaded circuits that reduce equipment life and create heat.</p>
+          <p><strong class="text-text-primary">Panel inspection.</strong> Check the panel for signs of overheating, corrosion, or damage. Verify the panel brand is not on any recall list (Federal Pacific, Zinsco). Inspect bus bars, neutral bars, and ground bars for tight connections.</p>
+          <p><strong class="text-text-primary">Breaker condition.</strong> Verify each breaker is properly rated for its wire gauge. Check for double-tapped breakers, warm breakers, and breakers that do not snap firmly. These are the most common sources of electrical failures.</p>
+          <p><strong class="text-text-primary">Wire connections.</strong> Torque all connections to manufacturer specifications. Loose connections are the number one cause of electrical fires. Check for aluminum wiring, melted insulation, and improper splices.</p>
+          <p><strong class="text-text-primary">GFCI and AFCI testing.</strong> Test every GFCI outlet and AFCI breaker. Verify GFCI protection exists in all required wet locations and AFCI protection covers bedrooms and living areas per current code.</p>
+          <p><strong class="text-text-primary">Grounding and bonding.</strong> Verify the grounding electrode system is complete — ground rod, water pipe bond, and proper separation of grounds and neutrals in sub-panels. Poor grounding creates shock hazards and equipment damage.</p>
+          <p><strong class="text-text-primary">Voltage and load balance.</strong> Measure voltage at the panel on both legs. Check load balance between legs — significant imbalance causes voltage fluctuations and premature equipment failure.</p>
         </div>
       </section>
 
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Routine maintenance visits.</strong> Use this as your standard operating procedure for every maintenance visit. It ensures nothing gets skipped, readings get recorded, and the customer sees a professional report documenting every step.</p>
-          <p><strong class="text-text-primary">New technician training.</strong> Hand this checklist to every new hire. It teaches them the complete process for a thorough maintenance visit and builds consistent habits from day one. The reading targets and color indicators help them learn what normal looks like.</p>
-          <p><strong class="text-text-primary">Maintenance agreement visits.</strong> If you sell maintenance plans, this checklist is your proof of value. Customers paying for a plan expect thoroughness. Generate the report, hand it to them, and show exactly what their money bought.</p>
+          <p><strong class="text-text-primary">Electrical service calls.</strong> Use this as your standard process for every service visit. It ensures a thorough inspection is completed regardless of what the original call was for, and it often uncovers additional work.</p>
+          <p><strong class="text-text-primary">Pre-purchase inspections.</strong> Buyers need to know the condition of the electrical system. This checklist covers every major component and produces a professional report that supports informed decisions.</p>
+          <p><strong class="text-text-primary">Maintenance agreements.</strong> Offer annual electrical inspections as a service plan. The generated report shows the customer exactly what was checked and gives them peace of mind about their electrical safety.</p>
         </div>
       </section>
 
@@ -519,19 +346,19 @@ const faqSchema = {
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should an electrical service visit include?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete electrical service visit should include panel inspection, breaker torque checks, grounding and bonding verification, GFCI and AFCI testing, voltage and amperage measurements on loaded circuits, insulation resistance testing on suspect circuits, inspection of all accessible wiring and connections, testing of all safety devices, and documentation of current conditions. Address any code violations or safety issues found immediately or note them for follow-up.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete visit should include panel inspection, breaker condition check, wire connection torque verification, GFCI and AFCI testing, grounding and bonding verification, voltage measurements, load balance assessment, and documentation of all findings with readings.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How often should electrical systems be inspected?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Residential electrical systems should be inspected every 3 to 5 years, or whenever symptoms appear such as flickering lights, tripped breakers, or warm outlets. Commercial properties should have annual inspections. Properties with older wiring, aluminum wiring, or recalled panels (Federal Pacific, Zinsco) should be inspected more frequently.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Residential systems should be inspected every 3 to 5 years. Commercial properties need annual inspections. Older homes with pre-1980 wiring, aluminum wiring, or recalled panels should be inspected more frequently. Any time you notice flickering lights or tripped breakers warrants an inspection.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What are normal voltage readings for residential service?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Normal residential voltage should measure 120V line-to-neutral and 240V line-to-line, with an acceptable range of plus or minus 5 percent. Voltage imbalance between the two legs should be less than 3 percent. Readings outside these ranges indicate utility supply problems, loose connections, or overloaded circuits.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Normal residential voltage measures 120V line-to-neutral and 240V line-to-line at the panel, with an acceptable range of plus or minus 5 percent (114V to 126V for 120V circuits). Imbalance between legs should be less than 3 percent. Readings outside these ranges indicate utility supply issues, loose connections, or overloaded circuits.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a safe operating condition for electrical systems?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Safe electrical conditions require all breakers properly rated for their wire gauge, no double-tapped breakers unless listed for it, proper ground and neutral separation in sub-panels, GFCI protection in wet locations, AFCI protection in bedrooms and living areas per current code, and no signs of overheating such as discolored wires, melted insulation, or warm breakers.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Safe conditions require all breakers properly rated for wire gauge, no double-tapped breakers (unless listed), grounds and neutrals separated in sub-panels, GFCI protection in wet locations, AFCI protection in bedrooms and living areas, and no signs of overheating such as discolored wires, melted insulation, or warm breakers.</div>
           </details>
         </div>
       </section>
@@ -541,7 +368,7 @@ const faqSchema = {
 
 <script>
   // ===== STATE =====
-  const STORAGE_KEY = 'hvac-maintenance-checklist';
+  const STORAGE_KEY = 'electrical-service-checklist';
   let activeTab: 'cooling' | 'heating' = 'cooling';
 
   interface SavedState {
@@ -621,18 +448,19 @@ const faqSchema = {
 
   function evaluateFlags(): { count: number; items: string[] } {
     const flags: string[] = [];
-    const sh = parseFloat((document.querySelector('[data-field="superheat"]') as HTMLInputElement)?.value);
-    if (!isNaN(sh) && sh > 0 && (sh < 10 || sh > 15)) flags.push(`Superheat: ${sh}\u00B0F (target 10-15\u00B0F)`);
-    const sc = parseFloat((document.querySelector('[data-field="subcooling"]') as HTMLInputElement)?.value);
-    if (!isNaN(sc) && sc > 0 && (sc < 10 || sc > 12)) flags.push(`Subcooling: ${sc}\u00B0F (target 10-12\u00B0F)`);
-    const supply = parseFloat((document.querySelector('[data-field="supply-temp"]') as HTMLInputElement)?.value);
-    const ret = parseFloat((document.querySelector('[data-field="return-temp"]') as HTMLInputElement)?.value);
-    if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-      const split = Math.abs(ret - supply);
-      if (split < 15 || split > 20) flags.push(`Temp Split: ${split.toFixed(1)}\u00B0F (target 15-20\u00B0F)`);
+    const l1 = parseFloat((document.querySelector('[data-field="voltage-l1n"]') as HTMLInputElement)?.value);
+    if (!isNaN(l1) && l1 > 0 && (l1 < 114 || l1 > 126)) flags.push(`L1-N Voltage: ${l1}V (target 114-126V)`);
+    const l2 = parseFloat((document.querySelector('[data-field="voltage-l2n"]') as HTMLInputElement)?.value);
+    if (!isNaN(l2) && l2 > 0 && (l2 < 114 || l2 > 126)) flags.push(`L2-N Voltage: ${l2}V (target 114-126V)`);
+    const ll = parseFloat((document.querySelector('[data-field="voltage-ll"]') as HTMLInputElement)?.value);
+    if (!isNaN(ll) && ll > 0 && (ll < 228 || ll > 252)) flags.push(`L-L Voltage: ${ll}V (target 228-252V)`);
+    const leg1 = parseFloat((document.querySelector('[data-field="amps-leg1"]') as HTMLInputElement)?.value);
+    const leg2 = parseFloat((document.querySelector('[data-field="amps-leg2"]') as HTMLInputElement)?.value);
+    if (!isNaN(leg1) && !isNaN(leg2) && leg1 > 0 && leg2 > 0) {
+      const avg = (leg1 + leg2) / 2;
+      const imbalance = avg > 0 ? (Math.abs(leg1 - leg2) / avg) * 100 : 0;
+      if (imbalance > 10) flags.push(`Load Imbalance: ${imbalance.toFixed(1)}% (target < 10%)`);
     }
-    const co = parseFloat((document.querySelector('[data-field="co-reading"]') as HTMLInputElement)?.value);
-    if (!isNaN(co) && co > 0 && co >= 9) flags.push(`CO Reading: ${co} PPM (must be < 9 PPM)`);
     return { count: flags.length, items: flags };
   }
 
@@ -695,47 +523,49 @@ const faqSchema = {
 
   // ===== COLOR INDICATORS =====
   function updateIndicators(): void {
-    const sh = parseFloat((document.querySelector('[data-field="superheat"]') as HTMLInputElement)?.value);
-    const indSH = document.getElementById('ind-superheat');
-    if (indSH) {
-      if (isNaN(sh) || sh === 0) indSH.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (sh >= 10 && sh <= 15) indSH.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else if (sh >= 7 && sh <= 18) indSH.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-      else indSH.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    const l1 = parseFloat((document.querySelector('[data-field="voltage-l1n"]') as HTMLInputElement)?.value);
+    const indL1 = document.getElementById('ind-voltage-l1');
+    if (indL1) {
+      if (isNaN(l1) || l1 === 0) indL1.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (l1 >= 114 && l1 <= 126) indL1.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (l1 >= 110 && l1 <= 130) indL1.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indL1.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
     }
 
-    const sc = parseFloat((document.querySelector('[data-field="subcooling"]') as HTMLInputElement)?.value);
-    const indSC = document.getElementById('ind-subcooling');
-    if (indSC) {
-      if (isNaN(sc) || sc === 0) indSC.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (sc >= 10 && sc <= 12) indSC.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else if (sc >= 7 && sc <= 15) indSC.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-      else indSC.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    const l2 = parseFloat((document.querySelector('[data-field="voltage-l2n"]') as HTMLInputElement)?.value);
+    const indL2 = document.getElementById('ind-voltage-l2');
+    if (indL2) {
+      if (isNaN(l2) || l2 === 0) indL2.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (l2 >= 114 && l2 <= 126) indL2.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (l2 >= 110 && l2 <= 130) indL2.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indL2.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
     }
 
-    const supply = parseFloat((document.querySelector('[data-field="supply-temp"]') as HTMLInputElement)?.value);
-    const ret = parseFloat((document.querySelector('[data-field="return-temp"]') as HTMLInputElement)?.value);
-    const splitEl = document.getElementById('temp-split');
-    const indSplit = document.getElementById('ind-split');
-    if (splitEl && indSplit) {
-      if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-        const split = Math.abs(ret - supply);
-        splitEl.textContent = split.toFixed(1);
-        if (split >= 15 && split <= 20) indSplit.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-        else if (split >= 12 && split <= 23) indSplit.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
-        else indSplit.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    const ll = parseFloat((document.querySelector('[data-field="voltage-ll"]') as HTMLInputElement)?.value);
+    const indLL = document.getElementById('ind-voltage-ll');
+    if (indLL) {
+      if (isNaN(ll) || ll === 0) indLL.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+      else if (ll >= 228 && ll <= 252) indLL.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+      else if (ll >= 220 && ll <= 260) indLL.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+      else indLL.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
+    }
+
+    const leg1 = parseFloat((document.querySelector('[data-field="amps-leg1"]') as HTMLInputElement)?.value);
+    const leg2 = parseFloat((document.querySelector('[data-field="amps-leg2"]') as HTMLInputElement)?.value);
+    const imbalanceEl = document.getElementById('load-imbalance');
+    const indImbalance = document.getElementById('ind-imbalance');
+    if (imbalanceEl && indImbalance) {
+      if (!isNaN(leg1) && !isNaN(leg2) && leg1 > 0 && leg2 > 0) {
+        const avg = (leg1 + leg2) / 2;
+        const imbalance = avg > 0 ? (Math.abs(leg1 - leg2) / avg) * 100 : 0;
+        imbalanceEl.textContent = imbalance.toFixed(1);
+        if (imbalance <= 10) indImbalance.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
+        else if (imbalance <= 20) indImbalance.className = 'w-3 h-3 rounded-full bg-[#FBBF24] inline-block ml-1';
+        else indImbalance.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
       } else {
-        splitEl.textContent = '--';
-        indSplit.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
+        imbalanceEl.textContent = '--';
+        indImbalance.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
       }
-    }
-
-    const co = parseFloat((document.querySelector('[data-field="co-reading"]') as HTMLInputElement)?.value);
-    const indCO = document.getElementById('ind-co');
-    if (indCO) {
-      if (isNaN(co) || co === 0) indCO.className = 'w-3 h-3 rounded-full bg-border inline-block ml-1';
-      else if (co < 9) indCO.className = 'w-3 h-3 rounded-full bg-[#34D399] inline-block ml-1';
-      else indCO.className = 'w-3 h-3 rounded-full bg-[#F87171] inline-block ml-1';
     }
   }
 
@@ -772,7 +602,7 @@ const faqSchema = {
 
   // ===== REPORT GENERATION =====
   document.getElementById('generate-report')?.addEventListener('click', () => {
-    const seasonLabel = activeTab === 'cooling' ? 'Cooling Season' : 'Heating Season';
+    const seasonLabel = activeTab === 'cooling' ? 'Panel & Circuits' : 'Safety & Testing';
     const panel = activeTab === 'cooling' ? '#panel-cooling' : '#panel-heating';
     const checks = document.querySelectorAll(`${panel} .cl-check`);
     const total = checks.length;
@@ -810,7 +640,7 @@ const faqSchema = {
     });
 
     // Build HTML for print
-    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Electrical Maintenance Report - ${seasonLabel}</title>
+    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Electrical Service Report - ${seasonLabel}</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; padding: 40px; max-width: 800px; margin: 0 auto; font-size: 13px; line-height: 1.5; }
@@ -831,7 +661,7 @@ const faqSchema = {
       @media print { body { padding: 20px; } }
     </style></head><body>`;
 
-    html += `<h1>Electrical Maintenance Report</h1>`;
+    html += `<h1>Electrical Service Report</h1>`;
     html += `<div class="meta">${seasonLabel} &mdash; ${dateStr} at ${timeStr}</div>`;
 
     html += `<div class="summary-grid">`;
@@ -855,14 +685,9 @@ const faqSchema = {
 
     // Add readings section if any
     const readingLabels: Record<string, string> = {
-      'filter-size-cool': 'Filter Size', 'filter-condition-cool': 'Filter Condition',
-      'cap-reading': 'Capacitor Reading (\u00B5F)', 'cap-rated': 'Capacitor Rated (\u00B5F)',
-      'amp-compressor': 'Compressor Amps', 'amp-blower': 'Blower Amps', 'amp-condenser': 'Condenser Fan Amps',
-      'suction-psi': 'Suction Pressure (PSI)', 'head-psi': 'Head Pressure (PSI)',
-      'superheat': 'Superheat (\u00B0F)', 'subcooling': 'Subcooling (\u00B0F)',
-      'supply-temp': 'Supply Air Temp (\u00B0F)', 'return-temp': 'Return Air Temp (\u00B0F)',
-      'co-reading': 'CO Reading (PPM)', 'gas-pressure': 'Gas Pressure ("WC)',
-      'heat-amp': 'Amp Draw (A)', 'temp-rise': 'Temperature Rise (\u00B0F)',
+      'voltage-l1n': 'L1-N Voltage (V)', 'voltage-l2n': 'L2-N Voltage (V)',
+      'voltage-ll': 'L-L Voltage (V)',
+      'amps-leg1': 'Leg 1 Amps (A)', 'amps-leg2': 'Leg 2 Amps (A)',
     };
     const activeFields = Object.entries(fields).filter(([_, v]) => v);
     if (activeFields.length > 0) {
@@ -872,10 +697,12 @@ const faqSchema = {
         html += `<span><strong>${label}:</strong> ${v}</span>`;
       });
 
-      const supply = parseFloat(fields['supply-temp']);
-      const ret = parseFloat(fields['return-temp']);
-      if (!isNaN(supply) && !isNaN(ret) && supply > 0 && ret > 0) {
-        html += `<span><strong>Temperature Split:</strong> ${Math.abs(ret - supply).toFixed(1)}\u00B0F</span>`;
+      const leg1 = parseFloat(fields['amps-leg1']);
+      const leg2 = parseFloat(fields['amps-leg2']);
+      if (!isNaN(leg1) && !isNaN(leg2) && leg1 > 0 && leg2 > 0) {
+        const avg = (leg1 + leg2) / 2;
+        const imbalance = avg > 0 ? (Math.abs(leg1 - leg2) / avg) * 100 : 0;
+        html += `<span><strong>Load Imbalance:</strong> ${imbalance.toFixed(1)}%</span>`;
       }
       html += `</div>`;
     }

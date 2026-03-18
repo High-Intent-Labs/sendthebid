@@ -147,14 +147,14 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Main Panel</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="heat-exchanger">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="main-panel">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="heat-exchanger"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="main-panel"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="heat-exchanger" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="main-panel" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Wiring -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -173,40 +173,40 @@ const faqSchema = {
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Circuit Breakers</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="refrigerant">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="breakers">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="refrigerant"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="breakers"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="refrigerant" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="breakers" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Conduit & Raceways -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Conduit &amp; Raceways</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="ductwork">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="conduit">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="ductwork"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="conduit"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="ductwork" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="conduit" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Outlets/Switches -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
           <span class="font-medium text-text-primary w-48 shrink-0">Outlets / Switches</span>
-          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="thermostat">
+          <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="outlets">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
             <option value="Fail">Fail (Red)</option>
           </select>
-          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="thermostat"></span>
+          <span class="rating-indicator w-4 h-4 rounded-full bg-green-500 shrink-0" data-for="outlets"></span>
         </div>
-        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="thermostat" rows="2" placeholder="Notes..."></textarea>
+        <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="outlets" rows="2" placeholder="Notes..."></textarea>
       </div>
       <!-- Grounding / Bonding -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
@@ -635,12 +635,12 @@ const faqSchema = {
   function generateReport() {
     // Collect component ratings
     const components = [
-      { key: 'heat-exchanger', label: 'Heat Exchanger' },
+      { key: 'main-panel', label: 'Main Panel' },
       { key: 'electrical', label: 'Electrical System' },
-      { key: 'refrigerant', label: 'Sanitation Systems' },
-      { key: 'ductwork', label: 'Floor Systems' },
-      { key: 'thermostat', label: 'Switches & Controls' },
-      { key: 'filtration', label: 'Air Filtration' },
+      { key: 'breakers', label: 'Circuit Breakers' },
+      { key: 'conduit', label: 'Conduit & Raceways' },
+      { key: 'outlets', label: 'Outlets / Switches' },
+      { key: 'filtration', label: 'Grounding / Bonding' },
       { key: 'safety', label: 'Safety Controls' },
       { key: 'drainage', label: 'Drainage System' },
     ];

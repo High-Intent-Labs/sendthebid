@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What should be on a Landscaping work order?",
+      "name": "What should be on a landscaping work order?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A complete Landscaping work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times."
+        "text": "A complete landscaping work order includes dispatch info (date, crew lead, priority), customer details, property information (lawn area, bed area, tree count, irrigation zones), reported issue and scope of work, services performed, materials used, a site safety checklist, and crew lead signature with arrival and completion times."
       }
     },
     {
       "@type": "Question",
-      "name": "Why do I need to record system readings?",
+      "name": "Why do I need to record property measurements?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "System readings like suction pressure, head pressure, superheat, subcooling, and temperature split document the system's operating condition at the time of service. These readings are critical for warranty claims, verifying proper charge levels, tracking system degradation over time, and protecting your company from liability disputes."
+        "text": "Property measurements like lawn square footage, bed area, tree and shrub count, and irrigation zone count document the scope of the property at the time of service. These measurements are critical for accurate estimating, tracking property changes over time, scheduling crew hours, and resolving disputes over what was serviced."
       }
     },
     {
       "@type": "Question",
-      "name": "Is detailed documentation required?",
+      "name": "Is detailed documentation required for landscaping jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Maintaining detailed service records is a best practice for every Landscaping job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust."
+        "text": "Yes. Maintaining detailed service records is a best practice for every landscaping job. Document all work performed, materials applied (fertilizer, mulch, seed), and any issues found like pest damage or irrigation leaks. Thorough records protect you during disputes, support warranty claims on plantings, and provide a service history that builds customer trust."
       }
     },
     {
       "@type": "Question",
-      "name": "What's a normal temperature split for AC?",
+      "name": "What documentation standards should I follow for landscaping?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation."
+        "text": "Quality landscaping documentation should include before and after photos, detailed descriptions of services performed, materials and quantities used (mulch yards, fertilizer lbs, sod pallets), time spent on each task, and any recommendations for future work like tree trimming or irrigation repairs. This level of detail helps justify your pricing and builds a professional reputation."
       }
     }
   ]
@@ -63,7 +63,7 @@ const faqSchema = {
         <input type="time" id="wo-time" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-name">Technician Name</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-name">Crew Lead</label>
         <input type="text" id="tech-name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -101,48 +101,50 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: System Info -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Info</h3>
+    <!-- Section: Job Info -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Job Info</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Equipment Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Service Type</label>
         <select id="equip-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Lawn Area</option>
-          <option value="Heat Pump">Garden Bed</option>
-          <option value="Furnace">Irrigation System</option>
-          <option value="Mini Split">Hardscape</option>
-          <option value="Boiler">Tree/Shrub</option>
-          <option value="Package Unit">Water Feature</option>
-          <option value="RTU">RTU</option>
+          <option value="Mow & Maintain">Mow & Maintain</option>
+          <option value="Planting">Planting</option>
+          <option value="Irrigation">Irrigation</option>
+          <option value="Hardscape">Hardscape</option>
+          <option value="Tree/Shrub Care">Tree/Shrub Care</option>
+          <option value="Lawn Treatment">Lawn Treatment</option>
+          <option value="Cleanup">Cleanup</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Make</label>
-        <input type="text" id="equip-make" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Property Type</label>
+        <input type="text" id="equip-make" placeholder="Residential, Commercial..." class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Model</label>
-        <input type="text" id="equip-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Lot Size</label>
+        <input type="text" id="equip-model" placeholder="e.g., 0.25 acres" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Serial #</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Service Agreement #</label>
         <input type="text" id="equip-serial" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Install Date</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Last Service Date</label>
         <input type="date" id="install-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="filter-size">Filter Size</label>
-        <input type="text" id="filter-size" placeholder="e.g., 16x25x1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="filter-size">Crew Size</label>
+        <input type="text" id="filter-size" placeholder="e.g., 3 crew" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Material Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="refrigerant-type">Grass Type</label>
         <select id="refrigerant-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="R-410A" selected>R-410A</option>
-          <option value="R-22">R-22</option>
-          <option value="R-32">R-32</option>
-          <option value="R-134a">R-134a</option>
+          <option value="Bermuda" selected>Bermuda</option>
+          <option value="Fescue">Fescue</option>
+          <option value="Zoysia">Zoysia</option>
+          <option value="St. Augustine">St. Augustine</option>
+          <option value="Kentucky Bluegrass">Kentucky Bluegrass</option>
+          <option value="Mixed">Mixed</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -156,7 +158,7 @@ const faqSchema = {
         <textarea id="reported-issue" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnosis">Diagnosis</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="diagnosis">Assessment</label>
         <textarea id="diagnosis" rows="3" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors resize-y"></textarea>
       </div>
       <div>
@@ -165,17 +167,17 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: Parts Used -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Parts Used</h3>
+    <!-- Section: Materials Used -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Materials Used</h3>
     <div class="mb-8">
       <div id="parts-table" class="space-y-3">
         <div class="grid grid-cols-[1fr_1fr_80px_40px] gap-3 items-end part-row">
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2">Part Name</label>
+            <label class="block text-sm font-medium text-text-secondary mb-2">Material Name</label>
             <input type="text" class="part-name w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-text-secondary mb-2">Part #</label>
+            <label class="block text-sm font-medium text-text-secondary mb-2">SKU / Type</label>
             <input type="text" class="part-number w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div>
@@ -184,60 +186,60 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-sm font-medium text-text-secondary mb-2">&nbsp;</label>
-            <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+            <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove material">&times;</button>
           </div>
         </div>
       </div>
-      <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Part</button>
+      <button type="button" id="add-part-btn" class="mt-3 text-accent hover:text-accent-hover transition-colors cursor-pointer text-sm font-medium">+ Add Material</button>
     </div>
 
-    <!-- Section: Materials Log -->
+    <!-- Section: Material Log -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Material Log</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-added">Amount Added (lbs)</label>
-        <input type="number" id="ref-added" min="0" step="0.25" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-added">Mulch Used (yards)</label>
+        <input type="number" id="ref-added" min="0" step="0.5" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-recovered">Amount Recovered (lbs)</label>
-        <input type="number" id="ref-recovered" min="0" step="0.25" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ref-recovered">Debris Removed (yards)</label>
+        <input type="number" id="ref-recovered" min="0" step="0.5" value="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
-    <!-- Section: System Readings -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Readings</h3>
+    <!-- Section: Property Measurements -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Property Measurements</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="suction-psi">Suction Pressure (PSI)</label>
-        <input type="number" id="suction-psi" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="lawn-area">Lawn Area (sq ft)</label>
+        <input type="number" id="lawn-area" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="head-psi">Head/Liquid Pressure (PSI)</label>
-        <input type="number" id="head-psi" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="bed-area">Bed Area (sq ft)</label>
+        <input type="number" id="bed-area" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="superheat">Superheat (&deg;F)</label>
-        <input type="number" id="superheat" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tree-count">Tree / Shrub Count</label>
+        <input type="number" id="tree-count" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="subcooling">Subcooling (&deg;F)</label>
-        <input type="number" id="subcooling" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="irrigation-zones">Irrigation Zones</label>
+        <input type="number" id="irrigation-zones" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-temp">Supply Air Temp (&deg;F)</label>
-        <input type="number" id="supply-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="hedge-lf">Hedge / Edging (LF)</label>
+        <input type="number" id="hedge-lf" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="return-temp">Return Air Temp (&deg;F)</label>
-        <input type="number" id="return-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="hardscape-sqft">Hardscape (sq ft)</label>
+        <input type="number" id="hardscape-sqft" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Temperature Split (&deg;F)</label>
-        <div id="temp-split-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Total Property (sq ft)</label>
+        <div id="total-property-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="comp-amps">Compressor Amps</label>
-        <input type="number" id="comp-amps" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="mow-height">Mow Height (in)</label>
+        <input type="number" id="mow-height" step="0.25" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -245,29 +247,28 @@ const faqSchema = {
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Safety Checklist</h3>
     <div class="space-y-3 mb-8">
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-co" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-co" class="text-text-primary cursor-pointer">CO Test</label>
-        <input type="number" id="co-ppm" placeholder="PPM" min="0" class="w-24 bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+        <input type="checkbox" id="chk-ppe" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-ppe" class="text-text-primary cursor-pointer">PPE Worn (eye, ear, gloves)</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-gasleak" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-gasleak" class="text-text-primary cursor-pointer">Gas Leak Check</label>
+        <input type="checkbox" id="chk-utilities" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-utilities" class="text-text-primary cursor-pointer">Underground Utilities Marked</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-electrical" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-electrical" class="text-text-primary cursor-pointer">Electrical Connections Inspected</label>
+        <input type="checkbox" id="chk-equipment" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-equipment" class="text-text-primary cursor-pointer">Equipment Pre-Check Completed</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-capacitor" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-capacitor" class="text-text-primary cursor-pointer">Capacitor Tested</label>
+        <input type="checkbox" id="chk-debris" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-debris" class="text-text-primary cursor-pointer">Site Debris Cleared Before Mowing</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-contactor" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-contactor" class="text-text-primary cursor-pointer">Contactor Inspected</label>
+        <input type="checkbox" id="chk-irrigation" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-irrigation" class="text-text-primary cursor-pointer">Irrigation System Checked</label>
       </div>
       <div class="flex items-center gap-3">
-        <input type="checkbox" id="chk-drain" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
-        <label for="chk-drain" class="text-text-primary cursor-pointer">Drain Line Clear</label>
+        <input type="checkbox" id="chk-cleanup" class="w-5 h-5 rounded border-border bg-bg-dark text-accent focus:ring-accent cursor-pointer" />
+        <label for="chk-cleanup" class="text-text-primary cursor-pointer">Site Cleanup Completed</label>
       </div>
     </div>
 
@@ -287,7 +288,7 @@ const faqSchema = {
         <div id="total-hours-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-signature">Technician Signature</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tech-signature">Crew Lead Signature</label>
         <input type="text" id="tech-signature" placeholder="Type full name" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
@@ -305,11 +306,11 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Template</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Fill in dispatch and customer info.</strong> Start with the work order number, date, and technician assignment. Add the customer's name, address, phone, and any access instructions like gate codes or lockbox combos.</p>
-          <p><strong class="text-text-primary">2. Identify the system.</strong> Select the equipment type and enter the make, model, and serial number from the data plate. Record the install date and current filter size so the next tech has a complete picture.</p>
-          <p><strong class="text-text-primary">3. Document the service.</strong> Write what the customer reported, your diagnosis, and exactly what work you performed. Be specific — vague notes cause problems during warranty claims and callbacks.</p>
-          <p><strong class="text-text-primary">4. Record readings and safety checks.</strong> Log all system pressures, temperatures, and amp draws. Run through the safety checklist. These readings prove the system was operating correctly when you left.</p>
-          <p><strong class="text-text-primary">5. Generate the work order.</strong> Hit the button to create a clean, printable work order. Have the customer review it, then use it for your records, warranty documentation, or office filing.</p>
+          <p><strong class="text-text-primary">1. Fill in dispatch and customer info.</strong> Start with the work order number, date, and crew lead assignment. Add the customer's name, address, phone, and any access instructions like gate codes or lockbox combos.</p>
+          <p><strong class="text-text-primary">2. Describe the job.</strong> Select the service type and enter property details. Record the lot size, grass type, and crew size so future visits have a complete picture.</p>
+          <p><strong class="text-text-primary">3. Document the service.</strong> Write what the customer reported, your assessment, and exactly what work you performed. Be specific — vague notes cause problems during disputes and callbacks.</p>
+          <p><strong class="text-text-primary">4. Record measurements and safety checks.</strong> Log property measurements like lawn area, bed area, and irrigation zones. Run through the safety checklist to confirm PPE was worn and the site was left clean.</p>
+          <p><strong class="text-text-primary">5. Generate the work order.</strong> Hit the button to create a clean, printable work order. Have the customer review it, then use it for your records, service agreements, or office filing.</p>
         </div>
       </section>
 
@@ -318,11 +319,11 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">What Goes on a Landscaping Work Order</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p>A work order is the single document that proves what happened on a job. Every section exists for a reason.</p>
-          <p><strong class="text-text-primary">Job identification</strong> — location details, scope of work, and materials used — ties the documentation to a specific service visit. This information is essential for warranty claims, follow-up visits, and customer records.</p>
-          <p><strong class="text-text-primary">System readings</strong> document the equipment's operating condition at the time of service. Suction and head pressures, superheat, subcooling, and the temperature split tell the full story. If a customer calls back two weeks later saying the system never worked right, your readings prove otherwise.</p>
-          <p><strong class="text-text-primary">Documentation</strong> is essential for every job. Detailed records of work performed, materials used, and before/after conditions protect both you and the customer. Smart contractors document everything regardless of job size. It protects you during disputes and helps maintain service history.</p>
-          <p><strong class="text-text-primary">The safety checklist</strong> is your liability shield. Documenting that you checked for CO, inspected gas connections, and tested electrical components shows due diligence. If something goes wrong after you leave, that checklist is your first line of defense.</p>
-          <p><strong class="text-text-primary">Parts used</strong> with part numbers create a clear record for inventory management, warranty tracking, and accurate invoicing. No more guessing what capacitor you put in three months ago.</p>
+          <p><strong class="text-text-primary">Job identification</strong> — service type, property details, and lot information — ties the documentation to a specific service visit. This information is essential for recurring service agreements, follow-up visits, and customer records.</p>
+          <p><strong class="text-text-primary">Property measurements</strong> document the scope of the property at the time of service. Lawn area, bed square footage, tree counts, and irrigation zone totals tell the full story. If a customer questions what was serviced or disputes the scope, your measurements prove exactly what was covered.</p>
+          <p><strong class="text-text-primary">Material tracking</strong> is essential for every landscaping job. Recording mulch yards, fertilizer applied, seed spread, and sod installed protects you during billing disputes and helps with inventory management. Smart crews document everything regardless of job size.</p>
+          <p><strong class="text-text-primary">The safety checklist</strong> is your liability shield. Documenting that PPE was worn, utilities were marked, equipment was pre-checked, and the site was cleaned up shows due diligence. If property damage or injury claims arise, that checklist is your first line of defense.</p>
+          <p><strong class="text-text-primary">Materials used</strong> with quantities create a clear record for inventory management, customer billing, and accurate estimating on future jobs.</p>
         </div>
       </section>
 
@@ -330,9 +331,9 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Service and repair calls.</strong> Every diagnostic visit and repair needs a work order. The tech fills it out on site — reported issue, diagnosis, work performed, parts used, and system readings. It becomes the permanent record of the visit and the basis for the invoice.</p>
-          <p><strong class="text-text-primary">Preventive maintenance visits.</strong> During seasonal maintenance visits, the work order captures baseline readings and safety checks. Over multiple visits, these readings show trends — rising amp draws, declining temperature splits, slowly dropping pressures — that help you recommend repairs before failures happen.</p>
-          <p><strong class="text-text-primary">Warranty and callback documentation.</strong> When a manufacturer asks for proof that a system was properly maintained, or when a customer disputes what was done, the work order is your evidence. Complete work orders with readings, parts, and signatures eliminate he-said-she-said situations.</p>
+          <p><strong class="text-text-primary">Regular maintenance visits.</strong> Every mow-and-maintain visit needs a work order. The crew lead fills it out on site — services performed, materials used, and property measurements. It becomes the permanent record of the visit and the basis for the invoice.</p>
+          <p><strong class="text-text-primary">Seasonal projects.</strong> During spring cleanups, fall leaf removal, or mulch installations, the work order captures the full scope of work and materials used. Over multiple seasons, these records show property changes and help you plan future services more accurately.</p>
+          <p><strong class="text-text-primary">Service agreement documentation.</strong> When a customer questions what was done, or when you need to verify recurring service history, the work order is your evidence. Complete work orders with measurements, materials, and signatures eliminate he-said-she-said situations.</p>
         </div>
       </section>
 
@@ -341,20 +342,20 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a Landscaping work order?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete Landscaping work order includes dispatch info (date, technician, priority), customer details, job details, reported issue and diagnosis, work performed, materials used, before and after conditions, a quality checklist, and technician signature with arrival and completion times.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should be on a landscaping work order?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete landscaping work order includes dispatch info (date, crew lead, priority), customer details, property information (lawn area, bed area, tree count, irrigation zones), reported issue and scope of work, services performed, materials used, a site safety checklist, and crew lead signature with arrival and completion times.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record system readings?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">System readings like suction pressure, head pressure, superheat, subcooling, and temperature split document the system's operating condition at the time of service. These readings are critical for warranty claims, verifying proper charge levels, tracking system degradation over time, and protecting your company from liability disputes.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why do I need to record property measurements?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Property measurements like lawn square footage, bed area, tree and shrub count, and irrigation zone count document the scope of the property at the time of service. These measurements are critical for accurate estimating, tracking property changes over time, scheduling crew hours, and resolving disputes over what was serviced.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is detailed documentation required?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Maintaining detailed service records is a best practice for every Landscaping job. Document all work performed, materials used, and any issues found. Thorough records protect you during disputes, help with warranty claims, and provide a service history that builds customer trust.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is detailed documentation required for landscaping jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. Maintaining detailed service records is a best practice for every landscaping job. Document all work performed, materials applied (fertilizer, mulch, seed), and any issues found like pest damage or irrigation leaks. Thorough records protect you during disputes, support warranty claims on plantings, and provide a service history that builds customer trust.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What's a normal temperature split for AC?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Quality documentation should include before and after photos, detailed descriptions of work performed, materials and quantities used, time spent on each task, and any recommendations for future work. This level of detail helps justify your pricing and builds a professional reputation.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What documentation standards should I follow for landscaping?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Quality landscaping documentation should include before and after photos, detailed descriptions of services performed, materials and quantities used (mulch yards, fertilizer lbs, sod pallets), time spent on each task, and any recommendations for future work like tree trimming or irrigation repairs. This level of detail helps justify your pricing and builds a professional reputation.</div>
           </details>
         </div>
       </section>
@@ -374,26 +375,24 @@ const faqSchema = {
     timeInput.value = now.toTimeString().slice(0, 5);
   }
 
-  // --- Temperature Split auto-calculation ---
-  function updateTempSplit() {
-    const supply = parseFloat((document.getElementById('supply-temp') as HTMLInputElement).value);
-    const ret = parseFloat((document.getElementById('return-temp') as HTMLInputElement).value);
-    const display = document.getElementById('temp-split-display')!;
-    if (!isNaN(supply) && !isNaN(ret)) {
-      const split = ret - supply;
-      display.textContent = split.toFixed(1) + '°F';
-      if (split >= 15 && split <= 20) {
-        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else {
-        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
-      }
+  // --- Total Property auto-calculation ---
+  function updateTotalProperty() {
+    const lawn = parseFloat((document.getElementById('lawn-area') as HTMLInputElement).value) || 0;
+    const bed = parseFloat((document.getElementById('bed-area') as HTMLInputElement).value) || 0;
+    const hardscape = parseFloat((document.getElementById('hardscape-sqft') as HTMLInputElement).value) || 0;
+    const display = document.getElementById('total-property-display')!;
+    if (lawn > 0 || bed > 0 || hardscape > 0) {
+      const total = lawn + bed + hardscape;
+      display.textContent = total.toLocaleString() + ' sq ft';
+      display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
     } else {
       display.textContent = '\u2014';
       display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
     }
   }
-  document.getElementById('supply-temp')?.addEventListener('input', updateTempSplit);
-  document.getElementById('return-temp')?.addEventListener('input', updateTempSplit);
+  document.getElementById('lawn-area')?.addEventListener('input', updateTotalProperty);
+  document.getElementById('bed-area')?.addEventListener('input', updateTotalProperty);
+  document.getElementById('hardscape-sqft')?.addEventListener('input', updateTotalProperty);
 
   // --- Total Hours auto-calculation ---
   function updateTotalHours() {
@@ -404,7 +403,7 @@ const faqSchema = {
       const [ah, am] = arrived.split(':').map(Number);
       const [ch, cm] = completed.split(':').map(Number);
       let totalMinutes = (ch * 60 + cm) - (ah * 60 + am);
-      if (totalMinutes < 0) totalMinutes += 24 * 60; // handle overnight
+      if (totalMinutes < 0) totalMinutes += 24 * 60;
       const hours = Math.floor(totalMinutes / 60);
       const minutes = totalMinutes % 60;
       display.textContent = hours + 'h ' + minutes + 'm';
@@ -433,7 +432,7 @@ const faqSchema = {
         <input type="number" value="1" min="1" class="part-qty w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove part">&times;</button>
+        <button type="button" class="remove-part-btn w-full bg-red-900/30 text-red-400 rounded-lg py-3 hover:bg-red-900/50 transition-colors cursor-pointer text-lg font-bold" title="Remove material">&times;</button>
       </div>
     `;
     table.appendChild(row);
@@ -474,16 +473,12 @@ const faqSchema = {
       }
     });
 
-    // Temperature split
-    const supplyT = parseFloat(getVal('supply-temp'));
-    const returnT = parseFloat(getVal('return-temp'));
-    let splitVal = '';
-    let splitColor = '#666';
-    if (!isNaN(supplyT) && !isNaN(returnT)) {
-      const s = returnT - supplyT;
-      splitVal = s.toFixed(1) + '°F';
-      splitColor = (s >= 15 && s <= 20) ? '#16a34a' : '#ca8a04';
-    }
+    // Total property
+    const lawnA = parseFloat(getVal('lawn-area')) || 0;
+    const bedA = parseFloat(getVal('bed-area')) || 0;
+    const hardA = parseFloat(getVal('hardscape-sqft')) || 0;
+    const totalProp = lawnA + bedA + hardA;
+    const totalPropStr = totalProp > 0 ? totalProp.toLocaleString() + ' sq ft' : '';
 
     // Total hours
     const arrived = getVal('time-arrived');
@@ -499,12 +494,12 @@ const faqSchema = {
 
     // Safety checklist
     const safetyItems = [
-      { id: 'chk-co', label: 'CO Test', extra: getVal('co-ppm') ? ' — ' + getVal('co-ppm') + ' PPM' : '' },
-      { id: 'chk-gasleak', label: 'Gas Leak Check', extra: '' },
-      { id: 'chk-electrical', label: 'Electrical Connections Inspected', extra: '' },
-      { id: 'chk-capacitor', label: 'Capacitor Tested', extra: '' },
-      { id: 'chk-contactor', label: 'Contactor Inspected', extra: '' },
-      { id: 'chk-drain', label: 'Drain Line Clear', extra: '' },
+      { id: 'chk-ppe', label: 'PPE Worn (eye, ear, gloves)', extra: '' },
+      { id: 'chk-utilities', label: 'Underground Utilities Marked', extra: '' },
+      { id: 'chk-equipment', label: 'Equipment Pre-Check Completed', extra: '' },
+      { id: 'chk-debris', label: 'Site Debris Cleared Before Mowing', extra: '' },
+      { id: 'chk-irrigation', label: 'Irrigation System Checked', extra: '' },
+      { id: 'chk-cleanup', label: 'Site Cleanup Completed', extra: '' },
     ];
     let safetyHtml = '';
     safetyItems.forEach(item => {
@@ -533,7 +528,6 @@ const faqSchema = {
   th { background:#f0f0f0; border:1px solid #ddd; padding:6px 10px; text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:0.3px; }
   td { border:1px solid #ddd; padding:6px 10px; }
   .readings-table td { text-align:center; }
-  .split-val { font-weight:700; color:${splitColor}; }
   .safety { font-size:14px; }
   .signature-block { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; padding-top:16px; }
   .sig-line { border-top:1px solid #1a1a1a; padding-top:6px; font-size:12px; color:#666; text-transform:uppercase; }
@@ -551,78 +545,78 @@ const faqSchema = {
     <div style="font-size:13px;color:#555;">Service Documentation</div>
   </div>
   <div class="header-right">
-    <div style="font-size:20px;font-weight:700;">${getVal('wo-number')}</div>
-    <div>${getVal('wo-date')}</div>
-    <div>${getVal('wo-time')}</div>
-    <span class="priority-badge priority-${getVal('priority')}">${getVal('priority')}</span>
+    <div style="font-size:20px;font-weight:700;">\${getVal('wo-number')}</div>
+    <div>\${getVal('wo-date')}</div>
+    <div>\${getVal('wo-time')}</div>
+    <span class="priority-badge priority-\${getVal('priority')}">\${getVal('priority')}</span>
   </div>
 </div>
 
 <h2>Dispatch</h2>
 <div class="grid2">
-  <div><span class="label">Technician:</span></div><div><span class="label">Truck #:</span></div>
-  <div class="value">${getVal('tech-name') || '—'}</div><div class="value">${getVal('truck-number') || '—'}</div>
+  <div><span class="label">Crew Lead:</span></div><div><span class="label">Truck #:</span></div>
+  <div class="value">\${getVal('tech-name') || '\u2014'}</div><div class="value">\${getVal('truck-number') || '\u2014'}</div>
 </div>
 
 <h2>Customer</h2>
 <div class="grid2">
   <div><span class="label">Name:</span></div><div><span class="label">Phone:</span></div>
-  <div class="value">${getVal('cust-name') || '—'}</div><div class="value">${getVal('cust-phone') || '—'}</div>
+  <div class="value">\${getVal('cust-name') || '\u2014'}</div><div class="value">\${getVal('cust-phone') || '\u2014'}</div>
   <div><span class="label">Address:</span></div><div><span class="label">Access:</span></div>
-  <div class="value">${getVal('cust-address') || '—'}</div><div class="value">${getVal('access-instructions') || '—'}</div>
+  <div class="value">\${getVal('cust-address') || '\u2014'}</div><div class="value">\${getVal('access-instructions') || '\u2014'}</div>
 </div>
 
-<h2>Equipment</h2>
+<h2>Job Info</h2>
 <div class="grid2">
-  <div><span class="label">Type:</span></div><div><span class="label">Make:</span></div>
-  <div class="value">${getVal('equip-type')}</div><div class="value">${getVal('equip-make') || '—'}</div>
-  <div><span class="label">Model:</span></div><div><span class="label">Serial #:</span></div>
-  <div class="value">${getVal('equip-model') || '—'}</div><div class="value">${getVal('equip-serial') || '—'}</div>
-  <div><span class="label">Install Date:</span></div><div><span class="label">Filter Size:</span></div>
-  <div class="value">${getVal('install-date') || '—'}</div><div class="value">${getVal('filter-size') || '—'}</div>
-  <div><span class="label">Materials:</span></div><div></div>
-  <div class="value">${getVal('refrigerant-type')}</div><div></div>
+  <div><span class="label">Service Type:</span></div><div><span class="label">Property Type:</span></div>
+  <div class="value">\${getVal('equip-type')}</div><div class="value">\${getVal('equip-make') || '\u2014'}</div>
+  <div><span class="label">Lot Size:</span></div><div><span class="label">Agreement #:</span></div>
+  <div class="value">\${getVal('equip-model') || '\u2014'}</div><div class="value">\${getVal('equip-serial') || '\u2014'}</div>
+  <div><span class="label">Last Service:</span></div><div><span class="label">Crew Size:</span></div>
+  <div class="value">\${getVal('install-date') || '\u2014'}</div><div class="value">\${getVal('filter-size') || '\u2014'}</div>
+  <div><span class="label">Grass Type:</span></div><div></div>
+  <div class="value">\${getVal('refrigerant-type')}</div><div></div>
 </div>
 
 <h2>Service Details</h2>
-<div class="text-block"><div class="label">Reported Issue</div><div class="value">${getVal('reported-issue') || '—'}</div></div>
-<div class="text-block"><div class="label">Diagnosis</div><div class="value">${getVal('diagnosis') || '—'}</div></div>
-<div class="text-block"><div class="label">Work Performed</div><div class="value">${getVal('work-performed') || '—'}</div></div>
+<div class="text-block"><div class="label">Reported Issue</div><div class="value">\${getVal('reported-issue') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Assessment</div><div class="value">\${getVal('diagnosis') || '\u2014'}</div></div>
+<div class="text-block"><div class="label">Work Performed</div><div class="value">\${getVal('work-performed') || '\u2014'}</div></div>
 
-${partsHtml ? `<h2>Parts Used</h2>
-<table><thead><tr><th>Part Name</th><th>Part #</th><th style="text-align:center;">Qty</th></tr></thead><tbody>${partsHtml}</tbody></table>` : ''}
+\${partsHtml ? \`<h2>Materials Used</h2>
+<table><thead><tr><th>Material</th><th>SKU / Type</th><th style="text-align:center;">Qty</th></tr></thead><tbody>\${partsHtml}</tbody></table>\` : ''}
 
 <h2>Material Log</h2>
 <div class="grid2">
-  <div><span class="label">Added:</span></div><div><span class="label">Recovered:</span></div>
-  <div class="value">${getVal('ref-added') || '0'} lbs</div><div class="value">${getVal('ref-recovered') || '0'} lbs</div>
+  <div><span class="label">Mulch Used:</span></div><div><span class="label">Debris Removed:</span></div>
+  <div class="value">\${getVal('ref-added') || '0'} yards</div><div class="value">\${getVal('ref-recovered') || '0'} yards</div>
 </div>
 
-<h2>System Readings</h2>
+<h2>Property Measurements</h2>
 <table class="readings-table">
-  <thead><tr><th>Suction PSI</th><th>Head PSI</th><th>Superheat</th><th>Subcooling</th></tr></thead>
-  <tbody><tr><td>${getVal('suction-psi') || '—'}</td><td>${getVal('head-psi') || '—'}</td><td>${getVal('superheat') ? getVal('superheat') + '°F' : '—'}</td><td>${getVal('subcooling') ? getVal('subcooling') + '°F' : '—'}</td></tr></tbody>
+  <thead><tr><th>Lawn Area</th><th>Bed Area</th><th>Trees/Shrubs</th><th>Irrigation Zones</th></tr></thead>
+  <tbody><tr><td>\${getVal('lawn-area') ? getVal('lawn-area') + ' sq ft' : '\u2014'}</td><td>\${getVal('bed-area') ? getVal('bed-area') + ' sq ft' : '\u2014'}</td><td>\${getVal('tree-count') || '\u2014'}</td><td>\${getVal('irrigation-zones') || '\u2014'}</td></tr></tbody>
 </table>
 <table class="readings-table" style="margin-top:8px;">
-  <thead><tr><th>Supply Air</th><th>Return Air</th><th>Temp Split</th><th>Comp. Amps</th></tr></thead>
-  <tbody><tr><td>${getVal('supply-temp') ? getVal('supply-temp') + '°F' : '—'}</td><td>${getVal('return-temp') ? getVal('return-temp') + '°F' : '—'}</td><td class="split-val">${splitVal || '—'}</td><td>${getVal('comp-amps') || '—'}</td></tr></tbody>
+  <thead><tr><th>Hedge/Edge LF</th><th>Hardscape</th><th>Total Property</th><th>Mow Height</th></tr></thead>
+  <tbody><tr><td>\${getVal('hedge-lf') ? getVal('hedge-lf') + ' LF' : '\u2014'}</td><td>\${getVal('hardscape-sqft') ? getVal('hardscape-sqft') + ' sq ft' : '\u2014'}</td><td>\${totalPropStr || '\u2014'}</td><td>\${getVal('mow-height') ? getVal('mow-height') + ' in' : '\u2014'}</td></tr></tbody>
 </table>
 
 <h2>Safety Checklist</h2>
-<div class="safety">${safetyHtml}</div>
+<div class="safety">\${safetyHtml}</div>
 
 <h2>Completion</h2>
 <div class="grid2">
   <div><span class="label">Time Arrived:</span></div><div><span class="label">Time Completed:</span></div>
-  <div class="value">${arrived || '—'}</div><div class="value">${completed || '—'}</div>
+  <div class="value">\${arrived || '\u2014'}</div><div class="value">\${completed || '\u2014'}</div>
   <div><span class="label">Total Hours:</span></div><div></div>
-  <div class="value">${totalHours || '—'}</div><div></div>
+  <div class="value">\${totalHours || '\u2014'}</div><div></div>
 </div>
 
 <div class="signature-block">
   <div>
-    <div class="sig-name">${getVal('tech-signature') || ''}</div>
-    <div class="sig-line">Technician Signature</div>
+    <div class="sig-name">\${getVal('tech-signature') || ''}</div>
+    <div class="sig-line">Crew Lead Signature</div>
   </div>
   <div>
     <div class="sig-name">&nbsp;</div>

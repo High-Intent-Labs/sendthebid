@@ -182,7 +182,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Re-Treatments Included</label>
-            <input type="number" id="basicRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="basicTreatments" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Re-Treatments Included</label>
-            <input type="number" id="standardRefrigerant" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="standardTreatments" value="2" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -259,7 +259,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Re-Treatments Included</label>
-            <input type="number" id="premiumRefrigerant" value="4" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="premiumTreatments" value="4" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
             <input type="checkbox" id="premiumIAQ" checked class="accent-accent w-4 h-4" />
@@ -422,12 +422,12 @@ const faqSchema = {
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
           <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Interior</option>
-            <option value="Heat Pump">Exterior</option>
-            <option value="Furnace">Treatment Area</option>
-            <option value="Mini Split">Crawlspace</option>
-            <option value="Boiler">Attic</option>
-            <option value="Package Unit">Yard/Perimeter</option>
+            <option value="Interior">Interior</option>
+            <option value="Exterior">Exterior</option>
+            <option value="Treatment Area">Treatment Area</option>
+            <option value="Crawlspace">Crawlspace</option>
+            <option value="Attic">Attic</option>
+            <option value="Yard/Perimeter">Yard/Perimeter</option>
           </select>
         </div>
         <div>
@@ -590,7 +590,7 @@ const faqSchema = {
         discount: val('basicDiscount'),
         noOvertime: checked('basicNoOvertime'),
         noDiag: checked('basicNoDiag'),
-        refrigerant: val('basicRefrigerant'),
+        treatments: val('basicTreatments'),
         iaq: false,
       };
     } else if (tier === 'premium') {
@@ -603,7 +603,7 @@ const faqSchema = {
         discount: val('premiumDiscount'),
         noOvertime: checked('premiumNoOvertime'),
         noDiag: checked('premiumNoDiag'),
-        refrigerant: val('premiumRefrigerant'),
+        treatments: val('premiumTreatments'),
         iaq: checked('premiumIAQ'),
       };
     }
@@ -616,7 +616,7 @@ const faqSchema = {
       discount: val('standardDiscount'),
       noOvertime: checked('standardNoOvertime'),
       noDiag: checked('standardNoDiag'),
-      refrigerant: val('standardRefrigerant'),
+      treatments: val('standardTreatments'),
       iaq: false,
     };
   }
@@ -669,8 +669,8 @@ const faqSchema = {
       `${tier.discount}% discount on all repairs`,
       tier.noOvertime ? 'No overtime charges on service calls' : null,
       tier.noDiag ? 'No diagnostic fee' : null,
-      tier.refrigerant > 0 ? `Up to ${tier.refrigerant} lb${tier.refrigerant > 1 ? 's' : ''} of materials included per visit` : null,
-      tier.iaq ? 'Indoor air quality check included with each service visit' : null,
+      tier.treatments > 0 ? `Up to ${tier.treatments} lb${tier.treatments > 1 ? 's' : ''} of materials included per visit` : null,
+      tier.iaq ? 'Termite monitoring included with each service visit' : null,
     ].filter(Boolean);
 
     const benefitsHtml = benefitsList.map(b => `<li style="margin-bottom:6px;">${b}</li>`).join('');
@@ -814,7 +814,7 @@ const faqSchema = {
         <p>The Customer receives a ${tier.discount}% discount on all repair labor and parts for covered equipment during the agreement term. Discounts do not apply to new equipment installation or equipment replacement.</p>
 
         <h3>4. Exclusions</h3>
-        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; duct cleaning or modification; new equipment installation; code upgrades required by local authorities; or cosmetic damage. Pre-existing conditions identified during the first service visit may be excluded at the Service Provider's discretion.</p>
+        <p>This agreement does not cover: damage caused by misuse, neglect, or acts of nature; repairs required due to unauthorized modifications; structural repairs or remediation; new construction treatments; code upgrades required by local authorities; or cosmetic damage. Pre-existing conditions identified during the first service visit may be excluded at the Service Provider's discretion.</p>
 
         <h3>5. Cancellation</h3>
         <p>Either party may cancel this agreement with ${cancelNotice} days written notice. If the Customer cancels before the agreement term expires, a pro-rated refund will be issued less the retail value of any services already performed. The Service Provider reserves the right to cancel with ${cancelNotice} days notice and a full refund of unused services.</p>

@@ -182,7 +182,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
-            <input type="number" id="basicRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="basicPaint" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
-            <input type="number" id="standardRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="standardPaint" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -259,7 +259,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Paint Included (gallons)</label>
-            <input type="number" id="premiumRefrigerant" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="premiumPaint" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
             <input type="checkbox" id="premiumIAQ" checked class="accent-accent w-4 h-4" />
@@ -590,7 +590,7 @@ const faqSchema = {
         discount: val('basicDiscount'),
         noOvertime: checked('basicNoOvertime'),
         noDiag: checked('basicNoDiag'),
-        refrigerant: val('basicRefrigerant'),
+        paint: val('basicPaint'),
         iaq: false,
       };
     } else if (tier === 'premium') {
@@ -603,7 +603,7 @@ const faqSchema = {
         discount: val('premiumDiscount'),
         noOvertime: checked('premiumNoOvertime'),
         noDiag: checked('premiumNoDiag'),
-        refrigerant: val('premiumRefrigerant'),
+        paint: val('premiumPaint'),
         iaq: checked('premiumIAQ'),
       };
     }
@@ -616,7 +616,7 @@ const faqSchema = {
       discount: val('standardDiscount'),
       noOvertime: checked('standardNoOvertime'),
       noDiag: checked('standardNoDiag'),
-      refrigerant: val('standardRefrigerant'),
+      paint: val('standardPaint'),
       iaq: false,
     };
   }
@@ -669,7 +669,7 @@ const faqSchema = {
       `${tier.discount}% discount on all repairs`,
       tier.noOvertime ? 'No overtime charges on service calls' : null,
       tier.noDiag ? 'No diagnostic fee' : null,
-      tier.refrigerant > 0 ? `Up to ${tier.refrigerant} gallon${tier.refrigerant > 1 ? 's' : ''} of paint included per visit` : null,
+      tier.paint > 0 ? `Up to ${tier.paint} gallon${tier.paint > 1 ? 's' : ''} of paint included per visit` : null,
       tier.iaq ? 'Color consultation included with each touch-up' : null,
     ].filter(Boolean);
 

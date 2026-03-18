@@ -182,7 +182,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Parts Allowance ($)</label>
-            <input type="number" id="basicRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="basicParts" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -221,7 +221,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Parts Allowance ($)</label>
-            <input type="number" id="standardRefrigerant" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="standardParts" value="0" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
         </div>
       </div>
@@ -259,7 +259,7 @@ const faqSchema = {
           </div>
           <div>
             <label class="block text-xs font-medium text-text-muted mb-1">Parts Allowance ($)</label>
-            <input type="number" id="premiumRefrigerant" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
+            <input type="number" id="premiumParts" value="1" min="0" class="tier-input w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors" />
           </div>
           <div class="flex items-center gap-2">
             <input type="checkbox" id="premiumIAQ" checked class="accent-accent w-4 h-4" />
@@ -422,12 +422,12 @@ const faqSchema = {
         <div>
           <label class="block text-sm font-medium text-text-secondary mb-1">Equipment Type</label>
           <select class="sys-type w-full bg-bg-card border border-border rounded-lg px-3 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors">
-            <option value="Central AC">Main Panel</option>
-            <option value="Heat Pump">Sub Panel</option>
-            <option value="Furnace">Panel</option>
-            <option value="Mini Split">Circuit Breaker</option>
-            <option value="Boiler">Transfer Switch</option>
-            <option value="Package Unit">Disconnect Box</option>
+            <option value="Main Panel">Main Panel</option>
+            <option value="Sub Panel">Sub Panel</option>
+            <option value="Panel">Panel</option>
+            <option value="Circuit Breaker">Circuit Breaker</option>
+            <option value="Transfer Switch">Transfer Switch</option>
+            <option value="Disconnect Box">Disconnect Box</option>
           </select>
         </div>
         <div>
@@ -590,7 +590,7 @@ const faqSchema = {
         discount: val('basicDiscount'),
         noOvertime: checked('basicNoOvertime'),
         noDiag: checked('basicNoDiag'),
-        refrigerant: val('basicRefrigerant'),
+        parts: val('basicParts'),
         iaq: false,
       };
     } else if (tier === 'premium') {
@@ -603,7 +603,7 @@ const faqSchema = {
         discount: val('premiumDiscount'),
         noOvertime: checked('premiumNoOvertime'),
         noDiag: checked('premiumNoDiag'),
-        refrigerant: val('premiumRefrigerant'),
+        parts: val('premiumParts'),
         iaq: checked('premiumIAQ'),
       };
     }
@@ -616,7 +616,7 @@ const faqSchema = {
       discount: val('standardDiscount'),
       noOvertime: checked('standardNoOvertime'),
       noDiag: checked('standardNoDiag'),
-      refrigerant: val('standardRefrigerant'),
+      parts: val('standardParts'),
       iaq: false,
     };
   }
@@ -669,7 +669,7 @@ const faqSchema = {
       `${tier.discount}% discount on all repairs`,
       tier.noOvertime ? 'No overtime charges on service calls' : null,
       tier.noDiag ? 'No diagnostic fee' : null,
-      tier.refrigerant > 0 ? `Up to $${tier.refrigerant} materials allowance included per visit` : null,
+      tier.parts > 0 ? `Up to $${tier.parts} materials allowance included per visit` : null,
       tier.iaq ? 'Thermal imaging scan included with each inspection' : null,
     ].filter(Boolean);
 

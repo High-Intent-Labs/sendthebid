@@ -314,6 +314,7 @@ const faqSchema = {
     // Show/hide underpricing warning
     const warningEl = document.getElementById('benchmark-warning')!;
     if (grossMargin < 35) {
+      warningEl.classList.remove('hidden');
     } else {
       warningEl.classList.add('hidden');
     }

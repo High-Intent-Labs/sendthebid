@@ -13,7 +13,7 @@ const faqSchema = {
       "name": "What is a good profit margin for Landscaping?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The industry average gross margin for Landscaping companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work."
+        "text": "The industry average gross margin for landscaping companies is 30-35%. Top-performing companies hit 40-45% or higher. Maintenance work typically targets 35-45% gross margin, while design-build and installation work targets 20-30%. Net profit margins of 10-15% are considered healthy. If your gross margin is consistently below 25%, you are likely underpricing your work."
       }
     },
     {
@@ -37,7 +37,7 @@ const faqSchema = {
       "name": "Why is my Landscaping profit margin so low?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Common causes of low Landscaping margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
+        "text": "Common causes of low landscaping margins include underpricing labor (not accounting for full burden cost), insufficient materials markup, not tracking overhead allocation, scope creep without change orders, and giving away site consultations for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table."
       }
     }
   ]
@@ -53,7 +53,7 @@ const faqSchema = {
         <input type="number" id="revenue" value="5800" min="0" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div class="md:col-span-2">
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Equipment &amp; Parts (materials, parts, supplies, and fittings)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equipment">Materials &amp; Plants (hardscape, softscape, soil, mulch, and supplies)</label>
         <input type="number" id="equipment" value="2200" min="0" step="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
@@ -63,7 +63,7 @@ const faqSchema = {
       <p class="text-sm font-medium text-text-secondary mb-3">Labor</p>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
-          <label class="block text-xs text-text-muted mb-1" for="techs">Number of Techs</label>
+          <label class="block text-xs text-text-muted mb-1" for="techs">Number of Crew Members</label>
           <input type="number" id="techs" value="2" min="1" max="20" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
         </div>
         <div>
@@ -119,41 +119,41 @@ const faqSchema = {
           <div>
             <div class="flex justify-between text-sm mb-1">
               <span class="text-text-secondary">Industry Avg Gross Margin</span>
-              <span class="text-text-primary font-semibold">42%</span>
+              <span class="text-text-primary font-semibold">30 &ndash; 35%</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 42%"></div>
+              <div class="bg-[#60A5FA] h-2 rounded-full" style="width: 32%"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
               <span class="text-text-secondary">Top Performers</span>
-              <span class="text-text-primary font-semibold">55%+</span>
+              <span class="text-text-primary font-semibold">40 &ndash; 45%+</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#34D399] h-2 rounded-full" style="width: 55%"></div>
+              <div class="bg-[#34D399] h-2 rounded-full" style="width: 42%"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Service Work Target</span>
-              <span class="text-text-primary font-semibold">50 &ndash; 65%</span>
+              <span class="text-text-secondary">Maintenance Work Target</span>
+              <span class="text-text-primary font-semibold">35 &ndash; 45%</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 57%"></div>
+              <div class="bg-[#C084FC] h-2 rounded-full" style="width: 40%"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-sm mb-1">
-              <span class="text-text-secondary">Install Work Target</span>
-              <span class="text-text-primary font-semibold">25 &ndash; 40%</span>
+              <span class="text-text-secondary">Design-Build / Install Target</span>
+              <span class="text-text-primary font-semibold">20 &ndash; 30%</span>
             </div>
             <div class="w-full bg-[rgba(255,255,255,0.05)] rounded-full h-2">
-              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 32%"></div>
+              <div class="bg-[#FBBF24] h-2 rounded-full" style="width: 25%"></div>
             </div>
           </div>
           <div id="benchmark-warning" class="hidden mt-3 bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] rounded-lg px-4 py-3 text-sm text-[#FCA5A5]">
-            Your margin is below 35%. You may be underpricing your work.
+            Your margin is below 25%. You may be underpricing your work.
           </div>
         </div>
         <!-- Your margin indicator -->
@@ -178,9 +178,9 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter your job revenue.</strong> This is the total amount you charge the customer. Include all line items: equipment, labor, materials, and any fees.</p>
-          <p><strong class="text-text-primary">2. Enter equipment and parts cost.</strong> Your wholesale cost for the materials, parts, supplies, and fittings, and any other parts. Use what you actually paid, not list price.</p>
-          <p><strong class="text-text-primary">3. Fill in labor details.</strong> Enter the number of techs on the job, total hours, and your hourly labor cost. This should be your burdened rate (wages + payroll taxes + workers comp), not the billing rate.</p>
-          <p><strong class="text-text-primary">4. Add materials cost.</strong> Consumables like brazing rods, tape, screws, hangers, condensate fittings, and any other supplies used on the job.</p>
+          <p><strong class="text-text-primary">2. Enter materials and plants cost.</strong> Your wholesale cost for hardscape materials, plants, soil, mulch, and any other supplies. Use what you actually paid, not list price.</p>
+          <p><strong class="text-text-primary">3. Fill in labor details.</strong> Enter the number of crew members on the job, total hours, and your hourly labor cost. This should be your burdened rate (wages + payroll taxes + workers comp), not the billing rate.</p>
+          <p><strong class="text-text-primary">4. Add consumables cost.</strong> Stakes, twine, spray paint, blade sharpening, fuel for equipment, small tool replacement, and any other supplies used on the job.</p>
           <p><strong class="text-text-primary">5. Set your overhead percentage.</strong> Most Landscaping companies run 25-40% overhead. This covers rent, insurance, trucks, office staff, software, and marketing. If you do not know yours, 35% is a solid starting point.</p>
         </div>
       </section>
@@ -199,7 +199,7 @@ const faqSchema = {
             <p>Markup = (Profit / Total_Cost) x 100</p>
           </div>
           <p><strong class="text-text-primary">Example:</strong> A $5,800 install with $2,200 in equipment, $420 in labor (2 techs x 6 hours x $35), $350 in materials, and 35% overhead ($2,030). Total cost is $5,000. Profit is $800. Gross margin is 13.8%. Markup is 16%.</p>
-          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.86, you keep $0.14 in profit for every $1 collected. Top Landscaping shops aim for $0.45-$0.55 in cost per revenue dollar on service work.</p>
+          <p>The "Cost per dollar of revenue" metric tells you how much of every dollar goes to costs. If it is $0.86, you keep $0.14 in profit for every $1 collected. Top landscaping companies aim for $0.55-$0.70 in cost per revenue dollar on maintenance work.</p>
         </div>
       </section>
 
@@ -209,7 +209,7 @@ const faqSchema = {
         <div class="text-text-secondary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">After completing a job.</strong> Plug in the actual numbers once the invoice is paid. Compare your real margin to what you estimated during the quote. If there is a gap, figure out whether it was labor overrun, unexpected materials, or scope creep, and adjust future pricing accordingly.</p>
           <p><strong class="text-text-primary">When quoting new work.</strong> Before you send a proposal, run the numbers here to make sure you are hitting your target margin. Adjust the revenue up or down until you land in the green zone. This prevents the all-too-common mistake of pricing based on gut feel and discovering you barely broke even.</p>
-          <p><strong class="text-text-primary">During annual business review.</strong> Pull your average job revenue, typical equipment cost, and average crew size. See where your overall margin lands relative to industry benchmarks. If you are below 42%, you have a pricing problem, a cost problem, or both.</p>
+          <p><strong class="text-text-primary">During annual business review.</strong> Pull your average job revenue, typical materials cost, and average crew size. See where your overall margin lands relative to industry benchmarks. If you are below 30%, you have a pricing problem, a cost problem, or both.</p>
         </div>
       </section>
 
@@ -219,7 +219,7 @@ const faqSchema = {
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is a good profit margin for Landscaping?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for Landscaping companies is around 42%. Top-performing shops hit 55% or higher. Service and repair work typically targets 50-65% gross margin, while installation work targets 25-40%. If your gross margin is consistently below 35%, you are likely underpricing your work.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The industry average gross margin for landscaping companies is 30-35%. Top-performing companies hit 40-45% or higher. Maintenance work typically targets 35-45% gross margin, while design-build and installation work targets 20-30%. Net profit margins of 10-15% are considered healthy. If your gross margin is consistently below 25%, you are likely underpricing your work.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is the difference between margin and markup?</summary>
@@ -231,7 +231,7 @@ const faqSchema = {
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is my Landscaping profit margin so low?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low Landscaping margins include underpricing labor (not accounting for full burden cost), insufficient parts markup, not tracking overhead allocation, scope creep without change orders, and giving away diagnostic time for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Common causes of low landscaping margins include underpricing labor (not accounting for full burden cost), insufficient materials markup, not tracking overhead allocation, scope creep without change orders, and giving away site consultations for free. Use this calculator to test different pricing scenarios and find where you are leaving money on the table.</div>
           </details>
         </div>
       </section>
@@ -270,9 +270,9 @@ const faqSchema = {
     // Color the margin result
     const marginEl = document.getElementById('result-margin')!;
     marginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (grossMargin >= 42) {
+    if (grossMargin >= 35) {
       marginEl.classList.add('text-[#34D399]');
-    } else if (grossMargin >= 35) {
+    } else if (grossMargin >= 25) {
       marginEl.classList.add('text-[#FBBF24]');
     } else {
       marginEl.classList.add('text-[#EF4444]');
@@ -292,9 +292,9 @@ const faqSchema = {
     const benchmarkBar = document.getElementById('benchmark-bar')!;
     benchmarkBar.style.width = clampedMargin + '%';
     benchmarkBar.classList.remove('bg-[#34D399]', 'bg-[#FBBF24]', 'bg-[#EF4444]');
-    if (grossMargin >= 42) {
+    if (grossMargin >= 35) {
       benchmarkBar.classList.add('bg-[#34D399]');
-    } else if (grossMargin >= 35) {
+    } else if (grossMargin >= 25) {
       benchmarkBar.classList.add('bg-[#FBBF24]');
     } else {
       benchmarkBar.classList.add('bg-[#EF4444]');
@@ -303,9 +303,9 @@ const faqSchema = {
     const yourMarginEl = document.getElementById('benchmark-your-margin')!;
     yourMarginEl.textContent = grossMargin.toFixed(1) + '%';
     yourMarginEl.classList.remove('text-[#34D399]', 'text-[#FBBF24]', 'text-[#EF4444]');
-    if (grossMargin >= 42) {
+    if (grossMargin >= 35) {
       yourMarginEl.classList.add('text-[#34D399]');
-    } else if (grossMargin >= 35) {
+    } else if (grossMargin >= 25) {
       yourMarginEl.classList.add('text-[#FBBF24]');
     } else {
       yourMarginEl.classList.add('text-[#EF4444]');
@@ -313,7 +313,7 @@ const faqSchema = {
 
     // Show/hide underpricing warning
     const warningEl = document.getElementById('benchmark-warning')!;
-    if (grossMargin < 35) {
+    if (grossMargin < 25) {
     } else {
       warningEl.classList.add('hidden');
     }

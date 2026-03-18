@@ -156,12 +156,27 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
           if (label && value) outputs[label] = value;
         });
 
+        // Build a URL with input values as query parameters (using element IDs as keys)
+        const urlParams = new URLSearchParams();
+        document.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+          'input[type="number"], input[type="text"], select'
+        ).forEach(el => {
+          if (el.closest('#email-capture-card') || el.closest('#signup-modal')) return;
+          const key = el.id || el.name;
+          if (!key || !el.value) return;
+          urlParams.set(key, el.value);
+        });
+        const toolPath = `/${card.dataset.tradeSlug}/${card.dataset.toolSlug}/`;
+        const paramStr = urlParams.toString();
+        const savedUrl = paramStr ? `${toolPath}?${paramStr}` : toolPath;
+
         const payload = JSON.stringify({
           toolSlug: card.dataset.toolSlug,
           trade: card.dataset.tradeSlug,
           label: card.dataset.toolName,
           inputs: Object.keys(inputs).length > 0 ? inputs : { url: window.location.href },
           outputs: Object.keys(outputs).length > 0 ? outputs : {},
+          url: savedUrl,
         });
 
         let res = await fetch('/api/dashboard/save-calculation', {

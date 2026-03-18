@@ -150,6 +150,25 @@ const webAppSchema = {
     </a>
   </div>
 
+  <!-- Restore inputs from URL parameters (runs before profile auto-fill) -->
+  <script>
+    (() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.size === 0) return;
+        params.forEach((value, key) => {
+          const el = document.getElementById(key) as HTMLInputElement | HTMLSelectElement | null
+            || document.querySelector<HTMLInputElement | HTMLSelectElement>(`[name="${key}"]`);
+          if (!el) return;
+          // Skip inputs inside account/email cards
+          if (el.closest('#email-capture-card') || el.closest('#signup-modal')) return;
+          el.value = value;
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      } catch { /* silent */ }
+    })();
+  </script>
+
   <!-- Auto-fill profile data for logged-in users -->
   <script>
     (async () => {
@@ -179,7 +198,7 @@ const webAppSchema = {
         // Fill inputs by matching placeholder text, label text, name, or id
         const inputs = document.querySelectorAll<HTMLInputElement>('input[type="text"], input[type="tel"], input[type="email"], input[type="number"]');
         inputs.forEach(input => {
-          // Skip if user already typed something
+          // Skip if user already typed something or URL params pre-filled the value
           if (input.value && input.value !== input.defaultValue) return;
 
           // Skip email capture card and signup modal inputs

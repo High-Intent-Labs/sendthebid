@@ -315,7 +315,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
               <h3 class="font-heading font-bold text-base text-text-primary mb-1">${calc.label || calc.tool_slug.replace(/-/g, ' ')}</h3>
               <p class="text-text-muted text-xs mb-3">${new Date(calc.created_at).toLocaleDateString()}</p>
-              <a href="/${calc.trade}/${calc.tool_slug}" class="text-accent text-sm font-medium hover:underline no-underline">View &rarr;</a>
+              <a href="${calc.url || '/' + calc.trade + '/' + calc.tool_slug}" class="text-accent text-sm font-medium hover:underline no-underline">View &rarr;</a>
             </div>`;
         });
       }

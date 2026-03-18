@@ -24,6 +24,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       inputs: body.inputs,
       outputs: body.outputs,
       label: body.label || null,
+      url: body.url || null,
     });
 
     if (error) {

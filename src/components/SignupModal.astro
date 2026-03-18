@@ -3,7 +3,7 @@
 // Trigger types: template_save, pdf_download, repeat_visit, tier1_upsell
 ---
 
-<div id="signup-modal" class="hidden fixed inset-0 z-50" data-trigger="">
+<div id="signup-modal" class="hidden fixed inset-0 z-50" data-trigger="" data-tab="login">
   <!-- Backdrop -->
   <div id="signup-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
@@ -14,7 +14,7 @@
       <div class="absolute top-0 left-0 right-0 h-1 bg-accent"></div>
 
       <!-- Close button -->
-      <button id="signup-close" class="absolute top-4 right-4 text-text-muted hover:text-text-primary transition-colors" aria-label="Close">
+      <button id="signup-close" class="absolute top-4 right-4 text-text-muted hover:text-text-primary transition-colors z-10" aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M15 5L5 15M5 5l10 10"/>
         </svg>
@@ -24,13 +24,18 @@
         <!-- Context banner (changes per trigger) -->
         <div id="signup-context" class="hidden bg-accent/10 border border-accent/20 rounded-lg px-4 py-3 mb-6 text-sm text-accent"></div>
 
-        <!-- Heading -->
-        <h2 id="signup-heading" class="font-heading font-bold text-2xl text-text-primary mb-2">Log in or sign up</h2>
-        <p id="signup-subheading" class="text-text-secondary text-sm mb-6">Enter your email and we'll send you a link. No password needed.</p>
+        <!-- Tabs -->
+        <div id="signup-tabs" class="flex gap-1 mb-6 bg-bg-dark rounded-lg p-1">
+          <button id="tab-login" type="button" class="flex-1 py-2 text-sm font-semibold rounded-md transition-colors text-text-primary bg-bg-card">Log In</button>
+          <button id="tab-signup" type="button" class="flex-1 py-2 text-sm font-semibold rounded-md transition-colors text-text-muted">Sign Up</button>
+        </div>
 
-        <!-- Signup form state -->
+        <!-- Heading (changes per tab) -->
+        <h2 id="signup-heading" class="font-heading font-bold text-2xl text-text-primary mb-1">Welcome back</h2>
+        <p id="signup-subheading" class="text-text-secondary text-sm mb-6">Enter your email and we'll send you a login link.</p>
+
+        <!-- Form state (shared between login and signup — magic link works for both) -->
         <div id="signup-form">
-          <!-- Magic Link -->
           <div class="mb-4">
             <input
               type="email"
@@ -44,7 +49,7 @@
             type="button"
             class="w-full bg-accent hover:bg-accent-hover text-white font-semibold py-3 rounded-lg transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Create my free account
+            Send me a login link
           </button>
 
           <!-- Divider -->
@@ -69,8 +74,8 @@
             Continue with Google
           </button>
 
-          <!-- Consent -->
-          <label class="flex items-start gap-2 cursor-pointer select-none mt-4">
+          <!-- Consent (only visible on Sign Up tab) -->
+          <label id="signup-consent-row" class="hidden flex items-start gap-2 cursor-pointer select-none mt-4">
             <input type="checkbox" id="signup-consent" checked class="mt-0.5 w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
             <span class="text-text-muted text-xs leading-relaxed">
               Also send me free tools, updates, and tips for pros. Unsubscribe anytime.
@@ -119,6 +124,10 @@
   const signupError = document.getElementById('signup-error')!;
   const signupHeading = document.getElementById('signup-heading')!;
   const signupSubheading = document.getElementById('signup-subheading')!;
+  const tabLogin = document.getElementById('tab-login') as HTMLButtonElement;
+  const tabSignup = document.getElementById('tab-signup') as HTMLButtonElement;
+  const signupTabs = document.getElementById('signup-tabs')!;
+  const consentRow = document.getElementById('signup-consent-row')!;
 
   const triggerMessages: Record<string, string> = {
     template_save: 'Create a free account to save this document and pre-fill your business details next time.',
@@ -126,6 +135,34 @@
     repeat_visit: 'Welcome back! Create a free account to save your calculation history.',
     tier1_upsell: 'Want to save all your calculations? Create a free account.',
   };
+
+  function setTab(tab: 'login' | 'signup') {
+    modal.setAttribute('data-tab', tab);
+    signupError.classList.add('hidden');
+
+    if (tab === 'login') {
+      tabLogin.classList.add('text-text-primary', 'bg-bg-card');
+      tabLogin.classList.remove('text-text-muted');
+      tabSignup.classList.remove('text-text-primary', 'bg-bg-card');
+      tabSignup.classList.add('text-text-muted');
+      signupHeading.textContent = 'Welcome back';
+      signupSubheading.textContent = "Enter your email and we'll send you a login link.";
+      magicLinkBtn.textContent = 'Send me a login link';
+      consentRow.classList.add('hidden');
+    } else {
+      tabSignup.classList.add('text-text-primary', 'bg-bg-card');
+      tabSignup.classList.remove('text-text-muted');
+      tabLogin.classList.remove('text-text-primary', 'bg-bg-card');
+      tabLogin.classList.add('text-text-muted');
+      signupHeading.textContent = 'Create your free account';
+      signupSubheading.textContent = 'Save your work, pre-fill your details, and access your calculations from any device.';
+      magicLinkBtn.textContent = 'Create my free account';
+      consentRow.classList.remove('hidden');
+    }
+  }
+
+  tabLogin.addEventListener('click', () => setTab('login'));
+  tabSignup.addEventListener('click', () => setTab('signup'));
 
   function openModal(trigger?: string) {
     modal.classList.remove('hidden');
@@ -135,8 +172,12 @@
       contextBanner.textContent = triggerMessages[trigger];
       contextBanner.classList.remove('hidden');
       modal.setAttribute('data-trigger', trigger);
+      // Triggers from tool pages default to Sign Up tab
+      setTab('signup');
     } else {
       contextBanner.classList.add('hidden');
+      // Direct open (header Log In button) defaults to Login tab
+      setTab('login');
     }
 
     // Reset to form state
@@ -144,6 +185,9 @@
     linkSent.classList.add('hidden');
     signupHeading.classList.remove('hidden');
     signupSubheading.classList.remove('hidden');
+    signupTabs.classList.remove('hidden');
+    magicLinkBtn.disabled = false;
+    signupError.classList.add('hidden');
   }
 
   function closeModal() {
@@ -193,12 +237,14 @@
       linkSent.classList.remove('hidden');
       signupHeading.classList.add('hidden');
       signupSubheading.classList.add('hidden');
+      signupTabs.classList.add('hidden');
       contextBanner.classList.add('hidden');
     } catch {
       signupError.textContent = 'Something went wrong. Please try again.';
       signupError.classList.remove('hidden');
       magicLinkBtn.disabled = false;
-      magicLinkBtn.textContent = 'Create my free account';
+      const isLogin = modal.getAttribute('data-tab') === 'login';
+      magicLinkBtn.textContent = isLogin ? 'Send me a login link' : 'Create my free account';
     }
   });
 

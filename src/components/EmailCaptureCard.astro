@@ -140,9 +140,8 @@ const { toolName, toolSlug, tradeSlug, tradeName } = Astro.props;
     if (e.key === 'Enter') submit.click();
   });
 
-  // Upsell button opens signup modal
+  // Upsell button opens signup modal properly
   document.getElementById('email-capture-upsell')?.addEventListener('click', () => {
-    document.getElementById('signup-modal')?.classList.remove('hidden');
-    document.getElementById('signup-modal')?.setAttribute('data-trigger', 'tier1_upsell');
+    (window as any).openSignupModal?.('tier1_upsell');
   });
 </script>

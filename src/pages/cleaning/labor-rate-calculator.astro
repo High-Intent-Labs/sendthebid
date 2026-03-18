@@ -282,6 +282,7 @@ const faqSchema = {
     // Show/hide warning
     const warning = document.getElementById('rate-warning')!;
     if (billableRate < 25) {
+      warning.classList.remove('hidden');
     } else {
       warning.classList.add('hidden');
     }

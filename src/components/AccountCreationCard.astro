@@ -100,7 +100,6 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
         <path d="M5 10l3 3 7-7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="save-check" class="hidden"/>
         <path d="M3 5a2 2 0 012-2h8.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V15a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="currentColor" stroke-width="1.5" id="save-icon"/>
         <path d="M7 3v4h6V3M7 17v-5h6v5" stroke="currentColor" stroke-width="1.5" id="save-icon2"/>
-      </path>
       </svg>
       <span id="save-btn-text">Save</span>
     </button>
@@ -179,8 +178,11 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
         btn.classList.remove('bg-accent', 'hover:bg-accent-hover');
         btn.classList.add('bg-[#059669]');
       } catch {
-        btnText.textContent = 'Save';
+        btnText.textContent = 'Failed — try again';
         btn.disabled = false;
+        btn.classList.remove('bg-[#059669]');
+        btn.classList.add('bg-accent', 'hover:bg-accent-hover');
+        setTimeout(() => { btnText.textContent = 'Save'; }, 3000);
       }
     });
   } else {

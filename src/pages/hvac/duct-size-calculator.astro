@@ -301,6 +301,8 @@ const faqSchema = {
     const rectTableEl = document.getElementById('rect-table')!;
     if (shape === 'rectangular') {
       document.getElementById('r-rect')!.textContent = nearestRectEquivalent(diameter);
+      rectResultsEl.classList.remove('hidden');
+      rectTableEl.classList.remove('hidden');
     } else {
       rectResultsEl.classList.add('hidden');
       rectTableEl.classList.add('hidden');

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import AccountCreationCard from '../components/AccountCreationCard.astro';
 import EmailCaptureCard from '../components/EmailCaptureCard.astro';
 import { categoryColors, type Tool } from '../data/types';
 
@@ -97,8 +98,19 @@ const webAppSchema = {
     </div>
   </div>
 
+  <!-- Account creation card -->
+  <div class="max-w-[1080px] mx-auto px-6 md:px-12 -mt-8 pb-4">
+    <AccountCreationCard
+      toolName={tool.name}
+      toolSlug={tool.slug}
+      tradeSlug={tool.tradeSlug}
+      tradeName={tool.tradeName}
+      category={tool.category}
+    />
+  </div>
+
   <!-- Email capture card -->
-  <div class="max-w-[1080px] mx-auto px-6 md:px-12 -mt-8 pb-16">
+  <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16">
     <EmailCaptureCard
       toolName={tool.name}
       toolSlug={tool.slug}

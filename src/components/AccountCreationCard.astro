@@ -1,0 +1,106 @@
+---
+interface Props {
+  toolName: string;
+  toolSlug: string;
+  tradeSlug: string;
+  tradeName: string;
+  category: 'technical' | 'business' | 'template' | 'sales';
+}
+
+const { toolName, toolSlug, tradeSlug, tradeName, category } = Astro.props;
+
+// Contextual messaging based on tool category
+const messaging: Record<string, { icon: string; title: string; description: string }> = {
+  technical: {
+    icon: '📊',
+    title: 'Save this calculation to your account',
+    description: 'Create a free account to save your results, compare sizing options side by side, and download a branded PDF you can attach to a quote.',
+  },
+  business: {
+    icon: '📊',
+    title: 'Save this calculation to your account',
+    description: 'Create a free account to save your results, track your numbers over time, and download a branded PDF you can share with your accountant.',
+  },
+  template: {
+    icon: '📄',
+    title: `Save this ${toolName.toLowerCase().includes('invoice') ? 'invoice' : toolName.toLowerCase().includes('estimate') ? 'estimate' : toolName.toLowerCase().includes('agreement') ? 'agreement' : 'document'} to your account`,
+    description: 'Create a free account to save your documents, pre-fill your business details next time, and access everything from any device.',
+  },
+  sales: {
+    icon: '📥',
+    title: 'Download a branded PDF of these results',
+    description: 'Create a free account to download a professional PDF with your company logo and license number — ready to share with a customer.',
+  },
+};
+
+const msg = messaging[category] || messaging.technical;
+---
+
+<div
+  id="account-creation-card"
+  class="bg-bg-card border border-border rounded-2xl p-6 md:p-8 relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center gap-5 hover:border-[#3A4755] transition-colors"
+>
+  <!-- Left accent bar -->
+  <div class="absolute left-0 top-0 bottom-0 w-1 bg-accent"></div>
+
+  <!-- Icon -->
+  <div class="shrink-0 w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-2xl">
+    {msg.icon}
+  </div>
+
+  <!-- Body -->
+  <div class="flex-1 min-w-0">
+    <h3 class="font-heading font-bold text-base md:text-lg text-text-primary mb-1">{msg.title}</h3>
+    <p class="text-text-secondary text-sm leading-relaxed">{msg.description}</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="shrink-0 flex flex-col items-center">
+    <button
+      id="account-card-cta"
+      type="button"
+      class="bg-accent hover:bg-accent-hover text-white font-bold px-6 py-2.5 rounded-lg transition-colors whitespace-nowrap text-sm"
+    >
+      Create Free Account
+    </button>
+    <button
+      id="account-card-dismiss"
+      type="button"
+      class="mt-1.5 text-text-muted text-xs hover:text-text-secondary transition-colors bg-transparent border-none cursor-pointer"
+    >
+      Maybe later
+    </button>
+  </div>
+</div>
+
+<script>
+  // CTA opens signup modal
+  document.getElementById('account-card-cta')?.addEventListener('click', () => {
+    document.getElementById('signup-modal')?.classList.remove('hidden');
+    document.getElementById('signup-modal')?.setAttribute('data-trigger', 'account_creation_card');
+  });
+
+  // Dismiss hides the card
+  document.getElementById('account-card-dismiss')?.addEventListener('click', () => {
+    const card = document.getElementById('account-creation-card');
+    if (card) {
+      card.style.transition = 'opacity 0.2s, margin 0.2s, padding 0.2s, max-height 0.3s';
+      card.style.opacity = '0';
+      card.style.maxHeight = '0';
+      card.style.overflow = 'hidden';
+      card.style.marginBottom = '0';
+      card.style.paddingTop = '0';
+      card.style.paddingBottom = '0';
+      setTimeout(() => card.remove(), 300);
+      // Remember dismissal for this session
+      try { sessionStorage.setItem('ntq_account_card_dismissed', '1'); } catch {}
+    }
+  });
+
+  // Hide if already dismissed this session
+  try {
+    if (sessionStorage.getItem('ntq_account_card_dismissed') === '1') {
+      document.getElementById('account-creation-card')?.remove();
+    }
+  } catch {}
+</script>

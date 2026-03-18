@@ -298,14 +298,14 @@
     localStorage.setItem('ntq_tools_used', JSON.stringify(toolsUsed));
   }
 
-  // Show repeat visit prompt if second tool and no account
-  if (toolsUsed.length >= 2 && !localStorage.getItem('ntq_has_account')) {
-    const dismissed = sessionStorage.getItem('ntq_repeat_dismissed');
-    if (!dismissed) {
+  // Show repeat visit prompt every 5th visit (not per session — per total visits)
+  if (visitCount > 0 && visitCount % 5 === 0 && !localStorage.getItem('ntq_has_account')) {
+    const lastPromptVisit = parseInt(localStorage.getItem('ntq_last_prompt_visit') || '0', 10);
+    if (lastPromptVisit !== visitCount) {
+      localStorage.setItem('ntq_last_prompt_visit', String(visitCount));
       setTimeout(() => {
         if (modal.classList.contains('hidden')) {
           openModal('repeat_visit');
-          sessionStorage.setItem('ntq_repeat_dismissed', '1');
         }
       }, 5000);
     }

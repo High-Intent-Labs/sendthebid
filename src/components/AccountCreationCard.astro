@@ -190,7 +190,10 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
           }
         }
 
-        if (!res.ok) throw new Error('Save failed');
+        if (!res.ok) {
+          const errBody = await res.json().catch(() => ({}));
+          throw new Error(errBody.detail || errBody.error || `HTTP ${res.status}`);
+        }
 
         btnText.textContent = 'Saved';
         saveIcon?.classList.add('hidden');
@@ -198,8 +201,8 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
         checkIcon?.classList.remove('hidden');
         btn.classList.remove('bg-accent', 'hover:bg-accent-hover');
         btn.classList.add('bg-[#059669]');
-      } catch {
-        btnText.textContent = 'Failed — try again';
+      } catch (e: any) {
+        btnText.textContent = `Failed — ${e?.message || 'try again'}`;
         btn.disabled = false;
         btn.classList.remove('bg-[#059669]');
         btn.classList.add('bg-accent', 'hover:bg-accent-hover');

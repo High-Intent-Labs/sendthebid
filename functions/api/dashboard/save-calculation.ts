@@ -27,13 +27,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
 
     if (error) {
-      console.error('Save calc error:', error);
-      return new Response(JSON.stringify({ error: 'Failed to save' }), { status: 500 });
+      console.error('Save calc error:', JSON.stringify(error));
+      return new Response(JSON.stringify({ error: 'Failed to save', detail: error.message || error.code }), { status: 500 });
     }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
-  } catch (err) {
-    console.error('Save calc error:', err);
-    return new Response(JSON.stringify({ error: 'Internal error' }), { status: 500 });
+  } catch (err: any) {
+    console.error('Save calc exception:', err?.message || err);
+    return new Response(JSON.stringify({ error: 'Internal error', detail: err?.message }), { status: 500 });
   }
 };

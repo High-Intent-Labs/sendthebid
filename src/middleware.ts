@@ -10,7 +10,18 @@ export const onRequest = defineMiddleware(async ({ request, redirect }, next) =>
     url.pathname.endsWith('/') ||
     url.pathname.includes('.')
   ) {
-    return next();
+    const response = await next();
+    // Set short cache for HTML pages so deploys take effect quickly
+    if (!url.pathname.includes('.') || url.pathname.endsWith('.html')) {
+      const headers = new Headers(response.headers);
+      headers.set('Cache-Control', 'public, s-maxage=60, max-age=0, must-revalidate');
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers
+      });
+    }
+    return response;
   }
 
   // Redirect to trailing slash version

@@ -137,7 +137,7 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
         // Collect calculator inputs from the page
         const inputs: Record<string, string> = {};
         document.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-          'input[type="number"], input[type="text"], select'
+          'input[type="number"], input[type="text"], input[type="hidden"], select'
         ).forEach(el => {
           // Skip inputs inside account/email cards
           if (el.closest('#email-capture-card') || el.closest('#signup-modal')) return;
@@ -159,7 +159,7 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
         // Build a URL with input values as query parameters (using element IDs as keys)
         const urlParams = new URLSearchParams();
         document.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-          'input[type="number"], input[type="text"], select'
+          'input[type="number"], input[type="text"], input[type="hidden"], select'
         ).forEach(el => {
           if (el.closest('#email-capture-card') || el.closest('#signup-modal')) return;
           const key = el.id || el.name;

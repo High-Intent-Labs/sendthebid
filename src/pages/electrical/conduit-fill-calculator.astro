@@ -205,6 +205,16 @@ const faqSchema = {
     const wireType = (document.getElementById('wireType') as HTMLSelectElement).value;
     const isNipple = (document.getElementById('isNipple') as HTMLInputElement).checked;
 
+    // Update hidden input for save-to-account URL params
+    let wiresInput = document.getElementById('wires') as HTMLInputElement;
+    if (!wiresInput) {
+      wiresInput = document.createElement('input');
+      wiresInput.type = 'hidden';
+      wiresInput.id = 'wires';
+      document.getElementById('conduit-calc')?.appendChild(wiresInput);
+    }
+    wiresInput.value = wireRows.map(r => `${r.gauge}:${r.qty}`).join(',');
+
     const csa = conduitAreas[conduitType]?.[conduitSize] || 0.533;
     const wireTable = wireType === 'THHN' ? wireAreasTHHN : wireAreasXHHW;
 
@@ -275,6 +285,16 @@ const faqSchema = {
   document.querySelectorAll('#conduit-calc select, #conduit-calc input[type="checkbox"]').forEach(el => {
     el.addEventListener('change', calculate);
   });
+
+  // Restore wire rows from URL params (e.g., ?wires=12:7,12:3)
+  const urlWires = new URLSearchParams(window.location.search).get('wires');
+  if (urlWires) {
+    const parsed = urlWires.split(',').map(w => {
+      const [gauge, qty] = w.split(':');
+      return { id: nextWireId++, gauge, qty: parseInt(qty) || 1 };
+    }).filter(r => r.gauge);
+    if (parsed.length > 0) wireRows = parsed;
+  }
 
   renderWireRows();
 </script>

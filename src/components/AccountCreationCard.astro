@@ -161,7 +161,7 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
           trade: card.dataset.tradeSlug,
           label: card.dataset.toolName,
           inputs: Object.keys(inputs).length > 0 ? inputs : { url: window.location.href },
-          outputs: Object.keys(outputs).length > 0 ? outputs : null,
+          outputs: Object.keys(outputs).length > 0 ? outputs : {},
         });
 
         let res = await fetch('/api/dashboard/save-calculation', {

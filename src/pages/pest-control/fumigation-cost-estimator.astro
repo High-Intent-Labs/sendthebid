@@ -13,7 +13,7 @@ const faqSchema = {
       "name": "How much does fumigation cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Structural fumigation typically costs $1 to $3 per square foot, with most residential jobs falling between $2,000 and $8,000. A standard 2,000 sq ft single-story home averages $3,000-$5,000 for drywood termite fumigation. Larger structures, multi-story buildings, and difficult pest infestations push costs higher. Warehouses and commercial spaces are quoted on a case-by-case basis."
+        "text": "Whole-structure fumigation typically costs between $1,200 and $6,000 depending on square footage, structure type, pest type, and number of stories. Drywood termite fumigation for a standard 1,500-2,000 sq ft home averages $2,000-$3,500. Larger homes, multi-story structures, and difficult-to-tarp buildings cost more due to increased fumigant volume and labor."
       }
     },
     {
@@ -21,23 +21,23 @@ const faqSchema = {
       "name": "How long does fumigation take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The fumigation process typically requires 24 to 72 hours of exposure time depending on the pest type, structure size, and fumigant used. Add a day for tarping/setup and a day for aeration and clearance testing. Total time from start to re-entry is usually 3 to 5 days for a standard residential fumigation. Larger structures or difficult infestations may require longer exposure periods."
+        "text": "A standard residential fumigation takes 2-3 days from tarping to clearance. Day 1 is prep and tarping, Day 2 is the fumigation hold period (typically 16-24 hours of exposure), and Day 3 is aeration and clearance testing. Larger structures or heavy infestations requiring higher dosages may need an additional day of exposure."
       }
     },
     {
       "@type": "Question",
-      "name": "When can occupants re-enter after fumigation?",
+      "name": "How do I calculate fumigant volume?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Re-entry is only permitted after a licensed fumigator performs clearance testing and certifies the structure is safe. For sulfuryl fluoride (Vikane), this is typically 24 to 48 hours after aeration begins. The fumigator must post a re-entry notice and is legally responsible for clearance. Never allow occupants to re-enter based on time alone — always perform instrument-based clearance testing."
+        "text": "Fumigant dosage is calculated based on the structure's cubic footage (length x width x height), the target pest, and the exposure time. For sulfuryl fluoride (Vikane), typical dosages range from 1-3x the half-loss time rate. Temperature and tarp seal quality affect dosage calculations. Always follow the fumigant label and use certified dosage calculators for exact amounts."
       }
     },
     {
       "@type": "Question",
-      "name": "Is fumigation the only option for termites?",
+      "name": "What factors increase fumigation cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Fumigation is typically required for drywood termites because they live inside the wood and cannot be reached with liquid treatments. Subterranean termites are usually treated with soil treatments, bait stations, or liquid termiticides without fumigation. Localized drywood infestations can sometimes be treated with spot treatments, heat treatment, or microwave systems, but whole-structure fumigation remains the most reliable option for widespread drywood infestations."
+        "text": "Multi-story structures cost more because tarping is more complex and requires more fumigant. Tile or flat roofs are harder to seal than peaked roofs. Detached structures like garages or sheds need separate tarping. Large landscaping close to the structure requires protection or trimming. The pest type matters too — bed bugs and powderpost beetles require higher dosages than drywood termites, increasing fumigant cost."
       }
     }
   ]
@@ -49,45 +49,68 @@ const faqSchema = {
     <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="structureSqft">Structure Size (sq ft)</label>
-        <input type="number" id="structureSqft" value="2000" min="500" max="100000" step="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft">Structure Square Footage</label>
+        <select id="sqft" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1000">1,000 sq ft</option>
+          <option value="1500" selected>1,500 sq ft</option>
+          <option value="2000">2,000 sq ft</option>
+          <option value="2500">2,500 sq ft</option>
+          <option value="3000">3,000 sq ft</option>
+          <option value="4000">4,000 sq ft</option>
+          <option value="5000">5,000+ sq ft</option>
+        </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="structureType">Structure Type</label>
         <select id="structureType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="house" selected>Single-Family House</option>
-          <option value="apartment">Apartment / Condo</option>
-          <option value="warehouse">Warehouse / Commercial</option>
+          <option value="1.0" selected>Single-family (peaked roof)</option>
+          <option value="1.10">Single-family (flat/tile roof)</option>
+          <option value="1.20">Townhouse / row home</option>
+          <option value="1.15">Duplex</option>
+          <option value="1.30">Small commercial</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="pestType">Pest Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pestType">Target Pest</label>
         <select id="pestType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="termites" selected>Drywood Termites</option>
-          <option value="bed-bugs">Bed Bugs</option>
-          <option value="stored-product">Stored Product Pests</option>
+          <option value="1.0" selected>Drywood Termites</option>
+          <option value="1.15">Bed Bugs</option>
+          <option value="1.20">Powderpost Beetles</option>
+          <option value="1.10">Wood-Boring Beetles (general)</option>
         </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="stories">Number of Stories</label>
         <select id="stories" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1" selected>1 Story</option>
-          <option value="2">2 Stories</option>
-          <option value="3">3+ Stories</option>
+          <option value="1.0" selected>1 Story</option>
+          <option value="1.20">2 Stories</option>
+          <option value="1.40">3 Stories</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tarping">Tarping Needed</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tarping">Tarping Difficulty</label>
         <select id="tarping" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="yes" selected>Yes (tent fumigation)</option>
-          <option value="no">No (sealed structure / vault)</option>
+          <option value="1.0" selected>Standard (clear access)</option>
+          <option value="1.10">Moderate (close landscaping)</option>
+          <option value="1.25">Difficult (tight lot, obstacles)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="region">Region</label>
+        <select id="region" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.90">Southeast</option>
+          <option value="0.95">South</option>
+          <option value="1.00" selected>National Average</option>
+          <option value="1.10">Southwest</option>
+          <option value="1.15">California</option>
+          <option value="1.10">Hawaii</option>
         </select>
       </div>
     </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Your Estimate</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Estimated Fumigation Cost</h3>
 
       <!-- Cost Range Bar -->
       <div class="bg-bg-dark rounded-xl p-6 mb-6">
@@ -105,91 +128,90 @@ const faqSchema = {
             <div id="result-high" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
           </div>
         </div>
+        <!-- Visual range bar -->
         <div class="relative h-3 bg-bg-card rounded-full overflow-hidden mt-4">
           <div id="range-bar" class="absolute inset-y-0 left-[10%] right-[10%] rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40"></div>
           <div id="range-marker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg"></div>
         </div>
       </div>
 
-      <!-- Detail Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <!-- Job Details -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cubic Volume</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Est. Fumigant Volume</div>
           <div id="result-volume" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">cubic feet</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Fumigant Needed</div>
-          <div id="result-fumigant" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">lbs (estimated)</div>
+          <div class="text-text-muted text-xs mt-1">oz of Vikane (approx)</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Est. Duration</div>
-          <div id="result-duration" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">days total</div>
+          <div id="result-days" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">days (tarp to clearance)</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Re-Entry After</div>
-          <div id="result-reentry" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">hours (after aeration)</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost Per Sq Ft</div>
+          <div id="result-persqft" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">all-in</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Ballpark estimate for quoting purposes. Actual costs depend on local fumigant pricing, tarp condition, structure sealing requirements, and specific pest dosage rates. Always perform a thorough inspection and calculate dosage per label requirements.</p>
+      <p class="text-text-muted text-sm italic">This is a ballpark estimate based on national averages. Actual costs depend on fumigant pricing, local labor rates, tarp inventory, and job-specific conditions. Always perform a thorough inspection before quoting.</p>
     </div>
   </div>
 
   <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter the structure square footage.</strong> Use the total enclosed area of the building. For multi-story structures, enter the total footprint — the calculator accounts for height based on the number of stories you select.</p>
-          <p><strong class="text-text-primary">2. Select the structure type.</strong> Houses, apartments, and commercial buildings have different tarping requirements, access challenges, and pricing structures. Warehouses and commercial spaces typically involve larger volumes and may use different fumigation approaches.</p>
-          <p><strong class="text-text-primary">3. Choose the pest type.</strong> Different pests require different fumigant concentrations and exposure times. Drywood termites are the most common fumigation target. Bed bugs and stored product pests have their own dosage and time requirements.</p>
-          <p><strong class="text-text-primary">4. Set stories and tarping.</strong> More stories means more volume, more tarp material, and more labor for setup. Structures that are already sealed (like vaults or certain commercial buildings) may not need tarping, which reduces cost.</p>
+          <p><strong class="text-text-primary">1. Enter the structure's square footage.</strong> This is the primary cost driver. Larger structures need more tarps, more fumigant, and more labor to seal properly.</p>
+          <p><strong class="text-text-primary">2. Select the structure and pest type.</strong> Flat roofs and tile roofs are harder to tarp than peaked roofs. Different pests require different fumigant dosages -- bed bugs and powderpost beetles need higher concentrations than drywood termites.</p>
+          <p><strong class="text-text-primary">3. Set the story count and tarping difficulty.</strong> Multi-story structures need significantly more tarping material and labor. Tight lots with close landscaping or shared walls add time and complexity to the tarp-and-seal process.</p>
+          <p><strong class="text-text-primary">4. Check the fumigant volume and duration.</strong> The estimated volume helps you plan your fumigant order. Duration tells the customer how long they need to be out of the structure.</p>
         </div>
       </section>
 
+      <!-- What Drives Cost -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">What Affects Fumigation Cost</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">What Drives Fumigation Costs</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Cubic volume is the primary driver.</strong> Fumigant dosage is calculated by volume, not just square footage. A tall structure costs more to fumigate than a low one of the same footprint because you are filling more airspace with gas. Always calculate volume accurately.</p>
-          <p><strong class="text-text-primary">Tarping labor and materials.</strong> Tent fumigation requires a crew to cover the entire structure with tarps, seal all seams, and secure the tarps against wind. Multi-story homes are significantly more labor-intensive. Damaged or inadequate tarps require replacement, adding to costs.</p>
-          <p><strong class="text-text-primary">Pest type and dosage requirements.</strong> Drywood termites require specific concentrations maintained over specific time periods per the fumigant label. Bed bugs may require higher concentrations or longer exposure times. Always follow the fumigant label — it is the law and the minimum standard of care.</p>
-          <p><strong class="text-text-primary">Structure preparation.</strong> Homeowners must remove or double-bag all food, medicine, and living things. If they don't prepare properly, your crew has to handle it or reschedule the job. Build preparation inspection time into your process.</p>
-          <p><strong class="text-text-primary">Local regulations and licensing.</strong> Fumigation licensing requirements, notification rules, and clearance testing protocols vary by state. Some jurisdictions require additional insurance, bonding, or notification procedures that add to your operating costs.</p>
+          <p><strong class="text-text-primary">Cubic footage and fumigant volume.</strong> Fumigant dosage is based on cubic footage, not square footage. A 2,000 sq ft single-story home has roughly 18,000 cubic feet of volume. A two-story home of the same footprint has 36,000 cubic feet and needs roughly double the fumigant. This is the single biggest variable in fumigation pricing.</p>
+          <p><strong class="text-text-primary">Tarping complexity.</strong> A simple peaked-roof single-story with clear access around all four sides is the easiest and cheapest to tarp. Complex roof lines, tile roofs (which can break under tarp weight), and structures with close neighbors or dense landscaping all add labor hours. Flat commercial roofs may need sand snakes or water seals instead of standard ground seals.</p>
+          <p><strong class="text-text-primary">Target pest and dosage.</strong> Drywood termites are the most common fumigation target and require a standard dosage. Bed bugs require higher concentrations and longer exposure times, increasing both fumigant cost and the number of days the structure must remain sealed. Powderpost beetles in hardwood require the highest dosages.</p>
+          <p><strong class="text-text-primary">Seal quality and temperature.</strong> Cooler temperatures slow fumigant penetration and may require higher dosages or longer hold times. Poor seal quality (gaps under tarps, unsealed openings) wastes fumigant and can result in a failed treatment. Investing in proper sealing upfront saves money on re-treats.</p>
         </div>
       </section>
 
+      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Initial customer quoting.</strong> When a homeowner or property manager calls about fumigation, get the basic structure info and run the numbers. Give them a range over the phone so they know what to expect before you schedule the inspection. This pre-qualifies the lead and sets realistic expectations.</p>
-          <p><strong class="text-text-primary">Comparing bids on commercial projects.</strong> For larger commercial fumigation jobs, run the estimator to sanity-check your bid before submitting. If your number is way outside the typical range, double-check your volume calculations and dosage rates.</p>
-          <p><strong class="text-text-primary">Training new estimators.</strong> Use the calculator to show newer team members how square footage, volume, pest type, and tarping all connect to the final price. It builds pricing intuition faster than just shadowing jobs.</p>
+          <p><strong class="text-text-primary">Pre-inspection quoting.</strong> Before you drive to the property, use this estimator to give the homeowner a ballpark range over the phone. This sets expectations and qualifies the lead. If the estimate is $3,000 and they say "I was hoping for $500," you know to redirect the conversation before investing inspection time.</p>
+          <p><strong class="text-text-primary">On-site with the customer.</strong> Pull up the estimator on your tablet during the inspection walkthrough. Show the homeowner how structure size, pest type, and complexity affect the price. Transparency builds trust and makes the customer more comfortable with your final quote.</p>
+          <p><strong class="text-text-primary">Training new estimators.</strong> If you are growing your team, this tool helps new inspectors understand the cost variables before they start quoting independently. They can run scenarios to build intuition for how different factors affect pricing.</p>
         </div>
       </section>
 
+      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does fumigation cost?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Structural fumigation typically costs $1 to $3 per square foot, with most residential jobs falling between $2,000 and $8,000. A standard 2,000 sq ft single-story home averages $3,000-$5,000 for drywood termite fumigation. Larger structures, multi-story buildings, and difficult pest infestations push costs higher. Warehouses and commercial spaces are quoted on a case-by-case basis.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Whole-structure fumigation typically costs between $1,200 and $6,000 depending on square footage, structure type, pest type, and number of stories. Drywood termite fumigation for a standard 1,500-2,000 sq ft home averages $2,000-$3,500. Larger homes, multi-story structures, and difficult-to-tarp buildings cost more due to increased fumigant volume and labor.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does fumigation take?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">The fumigation process typically requires 24 to 72 hours of exposure time depending on the pest type, structure size, and fumigant used. Add a day for tarping/setup and a day for aeration and clearance testing. Total time from start to re-entry is usually 3 to 5 days for a standard residential fumigation. Larger structures or difficult infestations may require longer exposure periods.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard residential fumigation takes 2-3 days from tarping to clearance. Day 1 is prep and tarping, Day 2 is the fumigation hold period (typically 16-24 hours of exposure), and Day 3 is aeration and clearance testing. Larger structures or heavy infestations requiring higher dosages may need an additional day of exposure.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">When can occupants re-enter after fumigation?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Re-entry is only permitted after a licensed fumigator performs clearance testing and certifies the structure is safe. For sulfuryl fluoride (Vikane), this is typically 24 to 48 hours after aeration begins. The fumigator must post a re-entry notice and is legally responsible for clearance. Never allow occupants to re-enter based on time alone — always perform instrument-based clearance testing.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate fumigant volume?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Fumigant dosage is calculated based on the structure's cubic footage (length x width x height), the target pest, and the exposure time. For sulfuryl fluoride (Vikane), typical dosages range from 1-3x the half-loss time rate. Temperature and tarp seal quality affect dosage calculations. Always follow the fumigant label and use certified dosage calculators for exact amounts.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is fumigation the only option for termites?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">No. Fumigation is typically required for drywood termites because they live inside the wood and cannot be reached with liquid treatments. Subterranean termites are usually treated with soil treatments, bait stations, or liquid termiticides without fumigation. Localized drywood infestations can sometimes be treated with spot treatments, heat treatment, or microwave systems, but whole-structure fumigation remains the most reliable option for widespread drywood infestations.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What factors increase fumigation cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Multi-story structures cost more because tarping is more complex and requires more fumigant. Tile or flat roofs are harder to seal than peaked roofs. Detached structures like garages or sheds need separate tarping. Large landscaping close to the structure requires protection or trimming. The pest type matters too -- bed bugs and powderpost beetles require higher dosages than drywood termites, increasing fumigant cost.</div>
           </details>
         </div>
       </section>
@@ -198,98 +220,54 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  interface FumigationInputs {
-    structureSqft: number;
-    structureType: string;
-    pestType: string;
-    stories: number;
-    tarping: boolean;
+  function calculate() {
+    const sqft = parseInt((document.getElementById('sqft') as HTMLSelectElement).value);
+    const structureType = parseFloat((document.getElementById('structureType') as HTMLSelectElement).value);
+    const pestType = parseFloat((document.getElementById('pestType') as HTMLSelectElement).value);
+    const stories = parseFloat((document.getElementById('stories') as HTMLSelectElement).value);
+    const tarping = parseFloat((document.getElementById('tarping') as HTMLSelectElement).value);
+    const region = parseFloat((document.getElementById('region') as HTMLSelectElement).value);
+
+    // Base cost: $1.50 per sq ft for standard drywood termite fumigation
+    const baseCostPerSqft = 1.50;
+    const baseCost = sqft * baseCostPerSqft;
+
+    // Apply all multipliers
+    const adjustedCost = baseCost * structureType * pestType * stories * tarping * region;
+
+    const low = Math.round(adjustedCost * 0.85);
+    const mid = Math.round(adjustedCost);
+    const high = Math.round(adjustedCost * 1.20);
+
+    // Fumigant volume estimate (oz of Vikane)
+    // Approx: cubic footage x dosage rate. Assume 9ft ceilings.
+    const cubicFt = sqft * 9 * stories;
+    // Rough dosage: 1 oz per 100 cubic feet for standard termite, adjusted by pest type
+    const fumigantVolume = Math.round((cubicFt / 100) * pestType);
+
+    // Duration: 2-3 days standard, +1 for larger or higher-dosage jobs
+    let durationDays = 2;
+    if (sqft >= 3000 || pestType > 1.1) durationDays = 3;
+    if (sqft >= 4000 && pestType > 1.1) durationDays = 4;
+
+    // Cost per sq ft
+    const costPerSqft = (mid / sqft).toFixed(2);
+
+    const fmt = (n: number) => '$' + n.toLocaleString();
+
+    document.getElementById('result-low')!.textContent = fmt(low);
+    document.getElementById('result-mid')!.textContent = fmt(mid);
+    document.getElementById('result-high')!.textContent = fmt(high);
+    document.getElementById('result-volume')!.textContent = fumigantVolume.toLocaleString();
+    document.getElementById('result-days')!.textContent = durationDays.toString();
+    document.getElementById('result-persqft')!.textContent = '$' + costPerSqft;
   }
 
-  function calculate(): void {
-    const structureSqft = parseFloat((document.getElementById('structureSqft') as HTMLInputElement).value) || 2000;
-    const structureType = (document.getElementById('structureType') as HTMLSelectElement).value;
-    const pestType = (document.getElementById('pestType') as HTMLSelectElement).value;
-    const stories = parseInt((document.getElementById('stories') as HTMLSelectElement).value);
-    const tarping = (document.getElementById('tarping') as HTMLSelectElement).value === 'yes';
-
-    // Calculate cubic volume (avg ceiling height ~9ft per story)
-    const ceilingHeight = 9;
-    const totalVolume = structureSqft * ceilingHeight * stories;
-
-    // Fumigant needed (rough: ~1 lb per 1000 cubic ft for Vikane at standard dosage)
-    const dosageRates: Record<string, number> = {
-      termites: 1.0,
-      'bed-bugs': 1.5,
-      'stored-product': 0.8,
-    };
-    const dosageRate = dosageRates[pestType] ?? 1.0;
-    const fumigantLbs = Math.ceil((totalVolume / 1000) * dosageRate);
-
-    // Structure type multiplier
-    const structureMultiplier: Record<string, number> = {
-      house: 1.0,
-      apartment: 1.15,
-      warehouse: 0.75,
-    };
-
-    // Pest type cost multiplier
-    const pestMultiplier: Record<string, number> = {
-      termites: 1.0,
-      'bed-bugs': 1.3,
-      'stored-product': 0.9,
-    };
-
-    // Height multiplier for tarping difficulty
-    const heightMultiplier: Record<number, number> = {
-      1: 1.0,
-      2: 1.3,
-      3: 1.55,
-    };
-
-    const sMult = structureMultiplier[structureType] ?? 1.0;
-    const pMult = pestMultiplier[pestType] ?? 1.0;
-    const hMult = heightMultiplier[stories] ?? 1.0;
-    const tarpMult = tarping ? 1.0 : 0.75;
-
-    // Base: $1-3/sq ft
-    const lowRate = 1.00 * sMult * pMult * hMult * tarpMult;
-    const highRate = 3.00 * sMult * pMult * hMult * tarpMult;
-
-    const lowCost = Math.round(structureSqft * lowRate);
-    const highCost = Math.round(structureSqft * highRate);
-    const midCost = Math.round((lowCost + highCost) / 2);
-
-    // Duration: base 3 days for termites, 4 for bed bugs, 2 for stored product
-    const baseDays: Record<string, number> = {
-      termites: 3,
-      'bed-bugs': 4,
-      'stored-product': 2,
-    };
-    const duration = (baseDays[pestType] ?? 3) + (stories > 1 ? 1 : 0);
-
-    // Re-entry hours after aeration begins
-    const reentryHours: Record<string, number> = {
-      termites: 24,
-      'bed-bugs': 36,
-      'stored-product': 24,
-    };
-
-    const fmt = (n: number): string => '$' + n.toLocaleString();
-
-    document.getElementById('result-low')!.textContent = fmt(lowCost);
-    document.getElementById('result-mid')!.textContent = fmt(midCost);
-    document.getElementById('result-high')!.textContent = fmt(highCost);
-    document.getElementById('result-volume')!.textContent = totalVolume.toLocaleString();
-    document.getElementById('result-fumigant')!.textContent = fumigantLbs.toString();
-    document.getElementById('result-duration')!.textContent = duration + '-' + (duration + 1);
-    document.getElementById('result-reentry')!.textContent = (reentryHours[pestType] ?? 24).toString();
-  }
-
-  document.querySelectorAll('#cost-calc select, #cost-calc input').forEach(el => {
+  // Auto-calculate on input change
+  document.querySelectorAll('#cost-calc select').forEach(el => {
     el.addEventListener('change', calculate);
-    el.addEventListener('input', calculate);
   });
 
+  // Calculate on load with defaults
   calculate();
 </script>

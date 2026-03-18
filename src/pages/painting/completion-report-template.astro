@@ -90,42 +90,42 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: System Inventory -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Inventory</h3>
+    <!-- Section: Project Scope -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Project Scope</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Equipment Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Surface Type</label>
         <select id="equip-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Interior Wall</option>
-          <option value="Heat Pump">Exterior Siding</option>
-          <option value="Furnace">Exterior</option>
-          <option value="Mini Split">Cabinet</option>
-          <option value="Boiler">Trim Work</option>
-          <option value="Package Unit">Deck/Fence</option>
+          <option value="Interior Wall">Interior Wall</option>
+          <option value="Exterior Siding">Exterior Siding</option>
+          <option value="Ceiling">Ceiling</option>
+          <option value="Cabinet">Cabinet</option>
+          <option value="Trim Work">Trim Work</option>
+          <option value="Deck/Fence">Deck/Fence</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Make</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Paint Brand</label>
         <input type="text" id="equip-make" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Model</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Color Name</label>
         <input type="text" id="equip-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Serial #</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Color Code</label>
         <input type="text" id="equip-serial" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Install Date</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Project Start Date</label>
         <input type="date" id="install-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Equipment Age</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Project Duration</label>
         <div id="equip-age-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="remaining-life">Estimated Remaining Life (years)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="remaining-life">Warranty Period (years)</label>
         <input type="number" id="remaining-life" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -143,10 +143,10 @@ const faqSchema = {
     <!-- Section: Component Ratings -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Component Ratings</h3>
     <div class="space-y-4 mb-8">
-      <!-- Heat Exchanger -->
+      <!-- Surface Preparation -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Heat Exchanger</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Surface Preparation</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="heat-exchanger">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -156,10 +156,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="heat-exchanger" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Electrical System -->
+      <!-- Paint System -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Electrical System</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Paint System</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="electrical">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -172,7 +172,7 @@ const faqSchema = {
       <!-- Coating System -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Coating System</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Coating Adhesion</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="refrigerant">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -182,10 +182,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="refrigerant" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Surface Prep -->
+      <!-- Trim & Detail Work -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">System Complexity</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Trim &amp; Detail Work</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="ductwork">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -208,10 +208,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="thermostat" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Air Filtration -->
+      <!-- Coverage & Uniformity -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Air Filtration</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Coverage &amp; Uniformity</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="filtration">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -221,10 +221,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="filtration" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Safety Controls -->
+      <!-- Masking & Protection -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Safety Controls</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Masking &amp; Protection</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="safety">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -234,10 +234,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="safety" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Drainage System -->
+      <!-- Cleanup & Final Inspection -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Drainage System</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Cleanup &amp; Final Inspection</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="drainage">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -249,36 +249,43 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: Measurements -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Measurements</h3>
+    <!-- Section: Paint Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Paint Details</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-temp">Supply Air Temp (&deg;F)</label>
-        <input type="number" id="supply-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paint-brand">Paint Brand</label>
+        <input type="text" id="paint-brand" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="return-temp">Return Air Temp (&deg;F)</label>
-        <input type="number" id="return-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paint-color">Color Name / Code</label>
+        <input type="text" id="paint-color" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Temperature Split (&deg;F)</label>
-        <div id="temp-split-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="paint-finish">Finish Type</label>
+        <select id="paint-finish" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="Flat">Flat</option>
+          <option value="Matte">Matte</option>
+          <option value="Eggshell" selected>Eggshell</option>
+          <option value="Satin">Satin</option>
+          <option value="Semi-Gloss">Semi-Gloss</option>
+          <option value="Gloss">Gloss</option>
+        </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="co-reading">CO Reading (PPM)</label>
-        <input type="number" id="co-reading" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="num-coats">Number of Coats</label>
+        <input type="number" id="num-coats" min="1" max="10" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">CO Level</label>
-        <div id="co-level-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="primer-used">Primer Used</label>
+        <input type="text" id="primer-used" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" placeholder="Brand and type" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="gas-pressure">Gas Pressure ("WC)</label>
-        <input type="number" id="gas-pressure" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="total-sqft">Total Sq Ft Painted</label>
+        <input type="number" id="total-sqft" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="static-pressure">Static Pressure ("WC)</label>
-        <input type="number" id="static-pressure" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="gallons-used">Gallons Used</label>
+        <input type="number" id="gallons-used" min="0" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -490,48 +497,7 @@ const faqSchema = {
     el.addEventListener('change', updateRatingIndicators);
   });
 
-  // --- Temperature Split auto-calculation ---
-  function updateTempSplit() {
-    const supply = parseFloat((document.getElementById('supply-temp') as HTMLInputElement).value);
-    const ret = parseFloat((document.getElementById('return-temp') as HTMLInputElement).value);
-    const display = document.getElementById('temp-split-display')!;
-    if (!isNaN(supply) && !isNaN(ret)) {
-      const split = ret - supply;
-      display.textContent = split.toFixed(1) + '\u00B0F';
-      if (split >= 15 && split <= 20) {
-        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else {
-        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
-      }
-    } else {
-      display.textContent = '\u2014';
-      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
-    }
-  }
-  document.getElementById('supply-temp')?.addEventListener('input', updateTempSplit);
-  document.getElementById('return-temp')?.addEventListener('input', updateTempSplit);
-
-  // --- CO Level indicator ---
-  function updateCOLevel() {
-    const co = parseFloat((document.getElementById('co-reading') as HTMLInputElement).value);
-    const display = document.getElementById('co-level-display')!;
-    if (!isNaN(co) && co >= 0) {
-      if (co < 9) {
-        display.textContent = co + ' PPM \u2014 Normal';
-        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else if (co <= 35) {
-        display.textContent = co + ' PPM \u2014 Elevated';
-        display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
-      } else {
-        display.textContent = co + ' PPM \u2014 DANGER';
-        display.className = 'w-full bg-bg-dark border border-red-500/50 rounded-lg px-4 py-3 text-lg font-bold text-red-400';
-      }
-    } else {
-      display.textContent = '\u2014';
-      display.className = 'w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted';
-    }
-  }
-  document.getElementById('co-reading')?.addEventListener('input', updateCOLevel);
+  // No HVAC-specific temperature or CO calculations needed for painting completion reports
 
   // --- Dynamic Findings Table ---
   function addFindingRow() {
@@ -635,14 +601,14 @@ const faqSchema = {
   function generateReport() {
     // Collect component ratings
     const components = [
-      { key: 'heat-exchanger', label: 'Heat Exchanger' },
-      { key: 'electrical', label: 'Electrical System' },
-      { key: 'refrigerant', label: 'Sanitation Systems' },
-      { key: 'ductwork', label: 'Floor Systems' },
+      { key: 'heat-exchanger', label: 'Surface Preparation' },
+      { key: 'electrical', label: 'Paint System' },
+      { key: 'refrigerant', label: 'Coating Adhesion' },
+      { key: 'ductwork', label: 'Trim & Detail Work' },
       { key: 'thermostat', label: 'Color & Finish' },
-      { key: 'filtration', label: 'Air Filtration' },
-      { key: 'safety', label: 'Safety Controls' },
-      { key: 'drainage', label: 'Drainage System' },
+      { key: 'filtration', label: 'Coverage & Uniformity' },
+      { key: 'safety', label: 'Masking & Protection' },
+      { key: 'drainage', label: 'Cleanup & Final Inspection' },
     ];
 
     let ratingsHtml = '';
@@ -681,26 +647,7 @@ const faqSchema = {
       equipAge = years + (years === 1 ? ' year' : ' years');
     }
 
-    // Temperature split
-    const supplyT = parseFloat(getVal('supply-temp'));
-    const returnT = parseFloat(getVal('return-temp'));
-    let splitVal = '\u2014';
-    let splitColor = '#666';
-    if (!isNaN(supplyT) && !isNaN(returnT)) {
-      const s = returnT - supplyT;
-      splitVal = s.toFixed(1) + '\u00B0F';
-      splitColor = (s >= 15 && s <= 20) ? '#16a34a' : '#ca8a04';
-    }
-
-    // CO Level
-    const coVal = parseFloat(getVal('co-reading'));
-    let coDisplay = '\u2014';
-    let coColor = '#666';
-    if (!isNaN(coVal) && coVal >= 0) {
-      if (coVal < 9) { coDisplay = coVal + ' PPM'; coColor = '#16a34a'; }
-      else if (coVal <= 35) { coDisplay = coVal + ' PPM'; coColor = '#ca8a04'; }
-      else { coDisplay = coVal + ' PPM'; coColor = '#dc2626'; }
-    }
+    // Paint details for report (no HVAC measurements)
 
     // Findings
     const findingRows = document.querySelectorAll('.finding-row');
@@ -740,7 +687,7 @@ const faqSchema = {
     else if (assessment === 'Fail') { assessColor = '#dc2626'; assessBg = '#fee2e2'; }
 
     const html = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Painting Inspection Report ${getVal('report-number')}</title>
+<html><head><meta charset="UTF-8"><title>Painting Completion Report ${getVal('report-number')}</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a1a; padding:40px; max-width:850px; margin:0 auto; font-size:14px; line-height:1.5; }
@@ -771,8 +718,8 @@ const faqSchema = {
 
 <div class="header">
   <div class="header-left">
-    <h1>Painting Inspection Report</h1>
-    <div style="font-size:13px;color:#555;">${getVal('company-name') || 'Painting Inspection Services'}</div>
+    <h1>Painting Completion Report</h1>
+    <div style="font-size:13px;color:#555;">${getVal('company-name') || 'Painting Services'}</div>
   </div>
   <div class="header-right">
     <div style="font-size:20px;font-weight:700;">${getVal('report-number')}</div>
@@ -789,34 +736,22 @@ const faqSchema = {
   <div class="value">${getVal('license-number') || '\u2014'}</div><div class="value">${getVal('property-address') || '\u2014'}</div>
 </div>
 
-<h2>System Identification</h2>
+<h2>Project Details</h2>
 <div class="grid3">
-  <div><span class="label">Equipment Type:</span></div><div><span class="label">Make:</span></div><div><span class="label">Model:</span></div>
-  <div class="value">${getVal('equip-type')}</div><div class="value">${getVal('equip-make') || '\u2014'}</div><div class="value">${getVal('equip-model') || '\u2014'}</div>
-  <div><span class="label">Serial #:</span></div><div><span class="label">Install Date:</span></div><div><span class="label">Equipment Age:</span></div>
-  <div class="value">${getVal('equip-serial') || '\u2014'}</div><div class="value">${getVal('install-date') || '\u2014'}</div><div class="value">${equipAge}</div>
-  <div><span class="label">Remaining Life:</span></div><div><span class="label">Overall Condition:</span></div><div></div>
-  <div class="value">${getVal('remaining-life') ? getVal('remaining-life') + ' years' : '\u2014'}</div><div class="value" style="color:${condColor};font-weight:700;">${condition}</div><div></div>
+  <div><span class="label">Surface Type:</span></div><div><span class="label">Paint Brand:</span></div><div><span class="label">Color / Code:</span></div>
+  <div class="value">${getVal('equip-type')}</div><div class="value">${getVal('paint-brand') || '\u2014'}</div><div class="value">${getVal('paint-color') || '\u2014'}</div>
+  <div><span class="label">Finish:</span></div><div><span class="label">Coats:</span></div><div><span class="label">Primer:</span></div>
+  <div class="value">${getVal('paint-finish') || '\u2014'}</div><div class="value">${getVal('num-coats') || '\u2014'}</div><div class="value">${getVal('primer-used') || '\u2014'}</div>
+  <div><span class="label">Total Sq Ft:</span></div><div><span class="label">Gallons Used:</span></div><div><span class="label">Overall Condition:</span></div>
+  <div class="value">${getVal('total-sqft') || '\u2014'}</div><div class="value">${getVal('gallons-used') || '\u2014'}</div><div class="value" style="color:${condColor};font-weight:700;">${condition}</div>
 </div>
 
-<h2>Component Ratings</h2>
+<h2>Area Ratings</h2>
 <table>
   <thead><tr><th>Component</th><th style="text-align:center;">Rating</th><th>Notes</th></tr></thead>
   <tbody>${ratingsHtml}</tbody>
 </table>
 
-<h2>Measurements</h2>
-<table>
-  <thead><tr><th>Supply Air</th><th>Return Air</th><th>Temp Split</th><th>CO Reading</th><th>Gas Pressure</th><th>Static Pressure</th></tr></thead>
-  <tbody><tr>
-    <td style="text-align:center;">${getVal('supply-temp') ? getVal('supply-temp') + '\u00B0F' : '\u2014'}</td>
-    <td style="text-align:center;">${getVal('return-temp') ? getVal('return-temp') + '\u00B0F' : '\u2014'}</td>
-    <td style="text-align:center;font-weight:700;color:${splitColor};">${splitVal}</td>
-    <td style="text-align:center;font-weight:700;color:${coColor};">${coDisplay}</td>
-    <td style="text-align:center;">${getVal('gas-pressure') ? getVal('gas-pressure') + '"WC' : '\u2014'}</td>
-    <td style="text-align:center;">${getVal('static-pressure') ? getVal('static-pressure') + '"WC' : '\u2014'}</td>
-  </tr></tbody>
-</table>
 
 ${findingsHtml ? `<h2>Findings &amp; Recommendations</h2>
 <table>
@@ -847,7 +782,7 @@ ${findingsHtml ? `<h2>Findings &amp; Recommendations</h2>
 ${getVal('additional-notes') ? `<div style="margin-top:12px;"><span class="label">Additional Notes:</span><div class="value" style="background:#f9f9f9;padding:10px;border-radius:4px;white-space:pre-wrap;margin-top:4px;">${getVal('additional-notes')}</div></div>` : ''}
 
 <div class="disclaimer">
-  <strong>Disclaimer:</strong> This completion report reflects the condition of the paint work at the time of final inspection based on visual examination. Hidden defects, inaccessible components, and conditions that may develop after the inspection date are not covered. This report is not a warranty or guarantee of future performance. The inspector and company assume no liability for conditions that were not observable or testable at the time of inspection. Repair cost estimates are approximate and may vary based on contractor pricing, parts availability, and actual scope of work.
+  <strong>Disclaimer:</strong> This completion report reflects the condition of the paint work at the time of final walk-through based on visual examination. Substrate conditions, environmental factors, and normal wear that develop after the completion date are not covered by this report. This report is not a warranty or guarantee of coating longevity. The contractor assumes no liability for adhesion failure caused by pre-existing substrate conditions, moisture intrusion, or environmental exposure beyond the contractor's control. Touch-up and maintenance recommendations should be followed to preserve the finish.
 </div>
 
 <div class="signature-block">

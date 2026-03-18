@@ -90,42 +90,42 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: System Inventory -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">System Inventory</h3>
+    <!-- Section: Property Details -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Property Details</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Equipment Type</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-type">Property Type</label>
         <select id="equip-type" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="Central AC">Interior</option>
-          <option value="Heat Pump">Exterior</option>
-          <option value="Furnace">Treatment Area</option>
-          <option value="Mini Split">Crawlspace</option>
-          <option value="Boiler">Attic</option>
-          <option value="Package Unit">Yard/Perimeter</option>
+          <option value="Single Family">Single Family</option>
+          <option value="Multi-Family">Multi-Family</option>
+          <option value="Commercial" selected>Commercial</option>
+          <option value="Restaurant/Food Service">Restaurant/Food Service</option>
+          <option value="Warehouse">Warehouse</option>
+          <option value="Healthcare">Healthcare</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Make</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-make">Target Pest(s)</label>
         <input type="text" id="equip-make" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Model</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-model">Evidence Type</label>
         <input type="text" id="equip-model" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Serial #</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="equip-serial">Severity Level</label>
         <input type="text" id="equip-serial" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Install Date</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="install-date">Last Service Date</label>
         <input type="date" id="install-date" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Equipment Age</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Time Since Last Service</label>
         <div id="equip-age-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="remaining-life">Estimated Remaining Life (years)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="remaining-life">Recommended Service Interval (months)</label>
         <input type="number" id="remaining-life" min="0" max="50" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
@@ -143,10 +143,10 @@ const faqSchema = {
     <!-- Section: Component Ratings -->
     <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Component Ratings</h3>
     <div class="space-y-4 mb-8">
-      <!-- Heat Exchanger -->
+      <!-- Interior Areas -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Heat Exchanger</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Interior Areas</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="heat-exchanger">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -156,10 +156,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="heat-exchanger" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Electrical System -->
+      <!-- Exterior Perimeter -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Electrical System</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Exterior Perimeter</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="electrical">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -185,7 +185,7 @@ const faqSchema = {
       <!-- Entry Points -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">System Complexity</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Entry Points</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="ductwork">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -208,10 +208,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="thermostat" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Air Filtration -->
+      <!-- Sanitation Conditions -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Air Filtration</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Sanitation Conditions</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="filtration">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -221,10 +221,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="filtration" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Safety Controls -->
+      <!-- Conducive Conditions -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Safety Controls</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Conducive Conditions</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="safety">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -234,10 +234,10 @@ const faqSchema = {
         </div>
         <textarea class="component-notes w-full bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors resize-y" data-component="safety" rows="2" placeholder="Notes..."></textarea>
       </div>
-      <!-- Drainage System -->
+      <!-- Moisture &amp; Drainage -->
       <div class="bg-bg-dark border border-border rounded-lg p-4">
         <div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
-          <span class="font-medium text-text-primary w-48 shrink-0">Drainage System</span>
+          <span class="font-medium text-text-primary w-48 shrink-0">Moisture &amp; Drainage</span>
           <select class="component-rating bg-bg-card border border-border rounded-lg px-4 py-2 text-text-primary focus:border-accent focus:outline-none transition-colors" data-component="drainage">
             <option value="Pass">Pass (Green)</option>
             <option value="Monitor">Monitor (Yellow)</option>
@@ -249,36 +249,36 @@ const faqSchema = {
       </div>
     </div>
 
-    <!-- Section: Measurements -->
-    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Measurements</h3>
+    <!-- Section: Activity Observations -->
+    <h3 class="font-heading font-bold text-lg mb-4 text-text-primary">Activity Observations</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-temp">Supply Air Temp (&deg;F)</label>
-        <input type="number" id="supply-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="supply-temp">Live Pest Count</label>
+        <input type="number" id="supply-temp" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="return-temp">Return Air Temp (&deg;F)</label>
-        <input type="number" id="return-temp" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="return-temp">Droppings / Evidence Sites</label>
+        <input type="number" id="return-temp" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">Temperature Split (&deg;F)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Activity Level</label>
         <div id="temp-split-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="co-reading">CO Reading (PPM)</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="co-reading">Entry Points Found</label>
         <input type="number" id="co-reading" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2">CO Level</label>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Entry Point Severity</label>
         <div id="co-level-display" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-lg font-bold text-text-muted">&mdash;</div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="gas-pressure">Gas Pressure ("WC)</label>
-        <input type="number" id="gas-pressure" step="0.1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="gas-pressure">Moisture Readings (%)</label>
+        <input type="number" id="gas-pressure" step="0.1" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="static-pressure">Static Pressure ("WC)</label>
-        <input type="number" id="static-pressure" step="0.01" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="static-pressure">Bait Station Activity (count)</label>
+        <input type="number" id="static-pressure" min="0" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
@@ -490,18 +490,25 @@ const faqSchema = {
     el.addEventListener('change', updateRatingIndicators);
   });
 
-  // --- Temperature Split auto-calculation ---
+  // --- Activity Level auto-calculation ---
   function updateTempSplit() {
-    const supply = parseFloat((document.getElementById('supply-temp') as HTMLInputElement).value);
-    const ret = parseFloat((document.getElementById('return-temp') as HTMLInputElement).value);
+    const liveCount = parseFloat((document.getElementById('supply-temp') as HTMLInputElement).value);
+    const evidenceSites = parseFloat((document.getElementById('return-temp') as HTMLInputElement).value);
     const display = document.getElementById('temp-split-display')!;
-    if (!isNaN(supply) && !isNaN(ret)) {
-      const split = ret - supply;
-      display.textContent = split.toFixed(1) + '\u00B0F';
-      if (split >= 15 && split <= 20) {
+    if (!isNaN(liveCount) && !isNaN(evidenceSites)) {
+      const total = liveCount + evidenceSites;
+      if (total === 0) {
+        display.textContent = 'None';
         display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else {
+      } else if (total <= 5) {
+        display.textContent = 'Low';
+        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
+      } else if (total <= 15) {
+        display.textContent = 'Moderate';
         display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
+      } else {
+        display.textContent = 'Severe';
+        display.className = 'w-full bg-bg-dark border border-red-500/50 rounded-lg px-4 py-3 text-lg font-bold text-red-400';
       }
     } else {
       display.textContent = '\u2014';
@@ -511,19 +518,22 @@ const faqSchema = {
   document.getElementById('supply-temp')?.addEventListener('input', updateTempSplit);
   document.getElementById('return-temp')?.addEventListener('input', updateTempSplit);
 
-  // --- CO Level indicator ---
+  // --- Entry Point Severity indicator ---
   function updateCOLevel() {
-    const co = parseFloat((document.getElementById('co-reading') as HTMLInputElement).value);
+    const entryPoints = parseFloat((document.getElementById('co-reading') as HTMLInputElement).value);
     const display = document.getElementById('co-level-display')!;
-    if (!isNaN(co) && co >= 0) {
-      if (co < 9) {
-        display.textContent = co + ' PPM \u2014 Normal';
+    if (!isNaN(entryPoints) && entryPoints >= 0) {
+      if (entryPoints === 0) {
+        display.textContent = 'None Found';
         display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
-      } else if (co <= 35) {
-        display.textContent = co + ' PPM \u2014 Elevated';
+      } else if (entryPoints <= 3) {
+        display.textContent = entryPoints + ' \u2014 Low';
+        display.className = 'w-full bg-bg-dark border border-green-500/50 rounded-lg px-4 py-3 text-lg font-bold text-green-400';
+      } else if (entryPoints <= 8) {
+        display.textContent = entryPoints + ' \u2014 Moderate';
         display.className = 'w-full bg-bg-dark border border-yellow-500/50 rounded-lg px-4 py-3 text-lg font-bold text-yellow-400';
       } else {
-        display.textContent = co + ' PPM \u2014 DANGER';
+        display.textContent = entryPoints + ' \u2014 Severe';
         display.className = 'w-full bg-bg-dark border border-red-500/50 rounded-lg px-4 py-3 text-lg font-bold text-red-400';
       }
     } else {
@@ -635,14 +645,14 @@ const faqSchema = {
   function generateReport() {
     // Collect component ratings
     const components = [
-      { key: 'heat-exchanger', label: 'Heat Exchanger' },
-      { key: 'electrical', label: 'Electrical System' },
-      { key: 'refrigerant', label: 'Sanitation Systems' },
-      { key: 'ductwork', label: 'Floor Systems' },
+      { key: 'heat-exchanger', label: 'Interior Areas' },
+      { key: 'electrical', label: 'Exterior Perimeter' },
+      { key: 'refrigerant', label: 'Treatment Areas' },
+      { key: 'ductwork', label: 'Entry Points' },
       { key: 'thermostat', label: 'Monitoring Stations' },
-      { key: 'filtration', label: 'Air Filtration' },
-      { key: 'safety', label: 'Safety Controls' },
-      { key: 'drainage', label: 'Drainage System' },
+      { key: 'filtration', label: 'Sanitation Conditions' },
+      { key: 'safety', label: 'Conducive Conditions' },
+      { key: 'drainage', label: 'Moisture & Drainage' },
     ];
 
     let ratingsHtml = '';
@@ -681,26 +691,7 @@ const faqSchema = {
       equipAge = years + (years === 1 ? ' year' : ' years');
     }
 
-    // Temperature split
-    const supplyT = parseFloat(getVal('supply-temp'));
-    const returnT = parseFloat(getVal('return-temp'));
-    let splitVal = '\u2014';
-    let splitColor = '#666';
-    if (!isNaN(supplyT) && !isNaN(returnT)) {
-      const s = returnT - supplyT;
-      splitVal = s.toFixed(1) + '\u00B0F';
-      splitColor = (s >= 15 && s <= 20) ? '#16a34a' : '#ca8a04';
-    }
-
-    // CO Level
-    const coVal = parseFloat(getVal('co-reading'));
-    let coDisplay = '\u2014';
-    let coColor = '#666';
-    if (!isNaN(coVal) && coVal >= 0) {
-      if (coVal < 9) { coDisplay = coVal + ' PPM'; coColor = '#16a34a'; }
-      else if (coVal <= 35) { coDisplay = coVal + ' PPM'; coColor = '#ca8a04'; }
-      else { coDisplay = coVal + ' PPM'; coColor = '#dc2626'; }
-    }
+    // Activity observations for report (pest-control specific)
 
     // Findings
     const findingRows = document.querySelectorAll('.finding-row');
@@ -789,32 +780,32 @@ const faqSchema = {
   <div class="value">${getVal('license-number') || '\u2014'}</div><div class="value">${getVal('property-address') || '\u2014'}</div>
 </div>
 
-<h2>System Identification</h2>
+<h2>Property &amp; Pest Details</h2>
 <div class="grid3">
-  <div><span class="label">Equipment Type:</span></div><div><span class="label">Make:</span></div><div><span class="label">Model:</span></div>
+  <div><span class="label">Property Type:</span></div><div><span class="label">Target Pest(s):</span></div><div><span class="label">Evidence Type:</span></div>
   <div class="value">${getVal('equip-type')}</div><div class="value">${getVal('equip-make') || '\u2014'}</div><div class="value">${getVal('equip-model') || '\u2014'}</div>
-  <div><span class="label">Serial #:</span></div><div><span class="label">Install Date:</span></div><div><span class="label">Equipment Age:</span></div>
+  <div><span class="label">Severity Level:</span></div><div><span class="label">Last Service Date:</span></div><div><span class="label">Time Since Service:</span></div>
   <div class="value">${getVal('equip-serial') || '\u2014'}</div><div class="value">${getVal('install-date') || '\u2014'}</div><div class="value">${equipAge}</div>
-  <div><span class="label">Remaining Life:</span></div><div><span class="label">Overall Condition:</span></div><div></div>
-  <div class="value">${getVal('remaining-life') ? getVal('remaining-life') + ' years' : '\u2014'}</div><div class="value" style="color:${condColor};font-weight:700;">${condition}</div><div></div>
+  <div><span class="label">Service Interval:</span></div><div><span class="label">Overall Condition:</span></div><div></div>
+  <div class="value">${getVal('remaining-life') ? getVal('remaining-life') + ' months' : '\u2014'}</div><div class="value" style="color:${condColor};font-weight:700;">${condition}</div><div></div>
 </div>
 
-<h2>Component Ratings</h2>
+<h2>Area Ratings</h2>
 <table>
   <thead><tr><th>Component</th><th style="text-align:center;">Rating</th><th>Notes</th></tr></thead>
   <tbody>${ratingsHtml}</tbody>
 </table>
 
-<h2>Measurements</h2>
+<h2>Activity Observations</h2>
 <table>
-  <thead><tr><th>Supply Air</th><th>Return Air</th><th>Temp Split</th><th>CO Reading</th><th>Gas Pressure</th><th>Static Pressure</th></tr></thead>
+  <thead><tr><th>Live Pests</th><th>Evidence Sites</th><th>Activity Level</th><th>Entry Points</th><th>Moisture (%)</th><th>Bait Activity</th></tr></thead>
   <tbody><tr>
-    <td style="text-align:center;">${getVal('supply-temp') ? getVal('supply-temp') + '\u00B0F' : '\u2014'}</td>
-    <td style="text-align:center;">${getVal('return-temp') ? getVal('return-temp') + '\u00B0F' : '\u2014'}</td>
-    <td style="text-align:center;font-weight:700;color:${splitColor};">${splitVal}</td>
-    <td style="text-align:center;font-weight:700;color:${coColor};">${coDisplay}</td>
-    <td style="text-align:center;">${getVal('gas-pressure') ? getVal('gas-pressure') + '"WC' : '\u2014'}</td>
-    <td style="text-align:center;">${getVal('static-pressure') ? getVal('static-pressure') + '"WC' : '\u2014'}</td>
+    <td style="text-align:center;">${getVal('supply-temp') || '\u2014'}</td>
+    <td style="text-align:center;">${getVal('return-temp') || '\u2014'}</td>
+    <td style="text-align:center;font-weight:700;">${document.getElementById('temp-split-display')?.textContent || '\u2014'}</td>
+    <td style="text-align:center;">${getVal('co-reading') || '\u2014'}</td>
+    <td style="text-align:center;">${getVal('gas-pressure') ? getVal('gas-pressure') + '%' : '\u2014'}</td>
+    <td style="text-align:center;">${getVal('static-pressure') || '\u2014'}</td>
   </tr></tbody>
 </table>
 
@@ -847,7 +838,7 @@ ${findingsHtml ? `<h2>Findings &amp; Recommendations</h2>
 ${getVal('additional-notes') ? `<div style="margin-top:12px;"><span class="label">Additional Notes:</span><div class="value" style="background:#f9f9f9;padding:10px;border-radius:4px;white-space:pre-wrap;margin-top:4px;">${getVal('additional-notes')}</div></div>` : ''}
 
 <div class="disclaimer">
-  <strong>Disclaimer:</strong> This inspection report reflects the condition of the property with respect to pest activity at the time of inspection based on visual examination and standard diagnostic methods. Hidden defects, inaccessible components, and conditions that may develop after the inspection date are not covered. This report is not a warranty or guarantee of future performance. The inspector and company assume no liability for conditions that were not observable or testable at the time of inspection. Repair cost estimates are approximate and may vary based on contractor pricing, parts availability, and actual scope of work.
+  <strong>Disclaimer:</strong> This inspection report reflects pest activity and conducive conditions observed at the time of inspection based on visual examination and standard diagnostic methods. Hidden infestations in inaccessible areas (wall voids, sealed crawlspaces, enclosed soffits) and conditions that develop after the inspection date are not covered. This report is not a warranty or guarantee that the property is free of wood-destroying organisms or other pests. The inspector and company assume no liability for conditions that were not observable at the time of inspection. Treatment cost estimates are approximate and may vary based on infestation severity, property access, and product requirements.
 </div>
 
 <div class="signature-block">

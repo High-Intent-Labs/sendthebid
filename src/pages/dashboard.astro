@@ -431,6 +431,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const saved = document.getElementById('profile-saved')!;
       saved.classList.remove('hidden');
       setTimeout(() => saved.classList.add('hidden'), 2000);
+
+      // Update quick action links to reflect new trade
+      const newTrade = (document.getElementById('profile-trade') as HTMLSelectElement).value || 'hvac';
+      document.getElementById('qa-invoice')?.setAttribute('href', `/${newTrade}/invoice-generator/`);
+      document.getElementById('qa-estimate')?.setAttribute('href', `/${newTrade}/estimate-template/`);
+      document.getElementById('qa-tool1')?.setAttribute('href', `/${newTrade}/`);
     }
   });
 

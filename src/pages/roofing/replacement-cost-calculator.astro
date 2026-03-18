@@ -10,18 +10,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much does a roof replacement cost?",
+      "name": "How much does a new roof cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A full roof replacement typically costs between $350 and $550 per square (100 sq ft) for asphalt shingles, or $7,000 to $16,500 for an average 30-square roof. Metal roofing runs $600 to $1,200 per square. Tile and slate range from $1,000 to $2,500 per square. The total depends on material type, roof pitch, number of layers to tear off, complexity, and local labor rates."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I calculate the number of roofing squares?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Measure the total roof area in square feet and divide by 100. One roofing square equals 100 square feet. For a simple gable roof, multiply the footprint area by a pitch multiplier: 4/12 pitch uses 1.054, 6/12 uses 1.118, 8/12 uses 1.202, 10/12 uses 1.302, 12/12 uses 1.414. A 2,000 sq ft footprint at 6/12 pitch is roughly 2,236 sq ft or about 22.4 squares."
+        "text": "A new roof typically costs $350 to $1,000+ per square (100 sq ft) depending on the material. A standard 25-square asphalt shingle roof runs $8,750 to $17,500 for architectural shingles. Metal roofing runs $15,000 to $30,000+ for the same size. Tile can exceed $25,000. These ranges include tear-off, materials, labor, and disposal. Steep pitch, cut-up roofs, and multiple layers add cost."
       }
     },
     {
@@ -29,15 +21,23 @@ const faqSchema = {
       "name": "How long does a roof replacement take?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A typical asphalt shingle replacement on a 25 to 35 square roof takes a crew of 4 to 6 workers about 1 to 3 days. A single-layer tear-off on a simple gable roof can finish in a day. Multiple layers to remove, steep pitch, cut-up rooflines with dormers and valleys, or bad weather extend the timeline. Metal and tile roofs typically take 3 to 5 days depending on complexity."
+        "text": "Most residential asphalt shingle roofs can be torn off and replaced in 1 to 3 days with a full crew (4-6 workers). Simple gable roofs on single-story homes are often a single-day job. Complex roofs with multiple valleys, dormers, and steep pitch can take 3 to 5 days. Metal and tile installations take longer — typically 3 to 7 days depending on the system and complexity."
       }
     },
     {
       "@type": "Question",
-      "name": "What is included in a roof replacement quote?",
+      "name": "How many squares is my roof?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A complete roof replacement quote should include tear-off and disposal of existing material, new underlayment, drip edge, flashing, ridge cap, and the roofing material itself. It should also cover labor, permits, dumpster rental, and cleanup. Items often quoted separately include gutter replacement, soffit and fascia repair, skylight re-flashing, and chimney flashing. Always itemize so the homeowner sees exactly what they are paying for."
+        "text": "A roofing square is 100 square feet. To estimate roof squares, take the home's footprint square footage and multiply by a pitch factor: low pitch (4/12 or less) multiply by 1.06, medium pitch (5/12 to 8/12) multiply by 1.12 to 1.20, steep pitch (9/12 and above) multiply by 1.25 to 1.41. Then divide by 100. For example, a 2,000 sq ft footprint with medium pitch: 2,000 x 1.15 = 2,300 sq ft roof area, or 23 squares."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I tear off the old roof or overlay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tear-off is almost always the better choice. It lets you inspect and repair the deck, install proper underlayment, and start with a clean surface. Most building codes limit roofs to two layers maximum, and many roofers will not warranty work over an existing layer. Overlays save $1,000-$2,000 on tear-off but hide potential deck damage and reduce shingle lifespan. For your liability and reputation, tear-off is the professional recommendation."
       }
     }
   ]
@@ -46,67 +46,47 @@ const faqSchema = {
 
 <ToolLayout tool={tool} extraSchema={[faqSchema]}>
   <div id="cost-calc">
-    <!-- Input Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="roofSquares">Roof Size (squares)</label>
-        <input type="number" id="roofSquares" value="30" min="5" max="200" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <p class="text-text-muted text-xs mt-1">1 square = 100 sq ft of roof area</p>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="roofSquares">Roof Squares</label>
+        <input type="number" id="roofSquares" value="25" min="5" max="100" step="1" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="roofPitch">Roof Pitch</label>
-        <select id="roofPitch" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="low">Low (3/12 - 5/12)</option>
-          <option value="standard" selected>Standard (6/12 - 8/12)</option>
-          <option value="steep">Steep (9/12 - 12/12)</option>
-          <option value="extreme">Extreme (12/12+)</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="pitch">Roof Pitch</label>
+        <select id="pitch" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="low">Low (4/12 or less)</option>
+          <option value="medium" selected>Medium (5/12 to 8/12)</option>
+          <option value="steep">Steep (9/12 and above)</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materialType">Material Type</label>
-        <select id="materialType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="3tab">3-Tab Asphalt Shingle</option>
-          <option value="architectural" selected>Architectural Shingle</option>
-          <option value="premium-shingle">Premium/Designer Shingle</option>
-          <option value="metal-standing">Standing Seam Metal</option>
-          <option value="metal-corrugated">Corrugated Metal</option>
-          <option value="tile">Clay / Concrete Tile</option>
-          <option value="slate">Slate</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="material">Roofing Material</label>
+        <select id="material" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="3-tab">3-Tab Shingles</option>
+          <option value="architectural" selected>Architectural Shingles</option>
+          <option value="metal">Standing Seam Metal</option>
+          <option value="tile">Concrete / Clay Tile</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="layersToRemove">Layers to Tear Off</label>
-        <select id="layersToRemove" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="layers">Layers to Remove</label>
+        <select id="layers" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           <option value="1" selected>1 Layer</option>
           <option value="2">2 Layers</option>
-          <option value="3">3 Layers</option>
         </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="complexity">Roof Complexity</label>
         <select id="complexity" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="simple">Simple (gable, few penetrations)</option>
-          <option value="moderate" selected>Moderate (hip, some valleys)</option>
-          <option value="complex">Complex (dormers, valleys, skylights)</option>
-          <option value="very-complex">Very Complex (multi-level, turrets)</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="deckRepair">Deck Repair Needed</label>
-        <select id="deckRepair" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="none" selected>None</option>
-          <option value="minor">Minor (a few sheets)</option>
-          <option value="moderate">Moderate (10-20% of deck)</option>
-          <option value="major">Major (20%+ of deck)</option>
+          <option value="simple" selected>Simple (gable / hip)</option>
+          <option value="cut-up">Cut-Up (valleys, dormers)</option>
+          <option value="very-complex">Very Complex (many penetrations)</option>
         </select>
       </div>
     </div>
 
-    <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
       <h3 class="font-heading font-bold text-xl mb-6">Your Estimate</h3>
-
-      <!-- Cost Range Bar -->
       <div class="bg-bg-dark rounded-xl p-6 mb-6">
         <div class="flex justify-between items-end mb-3">
           <div class="text-center">
@@ -122,97 +102,89 @@ const faqSchema = {
             <div id="result-high" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
           </div>
         </div>
-        <!-- Visual range bar -->
         <div class="relative h-3 bg-bg-card rounded-full overflow-hidden mt-4">
           <div id="range-bar" class="absolute inset-y-0 left-[10%] right-[10%] rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40"></div>
           <div id="range-marker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg"></div>
         </div>
       </div>
 
-      <!-- Breakdown Cards -->
-      <h3 class="font-heading font-bold text-lg mb-4">Cost Breakdown</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Materials</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Materials Cost</div>
           <div id="result-materials" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">shingles, underlayment, flashing</div>
+          <div class="text-text-muted text-xs mt-1">estimated</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor Cost</div>
           <div id="result-labor" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">installation crew</div>
+          <div class="text-text-muted text-xs mt-1">estimated</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Tear-Off & Disposal</div>
-          <div id="result-tearoff" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">removal + dumpster</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Disposal Cost</div>
+          <div id="result-disposal" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+          <div class="text-text-muted text-xs mt-1">tear-off + dump</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cost per Square</div>
           <div id="result-persquare" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">all-in per 100 sq ft</div>
+          <div class="text-text-muted text-xs mt-1">all-in</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Ballpark estimate for budgeting and quoting. Actual costs depend on local labor rates, material brand, waste factor, permit fees, and on-site conditions. Always measure and inspect the deck before finalizing your quote.</p>
+      <p class="text-text-muted text-sm italic">Ballpark estimate for bidding purposes. Actual costs depend on local material pricing, crew rates, dump fees, deck condition (plywood replacement adds cost), and specific code requirements. Always perform a thorough roof inspection before providing a final bid.</p>
     </div>
   </div>
 
-  <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
-      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter the roof size in squares.</strong> If you know the roof area in square feet, divide by 100 to get squares. If you only have the home footprint, apply the pitch multiplier first. A 2,000 sq ft footprint at 6/12 pitch equals roughly 22 squares.</p>
-          <p><strong class="text-text-primary">2. Set the pitch and material.</strong> Steeper roofs require more safety equipment, slow down production, and increase material waste. Material type is the single biggest cost variable, from budget 3-tab shingles to premium slate.</p>
-          <p><strong class="text-text-primary">3. Specify layers and complexity.</strong> Multiple existing layers mean more tear-off labor and heavier dumpster loads. Complex rooflines with valleys, dormers, skylights, and chimney penetrations dramatically increase flashing and cut-in time.</p>
-          <p><strong class="text-text-primary">4. Add deck repair if needed.</strong> You will not know the full extent of deck damage until tear-off, but estimate what you can from the attic inspection. Build a per-sheet allowance into your quote for surprises.</p>
+          <p><strong class="text-text-primary">1. Enter the roof squares.</strong> If you know the exact square count from a measurement or satellite report, enter it directly. If not, take the home's footprint square footage, multiply by a pitch factor (1.05 for low, 1.15 for medium, 1.30 for steep), and divide by 100.</p>
+          <p><strong class="text-text-primary">2. Select the pitch.</strong> Steeper roofs require more safety equipment, slower work speeds, and sometimes specialized staging. This significantly affects labor cost per square. Steep roofs also use more material due to the increased surface area.</p>
+          <p><strong class="text-text-primary">3. Choose the roofing material.</strong> 3-tab shingles are the most affordable. Architectural shingles are the current standard and offer better wind resistance and aesthetics. Standing seam metal is a premium option with a 40-50 year lifespan. Tile is the most expensive and heaviest, often requiring structural verification.</p>
+          <p><strong class="text-text-primary">4. Set layers and complexity.</strong> Removing two layers of old roofing takes more labor and generates more dump fees than one layer. Complex roofs with multiple valleys, dormers, skylights, and penetrations require more flashing, cutting, and detail work per square.</p>
         </div>
       </section>
 
-      <!-- What Affects Cost -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">What Affects Roof Replacement Cost</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Material choice is the biggest variable.</strong> Three-tab asphalt is the most affordable at $80-120 per square for materials. Architectural shingles run $100-180 per square and are the most popular choice. Standing seam metal costs $300-700 per square but lasts 40-60 years. Tile and slate are premium options at $500-1,500+ per square with 75-100 year lifespans.</p>
-          <p><strong class="text-text-primary">Tear-off labor compounds with layers.</strong> Removing a single layer of asphalt shingles costs roughly $100-150 per square in labor and disposal. Each additional layer adds $50-75 per square because the material is heavier and harder to strip. A three-layer tear-off on a 30-square roof can add $4,500-6,750 to the job versus a single layer.</p>
-          <p><strong class="text-text-primary">Pitch affects everything.</strong> Low-slope roofs (3/12 to 5/12) are walkable and fast. Standard pitch (6/12 to 8/12) requires some safety gear but is still efficient. Steep roofs (9/12+) need roof jacks, harnesses, and toe boards which cut production speed by 30-50% and increase the risk factor you need to price for.</p>
-          <p><strong class="text-text-primary">Complexity drives labor hours.</strong> A simple gable roof with two planes can be torn off and re-roofed quickly. Every valley, hip, dormer, skylight, and pipe penetration adds flashing work, cutting, and detail time. Complex roofs can take twice the crew-hours of a simple roof with the same square footage.</p>
-          <p><strong class="text-text-primary">Deck condition is the wildcard.</strong> Rotted or damaged decking has to be replaced before new roofing goes on. OSB or plywood runs $50-75 per sheet installed. On older homes, you may find skip sheathing that needs full re-decking. Always inspect from the attic and build a contingency into your bid.</p>
+          <p><strong class="text-text-primary">Material is the biggest line item.</strong> 3-tab shingles run $80-$100 per square for materials. Architectural shingles are $100-$150. Standing seam metal is $300-$600 per square for panels and trim. Tile ranges from $400 to $1,000+ per square. Material costs fluctuate with supply chain conditions, so check current pricing before every bid.</p>
+          <p><strong class="text-text-primary">Pitch and access.</strong> Low-slope roofs are the fastest and safest to work on. Medium-pitch roofs are standard production work. Steep roofs (9/12 and above) require roof jacks, harnesses, or scaffolding, and production drops 30-50% compared to walkable roofs. Always price steep work significantly higher per square.</p>
+          <p><strong class="text-text-primary">Roof complexity and flashings.</strong> A simple gable roof has minimal waste and few flashing details. A cut-up roof with multiple valleys, dormers, pipe boots, vents, and skylights requires significantly more flashing, cutting, and detail work. Flashings and penetrations are where most roof leaks start, so this detail work is critical.</p>
+          <p><strong class="text-text-primary">Tear-off and disposal.</strong> One layer of asphalt shingles weighs about 2-3 tons for a 25-square roof. Two layers doubles the tear-off labor and dump fees. Dumpster rentals run $400-$800 depending on size and location. Dump fees vary widely by region. Factor these costs into every bid.</p>
+          <p><strong class="text-text-primary">Deck repairs.</strong> You will not know the full deck condition until the old roofing is removed. Rotted or damaged plywood adds $50-$75 per sheet to replace. Budget a contingency of $500-$1,500 for typical deck repairs and communicate this to the homeowner upfront so there are no surprises.</p>
         </div>
       </section>
 
-      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Qualifying leads before the site visit.</strong> When a homeowner calls for a roof quote, ask for the approximate home size and current roofing material. Plug the numbers in and give them a ballpark range over the phone. This sets expectations and filters out callers who are not ready to invest in a quality replacement.</p>
-          <p><strong class="text-text-primary">On-site estimating.</strong> After your roof inspection, enter the actual measurements, pitch, layer count, and complexity. Show the homeowner the breakdown on your tablet so they can see where the money goes. Transparency builds trust and shortens the sales cycle.</p>
-          <p><strong class="text-text-primary">Bid review and margin checking.</strong> Run your upcoming bids through this calculator to see if your pricing is in the right range. If you are consistently below the mid estimate, you may need to raise prices. If you are above, make sure your value proposition justifies the premium.</p>
+          <p><strong class="text-text-primary">Phone and satellite pre-estimates.</strong> Use satellite measurement tools to get the square count, then run it through this calculator to give the homeowner a range before you even visit the property. This pre-qualifies the lead and sets pricing expectations.</p>
+          <p><strong class="text-text-primary">On-site quick pricing.</strong> After inspecting a roof, plug in the specifics and show the homeowner a range on the spot. Same-day pricing closes more deals than following up days later with a formal proposal.</p>
+          <p><strong class="text-text-primary">Insurance supplement work.</strong> When working insurance claims, run the numbers through this calculator to compare against the insurance adjuster's estimate. If there is a significant gap, it helps you identify where supplements are needed — steeper pitch, more complexity, or additional layers that the adjuster may have missed.</p>
         </div>
       </section>
 
-      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a roof replacement cost?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A full roof replacement typically costs between $350 and $550 per square (100 sq ft) for asphalt shingles, or $7,000 to $16,500 for an average 30-square roof. Metal roofing runs $600 to $1,200 per square. Tile and slate range from $1,000 to $2,500 per square. The total depends on material type, roof pitch, number of layers to tear off, complexity, and local labor rates.</div>
-          </details>
-          <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate the number of roofing squares?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Measure the total roof area in square feet and divide by 100. One roofing square equals 100 square feet. For a simple gable roof, multiply the footprint area by a pitch multiplier: 4/12 pitch uses 1.054, 6/12 uses 1.118, 8/12 uses 1.202, 10/12 uses 1.302, 12/12 uses 1.414. A 2,000 sq ft footprint at 6/12 pitch is roughly 2,236 sq ft or about 22.4 squares.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much does a new roof cost?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A new roof typically costs $350 to $1,000+ per square (100 sq ft) depending on the material. A standard 25-square asphalt shingle roof runs $8,750 to $17,500 for architectural shingles. Metal roofing runs $15,000 to $30,000+ for the same size. Tile can exceed $25,000. These ranges include tear-off, materials, labor, and disposal. Steep pitch, cut-up roofs, and multiple layers add cost.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How long does a roof replacement take?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A typical asphalt shingle replacement on a 25 to 35 square roof takes a crew of 4 to 6 workers about 1 to 3 days. A single-layer tear-off on a simple gable roof can finish in a day. Multiple layers to remove, steep pitch, cut-up rooflines with dormers and valleys, or bad weather extend the timeline. Metal and tile roofs typically take 3 to 5 days depending on complexity.</div>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most residential asphalt shingle roofs can be torn off and replaced in 1 to 3 days with a full crew (4-6 workers). Simple gable roofs on single-story homes are often a single-day job. Complex roofs with multiple valleys, dormers, and steep pitch can take 3 to 5 days. Metal and tile installations take longer — typically 3 to 7 days depending on the system and complexity.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is included in a roof replacement quote?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A complete roof replacement quote should include tear-off and disposal of existing material, new underlayment, drip edge, flashing, ridge cap, and the roofing material itself. It should also cover labor, permits, dumpster rental, and cleanup. Items often quoted separately include gutter replacement, soffit and fascia repair, skylight re-flashing, and chimney flashing. Always itemize so the homeowner sees exactly what they are paying for.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How many squares is my roof?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A roofing square is 100 square feet. To estimate roof squares, take the home's footprint square footage and multiply by a pitch factor: low pitch (4/12 or less) multiply by 1.06, medium pitch (5/12 to 8/12) multiply by 1.12 to 1.20, steep pitch (9/12 and above) multiply by 1.25 to 1.41. Then divide by 100. For example, a 2,000 sq ft footprint with medium pitch: 2,000 x 1.15 = 2,300 sq ft roof area, or 23 squares.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I tear off the old roof or overlay?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Tear-off is almost always the better choice. It lets you inspect and repair the deck, install proper underlayment, and start with a clean surface. Most building codes limit roofs to two layers maximum, and many roofers will not warranty work over an existing layer. Overlays save $1,000-$2,000 on tear-off but hide potential deck damage and reduce shingle lifespan. For your liability and reputation, tear-off is the professional recommendation.</div>
           </details>
         </div>
       </section>
@@ -222,103 +194,72 @@ const faqSchema = {
 
 <script>
   function calculate(): void {
-    const squares = parseFloat((document.getElementById('roofSquares') as HTMLInputElement).value) || 30;
-    const pitch = (document.getElementById('roofPitch') as HTMLSelectElement).value;
-    const materialType = (document.getElementById('materialType') as HTMLSelectElement).value;
-    const layers = parseInt((document.getElementById('layersToRemove') as HTMLSelectElement).value);
+    const roofSquares = parseFloat((document.getElementById('roofSquares') as HTMLInputElement).value) || 25;
+    const pitch = (document.getElementById('pitch') as HTMLSelectElement).value;
+    const material = (document.getElementById('material') as HTMLSelectElement).value;
+    const layers = parseInt((document.getElementById('layers') as HTMLSelectElement).value);
     const complexity = (document.getElementById('complexity') as HTMLSelectElement).value;
-    const deckRepair = (document.getElementById('deckRepair') as HTMLSelectElement).value;
 
     // Material cost per square (materials only)
-    const materialCosts: Record<string, { low: number; high: number }> = {
-      '3tab':              { low: 80,   high: 120  },
-      'architectural':     { low: 100,  high: 180  },
-      'premium-shingle':   { low: 160,  high: 280  },
-      'metal-standing':    { low: 300,  high: 700  },
-      'metal-corrugated':  { low: 200,  high: 400  },
-      'tile':              { low: 500,  high: 1000 },
-      'slate':             { low: 800,  high: 1500 },
+    const materialCostPerSquare: Record<string, { low: number; high: number }> = {
+      '3-tab': { low: 80, high: 110 },
+      'architectural': { low: 100, high: 160 },
+      'metal': { low: 300, high: 600 },
+      'tile': { low: 400, high: 800 },
     };
 
-    // Base labor cost per square (installation only)
-    const laborCosts: Record<string, { low: number; high: number }> = {
-      '3tab':              { low: 150, high: 220 },
-      'architectural':     { low: 160, high: 250 },
-      'premium-shingle':   { low: 180, high: 280 },
-      'metal-standing':    { low: 250, high: 450 },
-      'metal-corrugated':  { low: 200, high: 350 },
-      'tile':              { low: 350, high: 600 },
-      'slate':             { low: 500, high: 900 },
+    // Labor cost per square (base)
+    const laborCostPerSquare: Record<string, { low: number; high: number }> = {
+      '3-tab': { low: 150, high: 250 },
+      'architectural': { low: 175, high: 300 },
+      'metal': { low: 250, high: 450 },
+      'tile': { low: 300, high: 500 },
     };
+
+    const matCost = materialCostPerSquare[material] ?? materialCostPerSquare['architectural'];
+    const labCost = laborCostPerSquare[material] ?? laborCostPerSquare['architectural'];
 
     // Pitch multiplier (affects labor)
-    const pitchMultiplier: Record<string, number> = {
-      low: 0.90,
-      standard: 1.00,
-      steep: 1.25,
-      extreme: 1.50,
-    };
-    const pitchFactor = pitchMultiplier[pitch] ?? 1.0;
+    const pitchMultiplier: Record<string, number> = { low: 0.9, medium: 1.0, steep: 1.4 };
+    const pitchMult = pitchMultiplier[pitch] ?? 1.0;
 
-    // Complexity multiplier
-    const complexityMultiplier: Record<string, number> = {
-      simple: 0.85,
-      moderate: 1.00,
-      complex: 1.20,
-      'very-complex': 1.45,
-    };
-    const complexFactor = complexityMultiplier[complexity] ?? 1.0;
+    // Complexity multiplier (affects labor and some materials)
+    const complexityMultiplier: Record<string, number> = { simple: 1.0, 'cut-up': 1.2, 'very-complex': 1.45 };
+    const compMult = complexityMultiplier[complexity] ?? 1.0;
 
-    // Tear-off cost per square per layer
-    const tearoffPerSquarePerLayer = 110; // average including disposal
-    const tearoffTotal = squares * layers * tearoffPerSquarePerLayer * pitchFactor;
+    // Disposal cost per square
+    const disposalPerSquare = layers === 2 ? 35 : 20;
+    const totalDisposal = Math.round(roofSquares * disposalPerSquare);
 
-    // Deck repair cost
-    const deckCosts: Record<string, number> = {
-      none: 0,
-      minor: squares * 15,
-      moderate: squares * 40,
-      major: squares * 75,
-    };
-    const deckCost = deckCosts[deckRepair] ?? 0;
+    // Materials total
+    const matLow = Math.round(roofSquares * matCost.low * compMult);
+    const matHigh = Math.round(roofSquares * matCost.high * compMult);
+    const matMid = Math.round((matLow + matHigh) / 2);
 
-    // Materials
-    const matRange = materialCosts[materialType] ?? materialCosts.architectural;
-    const matLow = squares * matRange.low;
-    const matHigh = squares * matRange.high;
-
-    // Labor (affected by pitch and complexity)
-    const labRange = laborCosts[materialType] ?? laborCosts.architectural;
-    const labLow = squares * labRange.low * pitchFactor * complexFactor;
-    const labHigh = squares * labRange.high * pitchFactor * complexFactor;
+    // Labor total
+    const labLow = Math.round(roofSquares * labCost.low * pitchMult * compMult);
+    const labHigh = Math.round(roofSquares * labCost.high * pitchMult * compMult);
+    const labMid = Math.round((labLow + labHigh) / 2);
 
     // Totals
-    const totalLow = Math.round(matLow + labLow + tearoffTotal + deckCost);
-    const totalHigh = Math.round(matHigh + labHigh + tearoffTotal + deckCost);
-    const totalMid = Math.round((totalLow + totalHigh) / 2);
-
-    // Breakdown at mid point
-    const materialsMid = Math.round((matLow + matHigh) / 2);
-    const laborMid = Math.round((labLow + labHigh) / 2);
-    const tearoffMid = Math.round(tearoffTotal);
+    const lowCost = matLow + labLow + totalDisposal;
+    const highCost = matHigh + labHigh + totalDisposal;
+    const midCost = Math.round((lowCost + highCost) / 2);
 
     const fmt = (n: number): string => '$' + n.toLocaleString();
 
-    document.getElementById('result-low')!.textContent = fmt(totalLow);
-    document.getElementById('result-mid')!.textContent = fmt(totalMid);
-    document.getElementById('result-high')!.textContent = fmt(totalHigh);
-    document.getElementById('result-materials')!.textContent = fmt(materialsMid);
-    document.getElementById('result-labor')!.textContent = fmt(laborMid);
-    document.getElementById('result-tearoff')!.textContent = fmt(tearoffMid);
-    document.getElementById('result-persquare')!.textContent = fmt(Math.round(totalMid / squares));
+    document.getElementById('result-low')!.textContent = fmt(lowCost);
+    document.getElementById('result-mid')!.textContent = fmt(midCost);
+    document.getElementById('result-high')!.textContent = fmt(highCost);
+    document.getElementById('result-materials')!.textContent = fmt(matMid);
+    document.getElementById('result-labor')!.textContent = fmt(labMid);
+    document.getElementById('result-disposal')!.textContent = fmt(totalDisposal);
+    document.getElementById('result-persquare')!.textContent = fmt(Math.round(midCost / roofSquares));
   }
 
-  // Auto-calculate on any input change
   document.querySelectorAll('#cost-calc select, #cost-calc input').forEach(el => {
     el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);
   });
-
-  // Calculate on load with defaults
   calculate();
 </script>

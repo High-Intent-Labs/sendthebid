@@ -10,34 +10,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How much should a handyman charge per hour?",
+      "name": "How do I price handyman jobs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most handymen charge between $75 and $150 per hour depending on the market, skill level, and job type. Major metros and specialized tasks push toward the higher end. When you factor in drive time, quoting time, and overhead, your effective hourly rate needs to be at least $75 to stay profitable as a solo operator. Many experienced handymen target $100-125/hr as their billable rate."
+        "text": "Most handymen price jobs using either an hourly rate ($50-$100/hr depending on market) plus materials, or a flat rate for common tasks. For small jobs under 2 hours, a minimum trip charge ($75-$150) ensures you cover your drive time and overhead. For larger jobs, estimate the hours, add materials cost, and apply your hourly rate plus markup on materials."
       }
     },
     {
       "@type": "Question",
-      "name": "Should I charge a trip charge or minimum fee?",
+      "name": "What should I charge as a minimum trip charge?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. A trip charge or minimum fee (typically $75-150) covers your drive time, vehicle costs, and the fixed overhead of showing up. Without it, small 30-minute jobs become money losers after you account for travel, quoting, and invoicing. Some handymen fold the trip charge into a minimum job price instead of listing it separately."
+        "text": "A trip charge covers your drive time, vehicle costs, insurance overhead, and the minimum time to set up and complete a small task. Most handymen charge $75-$150 as a minimum. Your trip charge should cover at least 1 hour of labor plus your average drive time. If you are consistently doing jobs under your minimum, raise it."
       }
     },
     {
       "@type": "Question",
-      "name": "How much should I mark up materials?",
+      "name": "Should I charge by the hour or by the job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A standard materials markup for handyman work is 15-25%. This covers your time sourcing and picking up materials, fuel for supply runs, and the risk of buying the wrong item. Some handymen use a flat markup percentage while others charge materials at cost plus a separate supply run fee. Either way, never pass materials through at your cost — your time and vehicle have value."
+        "text": "Flat-rate pricing is generally better for both you and the customer. Customers prefer knowing the total cost upfront, and you earn more as you get faster at common tasks. Use hourly pricing for unpredictable work like troubleshooting, demo, or jobs where the scope might change. For recurring tasks you know well, develop flat-rate prices based on your average completion time."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I price a handyman job I have never done before?",
+      "name": "How much markup should I add to materials?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Estimate the hours honestly, then add a 25-30% buffer for unknowns. Research material costs before quoting. If the job type is completely new to you, be upfront with the customer about providing a time-and-materials quote rather than a fixed price. As you complete more of those jobs, you will build a reference library of actual times that makes future bids more accurate."
+        "text": "A standard materials markup for handyman work is 15-25%. This covers your time shopping, fuel to the supply house, and the risk of buying wrong items or dealing with returns. Some handymen use a flat pickup fee ($25-$50) instead of markup. Either way, never provide materials at cost — your time sourcing them has value."
       }
     }
   ]
@@ -51,147 +51,147 @@ const faqSchema = {
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="jobType">Job Type</label>
         <select id="jobType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="drywall-patch" selected>Drywall Patch / Repair</option>
-          <option value="door-install">Interior Door Install</option>
-          <option value="faucet-replacement">Faucet Replacement</option>
-          <option value="ceiling-fan">Ceiling Fan Install</option>
-          <option value="shelving">Shelving / Mounting</option>
-          <option value="tile-repair">Tile Repair</option>
-          <option value="general-repair">General Repair</option>
+          <option value="general" selected>General Repair</option>
+          <option value="drywall">Drywall Patch / Repair</option>
+          <option value="painting">Painting (per room)</option>
+          <option value="plumbing">Minor Plumbing (faucet, toilet)</option>
+          <option value="electrical">Minor Electrical (outlet, switch, fixture)</option>
+          <option value="carpentry">Carpentry (trim, shelving, doors)</option>
+          <option value="assembly">Furniture / Equipment Assembly</option>
+          <option value="mounting">TV / Shelf Mounting</option>
+          <option value="pressure-wash">Pressure Washing</option>
+          <option value="gutter">Gutter Cleaning</option>
+          <option value="demo">Light Demolition</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="estimatedHours">Estimated Hours</label>
-        <input type="number" id="estimatedHours" value="2" min="0.5" max="40" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="hours">Estimated Hours</label>
+        <select id="hours" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0.5">30 min</option>
+          <option value="1">1 hour</option>
+          <option value="1.5">1.5 hours</option>
+          <option value="2" selected>2 hours</option>
+          <option value="3">3 hours</option>
+          <option value="4">4 hours (half day)</option>
+          <option value="6">6 hours</option>
+          <option value="8">8 hours (full day)</option>
+        </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="hourlyRate">Your Hourly Rate ($)</label>
-        <input type="number" id="hourlyRate" value="100" min="50" max="300" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <input type="number" id="hourlyRate" value="75" min="25" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="materialsCost">Materials Cost ($)</label>
-        <input type="number" id="materialsCost" value="50" min="0" max="5000" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materials">Materials Cost ($)</label>
+        <input type="number" id="materials" value="0" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="markupPercent">Materials Markup (%)</label>
-        <select id="markupPercent" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="0">0% (pass-through)</option>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tripCharge">Trip / Service Charge ($)</label>
+        <input type="number" id="tripCharge" value="75" min="0" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="materialsMarkup">Materials Markup (%)</label>
+        <select id="materialsMarkup" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0">No markup</option>
           <option value="15">15%</option>
           <option value="20" selected>20%</option>
           <option value="25">25%</option>
-          <option value="30">30%</option>
         </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="tripCharge">Trip Charge ($)</label>
-        <input type="number" id="tripCharge" value="75" min="0" max="300" step="5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
     </div>
 
     <!-- Results -->
     <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Job Price Breakdown</h3>
+      <h3 class="font-heading font-bold text-xl mb-6">Customer Quote</h3>
 
-      <!-- Total Price -->
-      <div class="bg-bg-dark rounded-xl p-6 mb-6">
-        <div class="flex justify-between items-end mb-3">
-          <div class="text-center">
-            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Labor</div>
-            <div id="result-labor" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
-          </div>
-          <div class="text-center">
-            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Total Price</div>
-            <div id="result-total" class="font-heading font-extrabold text-3xl text-accent">--</div>
-          </div>
-          <div class="text-center">
-            <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-1">Materials (w/ markup)</div>
-            <div id="result-materials" class="font-heading font-extrabold text-xl text-text-secondary">--</div>
-          </div>
-        </div>
-        <div class="relative h-3 bg-bg-card rounded-full overflow-hidden mt-4">
-          <div id="range-bar" class="absolute inset-y-0 left-[10%] right-[10%] rounded-full bg-gradient-to-r from-accent/40 via-accent to-accent/40"></div>
-          <div id="range-marker" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full border-2 border-white shadow-lg"></div>
-        </div>
-      </div>
-
-      <!-- Detail Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Effective Hourly Rate</div>
-          <div id="result-effective" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">all-in per hour</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Labor</div>
+          <div id="result-labor" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Materials (w/ markup)</div>
+          <div id="result-materials" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Trip Charge</div>
           <div id="result-trip" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">included in total</div>
         </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Markup Earned</div>
-          <div id="result-markup" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">on materials</div>
-        </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Your Gross Profit</div>
-          <div id="result-profit" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
-          <div class="text-text-muted text-xs mt-1">before overhead</div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center border border-accent/30">
+          <div class="text-accent text-xs font-medium uppercase tracking-wider mb-2">Total Price</div>
+          <div id="result-total" class="font-heading font-extrabold text-3xl text-accent">--</div>
         </div>
       </div>
 
-      <p class="text-text-muted text-sm italic">Use this as a starting point for your quote. Always adjust for job-specific complexity, access difficulty, and any factors that could extend the work beyond your initial hour estimate.</p>
+      <!-- Effective rate -->
+      <div class="bg-bg-dark rounded-xl p-5 mb-6">
+        <div class="flex justify-between items-center">
+          <div>
+            <div class="text-text-muted text-xs font-medium uppercase tracking-wider">Effective Hourly Rate</div>
+            <div class="text-text-secondary text-sm mt-1">What you actually earn per hour on this job (total / hours)</div>
+          </div>
+          <div id="result-effective" class="font-heading font-extrabold text-2xl text-text-primary">--</div>
+        </div>
+      </div>
+
+      <p class="text-text-muted text-sm italic">Use this as a starting point for customer quotes. Adjust based on job difficulty, travel distance, and your local market rates.</p>
     </div>
   </div>
 
   <!-- Content sections -->
   <Fragment slot="content">
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <!-- How to Use -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Estimator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Select the job type.</strong> This sets context for the estimate. Different jobs have different typical hour ranges and material needs. The job type also helps you sanity-check your hour estimate against typical completion times.</p>
-          <p><strong class="text-text-primary">2. Enter your estimated hours and hourly rate.</strong> Be honest about how long the job will take including setup, the work itself, and cleanup. Your hourly rate should cover your labor, insurance, vehicle, tools, and profit margin.</p>
-          <p><strong class="text-text-primary">3. Add materials cost and markup.</strong> Enter what the materials will cost you at the store. The markup percentage covers your time shopping, driving to the supply house, and the risk of returns or wrong parts. A 20% markup is standard in the industry.</p>
-          <p><strong class="text-text-primary">4. Set your trip charge.</strong> This covers your drive time and vehicle costs for showing up. It ensures you get paid even on short jobs. The total price combines labor, marked-up materials, and the trip charge.</p>
+          <p><strong class="text-text-primary">1. Select the job type.</strong> This helps you think through the scope. Different job types have different material needs and time profiles. A drywall patch takes different tools and skills than a plumbing repair.</p>
+          <p><strong class="text-text-primary">2. Estimate the hours.</strong> Be honest with yourself about how long the job will take including setup and cleanup. If you are not sure, round up. Customers are happier when you finish early than when you run over.</p>
+          <p><strong class="text-text-primary">3. Set your rate and materials.</strong> Your hourly rate should cover your labor, insurance, vehicle, and tools. Materials cost should include everything you need to buy for this specific job. The markup covers your time shopping and picking up supplies.</p>
+          <p><strong class="text-text-primary">4. Check your effective rate.</strong> The effective hourly rate shows what you actually earn per hour on this job. If it is below your target, raise your hourly rate or trip charge. You should be earning at least $50-$75/hr after overhead on every job.</p>
         </div>
       </section>
 
+      <!-- Pricing Strategy -->
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How It Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">Pricing Your Handyman Jobs</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Labor is hours times your rate.</strong> Simple multiplication, but the key is estimating hours accurately. Track your actual job times for a few months and you will build a personal database of how long things really take. Most new handymen underestimate by 25-50%.</p>
-          <p><strong class="text-text-primary">Materials markup protects your time.</strong> That 20 minutes at Home Depot plus the drive is unbillable time. The markup compensates you for procurement. It also covers the risk of buying something that does not work and needing to make a return trip.</p>
-          <p><strong class="text-text-primary">Trip charge sets your minimum.</strong> Without a trip charge or minimum, a 30-minute job across town costs you money after drive time and overhead. A $75-150 trip charge ensures every job is worth leaving the shop for.</p>
-          <p><strong class="text-text-primary">Effective hourly rate is your real metric.</strong> The calculator shows your total price divided by estimated hours. This is what you are actually making per hour on the job. If it drops below your target rate, you need to raise the hours estimate, the rate, or both.</p>
+          <p><strong class="text-text-primary">Trip charge sets your minimum.</strong> A trip charge ensures every job is worth your time regardless of how small it is. If you drive 30 minutes to hang a single shelf, you need to earn enough to cover your drive time, fuel, and the opportunity cost of not being at another job. Set your trip charge at a level where even the smallest job is profitable.</p>
+          <p><strong class="text-text-primary">Hourly rate covers your true costs.</strong> Your rate is not just your take-home pay. It needs to cover liability insurance, vehicle expenses, tool replacement, phone, marketing, and unpaid time (quoting, invoicing, driving between jobs). Most handymen undercharge because they only think about labor cost, not total business overhead.</p>
+          <p><strong class="text-text-primary">Materials markup is not optional.</strong> When you drive to the hardware store, pick out the right parts, and haul them to the job site, that has value. A 15-25% markup on materials is standard in the trades. Some handymen prefer a flat pickup fee ($25-$50) instead. Either way, never provide materials at your cost.</p>
+          <p><strong class="text-text-primary">Flat-rate beats hourly for common jobs.</strong> Once you know how long a task takes you (faucet swap = 1.5 hrs, outlet replacement = 45 min), create a flat-rate price. Customers prefer knowing the total upfront, and you earn more as you get faster. Reserve hourly pricing for unpredictable work like troubleshooting or demo.</p>
         </div>
       </section>
 
+      <!-- When To Use This -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Quoting customers on the spot.</strong> A homeowner asks you to fix a few things while you are already there. Pull this up, plug in the job, and give them a price on the spot instead of saying you will follow up later. Speed in quoting wins jobs.</p>
-          <p><strong class="text-text-primary">Building a task list price book.</strong> Run common jobs through the calculator to build your own price sheet. After you know that a standard faucet swap is always around $275, you can quote it instantly without even pulling out the calculator.</p>
-          <p><strong class="text-text-primary">Checking profitability on past jobs.</strong> Plug in what you actually charged and the hours you actually worked. If your effective rate keeps coming in below your target, it is time to raise your prices or get faster at specific task types.</p>
+          <p><strong class="text-text-primary">On the phone with customers.</strong> When a customer calls asking "how much to fix my leaky faucet?", walk through the estimator to give a quick ballpark. Customers respect you more when you can give a clear number on the spot instead of saying "I need to come look at it first" for every small job.</p>
+          <p><strong class="text-text-primary">Building your price list.</strong> Run common jobs through the estimator to build a flat-rate price sheet. Once you have standard prices for your top 20 tasks, you can quote instantly and consistently. This also makes it easier to train helpers or subcontractors on your pricing.</p>
+          <p><strong class="text-text-primary">Checking your profitability.</strong> After a job, enter the actual hours and materials to see your effective hourly rate. If you are consistently earning less than your target, you need to raise your rates, charge a higher trip fee, or get faster at the work. Track this over time to make sure your business stays profitable.</p>
         </div>
       </section>
 
+      <!-- FAQ -->
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should a handyman charge per hour?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most handymen charge between $75 and $150 per hour depending on the market, skill level, and job type. Major metros and specialized tasks push toward the higher end. When you factor in drive time, quoting time, and overhead, your effective hourly rate needs to be at least $75 to stay profitable as a solo operator. Many experienced handymen target $100-125/hr as their billable rate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price handyman jobs?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Most handymen price jobs using either an hourly rate ($50-$100/hr depending on market) plus materials, or a flat rate for common tasks. For small jobs under 2 hours, a minimum trip charge ($75-$150) ensures you cover your drive time and overhead. For larger jobs, estimate the hours, add materials cost, and apply your hourly rate plus markup on materials.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge a trip charge or minimum fee?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. A trip charge or minimum fee (typically $75-150) covers your drive time, vehicle costs, and the fixed overhead of showing up. Without it, small 30-minute jobs become money losers after you account for travel, quoting, and invoicing. Some handymen fold the trip charge into a minimum job price instead of listing it separately.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What should I charge as a minimum trip charge?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A trip charge covers your drive time, vehicle costs, insurance overhead, and the minimum time to set up and complete a small task. Most handymen charge $75-$150 as a minimum. Your trip charge should cover at least 1 hour of labor plus your average drive time. If you are consistently doing jobs under your minimum, raise it.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much should I mark up materials?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard materials markup for handyman work is 15-25%. This covers your time sourcing and picking up materials, fuel for supply runs, and the risk of buying the wrong item. Some handymen use a flat markup percentage while others charge materials at cost plus a separate supply run fee. Either way, never pass materials through at your cost — your time and vehicle have value.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Should I charge by the hour or by the job?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Flat-rate pricing is generally better for both you and the customer. Customers prefer knowing the total cost upfront, and you earn more as you get faster at common tasks. Use hourly pricing for unpredictable work like troubleshooting, demo, or jobs where the scope might change. For recurring tasks you know well, develop flat-rate prices based on your average completion time.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I price a handyman job I have never done before?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Estimate the hours honestly, then add a 25-30% buffer for unknowns. Research material costs before quoting. If the job type is completely new to you, be upfront with the customer about providing a time-and-materials quote rather than a fixed price. As you complete more of those jobs, you will build a reference library of actual times that makes future bids more accurate.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How much markup should I add to materials?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A standard materials markup for handyman work is 15-25%. This covers your time shopping, fuel to the supply house, and the risk of buying wrong items or dealing with returns. Some handymen use a flat pickup fee ($25-$50) instead of markup. Either way, never provide materials at cost -- your time sourcing them has value.</div>
           </details>
         </div>
       </section>
@@ -200,50 +200,33 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  interface JobInputs {
-    jobType: string;
-    estimatedHours: number;
-    hourlyRate: number;
-    materialsCost: number;
-    markupPercent: number;
-    tripCharge: number;
-  }
-
-  function calculate(): void {
-    const jobType = (document.getElementById('jobType') as HTMLSelectElement).value;
-    const estimatedHours = parseFloat((document.getElementById('estimatedHours') as HTMLInputElement).value) || 2;
-    const hourlyRate = parseFloat((document.getElementById('hourlyRate') as HTMLInputElement).value) || 100;
-    const materialsCost = parseFloat((document.getElementById('materialsCost') as HTMLInputElement).value) || 0;
-    const markupPercent = parseFloat((document.getElementById('markupPercent') as HTMLSelectElement).value) / 100;
+  function calculate() {
+    const hours = parseFloat((document.getElementById('hours') as HTMLSelectElement).value);
+    const hourlyRate = parseFloat((document.getElementById('hourlyRate') as HTMLInputElement).value) || 0;
+    const materials = parseFloat((document.getElementById('materials') as HTMLInputElement).value) || 0;
     const tripCharge = parseFloat((document.getElementById('tripCharge') as HTMLInputElement).value) || 0;
+    const materialsMarkup = parseFloat((document.getElementById('materialsMarkup') as HTMLSelectElement).value) || 0;
 
-    // Calculate components
-    const laborCost = estimatedHours * hourlyRate;
-    const markupAmount = materialsCost * markupPercent;
-    const materialsWithMarkup = materialsCost + markupAmount;
-    const totalPrice = laborCost + materialsWithMarkup + tripCharge;
+    const laborCost = hours * hourlyRate;
+    const materialsCost = materials * (1 + materialsMarkup / 100);
+    const totalPrice = laborCost + materialsCost + tripCharge;
+    const effectiveRate = hours > 0 ? totalPrice / hours : 0;
 
-    // Effective hourly rate (total divided by hours)
-    const effectiveRate = totalPrice / estimatedHours;
-
-    // Gross profit (total minus raw materials cost)
-    const grossProfit = totalPrice - materialsCost;
-
-    const fmt = (n: number): string => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const fmt = (n: number) => '$' + n.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
     document.getElementById('result-labor')!.textContent = fmt(laborCost);
-    document.getElementById('result-total')!.textContent = fmt(totalPrice);
-    document.getElementById('result-materials')!.textContent = fmt(materialsWithMarkup);
-    document.getElementById('result-effective')!.textContent = fmt(Math.round(effectiveRate));
+    document.getElementById('result-materials')!.textContent = fmt(materialsCost);
     document.getElementById('result-trip')!.textContent = fmt(tripCharge);
-    document.getElementById('result-markup')!.textContent = fmt(Math.round(markupAmount));
-    document.getElementById('result-profit')!.textContent = fmt(Math.round(grossProfit));
+    document.getElementById('result-total')!.textContent = fmt(totalPrice);
+    document.getElementById('result-effective')!.textContent = fmt(effectiveRate) + '/hr';
   }
 
+  // Auto-calculate on input change
   document.querySelectorAll('#cost-calc select, #cost-calc input').forEach(el => {
     el.addEventListener('change', calculate);
     el.addEventListener('input', calculate);
   });
 
+  // Calculate on load with defaults
   calculate();
 </script>

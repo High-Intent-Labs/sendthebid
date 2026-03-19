@@ -192,6 +192,15 @@ const saveMsg = saveMessaging[category] || saveMessaging.technical;
 
         if (!res.ok) {
           const errBody = await res.json().catch(() => ({}));
+          if (res.status === 401) {
+            // Session fully expired — prompt re-login
+            btnText.textContent = 'Session expired — log in again';
+            btn.disabled = false;
+            btn.addEventListener('click', () => {
+              (window as any).openSignupModal?.('direct');
+            }, { once: true });
+            return;
+          }
           throw new Error(errBody.detail || errBody.error || `HTTP ${res.status}`);
         }
 

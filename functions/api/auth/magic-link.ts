@@ -40,14 +40,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           unsubscribed: false,
           firstName: '',
           lastName: '',
-          data: {
-            source: 'nailthequote.com',
-            trade: trade || '',
-            tool: toolSlug || '',
-            signup_type: trigger === 'tier1_upsell' ? 'account_upsell' : trigger === 'repeat_visit' ? 'repeat_visit' : 'account_creation',
-            signup_trigger: trigger || 'direct',
-            signup_date: new Date().toISOString().split('T')[0],
-          },
         }).catch(() => {}); // Non-blocking
       }
     }

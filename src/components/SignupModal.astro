@@ -220,6 +220,8 @@
     signupError.classList.add('hidden');
     magicLinkBtn.disabled = true;
     magicLinkBtn.textContent = 'Sending...';
+    magicLinkBtn.style.opacity = '0.6';
+    magicLinkBtn.style.cursor = 'wait';
 
     try {
       const res = await fetch('/api/auth/magic-link', {
@@ -245,6 +247,8 @@
       signupError.textContent = 'Something went wrong. Please try again.';
       signupError.classList.remove('hidden');
       magicLinkBtn.disabled = false;
+      magicLinkBtn.style.opacity = '1';
+      magicLinkBtn.style.cursor = 'pointer';
       const isLogin = modal.getAttribute('data-tab') === 'login';
       magicLinkBtn.textContent = isLogin ? 'Send me a login link' : 'Create my free account';
     }
@@ -277,19 +281,26 @@
   // Expose openModal globally for trigger points
   (window as any).openSignupModal = openModal;
 
-  // Repeat visit detection
-  let visitCount = 0;
+  // Repeat visit detection — only count NEW sessions, not every page load
+  let sessionCount = 0;
   try {
-    visitCount = parseInt(localStorage.getItem('ntq_visit_count') || '0', 10) + 1;
-    localStorage.setItem('ntq_visit_count', String(visitCount));
+    const isNewSession = !sessionStorage.getItem('ntq_session_counted');
+    if (isNewSession) {
+      sessionStorage.setItem('ntq_session_counted', '1');
+      sessionCount = parseInt(localStorage.getItem('ntq_session_count') || '0', 10) + 1;
+      localStorage.setItem('ntq_session_count', String(sessionCount));
+    } else {
+      sessionCount = parseInt(localStorage.getItem('ntq_session_count') || '0', 10);
+    }
   } catch { /* localStorage unavailable or corrupt — skip */ }
 
-  // Show repeat visit prompt every 5th visit (not per session — per total visits)
+  // Show repeat visit prompt every 5th session (not page load)
   try {
-  if (visitCount > 0 && visitCount % 5 === 0 && !localStorage.getItem('ntq_has_account')) {
-    const lastPromptVisit = parseInt(localStorage.getItem('ntq_last_prompt_visit') || '0', 10);
-    if (lastPromptVisit !== visitCount) {
-      localStorage.setItem('ntq_last_prompt_visit', String(visitCount));
+  if (sessionCount > 0 && sessionCount % 5 === 0 && !localStorage.getItem('ntq_has_account')) {
+    const isNewSession = sessionStorage.getItem('ntq_session_counted') === '1';
+    const lastPromptSession = parseInt(localStorage.getItem('ntq_last_prompt_session') || '0', 10);
+    if (isNewSession && lastPromptSession !== sessionCount) {
+      localStorage.setItem('ntq_last_prompt_session', String(sessionCount));
       setTimeout(() => {
         if (modal.classList.contains('hidden')) {
           openModal('repeat_visit');

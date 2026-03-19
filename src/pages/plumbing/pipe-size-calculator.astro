@@ -206,7 +206,7 @@ const faqSchema = {
       // Hazen-Williams friction loss per 100 ft
       // hl = (4.52 * Q^1.85) / (C^1.85 * d^4.87)
       const hl = (4.52 * Math.pow(gpm, 1.85)) / (Math.pow(C, 1.85) * Math.pow(d, 4.87));
-      const totalFrictionPSI = (hl * equivLength / 100) * 0.433; // convert ft head to PSI
+      const totalFrictionPSI = hl * equivLength * 0.433; // hl is ft head per ft of pipe, convert to PSI
 
       if (velocity <= maxVelocity && totalFrictionPSI < pressure * 0.5) {
         bestPipe = pipe;
@@ -219,7 +219,7 @@ const faqSchema = {
       bestFriction = hl;
     }
 
-    const frictionPSI = (bestFriction * equivLength / 100) * 0.433;
+    const frictionPSI = bestFriction * equivLength * 0.433;
 
     document.getElementById('r-size')!.textContent = bestPipe.name;
     document.getElementById('r-gpm')!.textContent = gpm.toFixed(1) + ' GPM';

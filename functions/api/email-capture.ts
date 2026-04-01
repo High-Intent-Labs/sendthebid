@@ -35,6 +35,67 @@ function isDuplicate(email: string): boolean {
   return false;
 }
 
+// --- Admin data endpoint: GET /api/email-capture?admin=1 ---
+const ADMIN_PASSWORD = 'nailthequoteangi26';
+
+export const onRequestGet: PagesFunction<Env> = async (context) => {
+  try {
+    const authHeader = context.request.headers.get('X-Admin-Key');
+    if (authHeader !== ADMIN_PASSWORD) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+    }
+
+    const supabase = getSupabaseAdmin(context.env);
+
+    const { data: profiles, error: e1 } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
+    if (e1) return new Response(JSON.stringify({ error: 'profiles', detail: e1.message }), { status: 500 });
+
+    const { data: calculations, error: e2 } = await supabase.from('saved_calculations').select('user_id, tool_slug, trade, label, created_at').order('created_at', { ascending: false });
+    if (e2) return new Response(JSON.stringify({ error: 'calculations', detail: e2.message }), { status: 500 });
+
+    const { data: documents, error: e3 } = await supabase.from('saved_documents').select('user_id, doc_type, client_name, amount, status, created_at').order('created_at', { ascending: false });
+    if (e3) return new Response(JSON.stringify({ error: 'documents', detail: e3.message }), { status: 500 });
+
+    const { data: emailCaptures, error: e4 } = await supabase.from('email_captures').select('*').order('created_at', { ascending: false });
+    if (e4) return new Response(JSON.stringify({ error: 'emails', detail: e4.message }), { status: 500 });
+
+    const activityMap: Record<string, { tools: Record<string, number>; totalCalcs: number; documents: any[]; lastActive: string }> = {};
+    for (const calc of calculations || []) {
+      if (!activityMap[calc.user_id]) activityMap[calc.user_id] = { tools: {}, totalCalcs: 0, documents: [], lastActive: calc.created_at };
+      const key = `${calc.trade}/${calc.tool_slug}`;
+      activityMap[calc.user_id].tools[key] = (activityMap[calc.user_id].tools[key] || 0) + 1;
+      activityMap[calc.user_id].totalCalcs++;
+    }
+    for (const doc of documents || []) {
+      if (!activityMap[doc.user_id]) activityMap[doc.user_id] = { tools: {}, totalCalcs: 0, documents: [], lastActive: doc.created_at };
+      activityMap[doc.user_id].documents.push({ type: doc.doc_type, client: doc.client_name, amount: doc.amount, status: doc.status, created_at: doc.created_at });
+    }
+
+    const users = (profiles || []).map((p: any) => {
+      const a = activityMap[p.id] || { tools: {}, totalCalcs: 0, documents: [], lastActive: null };
+      return {
+        id: p.id, email: p.email, created_at: p.created_at,
+        business_name: p.business_name || null, owner_name: p.owner_name || null,
+        trade: p.trade || null, phone: p.phone || null,
+        address: p.address || null, zip_code: p.zip_code || null,
+        license_number: p.license_number || null,
+        default_hourly_rate: p.default_hourly_rate || null,
+        default_markup: p.default_markup || null, marketing_consent: p.marketing_consent,
+        tools_used: a.tools, total_calculations: a.totalCalcs,
+        documents: a.documents, last_active: a.lastActive,
+      };
+    });
+
+    return new Response(JSON.stringify({
+      users, email_captures: emailCaptures || [],
+      summary: { total_users: users.length, total_email_captures: (emailCaptures || []).length, total_calculations: (calculations || []).length, total_documents: (documents || []).length },
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  } catch (e: any) {
+    return new Response(JSON.stringify({ error: e?.message || 'Internal error' }), { status: 500 });
+  }
+};
+
+// --- Email capture endpoint: POST /api/email-capture ---
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const body: any = await context.request.json();

@@ -12,25 +12,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <!-- Login gate -->
     <div id="admin-login" class="flex items-center justify-center py-24">
-      <div class="bg-bg-card border border-border rounded-2xl p-8 w-full max-w-md">
+      <div class="bg-bg-card border border-border rounded-2xl p-8 w-full max-w-sm">
         <h1 class="font-heading font-bold text-2xl mb-2 text-center">Admin Portal</h1>
-        <p class="text-text-secondary text-sm text-center mb-6">Enter credentials to continue.</p>
-        <input
-          type="text"
-          id="admin-supabase-url"
-          placeholder="Supabase URL (https://xxx.supabase.co)"
-          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors mb-3"
-        />
-        <input
-          type="text"
-          id="admin-supabase-key"
-          placeholder="Supabase anon key"
-          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors mb-3"
-        />
+        <p class="text-text-secondary text-sm text-center mb-6">Enter the admin password to continue.</p>
         <input
           type="password"
           id="admin-password"
-          placeholder="Admin password"
+          placeholder="Password"
           class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors mb-4"
         />
         <button
@@ -41,7 +29,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Log in
         </button>
         <p id="admin-login-error" class="hidden text-[#EF4444] text-sm mt-3 text-center"></p>
-        <p class="text-text-muted text-xs mt-4 text-center">Supabase URL and anon key are found in your Supabase project settings &rarr; API.</p>
       </div>
     </div>
 
@@ -141,43 +128,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  let supabaseUrl = '';
-  let supabaseKey = '';
+  const SUPABASE_URL = 'https://toovnncuvzqzurugmiib.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3ZubmN1dnpxenVydWdtaWliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NjUxNTYsImV4cCI6MjA4OTM0MTE1Nn0.5oKsdl8AYhUDGOVReAuYUCGOARY_z3G6x-Firkn5oaY';
   let adminPassword = '';
   let cachedData: any = null;
 
   // --- Login ---
   const loginSection = document.getElementById('admin-login')!;
   const contentSection = document.getElementById('admin-content')!;
-  const urlInput = document.getElementById('admin-supabase-url') as HTMLInputElement;
-  const keyInput = document.getElementById('admin-supabase-key') as HTMLInputElement;
   const passwordInput = document.getElementById('admin-password') as HTMLInputElement;
   const loginBtn = document.getElementById('admin-login-btn')!;
   const loginError = document.getElementById('admin-login-error')!;
 
   // Check for saved session
-  const savedSession = sessionStorage.getItem('ntq_admin_session');
-  if (savedSession) {
-    try {
-      const s = JSON.parse(savedSession);
-      supabaseUrl = s.url;
-      supabaseKey = s.key;
-      adminPassword = s.pw;
-      loginSection.classList.add('hidden');
-      contentSection.classList.remove('hidden');
-      loadData();
-    } catch { /* ignore bad session */ }
+  const savedPw = sessionStorage.getItem('ntq_admin_pw');
+  if (savedPw) {
+    adminPassword = savedPw;
+    loginSection.classList.add('hidden');
+    contentSection.classList.remove('hidden');
+    loadData();
   }
 
   loginBtn.addEventListener('click', attemptLogin);
   passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') attemptLogin(); });
 
-  async function callSupabaseRpc(url: string, key: string, password: string) {
-    const res = await fetch(`${url}/rest/v1/rpc/get_admin_data`, {
+  async function callSupabaseRpc(password: string) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_admin_data`, {
       method: 'POST',
       headers: {
-        'apikey': key,
-        'Authorization': `Bearer ${key}`,
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ admin_password: password }),
@@ -239,27 +219,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   async function attemptLogin() {
-    const url = urlInput.value.trim().replace(/\/$/, '');
-    const key = keyInput.value.trim();
     const pw = passwordInput.value.trim();
-
-    if (!url || !key || !pw) {
-      loginError.textContent = 'All fields are required.';
-      loginError.classList.remove('hidden');
-      return;
-    }
+    if (!pw) return;
 
     loginBtn.textContent = 'Checking...';
     loginError.classList.add('hidden');
 
     try {
-      const rpcResult = await callSupabaseRpc(url, key, pw);
+      const rpcResult = await callSupabaseRpc(pw);
       const data = transformRpcData(rpcResult);
 
-      supabaseUrl = url;
-      supabaseKey = key;
       adminPassword = pw;
-      sessionStorage.setItem('ntq_admin_session', JSON.stringify({ url, key, pw }));
+      sessionStorage.setItem('ntq_admin_pw', pw);
       cachedData = data;
 
       loginSection.classList.add('hidden');
@@ -278,11 +249,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     loading.classList.remove('hidden');
 
     try {
-      const rpcResult = await callSupabaseRpc(supabaseUrl, supabaseKey, adminPassword);
+      const rpcResult = await callSupabaseRpc(adminPassword);
       cachedData = transformRpcData(rpcResult);
       renderData(cachedData);
     } catch {
-      sessionStorage.removeItem('ntq_admin_session');
+      sessionStorage.removeItem('ntq_admin_pw');
       loginSection.classList.remove('hidden');
       contentSection.classList.add('hidden');
     } finally {

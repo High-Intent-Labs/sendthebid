@@ -32,13 +32,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     const env = context.env;
 
-    // Fetch all data in parallel using raw fetch
-    const [profiles, calculations, documents, emailCaptures] = await Promise.all([
-      supabaseQuery(env, 'profiles', '*', 'created_at.desc'),
-      supabaseQuery(env, 'saved_calculations', 'user_id,tool_slug,trade,label,created_at', 'created_at.desc'),
-      supabaseQuery(env, 'saved_documents', 'user_id,doc_type,client_name,amount,status,created_at', 'created_at.desc'),
-      supabaseQuery(env, 'email_captures', '*', 'created_at.desc'),
-    ]);
+    // Fetch data sequentially to avoid intermittent DNS resolution issues
+    const profiles = await supabaseQuery(env, 'profiles', '*', 'created_at.desc');
+    const calculations = await supabaseQuery(env, 'saved_calculations', 'user_id,tool_slug,trade,label,created_at', 'created_at.desc');
+    const documents = await supabaseQuery(env, 'saved_documents', 'user_id,doc_type,client_name,amount,status,created_at', 'created_at.desc');
+    const emailCaptures = await supabaseQuery(env, 'email_captures', '*', 'created_at.desc');
 
     // Build activity per user
     const activityMap: Record<string, { tools: Record<string, number>; totalCalcs: number; documents: any[]; lastActive: string }> = {};

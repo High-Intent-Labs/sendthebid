@@ -13,12 +13,21 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     const supabase = getSupabaseAdmin(context.env);
 
-    // 1. Fetch all auth users from Supabase
-    const { data: authData, error: authError } = await supabase.auth.admin.listUsers({
-      perPage: 1000,
-    });
-    if (authError) {
-      return new Response(JSON.stringify({ error: 'Failed to list auth users' }), { status: 500 });
+    // 1. Fetch all auth users from Supabase (paginate to get all)
+    let allAuthUsers: any[] = [];
+    let page = 1;
+    while (true) {
+      const { data, error: authError } = await supabase.auth.admin.listUsers({
+        page,
+        perPage: 500,
+      });
+      if (authError) {
+        return new Response(JSON.stringify({ error: 'Failed to list auth users', detail: authError.message }), { status: 500 });
+      }
+      const users = data?.users || [];
+      allAuthUsers = allAuthUsers.concat(users);
+      if (users.length < 500) break;
+      page++;
     }
 
     // 2. Fetch all profiles
@@ -27,7 +36,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .select('*')
       .order('created_at', { ascending: false });
     if (profilesError) {
-      return new Response(JSON.stringify({ error: 'Failed to load profiles' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Failed to load profiles', detail: profilesError.message }), { status: 500 });
     }
 
     // 3. Fetch all saved calculations (grouped counts per user/tool)
@@ -36,7 +45,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .select('user_id, tool_slug, trade, label, created_at')
       .order('created_at', { ascending: false });
     if (calcsError) {
-      return new Response(JSON.stringify({ error: 'Failed to load calculations' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Failed to load calculations', detail: calcsError.message }), { status: 500 });
     }
 
     // 4. Fetch all saved documents
@@ -45,7 +54,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .select('user_id, doc_type, client_name, amount, status, created_at')
       .order('created_at', { ascending: false });
     if (docsError) {
-      return new Response(JSON.stringify({ error: 'Failed to load documents' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Failed to load documents', detail: docsError.message }), { status: 500 });
     }
 
     // 5. Fetch email captures
@@ -54,7 +63,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .select('*')
       .order('created_at', { ascending: false });
     if (emailError) {
-      return new Response(JSON.stringify({ error: 'Failed to load email captures' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Failed to load email captures', detail: emailError.message }), { status: 500 });
     }
 
     // Build profile map
@@ -89,7 +98,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     }
 
     // Merge into user objects
-    const users = (authData?.users || []).map((authUser: any) => {
+    const users = allAuthUsers.map((authUser: any) => {
       const profile = profileMap[authUser.id] || {};
       const activity = activityMap[authUser.id] || { tools: {}, totalCalcs: 0, documents: [], lastActive: null };
 

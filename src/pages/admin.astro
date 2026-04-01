@@ -169,7 +169,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         return;
       }
 
-      if (!res.ok) throw new Error('Server error');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.detail || body.error || 'Server error');
+      }
 
       adminKey = pw;
       sessionStorage.setItem('ntq_admin_key', pw);
@@ -178,8 +181,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       loginSection.classList.add('hidden');
       contentSection.classList.remove('hidden');
       renderData(cachedData);
-    } catch {
-      loginError.textContent = 'Something went wrong. Try again.';
+    } catch (e: any) {
+      loginError.textContent = e?.message || 'Something went wrong. Try again.';
       loginError.classList.remove('hidden');
       loginBtn.textContent = 'Log in';
     }

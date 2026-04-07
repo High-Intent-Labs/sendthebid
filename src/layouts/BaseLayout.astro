@@ -67,6 +67,15 @@ const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
     <script type="application/ld+json" set:html={JSON.stringify(s)} />
   ))}
 
+  <!-- Google tag (gtag.js) - Google Ads: AW-17899660858 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17899660858"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17899660858');
+  </script>
+
   <!-- Cloudflare Analytics: uncomment and add token when ready -->
   <!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'></script> -->
 </head>

@@ -160,8 +160,8 @@ const roomTypes = [
             <path d="M2.5 6.667L9.025 11.05a1.667 1.667 0 001.95 0L17.5 6.667M4.167 15h11.666A1.667 1.667 0 0017.5 13.333V6.667A1.667 1.667 0 0015.833 5H4.167A1.667 1.667 0 002.5 6.667v6.666A1.667 1.667 0 004.167 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 class="font-heading font-bold text-xl text-text-primary mb-2">Your mini-split size is ready</h3>
-        <p class="text-text-secondary text-sm mb-6">Enter your email to get your room load calculation — cooling BTU, closest standard mini-split size, and suggested airflow.</p>
+        <h3 id="gate-headline" class="font-heading font-bold text-xl text-text-primary mb-2">Your mini-split size is ready</h3>
+        <p id="gate-subhead" class="text-text-secondary text-sm mb-6">Enter your email to get your room load calculation — cooling BTU, closest standard mini-split size, and suggested airflow.</p>
         <div class="flex flex-col sm:flex-row gap-3 mb-3">
           <label for="gate-email" class="sr-only">Your work email</label>
           <input type="email" id="gate-email" placeholder="you@company.com" required
@@ -293,6 +293,73 @@ const roomTypes = [
     RoomInputs, RoomType, Orientation, ExposedWalls, RoomInsulation, RoomResult,
   } from '../../lib/hvac-calc';
 
+  // ---------------------------------------------------------------------------
+  // A/B/C copy test on the email gate (experiment: mss_gate_copy)
+  // ---------------------------------------------------------------------------
+  // Assigns a sticky variant per user via localStorage, applies the copy to the
+  // gate headline / subhead / CTA button before the gate is shown. Conversion
+  // rate per variant is measured via two PostHog events tagged with ab_variant:
+  //   - gate_shown    (fires when the email gate is revealed — denominator)
+  //   - email_captured (fires on successful gate submission — numerator)
+  // Analysis query (HogQL): filter events where properties.experiment =
+  // 'mss_gate_copy', group by properties.ab_variant, count email_captured /
+  // count gate_shown = per-variant conversion rate.
+  const AB_EXPERIMENT = 'mss_gate_copy';
+  const AB_KEY = 'ntq_ab_mss_gate';
+  const AB_ASSIGNED_KEY = 'ntq_ab_mss_gate_fired';
+  const VARIANTS = {
+    A: {
+      headline: 'Your sizing specs are ready.',
+      subhead: 'Email yourself a summary — BTU, unit size, CFM, and the inputs that got you there.',
+      cta: 'Email Me the Specs',
+    },
+    B: {
+      headline: 'Where should we send your sizing?',
+      subhead: "We'll email the full breakdown — so you never lose the inputs and results.",
+      cta: 'Email My Results',
+    },
+    C: {
+      headline: 'One email — so you have it saved.',
+      subhead: "We'll email the full breakdown — BTU, unit size, CFM, and the inputs that got you there.",
+      cta: 'Send My Results',
+    },
+  } as const;
+  type Variant = keyof typeof VARIANTS;
+
+  function pickVariant(): Variant {
+    const keys: Variant[] = ['A', 'B', 'C'];
+    try {
+      const stored = localStorage.getItem(AB_KEY);
+      if (stored === 'A' || stored === 'B' || stored === 'C') return stored;
+      const chosen = keys[Math.floor(Math.random() * keys.length)];
+      localStorage.setItem(AB_KEY, chosen);
+      return chosen;
+    } catch {
+      // Private browsing / localStorage blocked → random per pageview (still valid data)
+      return keys[Math.floor(Math.random() * keys.length)];
+    }
+  }
+
+  const abVariant = pickVariant();
+  const copy = VARIANTS[abVariant];
+
+  // Apply variant copy to the gate (gate is hidden until Calculate, so no FOUC)
+  document.getElementById('gate-headline')!.textContent = copy.headline;
+  document.getElementById('gate-subhead')!.textContent = copy.subhead;
+  document.getElementById('gate-submit')!.textContent = copy.cta;
+
+  // Fire ab_variant_assigned exactly once per user (not per pageview)
+  try {
+    if (!localStorage.getItem(AB_ASSIGNED_KEY)) {
+      (window as any).posthog?.capture('ab_variant_assigned', {
+        experiment: AB_EXPERIMENT,
+        ab_variant: abVariant,
+        tool_slug: 'mini-split-sizing-calculator',
+      });
+      localStorage.setItem(AB_ASSIGNED_KEY, '1');
+    }
+  } catch { /* ignore storage errors */ }
+
   let climate: ReturnType<typeof lookupZip> = null;
   let roomType: RoomType = 'bedroom';
   let orientation: Orientation = 'S';
@@ -407,6 +474,13 @@ const roomTypes = [
     document.getElementById('calc-btn-area')!.classList.add('hidden');
     document.getElementById('email-gate')!.classList.remove('hidden');
     (document.getElementById('gate-email') as HTMLInputElement).focus();
+
+    // A/B/C: record that the gate was shown to this arm (denominator for conversion rate)
+    (window as any).posthog?.capture('gate_shown', {
+      experiment: AB_EXPERIMENT,
+      ab_variant: abVariant,
+      tool_slug: 'mini-split-sizing-calculator',
+    });
   });
 
   const gateSubmit = document.getElementById('gate-submit') as HTMLButtonElement;
@@ -483,6 +557,9 @@ const roomTypes = [
           marketing_consent: gateConsent.checked,
           gated: true,
           mode: 'mini-split',
+          // A/B/C test tagging — pairs with gate_shown for conversion rate
+          experiment: AB_EXPERIMENT,
+          ab_variant: abVariant,
         });
       }
       if (typeof (window as any).gtag === 'function') {

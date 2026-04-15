@@ -230,11 +230,6 @@ const webAppSchema = {
               See My Results
             </button>
           </div>
-          <label class="flex items-center justify-center gap-2 cursor-pointer select-none">
-            <input type="checkbox" id="gate-consent" checked class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
-            <span class="text-text-muted text-xs">Also send me cost estimates and installer matches. Unsubscribe anytime.</span>
-          </label>
-          <p class="text-text-muted text-[11px] mt-3">By submitting, you agree we may share your ZIP + project type with licensed installers so they can quote you.</p>
           <div id="gate-error" class="hidden mt-3 text-sm text-[#EF4444]"></div>
         </div>
       </div>
@@ -808,7 +803,6 @@ const webAppSchema = {
   // ---------------------------------------------------------------------
   const gateSubmit = document.getElementById('gate-submit') as HTMLButtonElement;
   const gateEmail = document.getElementById('gate-email') as HTMLInputElement;
-  const gateConsent = document.getElementById('gate-consent') as HTMLInputElement;
   const gateError = document.getElementById('gate-error')!;
 
   gateSubmit.addEventListener('click', async () => {
@@ -833,7 +827,7 @@ const webAppSchema = {
           toolName: 'What Size AC Do I Need?',
           tradeSlug: 'hvac',
           tradeName: 'HVAC',
-          marketingConsent: gateConsent.checked,
+          marketingConsent: true,
           sourceUrl: window.location.pathname,
           calculationResults: {
             mode: 'ac-room',
@@ -872,7 +866,7 @@ const webAppSchema = {
           trade_name: meta.tradeName,
           tool_name: meta.toolName,
           tool_category: meta.category,
-          marketing_consent: gateConsent.checked,
+          marketing_consent: true,
           gated: true,
           mode: 'ac-room',
           experiment: AB_EXPERIMENT,

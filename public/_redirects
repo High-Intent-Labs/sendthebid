@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects
+# Retired HVAC tools (Apr 2026) — superseded by load-calculator + mini-split-sizing-calculator
+
+/hvac/btu-calculator/                /hvac/mini-split-sizing-calculator/   301
+/hvac/btu-calculator                 /hvac/mini-split-sizing-calculator/   301
+/hvac/manual-j-calculator/           /hvac/                                 301
+/hvac/manual-j-calculator            /hvac/                                 301

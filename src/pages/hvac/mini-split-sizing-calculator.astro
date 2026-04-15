@@ -1,0 +1,502 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { getToolBySlug } from '../../data/hvacTools';
+
+const tool = getToolBySlug('mini-split-sizing-calculator')!;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What size mini-split do I need for a 12x14 bedroom?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A typical 12x14 (168 sqft) bedroom in a mixed climate needs roughly 6,000-9,000 BTU depending on insulation, orientation, and exposed walls. A 9,000 BTU mini-split is usually the right starting size. Enter your specific details above for a precise recommendation." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is room-level sizing different from whole-house sizing?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Whole-house sizing averages across all spaces and assumes central distribution. Room-level sizing accounts for each room's specific exposure — a corner room facing south with 3 exposed walls has 40-50% more cooling load than an interior room of the same size. For mini-split sizing, room-level accuracy matters a lot more than whole-house." }
+    },
+    {
+      "@type": "Question",
+      "name": "What BTU sizes do standard mini-splits come in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Standard residential mini-split head units come in 9k, 12k, 18k, 24k, and 36k BTU. Our tool rounds your calculated load to the closest standard size. Oversizing by more than one tier leads to short-cycling and humidity problems, so aim to match the standard size or slightly undersize if you're close to the boundary." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does CFM mean in the results?",
+      "acceptedAnswer": { "@type": "Answer", "text": "CFM (cubic feet per minute) is the airflow the unit needs to deliver the calculated cooling load. Useful if you're designing ductwork or selecting a ducted mini-split. The rule of thumb is cooling BTU ÷ 30, which assumes a 20°F temperature differential across the coil." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does orientation really matter that much?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. A west-facing room in summer takes direct afternoon sun and can run 15-20% hotter than an east-facing room of the same size. South-facing rooms in hot climates are even worse. Our tool applies an orientation factor (N: 0.95, E: 1.0, W: 1.10, S: 1.15) to account for this." }
+    }
+  ]
+};
+
+const roomTypes = [
+  { v: 'bedroom',  l: 'Bedroom' },
+  { v: 'living',   l: 'Living Room' },
+  { v: 'kitchen',  l: 'Kitchen' },
+  { v: 'bathroom', l: 'Bathroom' },
+  { v: 'office',   l: 'Home Office' },
+  { v: 'dining',   l: 'Dining Room' },
+  { v: 'other',    l: 'Other' },
+];
+---
+
+<ToolLayout tool={tool} extraSchema={[faqSchema]} hideCards>
+  <div id="mss-calc">
+    <!-- ZIP + climate display -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-text-secondary mb-2" for="zip">ZIP Code</label>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 02108"
+          class="w-full sm:max-w-[180px] bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <div id="zip-display" class="text-text-secondary text-sm">Enter a 5-digit US ZIP to detect your climate region.</div>
+      </div>
+      <div id="zip-fallback" class="hidden mt-3">
+        <p class="text-text-muted text-xs mb-2">ZIP not found — pick your climate region:</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" data-region="hot"   class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Hot</button>
+          <button type="button" data-region="warm"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Warm</button>
+          <button type="button" data-region="mixed" class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Mixed</button>
+          <button type="button" data-region="cool"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Cool</button>
+          <button type="button" data-region="cold"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Cold</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room type pill picker -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-text-secondary mb-2">Room Type</label>
+      <div class="flex flex-wrap gap-2" id="roomtype-pills">
+        {roomTypes.map((r, i) => (
+          <button type="button" data-roomtype={r.v}
+            class={`roomtype-pill bg-bg-dark border ${i === 0 ? 'border-accent' : 'border-border'} rounded-lg px-4 py-2 text-sm hover:border-accent transition-colors`}>
+            {r.l}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Room geometry -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="length">Room Length (ft)</label>
+        <input type="number" id="length" value="12" min="4" max="100" step="0.5"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="width">Room Width (ft)</label>
+        <input type="number" id="width" value="12" min="4" max="100" step="0.5"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="ceiling">Ceiling Height (ft)</label>
+        <input type="number" id="ceiling" value="8" min="6" max="20" step="0.5"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="exposed">Exposed Walls</label>
+        <select id="exposed" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="1">1 — interior room</option>
+          <option value="2" selected>2 — corner room</option>
+          <option value="3">3 walls</option>
+          <option value="4">4 — detached</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2">Primary Orientation</label>
+        <div class="flex gap-2" id="orientation-pills">
+          <button type="button" data-orient="N" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">N</button>
+          <button type="button" data-orient="E" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">E</button>
+          <button type="button" data-orient="S" class="orient-pill flex-1 bg-bg-dark border-accent rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">S</button>
+          <button type="button" data-orient="W" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">W</button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="insulation">Insulation Level</label>
+        <select id="insulation" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="excellent">Excellent (new construction / deep retrofit)</option>
+          <option value="good">Good (above average)</option>
+          <option value="average" selected>Average (standard code)</option>
+          <option value="poor">Poor (pre-1990 unimproved)</option>
+          <option value="bad">Bad (no wall insulation)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="windowArea">Window Area (sq ft)</label>
+        <input type="number" id="windowArea" value="20" min="0" max="500" step="1"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="doorArea">Exterior Door Area (sq ft)</label>
+        <input type="number" id="doorArea" value="0" min="0" max="100" step="1"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      </div>
+      <div class="flex flex-col justify-end">
+        <p id="derived" class="text-text-muted text-xs leading-snug">
+          <span class="text-text-secondary">Room floor area:</span> <span id="d-sqft">144</span> sq ft<br>
+          <span class="text-text-secondary">Volume:</span> <span id="d-vol">1,152</span> cu ft
+        </p>
+      </div>
+    </div>
+
+    <div id="calc-btn-area" class="mt-2">
+      <button id="calculate-btn" type="button"
+        class="w-full bg-accent hover:bg-accent-hover text-white font-heading font-bold text-lg px-8 py-4 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        Calculate Mini-Split Size
+      </button>
+      <p id="calc-hint" class="hidden mt-3 text-sm text-[#EF4444]"></p>
+    </div>
+
+    <div id="email-gate" class="hidden mt-8 border-t border-border pt-8">
+      <div class="max-w-lg mx-auto text-center">
+        <div class="w-14 h-14 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
+          <svg width="28" height="28" viewBox="0 0 20 20" fill="none" class="text-accent">
+            <path d="M2.5 6.667L9.025 11.05a1.667 1.667 0 001.95 0L17.5 6.667M4.167 15h11.666A1.667 1.667 0 0017.5 13.333V6.667A1.667 1.667 0 0015.833 5H4.167A1.667 1.667 0 002.5 6.667v6.666A1.667 1.667 0 004.167 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-bold text-xl text-text-primary mb-2">Your mini-split size is ready</h3>
+        <p class="text-text-secondary text-sm mb-6">Enter your email to get your room load calculation — cooling BTU, closest standard mini-split size, and suggested airflow.</p>
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+          <label for="gate-email" class="sr-only">Your work email</label>
+          <input type="email" id="gate-email" placeholder="you@company.com" required
+            class="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors placeholder:text-text-muted" />
+          <button id="gate-submit" type="button"
+            class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+            Send My Results
+          </button>
+        </div>
+        <label class="flex items-center justify-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" id="gate-consent" checked class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-muted text-xs">Also send me free tools and tips for pros. Unsubscribe anytime.</span>
+        </label>
+        <div id="gate-error" class="hidden mt-3 text-sm text-[#EF4444]"></div>
+      </div>
+    </div>
+
+    <div id="results" class="hidden mt-8 border-t border-border pt-8">
+      <div class="mb-6 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] rounded-xl p-4 flex items-start gap-3">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-[rgba(52,211,153,0.15)] flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" class="text-[#34D399]">
+            <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-text-primary font-semibold text-sm">Results also sent to your inbox</p>
+          <p class="text-text-secondary text-xs mt-0.5">Don't see it? Check your Spam or Promotions folder.</p>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-xl mb-6">Your Mini-Split Size</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cooling Load</div>
+          <div id="r-cool" class="font-heading font-extrabold text-2xl text-accent">—</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Closest Standard Size</div>
+          <div id="r-std" class="font-heading font-extrabold text-lg text-text-primary">—</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Heating Load</div>
+          <div id="r-heat" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
+        </div>
+        <div class="bg-bg-dark rounded-xl p-5 text-center">
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Suggested Airflow</div>
+          <div id="r-cfm" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
+        </div>
+      </div>
+      <p class="text-text-muted text-sm italic">Estimate only. Match to the closest standard size — oversizing leads to short-cycling and humidity problems.</p>
+    </div>
+  </div>
+
+  <Fragment slot="content">
+    <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">1. Enter the ZIP of the job site.</strong> Auto-detects climate region — one of the top drivers of cooling load.</p>
+          <p><strong class="text-text-primary">2. Pick the room type.</strong> Bedroom, living room, kitchen, bathroom, office, dining. This sets internal gains automatically (kitchens get 4,000+ BTU extra for cooking).</p>
+          <p><strong class="text-text-primary">3. Measure the room.</strong> Inside wall to inside wall. Length × Width × Ceiling height. We derive floor area and volume automatically.</p>
+          <p><strong class="text-text-primary">4. Count exposed walls.</strong> An interior room with 1 wall touching outside air behaves very differently from a 3-walled corner. This factor changes the load by up to 40%.</p>
+          <p><strong class="text-text-primary">5. Pick the primary orientation.</strong> Which direction the main exterior wall faces. South and west take more solar load in summer.</p>
+          <p><strong class="text-text-primary">6. Measure window and door area.</strong> Actual glass/door area in sqft — a standard door is 20 sqft. Glass is the dominant envelope heat transfer path.</p>
+          <p><strong class="text-text-primary">7. Click Calculate.</strong> Enter your email. We'll send the cooling BTU, closest mini-split size (9k/12k/18k/24k/36k), and suggested CFM.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Calculation Works</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p>We use a 25 BTU/sqft room baseline (higher than whole-house because individual rooms don't benefit from shared thermal mass and ductwork losses), then apply multipliers for each driver.</p>
+          <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
+            <p>base = length × width × 25 × (ceiling / 8)</p>
+            <p class="mt-2">envelope = base × exposedWallFactor × orientationFactor × insulationFactor</p>
+            <p class="mt-2">gains = windowArea × 870 + doorArea × 50 + roomTypeInternal</p>
+            <p class="mt-2">coolingBTU = (envelope + gains) × climateFactor</p>
+            <p class="mt-2">heatingBTU = coolingBTU × heatingFactor(region)</p>
+            <p class="mt-2">closest = nearest([9000, 12000, 18000, 24000, 36000])</p>
+            <p class="mt-2">CFM = coolingBTU / 30</p>
+          </div>
+          <p>Exposed wall factor: 0.85 (interior) → 1.25 (4-wall detached). Orientation factor: N 0.95, E 1.00, W 1.10, S 1.15. These follow standard Manual J adjustment patterns for room-level calculations.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">When to Use This vs Whole-House</h2>
+        <div class="text-text-secondary leading-relaxed space-y-3">
+          <p><strong class="text-text-primary">Use this tool when:</strong> sizing an individual mini-split head for a single room, sizing a zoned addition, troubleshooting a room that's too hot or cold, or designing room-level ductwork.</p>
+          <p><strong class="text-text-primary">Use the whole-house <a href="/hvac/load-calculator/" class="text-accent hover:underline">Load Calculator</a> when:</strong> sizing a central system, a single outdoor heat pump unit, or quoting a full-house replacement. Room-level accuracy doesn't matter as much at that scale.</p>
+          <p><strong class="text-text-primary">For permit work:</strong> neither of our tools is ACCA-accredited. Use <a href="https://www.coolcalc.com/" target="_blank" rel="noopener" class="text-accent hover:underline">CoolCalc</a> or paid tools like Wrightsoft.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size mini-split do I need for a 12x14 bedroom?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Roughly 6,000-9,000 BTU for a typical 12×14 bedroom in a mixed climate, depending on insulation, orientation, and exposed walls. A 9k mini-split is usually the right starting point. Enter your specifics above for a precise number.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How is this different from whole-house sizing?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Room-level accounts for each room's specific exposure. A corner bedroom facing south with 3 exposed walls has 40-50% more cooling load than an interior room of the same size. For mini-splits, this accuracy matters — for central systems, less so.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What BTU sizes do mini-splits come in?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Standard residential head units: 9k, 12k, 18k, 24k, 36k BTU. We round your calculated load to the closest standard. Avoid oversizing by more than one tier — it causes short-cycling and humidity problems.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What does CFM mean in the results?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Cubic feet per minute — the airflow needed to deliver the calculated cooling load. Useful for ductwork or selecting a ducted mini-split. Rule of thumb: cooling BTU ÷ 30, assuming a 20°F coil ΔT.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Does orientation really matter?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. A west-facing room in summer takes direct afternoon sun and can run 15-20% hotter than an east-facing room of the same size. Our factor: N 0.95, E 1.00, W 1.10, S 1.15.</div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </Fragment>
+</ToolLayout>
+
+<script>
+  import { lookupZip, lookupRegion, REGIONS } from '../../lib/climate';
+  import type { Region } from '../../lib/climate';
+  import { calcRoom } from '../../lib/hvac-calc';
+  import type {
+    RoomInputs, RoomType, Orientation, ExposedWalls, RoomInsulation, RoomResult,
+  } from '../../lib/hvac-calc';
+
+  let climate: ReturnType<typeof lookupZip> = null;
+  let roomType: RoomType = 'bedroom';
+  let orientation: Orientation = 'S';
+
+  const zipInput = document.getElementById('zip') as HTMLInputElement;
+  const zipDisplay = document.getElementById('zip-display')!;
+  const zipFallback = document.getElementById('zip-fallback')!;
+
+  function setClimateFromZip(raw: string) {
+    const zip = raw.replace(/\D/g, '').slice(0, 5);
+    if (zip.length < 3) {
+      climate = null;
+      zipDisplay.textContent = 'Enter a 5-digit US ZIP to detect your climate region.';
+      zipFallback.classList.add('hidden');
+      return;
+    }
+    const lookup = lookupZip(zip);
+    if (lookup) {
+      climate = lookup;
+      zipDisplay.innerHTML = `<span class="text-text-primary font-medium">${lookup.state}</span> &middot; <span class="text-accent font-medium">${lookup.regionLabel} region</span>`;
+      zipFallback.classList.add('hidden');
+    } else if (zip.length >= 3) {
+      climate = null;
+      zipDisplay.textContent = 'ZIP not recognized.';
+      zipFallback.classList.remove('hidden');
+    }
+  }
+  zipInput.addEventListener('input', () => setClimateFromZip(zipInput.value));
+
+  document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const region = btn.dataset.region as Region;
+      climate = lookupRegion(region, zipInput.value, '');
+      const meta = REGIONS[region];
+      zipDisplay.innerHTML = `<span class="text-accent font-medium">${meta.label} region</span> <span class="text-text-muted">(manually selected)</span>`;
+      zipFallback.classList.add('hidden');
+      document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(b => b.classList.remove('border-accent'));
+      btn.classList.add('border-accent');
+    });
+  });
+
+  // Room type pills
+  document.querySelectorAll<HTMLButtonElement>('.roomtype-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      roomType = (btn.dataset.roomtype || 'bedroom') as RoomType;
+      document.querySelectorAll<HTMLButtonElement>('.roomtype-pill').forEach(b => {
+        b.classList.remove('border-accent');
+        b.classList.add('border', 'border-border');
+      });
+      btn.classList.remove('border-border');
+      btn.classList.add('border-accent');
+    });
+  });
+
+  // Orientation pills
+  document.querySelectorAll<HTMLButtonElement>('.orient-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      orientation = (btn.dataset.orient || 'S') as Orientation;
+      document.querySelectorAll<HTMLButtonElement>('.orient-pill').forEach(b => {
+        b.classList.remove('border-accent');
+        b.classList.add('border', 'border-border');
+      });
+      btn.classList.remove('border-border');
+      btn.classList.add('border-accent');
+    });
+  });
+
+  // Derived sqft/volume live display
+  function updateDerived() {
+    const l = parseFloat((document.getElementById('length') as HTMLInputElement).value) || 0;
+    const w = parseFloat((document.getElementById('width') as HTMLInputElement).value) || 0;
+    const c = parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 0;
+    document.getElementById('d-sqft')!.textContent = (l * w).toLocaleString();
+    document.getElementById('d-vol')!.textContent = (l * w * c).toLocaleString();
+  }
+  ['length', 'width', 'ceiling'].forEach(id => {
+    document.getElementById(id)!.addEventListener('input', updateDerived);
+  });
+  updateDerived();
+
+  let pendingResult: RoomResult | null = null;
+  let pendingInputs: RoomInputs | null = null;
+  const calcBtn = document.getElementById('calculate-btn') as HTMLButtonElement;
+  const calcHint = document.getElementById('calc-hint')!;
+
+  function readInputs(): RoomInputs | null {
+    if (!climate) {
+      calcHint.textContent = 'Please enter a valid ZIP code or pick a climate region.';
+      calcHint.classList.remove('hidden');
+      return null;
+    }
+    calcHint.classList.add('hidden');
+    return {
+      climate,
+      roomType,
+      orientation,
+      length: parseFloat((document.getElementById('length') as HTMLInputElement).value) || 12,
+      width: parseFloat((document.getElementById('width') as HTMLInputElement).value) || 12,
+      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 8,
+      exposedWalls: parseInt((document.getElementById('exposed') as HTMLSelectElement).value) as ExposedWalls,
+      windowAreaSqFt: parseFloat((document.getElementById('windowArea') as HTMLInputElement).value) || 0,
+      doorAreaSqFt: parseFloat((document.getElementById('doorArea') as HTMLInputElement).value) || 0,
+      insulation: (document.getElementById('insulation') as HTMLSelectElement).value as RoomInsulation,
+    };
+  }
+
+  calcBtn.addEventListener('click', () => {
+    const inputs = readInputs();
+    if (!inputs) return;
+    pendingInputs = inputs;
+    pendingResult = calcRoom(inputs);
+    document.getElementById('calc-btn-area')!.classList.add('hidden');
+    document.getElementById('email-gate')!.classList.remove('hidden');
+    (document.getElementById('gate-email') as HTMLInputElement).focus();
+  });
+
+  const gateSubmit = document.getElementById('gate-submit') as HTMLButtonElement;
+  const gateEmail = document.getElementById('gate-email') as HTMLInputElement;
+  const gateConsent = document.getElementById('gate-consent') as HTMLInputElement;
+  const gateError = document.getElementById('gate-error')!;
+
+  function showResults(r: RoomResult) {
+    document.getElementById('r-cool')!.textContent = r.coolingBTU.toLocaleString() + ' BTU';
+    document.getElementById('r-heat')!.textContent = r.heatingBTU.toLocaleString() + ' BTU';
+    document.getElementById('r-std')!.textContent = r.closestStandardLabel;
+    document.getElementById('r-cfm')!.textContent = r.suggestedCFM + ' CFM';
+    document.getElementById('results')!.classList.remove('hidden');
+    document.getElementById('results')!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  gateSubmit.addEventListener('click', async () => {
+    const email = gateEmail.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      gateError.textContent = 'Please enter a valid email address.';
+      gateError.classList.remove('hidden');
+      return;
+    }
+    if (!pendingResult || !pendingInputs) return;
+    gateError.classList.add('hidden');
+    gateSubmit.disabled = true;
+    gateSubmit.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('/api/email-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          toolSlug: 'mini-split-sizing-calculator',
+          toolName: 'Mini-Split Sizing Calculator',
+          tradeSlug: 'hvac',
+          tradeName: 'HVAC',
+          marketingConsent: gateConsent.checked,
+          sourceUrl: window.location.pathname,
+          calculationResults: {
+            mode: 'mini-split',
+            coolingBTU: pendingResult.coolingBTU,
+            heatingBTU: pendingResult.heatingBTU,
+            tonnage: pendingResult.tonnage,
+            closestStandardBTU: pendingResult.closestStandardBTU,
+            closestStandardLabel: pendingResult.closestStandardLabel,
+            suggestedCFM: pendingResult.suggestedCFM,
+            sqft: pendingResult.sqft,
+            state: pendingInputs.climate.state,
+            region: pendingInputs.climate.regionLabel,
+            roomType: pendingInputs.roomType,
+            dimensions: `${pendingInputs.length} × ${pendingInputs.width} ft`,
+            exposedWalls: pendingInputs.exposedWalls,
+            orientation: pendingInputs.orientation,
+            insulation: pendingInputs.insulation,
+            windowArea: pendingInputs.windowAreaSqFt,
+          },
+        }),
+      });
+      if (!res.ok) throw new Error('Failed to send');
+
+      document.getElementById('email-gate')!.classList.add('hidden');
+      showResults(pendingResult);
+
+      const meta = (window as any).__ntqToolMeta;
+      if ((window as any).posthog && meta) {
+        (window as any).posthog.capture('email_captured', {
+          tool_slug: meta.toolSlug,
+          trade_slug: meta.tradeSlug,
+          trade_name: meta.tradeName,
+          tool_name: meta.toolName,
+          tool_category: meta.category,
+          marketing_consent: gateConsent.checked,
+          gated: true,
+          mode: 'mini-split',
+        });
+      }
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'conversion', { send_to: 'AW-17899660858/rqouCLin75gcELrMnNdC' });
+      }
+    } catch {
+      gateError.textContent = 'Something went wrong. Please try again.';
+      gateError.classList.remove('hidden');
+      gateSubmit.disabled = false;
+      gateSubmit.textContent = 'Send My Results';
+    }
+  });
+
+  gateEmail.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') gateSubmit.click();
+  });
+</script>

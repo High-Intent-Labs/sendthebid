@@ -147,24 +147,68 @@ function buildResultsEmail(toolName: string, tradeName: string, toolUrl: string)
 //   - No styled CTA buttons — use a plain text link
 //   - Minimal HTML styling, white background, no card / borders / colors
 // Pair with the `Auto-Submitted: auto-generated` header set at send time.
+// Transactional results email — deliberately plain to stay out of Gmail's
+// Promotions tab. Branches on results.mode:
+//   'whole-house'  → cooling/heating/tonnage + whole-house inputs
+//   'mini-split'   → cooling/heating + closest standard size + CFM + room inputs
+//   (legacy / none) → falls back to simplified Manual J table shape
 function buildResultsEmailWithData(
   toolName: string,
   toolUrl: string,
-  results: {
-    coolBtu?: number;
-    heatBtu?: number;
-    tonnage?: number;
-    lowRange?: number;
-    highRange?: number;
-    sqft?: number;
-    climateZone?: string;
-    insulation?: string;
-  },
+  results: any,
 ): string {
-  const fmt = (n?: number) => (n || n === 0) ? n.toLocaleString('en-US') : '—';
+  const fmt = (n?: number) => (n === 0 || !!n) ? n.toLocaleString('en-US') : '—';
   const row = (label: string, value: string) =>
     `<tr><td style="padding:6px 0;color:#555;font-size:14px;">${label}</td><td style="padding:6px 0;font-weight:600;color:#111;font-size:14px;text-align:right;">${value}</td></tr>`;
   const displayUrl = toolUrl.replace(/^https?:\/\//, '');
+
+  const mode = results?.mode;
+
+  // Results table varies by mode
+  let resultRows = '';
+  let inputRows = '';
+
+  if (mode === 'whole-house') {
+    resultRows = [
+      row('Cooling load', `${fmt(results.coolingBTU)} BTU`),
+      row('Heating load', `${fmt(results.heatingBTU)} BTU`),
+      row('System tonnage', `${results.tonnage ?? '—'} ton`),
+    ].join('');
+    inputRows = [
+      results.state ? row('Location', `${results.state} — ${results.region} region`) : '',
+      results.sqft ? row('Square footage', `${fmt(results.sqft)} sq ft`) : '',
+      results.ceilingHeight ? row('Ceiling height', `${results.ceilingHeight} ft`) : '',
+      results.insulation ? row('Insulation', results.insulation) : '',
+    ].join('');
+  } else if (mode === 'mini-split') {
+    resultRows = [
+      row('Cooling load', `${fmt(results.coolingBTU)} BTU`),
+      row('Closest standard size', results.closestStandardLabel || '—'),
+      row('Heating load', `${fmt(results.heatingBTU)} BTU`),
+      row('Suggested airflow', `${fmt(results.suggestedCFM)} CFM`),
+    ].join('');
+    inputRows = [
+      results.state ? row('Location', `${results.state} — ${results.region} region`) : '',
+      results.roomType ? row('Room type', String(results.roomType).charAt(0).toUpperCase() + String(results.roomType).slice(1)) : '',
+      results.dimensions ? row('Dimensions', `${results.dimensions} (${fmt(results.sqft)} sq ft)`) : '',
+      results.exposedWalls ? row('Exposed walls', String(results.exposedWalls)) : '',
+      results.orientation ? row('Primary orientation', results.orientation) : '',
+      results.insulation ? row('Insulation', results.insulation) : '',
+      (results.windowArea || results.windowArea === 0) ? row('Window area', `${fmt(results.windowArea)} sq ft`) : '',
+    ].join('');
+  } else {
+    // Legacy fallback (pre-mode calculationResults — old Manual J shape)
+    resultRows = [
+      row('Cooling load', `${fmt(results.coolBtu)} BTU`),
+      row('Heating load', `${fmt(results.heatBtu)} BTU`),
+      row('System tonnage', `${results.tonnage ?? '—'} ton`),
+    ].join('');
+    inputRows = [
+      results.sqft ? row('Square footage', `${fmt(results.sqft)} sq ft`) : '',
+      results.climateZone ? row('Climate zone', results.climateZone) : '',
+      results.insulation ? row('Insulation', results.insulation) : '',
+    ].join('');
+  }
 
   return `<!DOCTYPE html>
 <html>
@@ -176,24 +220,21 @@ function buildResultsEmailWithData(
 
     <table style="width:100%;border-collapse:collapse;margin:0 0 24px 0;">
       <tbody>
-        ${row('Cooling load', `${fmt(results.coolBtu)} BTU`)}
-        ${row('Heating load', `${fmt(results.heatBtu)} BTU`)}
-        ${row('System tonnage', `${results.tonnage ?? '—'} ton`)}
-        ${row('Size range', `${fmt(results.lowRange)}–${fmt(results.highRange)} BTU`)}
+        ${resultRows}
       </tbody>
     </table>
 
+    ${inputRows ? `
     <p style="font-size:14px;color:#555;margin:0 0 6px 0;font-weight:600;">Inputs used</p>
     <table style="width:100%;border-collapse:collapse;margin:0 0 24px 0;">
       <tbody>
-        ${results.sqft ? row('Square footage', `${fmt(results.sqft)} sq ft`) : ''}
-        ${results.climateZone ? row('Climate zone', results.climateZone) : ''}
-        ${results.insulation ? row('Insulation', results.insulation) : ''}
+        ${inputRows}
       </tbody>
     </table>
+    ` : ''}
 
     <p style="font-size:13px;color:#666;line-height:1.5;margin:0 0 24px 0;">
-      This is a simplified estimate. A full ACCA Manual J is required for permit applications and final equipment selection.
+      Estimate only. For permit-ready Manual J, use ACCA-accredited software like CoolCalc.
     </p>
 
     <p style="font-size:14px;color:#333;margin:0;">

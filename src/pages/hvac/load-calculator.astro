@@ -10,119 +10,193 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do I calculate HVAC load for a house?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Start with 20 BTU per square foot, then multiply by adjustment factors for climate zone, insulation quality, ceiling height, and sun exposure. Add BTU for windows, doors, occupants, and kitchen. Divide cooling BTU by 12,000 to get tonnage." }
+      "name": "Is this a Manual J calculation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No — this is a simplified whole-house load estimator for pre-quote sanity checks. It's not permit-ready. For ACCA-stamped Manual J reports, use CoolCalc or Wrightsoft. This tool gets you to within 15-20% of a full Manual J in 60 seconds, which is all most sales conversations need." }
     },
     {
       "@type": "Question",
-      "name": "What is Manual J and do I need it?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Manual J is the industry standard whole-house load calculation developed by ACCA. It considers wall construction, window types, orientation, infiltration, and duct losses. This calculator provides a simplified estimate — a full Manual J is required for permit applications and final equipment selection." }
+      "name": "How accurate is this compared to a full load calculation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Within 15-20% of a proper Manual J, typically. The main factors this tool doesn't capture are exact R-values, window SHGC ratings, duct losses, infiltration rate, and individual window orientations. Fine for sizing sanity checks. Not fine for permit applications." }
     },
     {
       "@type": "Question",
-      "name": "How many tons of AC do I need per square foot?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A rough rule is 1 ton per 500-600 square feet in moderate climates, or 1 ton per 400-500 sq ft in hot climates. However, factors like insulation, windows, and occupancy make every home different. Use this calculator for a more accurate estimate." }
+      "name": "Why do I need to enter a ZIP code?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Climate zone dramatically affects both cooling and heating loads. A 2,000 sqft home in Phoenix needs ~40% more cooling capacity than the same home in Seattle. Your ZIP maps to one of five climate regions (Hot / Warm / Mixed / Cool / Cold) that we use as a multiplier on the base load." }
     },
     {
       "@type": "Question",
-      "name": "What happens if I oversize or undersize an HVAC system?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oversizing causes short cycling, poor humidity control, higher energy bills, and premature equipment failure. Undersizing means the system runs constantly and can't maintain temperature on extreme days. Proper sizing is the most important factor in system performance." }
+      "name": "Does this work for mini-splits or ductless systems?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This tool sizes the whole-house load. For sizing an individual mini-split in a specific room, use our Mini-Split Sizing Calculator instead — it accounts for room dimensions, orientation, and exposed walls per-room, which matters a lot at the room level." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is heating BTU different from cooling BTU?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Cooling and heating loads are driven by different design conditions. In hot climates, cooling load dominates; in cold climates, heating load dominates. We apply a heating factor based on climate region to estimate the heating side — this matters especially for heat pump sizing where you need to know which load is bigger." }
     }
   ]
 };
 ---
 
-<ToolLayout tool={tool} extraSchema={[faqSchema]}>
-  <div id="load-calc">
+<ToolLayout tool={tool} extraSchema={[faqSchema]} hideCards>
+  <div id="lc-calc">
+    <!-- ZIP + climate display -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-text-secondary mb-2" for="zip">ZIP Code</label>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 85001"
+          class="w-full sm:max-w-[180px] bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <div id="zip-display" class="text-text-secondary text-sm">Enter a 5-digit US ZIP to detect your climate region.</div>
+      </div>
+      <div id="zip-fallback" class="hidden mt-3">
+        <p class="text-text-muted text-xs mb-2">ZIP not found — pick your climate region:</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" data-region="hot"   class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Hot</button>
+          <button type="button" data-region="warm"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Warm</button>
+          <button type="button" data-region="mixed" class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Mixed</button>
+          <button type="button" data-region="cool"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Cool</button>
+          <button type="button" data-region="cold"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Cold</button>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft">Total Square Footage</label>
-        <input type="number" id="sqft" value="2000" min="200" max="20000" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="sqft">Square Footage</label>
+        <input type="number" id="sqft" value="2000" min="200" max="20000"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="ceiling">Ceiling Height (ft)</label>
-        <input type="number" id="ceiling" value="8" min="6" max="20" step="0.5" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="zone">Climate Zone</label>
-        <select id="zone" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1">Zone 1 — Hot Humid (Miami, Houston)</option>
-          <option value="2">Zone 2 — Hot Dry (Phoenix, Las Vegas)</option>
-          <option value="3">Zone 3 — Warm (Atlanta, Dallas)</option>
-          <option value="4" selected>Zone 4 — Mixed (DC, Nashville, St. Louis)</option>
-          <option value="5">Zone 5 — Cool (Chicago, Boston, Denver)</option>
-          <option value="6">Zone 6 — Cold (Minneapolis, Milwaukee)</option>
-          <option value="7">Zone 7 — Very Cold (Duluth, Anchorage)</option>
-        </select>
+        <input type="number" id="ceiling" value="8" min="6" max="20" step="0.5"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="insulation">Insulation Quality</label>
         <select id="insulation" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="poor">Poor — Little/no wall insulation, single-pane</option>
-          <option value="average" selected>Average — Standard fiberglass, double-pane</option>
-          <option value="good">Good — Above-code insulation, Low-E glass</option>
-          <option value="excellent">Excellent — Spray foam, triple-pane, tight envelope</option>
+          <option value="excellent">Excellent</option>
+          <option value="better">Better than average</option>
+          <option value="average" selected>Average</option>
+          <option value="worse">Worse than average</option>
+          <option value="bad">Bad</option>
         </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="windows">Number of Windows</label>
-        <input type="number" id="windows" value="10" min="0" max="100" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="windowType">Window Type</label>
-        <select id="windowType" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1200">Single-pane</option>
-          <option value="800" selected>Double-pane</option>
-          <option value="500">Triple-pane / Low-E</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="doors">Exterior Doors</label>
-        <input type="number" id="doors" value="2" min="0" max="20" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="sun">Sun Exposure</label>
         <select id="sun" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="heavy">Heavy — South/west facing, lots of glass</option>
-          <option value="moderate" selected>Moderate — Mixed exposure</option>
-          <option value="minimal">Minimal — North facing, heavy shade</option>
+          <option value="lots">A large amount</option>
+          <option value="medium" selected>A medium amount</option>
+          <option value="little">Little or none</option>
         </select>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="occupants">Number of Occupants</label>
-        <input type="number" id="occupants" value="4" min="1" max="30" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="windows">Amount of Windows</label>
+        <select id="windows" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="standard" selected>Standard amount</option>
+          <option value="many">Many (more than standard)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="tightness">Windows &amp; Doors Tightness</label>
+        <select id="tightness" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="sealed">Sealed tight &amp; double-paned</option>
+          <option value="typical" selected>Typical fit and seal</option>
+          <option value="leaky">Not well-sealed &amp; single-paned</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="occupants">Occupants</label>
+        <select id="occupants" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="2" selected>2 or less</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-text-secondary mb-2" for="devices">Extra Devices (heat-generating)</label>
+        <select id="devices" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+          <option value="0" selected>0</option>
+          <option value="600">1</option>
+          <option value="1200">2</option>
+          <option value="1800">3</option>
+          <option value="2400">4</option>
+          <option value="3000">5</option>
+          <option value="3600">6</option>
+        </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="kitchen">Kitchen?</label>
         <select id="kitchen" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="4000" selected>Yes</option>
-          <option value="0">No</option>
+          <option value="yes" selected>Yes</option>
+          <option value="no">No</option>
         </select>
       </div>
     </div>
 
+    <div id="calc-btn-area" class="mt-2">
+      <button id="calculate-btn" type="button"
+        class="w-full bg-accent hover:bg-accent-hover text-white font-heading font-bold text-lg px-8 py-4 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+        Calculate My Load
+      </button>
+      <p id="calc-hint" class="hidden mt-3 text-sm text-[#EF4444]"></p>
+    </div>
 
-    <div id="results" class="mt-8 border-t border-border pt-8">
-      <h3 class="font-heading font-bold text-xl mb-6">Results</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div id="email-gate" class="hidden mt-8 border-t border-border pt-8">
+      <div class="max-w-lg mx-auto text-center">
+        <div class="w-14 h-14 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
+          <svg width="28" height="28" viewBox="0 0 20 20" fill="none" class="text-accent">
+            <path d="M2.5 6.667L9.025 11.05a1.667 1.667 0 001.95 0L17.5 6.667M4.167 15h11.666A1.667 1.667 0 0017.5 13.333V6.667A1.667 1.667 0 0015.833 5H4.167A1.667 1.667 0 002.5 6.667v6.666A1.667 1.667 0 004.167 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-bold text-xl text-text-primary mb-2">Your results are ready</h3>
+        <p class="text-text-secondary text-sm mb-6">Enter your email to get your whole-house load calculation — cooling BTU, heating BTU, and system tonnage.</p>
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
+          <label for="gate-email" class="sr-only">Your work email</label>
+          <input type="email" id="gate-email" placeholder="you@company.com" required
+            class="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors placeholder:text-text-muted" />
+          <button id="gate-submit" type="button"
+            class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+            Send My Results
+          </button>
+        </div>
+        <label class="flex items-center justify-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" id="gate-consent" checked class="w-4 h-4 rounded border-border bg-bg-dark accent-accent" />
+          <span class="text-text-muted text-xs">Also send me free tools and tips for pros. Unsubscribe anytime.</span>
+        </label>
+        <div id="gate-error" class="hidden mt-3 text-sm text-[#EF4444]"></div>
+      </div>
+    </div>
+
+    <div id="results" class="hidden mt-8 border-t border-border pt-8">
+      <div class="mb-6 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] rounded-xl p-4 flex items-start gap-3">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-[rgba(52,211,153,0.15)] flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" class="text-[#34D399]">
+            <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-text-primary font-semibold text-sm">Results also sent to your inbox</p>
+          <p class="text-text-secondary text-xs mt-0.5">Don't see it? Check your Spam or Promotions folder.</p>
+        </div>
+      </div>
+
+      <h3 class="font-heading font-bold text-xl mb-6">Your Load Calculation</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cooling BTU</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cooling Load</div>
           <div id="r-cool" class="font-heading font-extrabold text-2xl text-accent">—</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Heating BTU</div>
+          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Heating Load</div>
           <div id="r-heat" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
           <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">System Tonnage</div>
           <div id="r-tons" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
         </div>
-        <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Size Range (±15%)</div>
-          <div id="r-range" class="font-heading font-extrabold text-lg text-text-primary">—</div>
-        </div>
       </div>
-      <p class="text-text-muted text-sm italic">This is an estimate — a full Manual J calculation is required for final system sizing and permit applications.</p>
+      <p class="text-text-muted text-sm italic">Estimate only. For permit-ready Manual J, use ACCA-accredited software like CoolCalc.</p>
     </div>
   </div>
 
@@ -131,34 +205,41 @@ const faqSchema = {
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">1. Enter total square footage.</strong> Include all conditioned living space. Don't include unfinished basements, garages, or unconditioned attics.</p>
-          <p><strong class="text-text-primary">2. Select your climate zone.</strong> Zones 1-2 are hot (southern US), zones 4-5 are moderate (mid-Atlantic, Midwest), zones 6-7 are cold (northern US). The zone affects both cooling and heating load.</p>
-          <p><strong class="text-text-primary">3. Rate insulation quality.</strong> "Poor" means pre-1980 construction with minimal upgrades. "Excellent" means spray foam walls, triple-pane windows, and verified air sealing.</p>
-          <p><strong class="text-text-primary">4. Count windows and doors.</strong> Each window and exterior door is a heat transfer point. Window type matters — single-pane transfers 2.4× more heat than triple-pane Low-E.</p>
-          <p><strong class="text-text-primary">5. Set sun exposure and occupants.</strong> South and west-facing homes in zones 1-3 take heavy solar load. Each occupant adds ~600 BTU of body heat.</p>
+          <p><strong class="text-text-primary">1. Enter a ZIP code.</strong> Auto-detects the climate region — a major factor in both cooling and heating load.</p>
+          <p><strong class="text-text-primary">2. Add square footage and ceiling height.</strong> Total conditioned living space only. Exclude unfinished basements, garages, and unconditioned attics.</p>
+          <p><strong class="text-text-primary">3. Rate insulation and window/door tightness.</strong> A 1980s retrofit with single-pane windows is "Bad" / "Not well-sealed." A 2020s tight envelope is "Excellent" / "Sealed tight."</p>
+          <p><strong class="text-text-primary">4. Set sun, window count, and internal gains.</strong> South/west-facing homes with lots of glass take heavy cooling load. Each extra occupant adds ~600 BTU. Devices × 3.412 = BTU.</p>
+          <p><strong class="text-text-primary">5. Click Calculate.</strong> Enter your email. We'll send the full results so you can reference them on-site or attach to a quote.</p>
         </div>
       </section>
 
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">How the HVAC Load Formula Works</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">How the Calculation Works</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p>This calculator uses a simplified Manual J approach with a <strong class="text-text-primary">20 BTU/sq ft baseline</strong> and seven adjustment factors.</p>
+          <p>We use a 20 BTU/sqft baseline with six adjustment factors (climate, insulation, sun, windows, tightness, ceiling height), then add internal gains for occupants, devices, and kitchen equipment.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
-            <p>Cooling_BTU = (20 × Sqft × Climate × Ceiling × Insulation × Sun) + (Windows × Window_BTU) + (Doors × 1000) + (Occupants × 600) + Kitchen</p>
-            <p class="mt-2">Heating_BTU = Cooling_BTU × Heating_Factor</p>
-            <p class="mt-2">Tonnage = Cooling_BTU / 12,000 (rounded to nearest 0.5 ton)</p>
+            <p>base = sqft × 20 × (ceiling / 8)</p>
+            <p class="mt-2">modSum = climate + insulation + sun + windows + tightness</p>
+            <p class="mt-2">coolingBTU = base × (1 + modSum) + occupants + devices + kitchen</p>
+            <p class="mt-2">heatingBTU = coolingBTU × heatingFactor(region)</p>
+            <p class="mt-2">tonnage = round(coolingBTU / 12,000, 0.5)</p>
           </div>
-          <p>The climate zone adjusts cooling demand (hot zones multiply up, cold zones multiply down) and applies a separate heating factor. Cold zones like Minneapolis need significantly more heating BTU than cooling BTU.</p>
-          <p>The ±15% range accounts for variables this calculator doesn't capture — duct losses, building orientation, thermal mass, and infiltration rate. Use the low end for tight, well-built homes and the high end for older construction.</p>
+          <p>Climate regions range from +10% (Hot) to -10% (Cold). Heating factor ranges from 0.70 (Hot) to 1.45 (Cold) — so a home in Minneapolis will have a heating load roughly 1.5× the cooling load, while a home in Phoenix will have heating at ~70% of cooling.</p>
         </div>
       </section>
 
       <section>
-        <h2 class="font-heading font-bold text-2xl mb-4">When To Use This</h2>
+        <h2 class="font-heading font-bold text-2xl mb-4">When You Need a Full Manual J</h2>
         <div class="text-text-secondary leading-relaxed space-y-3">
-          <p><strong class="text-text-primary">Sales calls and estimates.</strong> Run a quick load calc in front of the customer to show you're sizing the system properly — not just guessing or matching the old unit's tonnage.</p>
-          <p><strong class="text-text-primary">Sanity-checking existing systems.</strong> Customer complains their system runs all day? Check if it was properly sized. A 2-ton unit on a home that needs 4 tons was never going to keep up.</p>
-          <p><strong class="text-text-primary">Pre-qualifying leads.</strong> Before driving to the job site, ask the homeowner for square footage and approximate home details. Get a ballpark tonnage so you know what to quote before you arrive.</p>
+          <p>This tool is a pre-quote sanity check. Accurate enough to keep you from badly oversizing or undersizing a system in a sales conversation, and to back up a quote with a defensible number.</p>
+          <p>You need a full ACCA Manual J when:</p>
+          <ul class="list-disc list-inside space-y-1 ml-2">
+            <li>The job requires a permit (most new construction, many major replacements)</li>
+            <li>The homeowner is pursuing ENERGY STAR certification or rebate programs</li>
+            <li>A HERS rater or building department is involved</li>
+            <li>Equipment warranties require a Manual J for the full capacity</li>
+          </ul>
+          <p>For those, <a href="https://www.coolcalc.com/" target="_blank" rel="noopener" class="text-accent hover:underline">CoolCalc</a> is free and ACCA-approved. Wrightsoft and Elite Software are the paid standards.</p>
         </div>
       </section>
 
@@ -166,20 +247,24 @@ const faqSchema = {
         <h2 class="font-heading font-bold text-2xl mb-4">Frequently Asked Questions</h2>
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How do I calculate HVAC load for a house?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Start with 20 BTU per square foot, then multiply by adjustment factors for climate zone, insulation quality, ceiling height, and sun exposure. Add BTU for windows, doors, occupants, and kitchen. Divide cooling BTU by 12,000 to get tonnage.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Is this a Manual J calculation?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">No. This is a simplified whole-house estimator for pre-quote sanity checks — not permit-ready. For ACCA-approved Manual J, use CoolCalc or paid tools like Wrightsoft.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What is Manual J and do I need it?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Manual J is the ACCA-standard whole-house load calculation. It accounts for wall construction, window orientation, duct losses, and infiltration. This calculator provides a simplified estimate — a full Manual J is required for permit applications and final equipment selection.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How accurate is this compared to a full load calc?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Within 15-20% of a proper Manual J. Doesn't capture exact R-values, window SHGC, duct losses, infiltration, or per-wall window orientation. Fine for sanity checks. Not fine for permits.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How many tons of AC do I need per square foot?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">A rough rule is 1 ton per 500-600 sq ft in moderate climates, or 1 ton per 400-500 sq ft in hot climates. But factors like insulation, windows, and occupancy make every home different.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why does the ZIP matter so much?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Climate dominates HVAC sizing. A 2,000 sqft home in Phoenix needs roughly 40% more cooling than the same home in Seattle. ZIP → one of five regions (Hot / Warm / Mixed / Cool / Cold) with its own multipliers.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
-            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What happens if I oversize or undersize an HVAC system?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Oversizing causes short cycling, poor humidity control, higher energy bills, and premature equipment failure. Undersizing means the system can't maintain temperature on extreme days. Proper sizing is the most critical factor in system performance and longevity.</div>
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Does this work for mini-splits?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">This is whole-house. For sizing an individual mini-split in a specific room, use our <a href="/hvac/mini-split-sizing-calculator/" class="text-accent hover:underline">Mini-Split Sizing Calculator</a>.</div>
+          </details>
+          <details class="bg-bg-card border border-border rounded-lg">
+            <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Why is heating BTU different from cooling BTU?</summary>
+            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Different design conditions. In hot climates, cooling dominates. In cold climates, heating dominates. Heat pump sizing especially requires knowing which load is bigger — you size for the bigger of the two.</div>
           </details>
         </div>
       </section>
@@ -188,41 +273,168 @@ const faqSchema = {
 </ToolLayout>
 
 <script>
-  function calculate() {
-    const sqft = parseFloat((document.getElementById('sqft') as HTMLInputElement).value) || 2000;
-    const ceiling = parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 8;
-    const zone = parseInt((document.getElementById('zone') as HTMLSelectElement).value);
-    const insulation = (document.getElementById('insulation') as HTMLSelectElement).value;
-    const windows = parseInt((document.getElementById('windows') as HTMLInputElement).value) || 0;
-    const windowBtu = parseInt((document.getElementById('windowType') as HTMLSelectElement).value);
-    const doors = parseInt((document.getElementById('doors') as HTMLInputElement).value) || 0;
-    const sunVal = (document.getElementById('sun') as HTMLSelectElement).value;
-    const occupants = parseInt((document.getElementById('occupants') as HTMLInputElement).value) || 2;
-    const kitchen = parseInt((document.getElementById('kitchen') as HTMLSelectElement).value);
+  import { lookupZip, lookupRegion, REGIONS } from '../../lib/climate';
+  import type { Region } from '../../lib/climate';
+  import { calcWholeHouse } from '../../lib/hvac-calc';
+  import type {
+    WholeHouseInputs, InsulationGrade, SunExposure, WindowAmount, Tightness,
+    WholeHouseResult,
+  } from '../../lib/hvac-calc';
 
-    const climateFactor: Record<number, number> = { 1: 1.3, 2: 1.2, 3: 1.1, 4: 1.0, 5: 0.95, 6: 0.9, 7: 0.85 };
-    const insulationFactor: Record<string, number> = { poor: 1.2, average: 1.0, good: 0.9, excellent: 0.8 };
-    const sunFactor: Record<string, number> = { heavy: 1.15, moderate: 1.0, minimal: 0.9 };
-    const heatingFactor: Record<number, number> = { 1: 0.8, 2: 0.8, 3: 1.0, 4: 1.1, 5: 1.2, 6: 1.3, 7: 1.4 };
+  let climate: ReturnType<typeof lookupZip> = null;
+  const zipInput = document.getElementById('zip') as HTMLInputElement;
+  const zipDisplay = document.getElementById('zip-display')!;
+  const zipFallback = document.getElementById('zip-fallback')!;
 
-    const ceilingF = ceiling / 8;
-    const baseBtu = 20 * sqft * climateFactor[zone] * ceilingF * insulationFactor[insulation] * sunFactor[sunVal];
-    const coolBtu = Math.round(baseBtu + (windows * windowBtu) + (doors * 1000) + (occupants * 600) + kitchen);
-    const heatBtu = Math.round(coolBtu * heatingFactor[zone]);
+  function setClimateFromZip(raw: string) {
+    const zip = raw.replace(/\D/g, '').slice(0, 5);
+    if (zip.length < 3) {
+      climate = null;
+      zipDisplay.textContent = 'Enter a 5-digit US ZIP to detect your climate region.';
+      zipFallback.classList.add('hidden');
+      return;
+    }
+    const lookup = lookupZip(zip);
+    if (lookup) {
+      climate = lookup;
+      zipDisplay.innerHTML = `<span class="text-text-primary font-medium">${lookup.state}</span> &middot; <span class="text-accent font-medium">${lookup.regionLabel} region</span>`;
+      zipFallback.classList.add('hidden');
+    } else if (zip.length >= 3) {
+      climate = null;
+      zipDisplay.textContent = 'ZIP not recognized.';
+      zipFallback.classList.remove('hidden');
+    }
+  }
+  zipInput.addEventListener('input', () => setClimateFromZip(zipInput.value));
 
-    const tonnageRaw = coolBtu / 12000;
-    const tonnage = Math.round(tonnageRaw * 2) / 2; // nearest 0.5
-    const lowTon = (tonnageRaw * 0.85 / 12000 * 12000).toLocaleString();
-    const highTon = (tonnageRaw * 1.15 / 12000 * 12000).toLocaleString();
+  document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const region = btn.dataset.region as Region;
+      climate = lookupRegion(region, zipInput.value, '');
+      const meta = REGIONS[region];
+      zipDisplay.innerHTML = `<span class="text-accent font-medium">${meta.label} region</span> <span class="text-text-muted">(manually selected)</span>`;
+      zipFallback.classList.add('hidden');
+      document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(b => b.classList.remove('border-accent'));
+      btn.classList.add('border-accent');
+    });
+  });
 
-    document.getElementById('r-cool')!.textContent = coolBtu.toLocaleString() + ' BTU';
-    document.getElementById('r-heat')!.textContent = heatBtu.toLocaleString() + ' BTU';
-    document.getElementById('r-tons')!.textContent = tonnage + ' ton';
-    document.getElementById('r-range')!.textContent = Math.round(coolBtu * 0.85).toLocaleString() + ' – ' + Math.round(coolBtu * 1.15).toLocaleString();
+  let pendingResult: WholeHouseResult | null = null;
+  let pendingInputs: WholeHouseInputs | null = null;
+  const calcBtn = document.getElementById('calculate-btn') as HTMLButtonElement;
+  const calcHint = document.getElementById('calc-hint')!;
+
+  function readInputs(): WholeHouseInputs | null {
+    if (!climate) {
+      calcHint.textContent = 'Please enter a valid ZIP code or pick a climate region.';
+      calcHint.classList.remove('hidden');
+      return null;
+    }
+    calcHint.classList.add('hidden');
+    return {
+      climate,
+      sqft: parseFloat((document.getElementById('sqft') as HTMLInputElement).value) || 2000,
+      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 8,
+      insulation: (document.getElementById('insulation') as HTMLSelectElement).value as InsulationGrade,
+      sun: (document.getElementById('sun') as HTMLSelectElement).value as SunExposure,
+      windows: (document.getElementById('windows') as HTMLSelectElement).value as WindowAmount,
+      tightness: (document.getElementById('tightness') as HTMLSelectElement).value as Tightness,
+      occupants: parseInt((document.getElementById('occupants') as HTMLSelectElement).value) || 2,
+      deviceWatts: parseInt((document.getElementById('devices') as HTMLSelectElement).value) || 0,
+      kitchen: (document.getElementById('kitchen') as HTMLSelectElement).value === 'yes',
+    };
   }
 
-  document.querySelectorAll('#load-calc input, #load-calc select').forEach(el => {
-    el.addEventListener('change', calculate);
+  calcBtn.addEventListener('click', () => {
+    const inputs = readInputs();
+    if (!inputs) return;
+    pendingInputs = inputs;
+    pendingResult = calcWholeHouse(inputs);
+    document.getElementById('calc-btn-area')!.classList.add('hidden');
+    document.getElementById('email-gate')!.classList.remove('hidden');
+    (document.getElementById('gate-email') as HTMLInputElement).focus();
   });
-  calculate();
+
+  const gateSubmit = document.getElementById('gate-submit') as HTMLButtonElement;
+  const gateEmail = document.getElementById('gate-email') as HTMLInputElement;
+  const gateConsent = document.getElementById('gate-consent') as HTMLInputElement;
+  const gateError = document.getElementById('gate-error')!;
+
+  function showResults(r: WholeHouseResult) {
+    document.getElementById('r-cool')!.textContent = r.coolingBTU.toLocaleString() + ' BTU';
+    document.getElementById('r-heat')!.textContent = r.heatingBTU.toLocaleString() + ' BTU';
+    document.getElementById('r-tons')!.textContent = r.tonnage + ' ton';
+    document.getElementById('results')!.classList.remove('hidden');
+    document.getElementById('results')!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  gateSubmit.addEventListener('click', async () => {
+    const email = gateEmail.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      gateError.textContent = 'Please enter a valid email address.';
+      gateError.classList.remove('hidden');
+      return;
+    }
+    if (!pendingResult || !pendingInputs) return;
+    gateError.classList.add('hidden');
+    gateSubmit.disabled = true;
+    gateSubmit.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('/api/email-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          toolSlug: 'load-calculator',
+          toolName: 'HVAC Load Calculator',
+          tradeSlug: 'hvac',
+          tradeName: 'HVAC',
+          marketingConsent: gateConsent.checked,
+          sourceUrl: window.location.pathname,
+          calculationResults: {
+            mode: 'whole-house',
+            coolingBTU: pendingResult.coolingBTU,
+            heatingBTU: pendingResult.heatingBTU,
+            tonnage: pendingResult.tonnage,
+            state: pendingInputs.climate.state,
+            region: pendingInputs.climate.regionLabel,
+            sqft: pendingInputs.sqft,
+            ceilingHeight: pendingInputs.ceilingHeight,
+            insulation: pendingInputs.insulation,
+          },
+        }),
+      });
+      if (!res.ok) throw new Error('Failed to send');
+
+      document.getElementById('email-gate')!.classList.add('hidden');
+      showResults(pendingResult);
+
+      const meta = (window as any).__ntqToolMeta;
+      if ((window as any).posthog && meta) {
+        (window as any).posthog.capture('email_captured', {
+          tool_slug: meta.toolSlug,
+          trade_slug: meta.tradeSlug,
+          trade_name: meta.tradeName,
+          tool_name: meta.toolName,
+          tool_category: meta.category,
+          marketing_consent: gateConsent.checked,
+          gated: true,
+          mode: 'whole-house',
+        });
+      }
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'conversion', { send_to: 'AW-17899660858/rqouCLin75gcELrMnNdC' });
+      }
+    } catch {
+      gateError.textContent = 'Something went wrong. Please try again.';
+      gateError.classList.remove('hidden');
+      gateSubmit.disabled = false;
+      gateSubmit.textContent = 'Send My Results';
+    }
+  });
+
+  gateEmail.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') gateSubmit.click();
+  });
 </script>

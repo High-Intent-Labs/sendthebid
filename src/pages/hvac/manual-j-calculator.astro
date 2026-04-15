@@ -152,6 +152,19 @@ const faqSchema = {
 
     <!-- Results (hidden until email is submitted) -->
     <div id="results" class="hidden mt-8 border-t border-border pt-8">
+      <!-- Email-sent confirmation banner -->
+      <div class="mb-6 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] rounded-xl p-4 flex items-start gap-3">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-[rgba(52,211,153,0.15)] flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" class="text-[#34D399]">
+            <path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-text-primary font-semibold text-sm">Results also sent to your inbox</p>
+          <p class="text-text-secondary text-xs mt-0.5">Don't see it? Check your Spam or Promotions folder.</p>
+        </div>
+      </div>
+
       <h3 class="font-heading font-bold text-xl mb-6">Your Manual J Results</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">

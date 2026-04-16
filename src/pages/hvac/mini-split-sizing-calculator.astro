@@ -110,29 +110,73 @@ const roomTypes = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
       <div>
         <label class="block text-sm font-medium text-text-primary mb-2" for="length">Room Length (ft)</label>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease room length" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="length" value="12" min="4" max="100" step="1"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase room length" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="length"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="8">8 ft</option>
+            <option value="10">10 ft</option>
+            <option value="12" selected>12 ft</option>
+            <option value="14">14 ft</option>
+            <option value="16">16 ft</option>
+            <option value="18">18 ft</option>
+            <option value="20">20 ft</option>
+            <option value="22">22 ft</option>
+            <option value="24">24 ft</option>
+            <option value="26">26 ft</option>
+            <option value="28">28 ft</option>
+            <option value="30">30 ft</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-primary mb-2" for="width">Room Width (ft)</label>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease room width" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="width" value="12" min="4" max="100" step="1"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase room width" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="width"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="8">8 ft</option>
+            <option value="10">10 ft</option>
+            <option value="12" selected>12 ft</option>
+            <option value="14">14 ft</option>
+            <option value="16">16 ft</option>
+            <option value="18">18 ft</option>
+            <option value="20">20 ft</option>
+            <option value="22">22 ft</option>
+            <option value="24">24 ft</option>
+            <option value="26">26 ft</option>
+            <option value="28">28 ft</option>
+            <option value="30">30 ft</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-primary mb-2" for="ceiling">Ceiling Height (ft)</label>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease ceiling height" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="ceiling" value="8" min="6" max="20" step="1"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase ceiling height" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="ceiling"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="7">7 ft</option>
+            <option value="7.5">7.5 ft</option>
+            <option value="8" selected>8 ft</option>
+            <option value="8.5">8.5 ft</option>
+            <option value="9">9 ft</option>
+            <option value="10">10 ft</option>
+            <option value="12">12 ft</option>
+            <option value="14">14 ft</option>
+            <option value="16">16 ft</option>
+            <option value="18">18 ft</option>
+            <option value="20">20 ft</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
       <div>
@@ -294,11 +338,28 @@ const roomTypes = [
             </svg>
           </button>
         </div>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease window area" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="windowArea" value="20" min="0" max="500" step="1"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase window area" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="windowArea"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="0">0 sq ft</option>
+            <option value="5">5 sq ft</option>
+            <option value="10">10 sq ft</option>
+            <option value="15">15 sq ft</option>
+            <option value="20" selected>20 sq ft</option>
+            <option value="25">25 sq ft</option>
+            <option value="30">30 sq ft</option>
+            <option value="40">40 sq ft</option>
+            <option value="50">50 sq ft</option>
+            <option value="60">60 sq ft</option>
+            <option value="80">80 sq ft</option>
+            <option value="100">100 sq ft</option>
+            <option value="150">150 sq ft</option>
+            <option value="200">200 sq ft</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
         <div id="windowArea-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button"
@@ -325,11 +386,19 @@ const roomTypes = [
       </div>
       <div>
         <label class="block text-sm font-medium text-text-primary mb-2" for="doorArea">Exterior Door Area (sq ft)</label>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease door area" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="doorArea" value="0" min="0" max="100" step="1"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase door area" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="doorArea"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="0" selected>0 — no exterior door</option>
+            <option value="20">20 sq ft — single entry door</option>
+            <option value="40">40 sq ft — double doors</option>
+            <option value="56">56 sq ft — 1-car garage door</option>
+            <option value="128">128 sq ft — 2-car garage door</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
       <div class="flex flex-col justify-end">
@@ -854,51 +923,13 @@ const roomTypes = [
     });
   });
 
-  // Number-stepper +/- buttons: each .number-stepper wrapper has a
-  // minus button, a number input, and a plus button. stepUp()/stepDown()
-  // honor the input's step / min / max. We dispatch an 'input' event
-  // after stepping so updateDerived() (below) recomputes sqft/volume.
-  //
-  // Belt-and-suspenders double-fire prevention:
-  //   1. data-stepper-wired on the wrapper prevents attaching two sets
-  //      of listeners if this script ever re-executes (Astro hoisting
-  //      quirks, view transitions, hot reload).
-  //   2. Per-wrapper 150 ms timestamp debounce catches any OTHER cause
-  //      of double-firing for a single user action: mobile ghost clicks,
-  //      touch→click duplication, synthetic events. 150 ms is well
-  //      under any human rapid-tap cadence (200-400 ms min between
-  //      real taps on a stepper) but far above any synthetic re-fire
-  //      (which happens within <5 ms).
-  //
-  // History: guard (1) alone was shipped in dd8ab348 but the +2 bug
-  // still reproduced. Root cause not isolated from reading the code;
-  // the debounce in (2) handles it regardless of cause.
-  document.querySelectorAll<HTMLElement>('.number-stepper').forEach(wrapper => {
-    if (wrapper.dataset.stepperWired) return;
-    wrapper.dataset.stepperWired = '1';
-    const input = wrapper.querySelector<HTMLInputElement>('input[type="number"]');
-    if (!input) return;
-    const debounce = (fn: () => void) => {
-      const now = performance.now();
-      const last = Number(wrapper.dataset.stepperLast || '0');
-      if (now - last < 150) return;
-      wrapper.dataset.stepperLast = String(now);
-      fn();
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    };
-    wrapper.querySelector<HTMLButtonElement>('.stepper-minus')?.addEventListener('click', () => {
-      debounce(() => input.stepDown());
-    });
-    wrapper.querySelector<HTMLButtonElement>('.stepper-plus')?.addEventListener('click', () => {
-      debounce(() => input.stepUp());
-    });
-  });
-
-  // Derived sqft/volume live display
+  // Derived sqft/volume live display. length / width / ceiling are
+  // <select> elements — they fire 'input' on value change the same as
+  // text inputs, so the listener below works unchanged.
   function updateDerived() {
-    const l = parseFloat((document.getElementById('length') as HTMLInputElement).value) || 0;
-    const w = parseFloat((document.getElementById('width') as HTMLInputElement).value) || 0;
-    const c = parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 0;
+    const l = parseFloat((document.getElementById('length') as HTMLSelectElement).value) || 0;
+    const w = parseFloat((document.getElementById('width') as HTMLSelectElement).value) || 0;
+    const c = parseFloat((document.getElementById('ceiling') as HTMLSelectElement).value) || 0;
     document.getElementById('d-sqft')!.textContent = (l * w).toLocaleString();
     document.getElementById('d-vol')!.textContent = (l * w * c).toLocaleString();
   }
@@ -923,12 +954,12 @@ const roomTypes = [
       climate,
       roomType,
       orientation,
-      length: parseFloat((document.getElementById('length') as HTMLInputElement).value) || 12,
-      width: parseFloat((document.getElementById('width') as HTMLInputElement).value) || 12,
-      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 8,
+      length: parseFloat((document.getElementById('length') as HTMLSelectElement).value) || 12,
+      width: parseFloat((document.getElementById('width') as HTMLSelectElement).value) || 12,
+      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLSelectElement).value) || 8,
       exposedWalls: parseInt((document.getElementById('exposed') as HTMLSelectElement).value) as ExposedWalls,
-      windowAreaSqFt: parseFloat((document.getElementById('windowArea') as HTMLInputElement).value) || 0,
-      doorAreaSqFt: parseFloat((document.getElementById('doorArea') as HTMLInputElement).value) || 0,
+      windowAreaSqFt: parseFloat((document.getElementById('windowArea') as HTMLSelectElement).value) || 0,
+      doorAreaSqFt: parseFloat((document.getElementById('doorArea') as HTMLSelectElement).value) || 0,
       insulation: (document.getElementById('insulation') as HTMLSelectElement).value as RoomInsulation,
     };
   }

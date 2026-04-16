@@ -657,6 +657,23 @@ const roomTypes = [
     });
   });
 
+  // Number-stepper +/- buttons: each .number-stepper wrapper has a
+  // minus button, a number input, and a plus button. stepUp()/stepDown()
+  // honor the input's step / min / max. We dispatch an 'input' event
+  // after stepping so updateDerived() (below) recomputes sqft/volume.
+  document.querySelectorAll<HTMLElement>('.number-stepper').forEach(wrapper => {
+    const input = wrapper.querySelector<HTMLInputElement>('input[type="number"]');
+    if (!input) return;
+    wrapper.querySelector<HTMLButtonElement>('.stepper-minus')?.addEventListener('click', () => {
+      input.stepDown();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    wrapper.querySelector<HTMLButtonElement>('.stepper-plus')?.addEventListener('click', () => {
+      input.stepUp();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+
   // Derived sqft/volume live display
   function updateDerived() {
     const l = parseFloat((document.getElementById('length') as HTMLInputElement).value) || 0;

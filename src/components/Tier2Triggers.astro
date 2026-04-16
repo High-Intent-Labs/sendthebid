@@ -1,35 +1,9 @@
 ---
-// Tier 2 signup triggers: PDF download and template save
-// Included in BaseLayout — runs on every page
+// Tier 2 signup triggers DISABLED 2026-04-16 per user request.
+// Previously intercepted PDF download and template save clicks to open the signup modal.
+// To re-enable, restore the click listeners from git history.
 ---
 
 <script>
-  // Intercept PDF download clicks to trigger signup modal
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const btn = target.closest('[data-pdf-download], .pdf-download-btn, #download-pdf, #downloadPdf');
-    if (!btn) return;
-
-    const hasAccount = localStorage.getItem('ntq_has_account');
-    if (hasAccount) return; // Already logged in, let download proceed
-
-    // Show signup modal for PDF download
-    e.preventDefault();
-    e.stopPropagation();
-    (window as any).openSignupModal?.('pdf_download');
-  }, true);
-
-  // Intercept template save clicks
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const btn = target.closest('[data-save-template], .save-template-btn, #save-template, #saveTemplate');
-    if (!btn) return;
-
-    const hasAccount = localStorage.getItem('ntq_has_account');
-    if (hasAccount) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    (window as any).openSignupModal?.('template_save');
-  }, true);
+  // No-op — popup triggers disabled.
 </script>

@@ -306,19 +306,8 @@
     }
   } catch { /* localStorage unavailable or corrupt — skip */ }
 
-  // Show repeat visit prompt every 5th session (not page load)
-  try {
-  if (sessionCount > 0 && sessionCount % 5 === 0 && !localStorage.getItem('ntq_has_account')) {
-    const isNewSession = sessionStorage.getItem('ntq_session_counted') === '1';
-    const lastPromptSession = parseInt(localStorage.getItem('ntq_last_prompt_session') || '0', 10);
-    if (isNewSession && lastPromptSession !== sessionCount) {
-      localStorage.setItem('ntq_last_prompt_session', String(sessionCount));
-      setTimeout(() => {
-        if (modal.classList.contains('hidden')) {
-          openModal('repeat_visit');
-        }
-      }, 5000);
-    }
-  }
-  } catch { /* localStorage unavailable */ }
+  // Repeat visit prompt disabled 2026-04-16 per user request.
+  // Modal remains available for explicit flows (Header "Log In" button).
+  // To re-enable, restore the `if (sessionCount > 0 && sessionCount % 5 === 0 ...)` block from git history.
+  void sessionCount;
 </script>

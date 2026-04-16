@@ -1,0 +1,472 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Load Calculator — Admin Deep-Dive"
+  description="HVAC Load Calculator per-tool analytics"
+  currentPath="/admin/tools/load-calculator"
+  noindex={true}
+>
+  <div class="max-w-[1200px] mx-auto px-6 md:px-12 py-8">
+
+    <!-- Login gate (only if sessionStorage password is missing) -->
+    <div id="admin-login" class="hidden flex items-center justify-center py-24">
+      <div class="bg-bg-card border border-border rounded-2xl p-8 w-full max-w-sm">
+        <h1 class="font-heading font-bold text-2xl mb-2 text-center">Admin Portal</h1>
+        <p class="text-text-primary text-sm text-center mb-6">Enter the admin password to continue.</p>
+        <input type="password" id="admin-password" placeholder="Password"
+          class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors mb-4" />
+        <button id="admin-login-btn" type="button"
+          class="w-full bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-3 rounded-lg transition-colors">Log in</button>
+        <p id="admin-login-error" class="hidden text-[#EF4444] text-sm mt-3 text-center"></p>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="admin-content" class="hidden">
+      <div class="mb-6">
+        <a href="/admin" class="text-text-primary hover:text-accent text-sm no-underline">← Back to admin</a>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+          <h1 class="font-heading font-bold text-3xl">Load Calculator — Deep Dive</h1>
+          <p class="text-text-primary mt-1">Per-tool analytics for <code class="text-xs">/hvac/load-calculator/</code></p>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="bg-bg-card border border-border rounded-xl p-4 mb-6 flex flex-col md:flex-row gap-3 md:items-end">
+        <div class="flex-1 min-w-0">
+          <label for="date-range" class="block text-xs font-medium text-text-primary mb-1">Date range</label>
+          <select id="date-range"
+            class="w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
+            <option value="today">Today</option>
+            <option value="yesterday">Yesterday</option>
+            <option value="7d" selected>Last 7 days</option>
+            <option value="14d">Last 14 days</option>
+            <option value="all">All time</option>
+          </select>
+        </div>
+        <div class="flex-1 min-w-0">
+          <label for="segment-filter" class="block text-xs font-medium text-text-primary mb-1">Segment</label>
+          <select id="segment-filter"
+            class="w-full bg-bg-dark border border-border rounded-lg px-3 py-2 text-text-primary text-sm focus:border-accent focus:outline-none transition-colors">
+            <option value="all" selected>All</option>
+            <option value="home">My own home</option>
+            <option value="customer">A customer's job</option>
+          </select>
+        </div>
+        <button id="refresh-btn" type="button"
+          class="bg-accent hover:bg-accent-hover text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors whitespace-nowrap">
+          Refresh
+        </button>
+      </div>
+
+      <div id="admin-error" class="hidden mb-6 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-lg p-4 text-[#EF4444] text-sm"></div>
+
+      <!-- Top row: Funnel + A/B + Help -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Funnel -->
+        <div class="bg-bg-card border border-border rounded-xl p-5">
+          <h2 class="font-heading font-semibold text-lg mb-3">Funnel</h2>
+          <p class="text-text-primary text-xs mb-4">Unique users per step. Segment filter does not apply here — source data is PostHog events on the whole tool page.</p>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border text-left">
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Step</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Users</th>
+                <th class="pb-2 font-medium text-text-primary text-xs uppercase tracking-wider text-right">% of prev</th>
+              </tr>
+            </thead>
+            <tbody id="funnel-body" class="text-text-primary">
+              <tr><td colspan="3" class="py-4 text-center text-text-primary">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- A/B test -->
+        <div class="bg-bg-card border border-border rounded-xl p-5">
+          <h2 class="font-heading font-semibold text-lg mb-3">Email-gate A/B</h2>
+          <p class="text-text-primary text-xs mb-4">Experiment <code class="text-xs">lc_gate_copy</code>. Target sample: ~600 gate_shown per arm for significance.</p>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border text-left">
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Arm</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Shown</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Captured</th>
+                <th class="pb-2 font-medium text-text-primary text-xs uppercase tracking-wider text-right">CVR %</th>
+              </tr>
+            </thead>
+            <tbody id="ab-body" class="text-text-primary">
+              <tr><td colspan="4" class="py-4 text-center text-text-primary">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Help opens -->
+        <div class="bg-bg-card border border-border rounded-xl p-5">
+          <h2 class="font-heading font-semibold text-lg mb-3">Help-button opens</h2>
+          <p class="text-text-primary text-xs mb-4">Which field labels need a rewrite. Highest-open = most confusing.</p>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border text-left">
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Field</th>
+                <th class="pb-2 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Opens</th>
+              </tr>
+            </thead>
+            <tbody id="help-body" class="text-text-primary">
+              <tr><td colspan="2" class="py-4 text-center text-text-primary">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Email captures table -->
+      <div class="bg-bg-card border border-border rounded-xl p-5 mb-12">
+        <div class="flex items-center justify-between mb-4 gap-3">
+          <div>
+            <h2 class="font-heading font-semibold text-lg">Email captures</h2>
+            <p class="text-text-primary text-xs mt-1">Raw rows from <code class="text-xs">email_captures</code> where <code class="text-xs">tool_slug = 'load-calculator'</code>. Respects date + segment filters above.</p>
+          </div>
+          <p id="captures-count" class="text-text-primary text-sm whitespace-nowrap"></p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border text-left whitespace-nowrap">
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Date</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Email</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Segment</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Arm</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">ZIP · State · Region</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Sqft</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Ceiling</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Insul</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Sun</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Windows</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Tight</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Occ</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Dev W</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Kit</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Cool BTU</th>
+                <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Heat BTU</th>
+                <th class="pb-2 font-medium text-text-primary text-xs uppercase tracking-wider">Tons</th>
+              </tr>
+            </thead>
+            <tbody id="captures-body" class="text-text-primary">
+              <tr><td colspan="17" class="py-4 text-center text-text-primary">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-loading" class="hidden fixed inset-0 bg-bg-dark/70 flex items-center justify-center z-50">
+      <div class="w-8 h-8 border-3 border-border border-t-accent rounded-full animate-spin"></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const SUPABASE_URL = 'https://toovnncuvzqzurugmiib.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3ZubmN1dnpxenVydWdtaWliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NjUxNTYsImV4cCI6MjA4OTM0MTE1Nn0.5oKsdl8AYhUDGOVReAuYUCGOARY_z3G6x-Firkn5oaY';
+
+  let adminPassword = sessionStorage.getItem('ntq_admin_pw') || '';
+
+  const loginSection = document.getElementById('admin-login')!;
+  const contentSection = document.getElementById('admin-content')!;
+  const loadingEl = document.getElementById('admin-loading')!;
+  const errorEl = document.getElementById('admin-error')!;
+  const passwordInput = document.getElementById('admin-password') as HTMLInputElement;
+  const loginBtn = document.getElementById('admin-login-btn') as HTMLButtonElement;
+  const loginError = document.getElementById('admin-login-error')!;
+  const dateRangeSel = document.getElementById('date-range') as HTMLSelectElement;
+  const segmentSel = document.getElementById('segment-filter') as HTMLSelectElement;
+  const refreshBtn = document.getElementById('refresh-btn') as HTMLButtonElement;
+
+  function showLogin() {
+    loginSection.classList.remove('hidden');
+    contentSection.classList.add('hidden');
+  }
+  function showContent() {
+    loginSection.classList.add('hidden');
+    contentSection.classList.remove('hidden');
+  }
+
+  function getDateRange(preset: string): { startDate?: string; endDate?: string } {
+    const today = new Date();
+    const fmt = (d: Date) => {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    };
+    const addDays = (n: number) => {
+      const d = new Date(today);
+      d.setDate(d.getDate() + n);
+      return d;
+    };
+    switch (preset) {
+      case 'today':     return { startDate: fmt(today), endDate: fmt(today) };
+      case 'yesterday': return { startDate: fmt(addDays(-1)), endDate: fmt(addDays(-1)) };
+      case '7d':        return { startDate: fmt(addDays(-6)), endDate: fmt(today) };
+      case '14d':       return { startDate: fmt(addDays(-13)), endDate: fmt(today) };
+      case 'all':       return {};
+      default:          return {};
+    }
+  }
+
+  async function callCaptures(password: string, startDate?: string, endDate?: string, segmentFilter?: string) {
+    const body: any = { admin_password: password };
+    if (startDate) body.start_date = `${startDate}T00:00:00Z`;
+    if (endDate)   body.end_date   = `${endDate}T23:59:59Z`;
+    if (segmentFilter && segmentFilter !== 'all') body.segment_filter = segmentFilter;
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_load_calc_captures`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (res.status === 404) throw new Error('get_load_calc_captures RPC not found — run migration 005 in Supabase.');
+    if (!res.ok) {
+      const text = await res.text();
+      if (res.status === 400 || text.includes('Unauthorized')) throw new Error('Unauthorized');
+      throw new Error(`Supabase error ${res.status}: ${text.slice(0, 200)}`);
+    }
+    return await res.json();
+  }
+
+  async function callAnalytics(password: string, startDate?: string, endDate?: string) {
+    const res = await fetch('/api/admin/load-analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password, startDate, endDate }),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Analytics ${res.status}: ${text.slice(0, 200)}`);
+    }
+    return await res.json();
+  }
+
+  // --- Render ---
+
+  function renderFunnel(funnelResp: any) {
+    const tbody = document.getElementById('funnel-body')!;
+    tbody.innerHTML = '';
+    if (funnelResp?.error || !funnelResp?.results || !funnelResp.results.length) {
+      tbody.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-text-primary">${escape(funnelResp?.error || 'No data')}</td></tr>`;
+      return;
+    }
+    const row = funnelResp.results[0] || [0, 0, 0, 0, 0];
+    const [landed, started, calculated, picked, submitted] = row.map((n: any) => Number(n) || 0);
+    const steps: Array<[string, number]> = [
+      ['Landed on page',     landed],
+      ['Started the form',   started],
+      ['Clicked Calculate',  calculated],
+      ['Picked a segment',   picked],
+      ['Submitted email',    submitted],
+    ];
+    let prev: number | null = null;
+    for (const [label, value] of steps) {
+      const pct = prev === null ? '—' : (prev > 0 ? ((value / prev) * 100).toFixed(1) + '%' : '—');
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr class="border-b border-border/50">
+          <td class="py-2 pr-3">${escape(label)}</td>
+          <td class="py-2 pr-3 text-right font-mono">${value.toLocaleString()}</td>
+          <td class="py-2 text-right text-text-primary text-xs">${pct}</td>
+        </tr>`);
+      prev = value;
+    }
+  }
+
+  function renderAB(abResp: any) {
+    const tbody = document.getElementById('ab-body')!;
+    tbody.innerHTML = '';
+    if (abResp?.error) {
+      tbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-text-primary">${escape(abResp.error)}</td></tr>`;
+      return;
+    }
+    const rows = abResp?.results || [];
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-text-primary">No A/B data in range</td></tr>`;
+      return;
+    }
+    for (const r of rows) {
+      const [variant, shown, captured, cvr] = r;
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr class="border-b border-border/50">
+          <td class="py-2 pr-3 font-mono">${escape(String(variant ?? '?'))}</td>
+          <td class="py-2 pr-3 text-right font-mono">${Number(shown || 0).toLocaleString()}</td>
+          <td class="py-2 pr-3 text-right font-mono">${Number(captured || 0).toLocaleString()}</td>
+          <td class="py-2 text-right font-mono">${cvr != null ? cvr + '%' : '—'}</td>
+        </tr>`);
+    }
+  }
+
+  function renderHelp(helpResp: any) {
+    const tbody = document.getElementById('help-body')!;
+    tbody.innerHTML = '';
+    if (helpResp?.error) {
+      tbody.innerHTML = `<tr><td colspan="2" class="py-4 text-center text-text-primary">${escape(helpResp.error)}</td></tr>`;
+      return;
+    }
+    const rows = helpResp?.results || [];
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="2" class="py-4 text-center text-text-primary">No help opens in range</td></tr>`;
+      return;
+    }
+    // Load-calc has 6 help fields: insulation / sun / windows / tightness / devices / kitchen.
+    const fieldLabels: Record<string, string> = {
+      insulation: 'Insulation Quality',
+      sun: 'Sun Exposure',
+      windows: 'Amount of Windows',
+      tightness: 'Windows & Doors Tightness',
+      devices: 'Extra Devices',
+      kitchen: 'Kitchen?',
+    };
+    for (const [field, opens] of rows) {
+      const label = fieldLabels[String(field)] || String(field);
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr class="border-b border-border/50">
+          <td class="py-2 pr-3">${escape(label)}</td>
+          <td class="py-2 text-right font-mono">${Number(opens || 0).toLocaleString()}</td>
+        </tr>`);
+    }
+  }
+
+  function renderCaptures(rows: any[]) {
+    const tbody = document.getElementById('captures-body')!;
+    const count = document.getElementById('captures-count')!;
+    tbody.innerHTML = '';
+    count.textContent = `${rows.length} ${rows.length === 1 ? 'row' : 'rows'}`;
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="17" class="py-4 text-center text-text-primary">No email captures match the filters</td></tr>`;
+      return;
+    }
+    for (const row of rows) {
+      const cd = row.calculation_data || {};
+      const when = row.created_at ? new Date(row.created_at).toLocaleString() : '';
+      const zipState = [cd.zip, cd.state, cd.region].filter(Boolean).join(' · ');
+      // Kitchen is stored as a boolean in calculation_data.kitchen (from the
+      // mini-split-sizing pattern: the frontend converts 'yes'/'no' → boolean
+      // before sending). Display as Y/N.
+      const kitchen = cd.kitchen === true ? 'Y' : cd.kitchen === false ? 'N' : '';
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr class="border-b border-border/50 whitespace-nowrap">
+          <td class="py-2 pr-3 text-xs">${escape(when)}</td>
+          <td class="py-2 pr-3">${escape(row.email || '')}</td>
+          <td class="py-2 pr-3">${escape(row.segment || '—')}</td>
+          <td class="py-2 pr-3 font-mono">${escape(row.ab_variant || '—')}</td>
+          <td class="py-2 pr-3 text-xs">${escape(zipState)}</td>
+          <td class="py-2 pr-3 font-mono">${cd.sqft != null ? Number(cd.sqft).toLocaleString() : ''}</td>
+          <td class="py-2 pr-3 font-mono">${escape(String(cd.ceilingHeight ?? ''))}</td>
+          <td class="py-2 pr-3">${escape(String(cd.insulation ?? ''))}</td>
+          <td class="py-2 pr-3">${escape(String(cd.sun ?? ''))}</td>
+          <td class="py-2 pr-3">${escape(String(cd.windows ?? ''))}</td>
+          <td class="py-2 pr-3">${escape(String(cd.tightness ?? ''))}</td>
+          <td class="py-2 pr-3 font-mono">${escape(String(cd.occupants ?? ''))}</td>
+          <td class="py-2 pr-3 font-mono">${escape(String(cd.deviceWatts ?? ''))}</td>
+          <td class="py-2 pr-3 font-mono">${escape(kitchen)}</td>
+          <td class="py-2 pr-3 font-mono">${cd.coolingBTU != null ? Number(cd.coolingBTU).toLocaleString() : ''}</td>
+          <td class="py-2 pr-3 font-mono">${cd.heatingBTU != null ? Number(cd.heatingBTU).toLocaleString() : ''}</td>
+          <td class="py-2 font-mono">${escape(String(cd.tonnage ?? ''))}</td>
+        </tr>`);
+    }
+  }
+
+  function escape(s: unknown): string {
+    return String(s ?? '').replace(/[&<>"']/g, (c) => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    } as Record<string, string>)[c]);
+  }
+
+  async function loadData() {
+    if (!adminPassword) { showLogin(); return; }
+    errorEl.classList.add('hidden');
+    loadingEl.classList.remove('hidden');
+
+    const preset = dateRangeSel.value;
+    const { startDate, endDate } = getDateRange(preset);
+    const segmentFilter = segmentSel.value;
+
+    try {
+      const [capturesP, analyticsP] = await Promise.allSettled([
+        callCaptures(adminPassword, startDate, endDate, segmentFilter),
+        callAnalytics(adminPassword, startDate, endDate),
+      ]);
+
+      if (capturesP.status === 'fulfilled') {
+        const rows = Array.isArray(capturesP.value) ? capturesP.value : [];
+        renderCaptures(rows);
+      } else {
+        const msg = String(capturesP.reason);
+        if (msg.includes('Unauthorized')) {
+          sessionStorage.removeItem('ntq_admin_pw');
+          adminPassword = '';
+          showLogin();
+          return;
+        }
+        renderCaptures([]);
+        errorEl.textContent = `Captures error: ${msg}`;
+        errorEl.classList.remove('hidden');
+      }
+
+      if (analyticsP.status === 'fulfilled') {
+        const { funnel, help, ab } = analyticsP.value;
+        renderFunnel(funnel);
+        renderAB(ab);
+        renderHelp(help);
+      } else {
+        const msg = String(analyticsP.reason);
+        const prefix = errorEl.textContent ? errorEl.textContent + ' · ' : '';
+        errorEl.textContent = `${prefix}Analytics error: ${msg}`;
+        errorEl.classList.remove('hidden');
+        renderFunnel({ error: msg });
+        renderAB({ error: msg });
+        renderHelp({ error: msg });
+      }
+
+      showContent();
+    } finally {
+      loadingEl.classList.add('hidden');
+    }
+  }
+
+  async function attemptLogin() {
+    const pw = passwordInput.value.trim();
+    if (!pw) return;
+    loginBtn.textContent = 'Checking...';
+    loginError.classList.add('hidden');
+    try {
+      await callCaptures(pw);
+      adminPassword = pw;
+      sessionStorage.setItem('ntq_admin_pw', pw);
+      await loadData();
+    } catch (e: any) {
+      loginError.textContent = e?.message || 'Login failed. Check the password.';
+      loginError.classList.remove('hidden');
+      loginBtn.textContent = 'Log in';
+    }
+  }
+
+  loginBtn.addEventListener('click', attemptLogin);
+  passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') attemptLogin(); });
+  dateRangeSel.addEventListener('change', loadData);
+  segmentSel.addEventListener('change', loadData);
+  refreshBtn.addEventListener('click', loadData);
+
+  if (adminPassword) {
+    loadData();
+  } else {
+    showLogin();
+  }
+</script>
+</BaseLayout>

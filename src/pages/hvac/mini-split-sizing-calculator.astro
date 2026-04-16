@@ -164,7 +164,17 @@ const roomTypes = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-        <div id="exposed-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
+        <div id="exposed-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
+          <button type="button"
+            data-help-toggle="exposed-help"
+            aria-expanded="false"
+            aria-controls="exposed-help"
+            aria-label="Close help"
+            class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <p class="font-medium text-text-primary mb-1">How to count exposed walls</p>
           <p class="mb-2">Count walls that touch <strong>outside air or an unconditioned space</strong>. Walls adjoining a heated/cooled hallway or room don't count.</p>
           <ul class="space-y-0.5 mb-2">
@@ -201,7 +211,17 @@ const roomTypes = [
           <button type="button" data-orient="S" class="orient-pill flex-1 bg-bg-dark border-accent rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">S</button>
           <button type="button" data-orient="W" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">W</button>
         </div>
-        <div id="orientation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
+        <div id="orientation-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
+          <button type="button"
+            data-help-toggle="orientation-help"
+            aria-expanded="false"
+            aria-controls="orientation-help"
+            aria-label="Close help"
+            class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <p class="font-medium text-text-primary mb-1">How to pick primary orientation</p>
           <p class="mb-2">The direction the <strong>largest exterior wall</strong> faces — not the front door.</p>
           <ul class="space-y-0.5 mb-2">
@@ -241,7 +261,17 @@ const roomTypes = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-        <div id="insulation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
+        <div id="insulation-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
+          <button type="button"
+            data-help-toggle="insulation-help"
+            aria-expanded="false"
+            aria-controls="insulation-help"
+            aria-label="Close help"
+            class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <p class="font-medium text-text-primary mb-1">How to pick insulation level</p>
           <p class="mb-2">When in doubt, drop a tier — houses are usually a bit worse than they look.</p>
           <ul class="space-y-0.5 mb-2">
@@ -275,7 +305,17 @@ const roomTypes = [
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
           <button type="button" aria-label="Increase window area" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
-        <div id="windowArea-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
+        <div id="windowArea-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
+          <button type="button"
+            data-help-toggle="windowArea-help"
+            aria-expanded="false"
+            aria-controls="windowArea-help"
+            aria-label="Close help"
+            class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <p class="font-medium text-text-primary mb-1">How to estimate window area</p>
           <p class="mb-2">Total glass area in this room, in sqft. Measure the <strong>glass</strong>, not the rough opening — subtract ~10% for the frame if unsure.</p>
           <ul class="space-y-0.5 mb-2">
@@ -779,16 +819,23 @@ const roomTypes = [
   });
 
   // Generic help-toggle: any <button data-help-toggle="some-id"> toggles
-  // the hidden panel with that id. Reusable for future field help popovers.
+  // the hidden panel with that id. Reusable for field help popovers and
+  // the in-panel close (×) buttons — both point at the same panel id via
+  // data-help-toggle, so clicking either one flips the panel state. We
+  // also sync aria-expanded on ALL buttons targeting the same panel, so
+  // the info icon and its close button stay consistent after either is
+  // clicked.
   document.querySelectorAll<HTMLButtonElement>('[data-help-toggle]').forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.dataset.helpToggle;
       if (!targetId) return;
       const target = document.getElementById(targetId);
       if (!target) return;
-      const isHidden = target.classList.contains('hidden');
+      const willBeOpen = target.classList.contains('hidden');
       target.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(isHidden));
+      document.querySelectorAll<HTMLButtonElement>(`[data-help-toggle="${targetId}"]`).forEach(b => {
+        b.setAttribute('aria-expanded', String(willBeOpen));
+      });
     });
   });
 

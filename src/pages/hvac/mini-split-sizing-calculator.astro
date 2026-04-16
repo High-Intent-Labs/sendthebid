@@ -136,7 +136,20 @@ const roomTypes = [
         </div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="exposed">Exposed Walls</label>
+        <div class="flex items-center gap-1.5 mb-2">
+          <label class="block text-sm font-medium text-text-secondary" for="exposed">Exposed Walls</label>
+          <button type="button"
+            data-help-toggle="exposed-help"
+            aria-expanded="false"
+            aria-controls="exposed-help"
+            aria-label="How to count exposed walls"
+            class="text-text-muted hover:text-accent transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
+        </div>
         <div class="relative">
           <select id="exposed"
             class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
@@ -149,6 +162,19 @@ const roomTypes = [
             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
+        </div>
+        <div id="exposed-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-secondary leading-relaxed">
+          <p class="font-medium text-text-primary mb-1">How to count exposed walls</p>
+          <p class="mb-2">Count walls that touch <strong>outside air or an unconditioned space</strong>. Walls adjoining a heated/cooled hallway or room don't count.</p>
+          <ul class="space-y-0.5 mb-2">
+            <li><strong>1</strong> — interior room with only one exterior wall</li>
+            <li><strong>2</strong> — corner room (most common)</li>
+            <li><strong>3</strong> — bonus room or addition with three outside walls</li>
+            <li><strong>4</strong> — detached garage, ADU, or freestanding structure</li>
+          </ul>
+          <p class="mb-1"><span class="text-text-primary">Also count:</span> walls bordering an unheated garage or unfinished attic; basement walls below grade.</p>
+          <p><span class="text-text-primary">Don't count:</span> walls between this room and a conditioned hallway or adjacent room.</p>
+          <p class="mt-2 text-text-muted">This factor changes the cooling load by up to 40%.</p>
         </div>
       </div>
       <div>
@@ -614,6 +640,20 @@ const roomTypes = [
       });
       btn.classList.remove('border-border');
       btn.classList.add('border-accent');
+    });
+  });
+
+  // Generic help-toggle: any <button data-help-toggle="some-id"> toggles
+  // the hidden panel with that id. Reusable for future field help popovers.
+  document.querySelectorAll<HTMLButtonElement>('[data-help-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.helpToggle;
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const isHidden = target.classList.contains('hidden');
+      target.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(isHidden));
     });
   });
 

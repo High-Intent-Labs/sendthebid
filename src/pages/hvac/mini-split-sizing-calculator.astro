@@ -62,7 +62,7 @@ const roomTypes = [
            empty (helper text), partial (keep typing), resolved (pro card
            with city + state + climate + IECC zone + design temps), or
            unrecognized (hint pointing to the fallback region picker). -->
-      <div id="zip-display" class="mt-3 text-text-primary text-sm">Enter a 5-digit US ZIP to detect your climate region.</div>
+      <div id="zip-display" class="mt-3 text-text-primary text-sm"></div>
       <div id="zip-fallback" class="hidden mt-3">
         <p class="text-text-primary text-xs mb-2">ZIP not found — pick your climate region:</p>
         <div class="flex flex-wrap gap-2">
@@ -597,7 +597,7 @@ const roomTypes = [
 
   function renderZipCard(s: ZipCardState) {
     if (s.kind === 'empty') {
-      zipDisplay.innerHTML = '<span class="text-text-primary text-sm">Enter a 5-digit US ZIP to detect your climate region.</span>';
+      zipDisplay.innerHTML = '';
       return;
     }
     if (s.kind === 'partial') {

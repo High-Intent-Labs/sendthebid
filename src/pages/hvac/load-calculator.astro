@@ -339,8 +339,10 @@ const faqSchema = {
       </div>
     </div>
 
-    <div id="email-gate" class="hidden mt-8 border-t border-border pt-8">
-      <div class="max-w-lg mx-auto text-center">
+    <div id="email-gate" class="hidden mt-8">
+      <!-- Accent-framed container matching the segment gate + results
+           sections — this is the primary next action. -->
+      <div class="max-w-lg mx-auto rounded-2xl border-2 border-accent bg-accent/5 p-6 sm:p-8 text-center">
         <div class="w-14 h-14 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
           <svg width="28" height="28" viewBox="0 0 20 20" fill="none" class="text-accent">
             <path d="M2.5 6.667L9.025 11.05a1.667 1.667 0 001.95 0L17.5 6.667M4.167 15h11.666A1.667 1.667 0 0017.5 13.333V6.667A1.667 1.667 0 0015.833 5H4.167A1.667 1.667 0 002.5 6.667v6.666A1.667 1.667 0 004.167 15z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -365,7 +367,10 @@ const faqSchema = {
       </div>
     </div>
 
-    <div id="results" class="hidden mt-8 border-t border-border pt-8">
+    <div id="results" class="hidden mt-8">
+      <!-- Accent-framed container so the results card reads as the
+           answer the user came for. -->
+      <div class="rounded-2xl border-2 border-accent bg-accent/5 p-6 sm:p-8">
       <div class="mb-6 bg-[rgba(52,211,153,0.08)] border border-[rgba(52,211,153,0.25)] rounded-xl p-4 flex items-start gap-3">
         <div class="shrink-0 w-8 h-8 rounded-full bg-[rgba(52,211,153,0.15)] flex items-center justify-center">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="none" class="text-[#34D399]">
@@ -394,6 +399,7 @@ const faqSchema = {
         </div>
       </div>
       <p class="text-text-primary text-sm italic">Estimate only. For permit-ready Manual J, use ACCA-accredited software.</p>
+      </div> <!-- end accent-framed results card -->
     </div>
   </div>
 

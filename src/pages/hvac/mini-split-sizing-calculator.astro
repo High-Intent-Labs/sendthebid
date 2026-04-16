@@ -55,16 +55,16 @@ const roomTypes = [
   <div id="mss-calc">
     <!-- ZIP + climate display -->
     <div class="mb-6">
-      <label class="block text-sm font-medium text-text-secondary mb-2" for="zip">ZIP Code</label>
+      <label class="block text-sm font-medium text-text-primary mb-2" for="zip">ZIP Code</label>
       <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 02108"
         class="w-full sm:max-w-[180px] bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
       <!-- zip-display hosts one of four states injected by JS:
            empty (helper text), partial (keep typing), resolved (pro card
            with city + state + climate + IECC zone + design temps), or
            unrecognized (hint pointing to the fallback region picker). -->
-      <div id="zip-display" class="mt-3 text-text-secondary text-sm">Enter a 5-digit US ZIP to detect your climate region.</div>
+      <div id="zip-display" class="mt-3 text-text-primary text-sm">Enter a 5-digit US ZIP to detect your climate region.</div>
       <div id="zip-fallback" class="hidden mt-3">
-        <p class="text-text-muted text-xs mb-2">ZIP not found — pick your climate region:</p>
+        <p class="text-text-primary text-xs mb-2">ZIP not found — pick your climate region:</p>
         <div class="flex flex-wrap gap-2">
           <button type="button" data-region="hot"   class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Hot</button>
           <button type="button" data-region="warm"  class="region-pill bg-bg-dark border border-border rounded-lg px-3 py-1.5 text-sm hover:border-accent transition-colors">Warm</button>
@@ -77,7 +77,7 @@ const roomTypes = [
 
     <!-- Room type pill picker -->
     <div class="mb-6">
-      <label class="block text-sm font-medium text-text-secondary mb-2" for="roomtype-select">Room Type</label>
+      <label class="block text-sm font-medium text-text-primary mb-2" for="roomtype-select">Room Type</label>
       <!-- Mobile: dropdown (11 pills wrap awkwardly on narrow screens).
            Wrapped in relative container with a chevron overlay so it reads
            unmistakably as a dropdown on iOS/Android (native appearance can
@@ -90,7 +90,7 @@ const roomTypes = [
           ))}
         </select>
         <svg
-          class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+          class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
           fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -109,41 +109,41 @@ const roomTypes = [
     <!-- Room geometry -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="length">Room Length (ft)</label>
+        <label class="block text-sm font-medium text-text-primary mb-2" for="length">Room Length (ft)</label>
         <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease room length" class="stepper-minus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
+          <button type="button" aria-label="Decrease room length" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
           <input type="number" id="length" value="12" min="4" max="100" step="1"
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase room length" class="stepper-plus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+          <button type="button" aria-label="Increase room length" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="width">Room Width (ft)</label>
+        <label class="block text-sm font-medium text-text-primary mb-2" for="width">Room Width (ft)</label>
         <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease room width" class="stepper-minus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
+          <button type="button" aria-label="Decrease room width" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
           <input type="number" id="width" value="12" min="4" max="100" step="1"
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase room width" class="stepper-plus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+          <button type="button" aria-label="Increase room width" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="ceiling">Ceiling Height (ft)</label>
+        <label class="block text-sm font-medium text-text-primary mb-2" for="ceiling">Ceiling Height (ft)</label>
         <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease ceiling height" class="stepper-minus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
+          <button type="button" aria-label="Decrease ceiling height" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
           <input type="number" id="ceiling" value="8" min="6" max="20" step="1"
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase ceiling height" class="stepper-plus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+          <button type="button" aria-label="Increase ceiling height" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
       </div>
       <div>
         <div class="flex items-center gap-1.5 mb-2">
-          <label class="block text-sm font-medium text-text-secondary" for="exposed">Exposed Walls</label>
+          <label class="block text-sm font-medium text-text-primary" for="exposed">Exposed Walls</label>
           <button type="button"
             data-help-toggle="exposed-help"
             aria-expanded="false"
             aria-controls="exposed-help"
             aria-label="How to count exposed walls"
-            class="text-text-muted hover:text-accent transition-colors">
+            class="text-text-primary hover:text-accent transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -159,12 +159,12 @@ const roomTypes = [
             <option value="3">3 walls</option>
             <option value="4">4 — detached</option>
           </select>
-          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-        <div id="exposed-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-secondary leading-relaxed">
+        <div id="exposed-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
           <p class="font-medium text-text-primary mb-1">How to count exposed walls</p>
           <p class="mb-2">Count walls that touch <strong>outside air or an unconditioned space</strong>. Walls adjoining a heated/cooled hallway or room don't count.</p>
           <ul class="space-y-0.5 mb-2">
@@ -177,18 +177,18 @@ const roomTypes = [
           <p class="mb-1"><span class="text-text-primary">Also count:</span> walls bordering an unheated garage or unfinished attic; basement walls below grade.</p>
           <p class="mb-1"><span class="text-text-primary">Don't count:</span> walls between this room and a conditioned hallway or adjacent room.</p>
           <p class="mb-2"><span class="text-text-primary">Picking 0:</span> internal gains (people, equipment) dominate the load; the orientation picker stops affecting the result (there's no exterior wall to catch sun).</p>
-          <p class="text-text-muted">This factor changes the cooling load by up to 50%.</p>
+          <p class="text-text-primary">This factor changes the cooling load by up to 50%.</p>
         </div>
       </div>
       <div>
         <div class="flex items-center gap-1.5 mb-2">
-          <label class="block text-sm font-medium text-text-secondary">Primary Orientation</label>
+          <label class="block text-sm font-medium text-text-primary">Primary Orientation</label>
           <button type="button"
             data-help-toggle="orientation-help"
             aria-expanded="false"
             aria-controls="orientation-help"
             aria-label="How to pick primary orientation"
-            class="text-text-muted hover:text-accent transition-colors">
+            class="text-text-primary hover:text-accent transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -201,7 +201,7 @@ const roomTypes = [
           <button type="button" data-orient="S" class="orient-pill flex-1 bg-bg-dark border-accent rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">S</button>
           <button type="button" data-orient="W" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">W</button>
         </div>
-        <div id="orientation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-secondary leading-relaxed">
+        <div id="orientation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
           <p class="font-medium text-text-primary mb-1">How to pick primary orientation</p>
           <p class="mb-2">The direction the <strong>largest exterior wall</strong> faces — not the front door.</p>
           <ul class="space-y-0.5 mb-2">
@@ -209,18 +209,18 @@ const roomTypes = [
             <li>Corner room (2 exterior walls) → pick the wall with <strong>more window area</strong>.</li>
             <li>3-4 exterior walls → pick the wall with the greatest combined window + door area.</li>
           </ul>
-          <p class="text-text-muted">South and west walls take the most summer solar load; north the least. Factor range: 0.95 (N) to 1.15 (S).</p>
+          <p class="text-text-primary">South and west walls take the most summer solar load; north the least. Factor range: 0.95 (N) to 1.15 (S).</p>
         </div>
       </div>
       <div>
         <div class="flex items-center gap-1.5 mb-2">
-          <label class="block text-sm font-medium text-text-secondary" for="insulation">Insulation Level</label>
+          <label class="block text-sm font-medium text-text-primary" for="insulation">Insulation Level</label>
           <button type="button"
             data-help-toggle="insulation-help"
             aria-expanded="false"
             aria-controls="insulation-help"
             aria-label="How to pick insulation level"
-            class="text-text-muted hover:text-accent transition-colors">
+            class="text-text-primary hover:text-accent transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -236,12 +236,12 @@ const roomTypes = [
             <option value="poor">Poor (pre-1990 unimproved)</option>
             <option value="bad">Bad (no wall insulation)</option>
           </select>
-          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-        <div id="insulation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-secondary leading-relaxed">
+        <div id="insulation-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
           <p class="font-medium text-text-primary mb-1">How to pick insulation level</p>
           <p class="mb-2">When in doubt, drop a tier — houses are usually a bit worse than they look.</p>
           <ul class="space-y-0.5 mb-2">
@@ -251,18 +251,18 @@ const roomTypes = [
             <li><strong>Poor</strong> — pre-1990 unimproved. R-11 or less, single-pane windows, visibly drafty.</li>
             <li><strong>Bad</strong> — no wall insulation. Pre-1950 construction; cold spots, daylight around outlets.</li>
           </ul>
-          <p class="text-text-muted">Changes cooling load by up to 30%.</p>
+          <p class="text-text-primary">Changes cooling load by up to 30%.</p>
         </div>
       </div>
       <div>
         <div class="flex items-center gap-1.5 mb-2">
-          <label class="block text-sm font-medium text-text-secondary" for="windowArea">Window Area (sq ft)</label>
+          <label class="block text-sm font-medium text-text-primary" for="windowArea">Window Area (sq ft)</label>
           <button type="button"
             data-help-toggle="windowArea-help"
             aria-expanded="false"
             aria-controls="windowArea-help"
             aria-label="How to estimate window area"
-            class="text-text-muted hover:text-accent transition-colors">
+            class="text-text-primary hover:text-accent transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -270,12 +270,12 @@ const roomTypes = [
           </button>
         </div>
         <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease window area" class="stepper-minus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
+          <button type="button" aria-label="Decrease window area" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
           <input type="number" id="windowArea" value="20" min="0" max="500" step="1"
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase window area" class="stepper-plus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+          <button type="button" aria-label="Increase window area" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
-        <div id="windowArea-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-secondary leading-relaxed">
+        <div id="windowArea-help" class="hidden mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 text-xs text-text-primary leading-relaxed">
           <p class="font-medium text-text-primary mb-1">How to estimate window area</p>
           <p class="mb-2">Total glass area in this room, in sqft. Measure the <strong>glass</strong>, not the rough opening — subtract ~10% for the frame if unsure.</p>
           <ul class="space-y-0.5 mb-2">
@@ -285,22 +285,22 @@ const roomTypes = [
             <li>Count skylights too.</li>
           </ul>
           <p class="mb-2"><strong class="text-text-primary">Include sliding glass doors and French doors here</strong> — not in Door Area. They behave as windows for heat transfer.</p>
-          <p class="text-text-muted">Glass dominates the cooling load: 870 BTU/hr per sqft of window vs 25 BTU/hr per sqft of floor.</p>
+          <p class="text-text-primary">Glass dominates the cooling load: 870 BTU/hr per sqft of window vs 25 BTU/hr per sqft of floor.</p>
         </div>
       </div>
       <div>
-        <label class="block text-sm font-medium text-text-secondary mb-2" for="doorArea">Exterior Door Area (sq ft)</label>
+        <label class="block text-sm font-medium text-text-primary mb-2" for="doorArea">Exterior Door Area (sq ft)</label>
         <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease door area" class="stepper-minus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
+          <button type="button" aria-label="Decrease door area" class="stepper-minus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
           <input type="number" id="doorArea" value="0" min="0" max="100" step="1"
             class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase door area" class="stepper-plus px-6 md:px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+          <button type="button" aria-label="Increase door area" class="stepper-plus px-6 md:px-4 text-text-primary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
         </div>
       </div>
       <div class="flex flex-col justify-end">
-        <p id="derived" class="text-text-muted text-xs leading-snug">
-          <span class="text-text-secondary">Room floor area:</span> <span id="d-sqft">144</span> sq ft<br>
-          <span class="text-text-secondary">Volume:</span> <span id="d-vol">1,152</span> cu ft
+        <p id="derived" class="text-text-primary text-xs leading-snug">
+          <span class="text-text-primary">Room floor area:</span> <span id="d-sqft">144</span> sq ft<br>
+          <span class="text-text-primary">Volume:</span> <span id="d-vol">1,152</span> cu ft
         </p>
       </div>
     </div>
@@ -321,11 +321,11 @@ const roomTypes = [
           </svg>
         </div>
         <h3 id="gate-headline" class="font-heading font-bold text-xl text-text-primary mb-2">Your mini-split size is ready</h3>
-        <p id="gate-subhead" class="text-text-secondary text-sm mb-6">Enter your email to get your room load calculation — cooling BTU, closest standard mini-split size, and suggested airflow.</p>
+        <p id="gate-subhead" class="text-text-primary text-sm mb-6">Enter your email to get your room load calculation — cooling BTU, closest standard mini-split size, and suggested airflow.</p>
         <div class="flex flex-col sm:flex-row gap-3 mb-3">
           <label for="gate-email" class="sr-only">Your work email</label>
           <input type="email" id="gate-email" placeholder="you@company.com" required
-            class="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors placeholder:text-text-muted" />
+            class="flex-1 bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-base focus:border-accent focus:outline-none transition-colors placeholder:text-text-primary" />
           <button id="gate-submit" type="button"
             class="bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
             Send My Results
@@ -333,7 +333,7 @@ const roomTypes = [
         </div>
         <label class="flex items-center justify-center gap-2 cursor-pointer select-none">
           <input type="checkbox" id="gate-consent" checked class="w-4 h-4 rounded border-border bg-bg-dark accent-gray-500 opacity-70" />
-          <span class="text-text-muted text-xs">Also send me free tools and tips for pros. Unsubscribe anytime.</span>
+          <span class="text-text-primary text-xs">Also send me free tools and tips for pros. Unsubscribe anytime.</span>
         </label>
         <div id="gate-error" class="hidden mt-3 text-sm text-[#EF4444]"></div>
       </div>
@@ -348,30 +348,30 @@ const roomTypes = [
         </div>
         <div>
           <p class="text-text-primary font-semibold text-sm">Results also sent to your inbox</p>
-          <p class="text-text-secondary text-xs mt-0.5">Don't see it? Check your Spam or Promotions folder.</p>
+          <p class="text-text-primary text-xs mt-0.5">Don't see it? Check your Spam or Promotions folder.</p>
         </div>
       </div>
 
       <h3 class="font-heading font-bold text-xl mb-6">Your Mini-Split Size</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Cooling Load</div>
+          <div class="text-text-primary text-xs font-medium uppercase tracking-wider mb-2">Cooling Load</div>
           <div id="r-cool" class="font-heading font-extrabold text-2xl text-accent">—</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Closest Standard Size</div>
+          <div class="text-text-primary text-xs font-medium uppercase tracking-wider mb-2">Closest Standard Size</div>
           <div id="r-std" class="font-heading font-extrabold text-lg text-text-primary">—</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Heating Load</div>
+          <div class="text-text-primary text-xs font-medium uppercase tracking-wider mb-2">Heating Load</div>
           <div id="r-heat" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
         </div>
         <div class="bg-bg-dark rounded-xl p-5 text-center">
-          <div class="text-text-muted text-xs font-medium uppercase tracking-wider mb-2">Suggested Airflow</div>
+          <div class="text-text-primary text-xs font-medium uppercase tracking-wider mb-2">Suggested Airflow</div>
           <div id="r-cfm" class="font-heading font-extrabold text-2xl text-text-primary">—</div>
         </div>
       </div>
-      <p class="text-text-muted text-sm italic">Estimate only. Match to the closest standard size — oversizing leads to short-cycling and humidity problems.</p>
+      <p class="text-text-primary text-sm italic">Estimate only. Match to the closest standard size — oversizing leads to short-cycling and humidity problems.</p>
     </div>
   </div>
 
@@ -379,7 +379,7 @@ const roomTypes = [
     <div class="max-w-[1080px] mx-auto px-6 md:px-12 pb-16 space-y-12">
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How to Use This Calculator</h2>
-        <div class="text-text-secondary leading-relaxed space-y-3">
+        <div class="text-text-primary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">1. Enter the ZIP of the job site.</strong> Auto-detects climate region — one of the top drivers of cooling load.</p>
           <p><strong class="text-text-primary">2. Pick the room type.</strong> Bedroom, living, kitchen, bathroom, office, dining, garage, basement, sunroom, or addition. This sets internal gains automatically (kitchens get 4,000+ BTU extra for cooking; bedrooms and bathrooms far less).</p>
           <p><strong class="text-text-primary">3. Measure the room.</strong> Inside wall to inside wall. Length × Width × Ceiling height. We derive floor area and volume automatically.</p>
@@ -392,7 +392,7 @@ const roomTypes = [
 
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">How the Calculation Works</h2>
-        <div class="text-text-secondary leading-relaxed space-y-3">
+        <div class="text-text-primary leading-relaxed space-y-3">
           <p>We use a 25 BTU/sqft room baseline (higher than whole-house because individual rooms don't benefit from shared thermal mass and ductwork losses), then apply multipliers for each driver.</p>
           <div class="bg-bg-card border border-border rounded-lg p-4 font-mono text-sm overflow-x-auto">
             <p>base = length × width × 25 × (ceiling / 8)</p>
@@ -409,7 +409,7 @@ const roomTypes = [
 
       <section>
         <h2 class="font-heading font-bold text-2xl mb-4">When to Use This vs Whole-House</h2>
-        <div class="text-text-secondary leading-relaxed space-y-3">
+        <div class="text-text-primary leading-relaxed space-y-3">
           <p><strong class="text-text-primary">Use this tool when:</strong> sizing an individual mini-split head for a single room, sizing a zoned addition, troubleshooting a room that's too hot or cold, or designing room-level ductwork.</p>
           <p><strong class="text-text-primary">Use the whole-house <a href="/hvac/load-calculator/" class="text-accent hover:underline">Load Calculator</a> when:</strong> sizing a central system, a single outdoor heat pump unit, or quoting a full-house replacement. Room-level accuracy doesn't matter as much at that scale.</p>
           <p><strong class="text-text-primary">For permit work:</strong> neither of our tools is ACCA-accredited. Use ACCA-accredited Manual J software instead.</p>
@@ -421,23 +421,23 @@ const roomTypes = [
         <div class="space-y-4">
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What size mini-split do I need for a 12x14 bedroom?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Roughly 6,000-9,000 BTU for a typical 12×14 bedroom in a mixed climate, depending on insulation, orientation, and exposed walls. A 9k mini-split is usually the right starting point. Enter your specifics above for a precise number.</div>
+            <div class="px-5 pb-4 text-text-primary text-sm leading-relaxed">Roughly 6,000-9,000 BTU for a typical 12×14 bedroom in a mixed climate, depending on insulation, orientation, and exposed walls. A 9k mini-split is usually the right starting point. Enter your specifics above for a precise number.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">How is this different from whole-house sizing?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Room-level accounts for each room's specific exposure. A corner bedroom facing south with 3 exposed walls has 40-50% more cooling load than an interior room of the same size. For mini-splits, this accuracy matters — for central systems, less so.</div>
+            <div class="px-5 pb-4 text-text-primary text-sm leading-relaxed">Room-level accounts for each room's specific exposure. A corner bedroom facing south with 3 exposed walls has 40-50% more cooling load than an interior room of the same size. For mini-splits, this accuracy matters — for central systems, less so.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What BTU sizes do mini-splits come in?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Standard residential head units: 9k, 12k, 18k, 24k, 36k BTU. We round your calculated load to the closest standard. Avoid oversizing by more than one tier — it causes short-cycling and humidity problems.</div>
+            <div class="px-5 pb-4 text-text-primary text-sm leading-relaxed">Standard residential head units: 9k, 12k, 18k, 24k, 36k BTU. We round your calculated load to the closest standard. Avoid oversizing by more than one tier — it causes short-cycling and humidity problems.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">What does CFM mean in the results?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Cubic feet per minute — the airflow needed to deliver the calculated cooling load. Useful for ductwork or selecting a ducted mini-split. Rule of thumb: cooling BTU ÷ 30, assuming a 20°F coil ΔT.</div>
+            <div class="px-5 pb-4 text-text-primary text-sm leading-relaxed">Cubic feet per minute — the airflow needed to deliver the calculated cooling load. Useful for ductwork or selecting a ducted mini-split. Rule of thumb: cooling BTU ÷ 30, assuming a 20°F coil ΔT.</div>
           </details>
           <details class="bg-bg-card border border-border rounded-lg">
             <summary class="px-5 py-4 cursor-pointer text-text-primary font-medium hover:text-accent transition-colors">Does orientation really matter?</summary>
-            <div class="px-5 pb-4 text-text-secondary text-sm leading-relaxed">Yes. A west-facing room in summer takes direct afternoon sun and can run 15-20% hotter than an east-facing room of the same size. Our factor: N 0.95, E 1.00, W 1.10, S 1.15.</div>
+            <div class="px-5 pb-4 text-text-primary text-sm leading-relaxed">Yes. A west-facing room in summer takes direct afternoon sun and can run 15-20% hotter than an east-facing room of the same size. Our factor: N 0.95, E 1.00, W 1.10, S 1.15.</div>
           </details>
         </div>
       </section>
@@ -557,15 +557,15 @@ const roomTypes = [
 
   function renderZipCard(s: ZipCardState) {
     if (s.kind === 'empty') {
-      zipDisplay.innerHTML = '<span class="text-text-secondary text-sm">Enter a 5-digit US ZIP to detect your climate region.</span>';
+      zipDisplay.innerHTML = '<span class="text-text-primary text-sm">Enter a 5-digit US ZIP to detect your climate region.</span>';
       return;
     }
     if (s.kind === 'partial') {
-      zipDisplay.innerHTML = '<span class="text-text-muted text-sm">Keep typing — 5 digits total.</span>';
+      zipDisplay.innerHTML = '<span class="text-text-primary text-sm">Keep typing — 5 digits total.</span>';
       return;
     }
     if (s.kind === 'unrecognized') {
-      zipDisplay.innerHTML = '<span class="text-text-muted text-sm">ZIP not recognized.</span>';
+      zipDisplay.innerHTML = '<span class="text-text-primary text-sm">ZIP not recognized.</span>';
       return;
     }
     if (s.kind === 'manual') {
@@ -574,9 +574,9 @@ const roomTypes = [
     }
     // resolved
     const place = s.city ? `${escapeHtml(s.city)}, ${escapeHtml(s.state)}` : escapeHtml(s.state);
-    const iecc = s.ieccZone ? ` <span class="text-text-muted">(IECC ${escapeHtml(s.ieccZone)})</span>` : '';
+    const iecc = s.ieccZone ? ` <span class="text-text-primary">(IECC ${escapeHtml(s.ieccZone)})</span>` : '';
     const designLine = (s.designCoolingDB != null && s.designHeatingDB != null)
-      ? `<div class="text-sm text-text-muted mt-0.5">Design temp: ${s.designCoolingDB}°F cooling / ${s.designHeatingDB}°F heating</div>`
+      ? `<div class="text-sm text-text-primary mt-0.5">Design temp: ${s.designCoolingDB}°F cooling / ${s.designHeatingDB}°F heating</div>`
       : '';
     zipDisplay.innerHTML = `
       <div class="rounded-lg border border-border bg-bg-dark/60 p-4">
@@ -587,7 +587,7 @@ const roomTypes = [
           </svg>
           <span>${place} · ${escapeHtml(s.zip)}</span>
         </div>
-        <div class="mt-1 text-sm text-text-secondary">Climate: <span class="text-accent font-medium">${escapeHtml(s.regionLabel)}</span>${iecc}</div>
+        <div class="mt-1 text-sm text-text-primary">Climate: <span class="text-accent font-medium">${escapeHtml(s.regionLabel)}</span>${iecc}</div>
         ${designLine}
       </div>`;
   }
@@ -674,7 +674,7 @@ const roomTypes = [
       zipDisplay.innerHTML = `
         <div class="rounded-lg border border-border bg-bg-dark/60 p-4">
           <div class="text-text-primary font-medium">Manual region selection</div>
-          <div class="mt-1 text-sm text-text-secondary">Climate: <span class="text-accent font-medium">${escapeHtml(meta.label)}</span> <span class="text-text-muted">(ZIP not in our database)</span></div>
+          <div class="mt-1 text-sm text-text-primary">Climate: <span class="text-accent font-medium">${escapeHtml(meta.label)}</span> <span class="text-text-primary">(ZIP not in our database)</span></div>
         </div>`;
       zipFallback.classList.add('hidden');
       document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(b => b.classList.remove('border-accent'));

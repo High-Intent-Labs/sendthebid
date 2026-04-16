@@ -825,7 +825,17 @@ const roomTypes = [
   // also sync aria-expanded on ALL buttons targeting the same panel, so
   // the info icon and its close button stay consistent after either is
   // clicked.
+  //
+  // Analytics: fires a help_opened PostHog event each time a panel is
+  // opened (not on close). Gives us a per-field count of "where users
+  // need clarification" — the field with the highest open-rate is the
+  // one whose label is least self-evident and most deserves a rewrite.
+  //
+  // Guard: data-help-wired matches the stepper guard pattern so each
+  // button gets at most one listener even if this script re-executes.
   document.querySelectorAll<HTMLButtonElement>('[data-help-toggle]').forEach(btn => {
+    if (btn.dataset.helpWired) return;
+    btn.dataset.helpWired = '1';
     btn.addEventListener('click', () => {
       const targetId = btn.dataset.helpToggle;
       if (!targetId) return;
@@ -836,6 +846,16 @@ const roomTypes = [
       document.querySelectorAll<HTMLButtonElement>(`[data-help-toggle="${targetId}"]`).forEach(b => {
         b.setAttribute('aria-expanded', String(willBeOpen));
       });
+      if (willBeOpen) {
+        // Never cache window.posthog — reference directly per the
+        // repo-wide rule (the stub gets replaced by the real library).
+        (window as any).posthog?.capture('help_opened', {
+          tool_slug: 'mini-split-sizing-calculator',
+          trade_slug: 'hvac',
+          // 'exposed-help' → 'exposed', 'windowArea-help' → 'windowArea'
+          field: targetId.replace(/-help$/, ''),
+        });
+      }
     });
   });
 

@@ -78,11 +78,11 @@ const roomTypes = [
     <!-- Room type pill picker -->
     <div class="mb-6">
       <label class="block text-sm font-medium text-text-primary mb-2" for="roomtype-select">Room Type</label>
-      <!-- Mobile: dropdown (11 pills wrap awkwardly on narrow screens).
-           Wrapped in relative container with a chevron overlay so it reads
-           unmistakably as a dropdown on iOS/Android (native appearance can
-           be subtle or get reset by form-resets). -->
-      <div class="relative md:hidden">
+      <!-- Dropdown at all viewports (previously pills on desktop). The
+           pill row of 11 options made the top of the form visually busy;
+           a dropdown matches the other field controls and keeps the
+           above-the-fold area focused on the calc. -->
+      <div class="relative">
         <select id="roomtype-select"
           class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
           {roomTypes.map((r) => (
@@ -94,15 +94,6 @@ const roomTypes = [
           fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
-      </div>
-      <!-- Desktop: pills (discoverable, one-click) -->
-      <div class="hidden md:flex flex-wrap gap-2" id="roomtype-pills">
-        {roomTypes.map((r, i) => (
-          <button type="button" data-roomtype={r.v}
-            class={`roomtype-pill bg-bg-dark border ${i === 0 ? 'border-accent' : 'border-border'} rounded-lg px-4 py-2 text-sm hover:border-accent transition-colors`}>
-            {r.l}
-          </button>
-        ))}
       </div>
     </div>
 
@@ -854,20 +845,11 @@ const roomTypes = [
     set('doorArea', String(d.doorArea));
   }
 
-  // Room type picker — pills (desktop) + select (mobile) share state.
+  // Room type picker — single <select>, all viewports.
   const roomSelect = document.getElementById('roomtype-select') as HTMLSelectElement | null;
   function setRoomType(v: RoomType) {
     const prev = roomType;
     roomType = v;
-    document.querySelectorAll<HTMLButtonElement>('.roomtype-pill').forEach(b => {
-      if (b.dataset.roomtype === v) {
-        b.classList.remove('border-border');
-        b.classList.add('border-accent');
-      } else {
-        b.classList.remove('border-accent');
-        b.classList.add('border-border');
-      }
-    });
     if (roomSelect && roomSelect.value !== v) roomSelect.value = v;
     // First-time change from the initial default: fill in likely values
     // for the picked room type. Any subsequent change (even back to
@@ -877,11 +859,6 @@ const roomTypes = [
       applyRoomDefaults(v);
     }
   }
-  document.querySelectorAll<HTMLButtonElement>('.roomtype-pill').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setRoomType((btn.dataset.roomtype || 'bedroom') as RoomType);
-    });
-  });
   roomSelect?.addEventListener('change', () => {
     setRoomType(roomSelect.value as RoomType);
   });

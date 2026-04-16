@@ -42,11 +42,12 @@ const faqSchema = {
     <!-- ZIP + climate display -->
     <div class="mb-6">
       <label class="block text-sm font-medium text-text-secondary mb-2" for="zip">ZIP Code</label>
-      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-        <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 85001"
-          class="w-full sm:max-w-[180px] bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
-        <div id="zip-display" class="text-text-secondary text-sm"></div>
-      </div>
+      <input type="text" id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 85001"
+        class="w-full sm:max-w-[180px] bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors" />
+      <!-- zip-display hosts one of four states injected by JS:
+           empty / partial / resolved (pro card with city + state +
+           climate + IECC zone + design temps) / unrecognized. -->
+      <div id="zip-display" class="mt-3 text-text-secondary text-sm"></div>
       <div id="zip-fallback" class="hidden mt-3">
         <p class="text-text-muted text-xs mb-2">ZIP not found — pick your climate region:</p>
         <div class="flex flex-wrap gap-2">
@@ -71,11 +72,28 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="ceiling">Ceiling Height (ft)</label>
-        <div class="number-stepper flex items-stretch bg-bg-dark border border-border rounded-lg focus-within:border-accent transition-colors overflow-hidden">
-          <button type="button" aria-label="Decrease ceiling height" class="stepper-minus px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">−</button>
-          <input type="number" id="ceiling" value="8" min="6" max="20" step="0.5"
-            class="flex-1 bg-transparent text-text-primary text-lg text-center focus:outline-none min-w-0 py-3 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
-          <button type="button" aria-label="Increase ceiling height" class="stepper-plus px-4 text-text-secondary hover:text-accent text-2xl font-bold leading-none select-none">+</button>
+        <div class="relative">
+          <select id="ceiling"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="7">7 ft</option>
+            <option value="8" selected>8 ft</option>
+            <option value="9">9 ft</option>
+            <option value="10">10 ft</option>
+            <option value="11">11 ft</option>
+            <option value="12">12 ft</option>
+            <option value="13">13 ft</option>
+            <option value="14">14 ft</option>
+            <option value="15">15 ft</option>
+            <option value="16">16 ft</option>
+            <option value="17">17 ft</option>
+            <option value="18">18 ft</option>
+            <option value="19">19 ft</option>
+            <option value="20">20 ft</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </div>
       <div>
@@ -298,24 +316,137 @@ const faqSchema = {
   const zipDisplay = document.getElementById('zip-display')!;
   const zipFallback = document.getElementById('zip-fallback')!;
 
+  // ZIP card rendering + enrichment --------------------------------------
+  // Sync path uses lookupZip for the climate region (drives the calc).
+  // Async path hits /api/zip-lookup to enrich the card with city name,
+  // IECC zone, and design temps — display only, never affects calculation.
+  type ZipCardState = {
+    kind: 'empty' | 'partial' | 'unrecognized' | 'manual';
+  } | {
+    kind: 'resolved';
+    zip: string;
+    city: string | null;
+    state: string;
+    regionLabel: string;
+    ieccZone?: string;
+    designCoolingDB?: number;
+    designHeatingDB?: number;
+  };
+
+  function escapeHtml(s: string): string {
+    return String(s).replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    } as Record<string, string>)[c]);
+  }
+
+  function renderZipCard(s: ZipCardState) {
+    if (s.kind === 'empty') {
+      zipDisplay.innerHTML = '';
+      return;
+    }
+    if (s.kind === 'partial') {
+      zipDisplay.innerHTML = '<span class="text-text-muted text-sm">Keep typing — 5 digits total.</span>';
+      return;
+    }
+    if (s.kind === 'unrecognized') {
+      zipDisplay.innerHTML = '<span class="text-text-muted text-sm">ZIP not recognized.</span>';
+      return;
+    }
+    if (s.kind === 'manual') {
+      // Set by the region-pill handler below with its own markup.
+      return;
+    }
+    // resolved
+    const place = s.city ? `${escapeHtml(s.city)}, ${escapeHtml(s.state)}` : escapeHtml(s.state);
+    const iecc = s.ieccZone ? ` <span class="text-text-muted">(IECC ${escapeHtml(s.ieccZone)})</span>` : '';
+    const designLine = (s.designCoolingDB != null && s.designHeatingDB != null)
+      ? `<div class="text-sm text-text-muted mt-0.5">Design temp: ${s.designCoolingDB}°F cooling / ${s.designHeatingDB}°F heating</div>`
+      : '';
+    zipDisplay.innerHTML = `
+      <div class="rounded-lg border border-border bg-bg-dark/60 p-4">
+        <div class="flex items-center gap-2 text-text-primary font-medium">
+          <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>${place} · ${escapeHtml(s.zip)}</span>
+        </div>
+        <div class="mt-1 text-sm text-text-secondary">Climate: <span class="text-accent font-medium">${escapeHtml(s.regionLabel)}</span>${iecc}</div>
+        ${designLine}
+      </div>`;
+  }
+
+  let zipLookupAbort: AbortController | null = null;
+  let zipLookupTimer: number | null = null;
+
   function setClimateFromZip(raw: string) {
     const zip = raw.replace(/\D/g, '').slice(0, 5);
-    if (zip.length < 3) {
+
+    if (zipLookupAbort) { zipLookupAbort.abort(); zipLookupAbort = null; }
+    if (zipLookupTimer !== null) { window.clearTimeout(zipLookupTimer); zipLookupTimer = null; }
+
+    if (zip.length === 0) {
       climate = null;
-      zipDisplay.textContent = '';
+      renderZipCard({ kind: 'empty' });
       zipFallback.classList.add('hidden');
       return;
     }
-    const lookup = lookupZip(zip);
-    if (lookup) {
-      climate = lookup;
-      zipDisplay.innerHTML = `<span class="text-text-primary font-medium">${lookup.state}</span> &middot; <span class="text-accent font-medium">${lookup.regionLabel} region</span>`;
-      zipFallback.classList.add('hidden');
-    } else if (zip.length >= 3) {
+    if (zip.length < 5) {
       climate = null;
-      zipDisplay.textContent = 'ZIP not recognized.';
-      zipFallback.classList.remove('hidden');
+      renderZipCard({ kind: 'partial' });
+      zipFallback.classList.add('hidden');
+      return;
     }
+
+    // 5 digits entered — sync lookup drives the calculation
+    const lookup = lookupZip(zip);
+    if (!lookup) {
+      climate = null;
+      renderZipCard({ kind: 'unrecognized' });
+      zipFallback.classList.remove('hidden');
+      return;
+    }
+    climate = lookup;
+    zipFallback.classList.add('hidden');
+
+    // Render what we know synchronously (no city, no IECC yet)
+    renderZipCard({
+      kind: 'resolved',
+      zip,
+      city: null,
+      state: lookup.state,
+      regionLabel: lookup.regionLabel,
+    });
+
+    // Debounced async enrichment via /api/zip-lookup
+    zipLookupTimer = window.setTimeout(() => {
+      zipLookupAbort = new AbortController();
+      fetch(`/api/zip-lookup?zip=${zip}`, { signal: zipLookupAbort.signal })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data: any) => {
+          if (!data || data.error) return;
+          renderZipCard({
+            kind: 'resolved',
+            zip: data.zip,
+            city: data.city ?? null,
+            state: data.state,
+            regionLabel: data.regionLabel,
+            ieccZone: data.ieccZone,
+            designCoolingDB: data.designCoolingDB,
+            designHeatingDB: data.designHeatingDB,
+          });
+          (window as any).posthog?.capture('zip_resolved', {
+            tool_slug: 'load-calculator',
+            trade_slug: 'hvac',
+            zip: data.zip,
+            city: data.city,
+            state: data.state,
+            climate_region: data.region,
+            iecc_zone: data.ieccZone,
+          });
+        })
+        .catch(() => { /* aborted / network — sync card still visible */ });
+    }, 250) as unknown as number;
   }
   zipInput.addEventListener('input', () => setClimateFromZip(zipInput.value));
 
@@ -324,7 +455,11 @@ const faqSchema = {
       const region = btn.dataset.region as Region;
       climate = lookupRegion(region, zipInput.value, '');
       const meta = REGIONS[region];
-      zipDisplay.innerHTML = `<span class="text-accent font-medium">${meta.label} region</span> <span class="text-text-muted">(manually selected)</span>`;
+      zipDisplay.innerHTML = `
+        <div class="rounded-lg border border-border bg-bg-dark/60 p-4">
+          <div class="text-text-primary font-medium">Manual region selection</div>
+          <div class="mt-1 text-sm text-text-secondary">Climate: <span class="text-accent font-medium">${escapeHtml(meta.label)}</span> <span class="text-text-muted">(ZIP not in our database)</span></div>
+        </div>`;
       zipFallback.classList.add('hidden');
       document.querySelectorAll<HTMLButtonElement>('.region-pill').forEach(b => b.classList.remove('border-accent'));
       btn.classList.add('border-accent');
@@ -346,7 +481,7 @@ const faqSchema = {
     return {
       climate,
       sqft: parseFloat((document.getElementById('sqft') as HTMLInputElement).value) || 2000,
-      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLInputElement).value) || 8,
+      ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLSelectElement).value) || 8,
       insulation: (document.getElementById('insulation') as HTMLSelectElement).value as InsulationGrade,
       sun: (document.getElementById('sun') as HTMLSelectElement).value as SunExposure,
       windows: (document.getElementById('windows') as HTMLSelectElement).value as WindowAmount,

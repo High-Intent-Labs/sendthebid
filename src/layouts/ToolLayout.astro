@@ -72,8 +72,9 @@ const webAppSchema = {
   currentPath={`/${tool.tradeSlug}/${tool.slug}/`}
   schema={[breadcrumbSchema, webAppSchema, ...extraSchema]}
 >
-  <!-- Breadcrumb -->
-  <nav class="max-w-[1080px] mx-auto px-6 md:px-12 pt-4 pb-2" aria-label="Breadcrumb">
+  <!-- Breadcrumb — hidden on mobile to reduce vertical clutter above the fold.
+       SEO is preserved by the BreadcrumbList JSON-LD in <head> (see schema prop). -->
+  <nav class="hidden md:block max-w-[1080px] mx-auto px-6 md:px-12 pt-4 pb-2" aria-label="Breadcrumb">
     <ol class="flex items-center gap-2 text-sm text-text-muted">
       <li><a href="/" class="hover:text-text-secondary transition-colors no-underline">Home</a></li>
       <li class="before:content-['/'] before:mx-2"><a href={`/${tool.tradeSlug}/`} class="hover:text-text-secondary transition-colors no-underline">{tool.tradeName} Tools</a></li>

@@ -137,12 +137,19 @@ const roomTypes = [
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="exposed">Exposed Walls</label>
-        <select id="exposed" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="1">1 — interior room</option>
-          <option value="2" selected>2 — corner room</option>
-          <option value="3">3 walls</option>
-          <option value="4">4 — detached</option>
-        </select>
+        <div class="relative">
+          <select id="exposed"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="1">1 — interior room</option>
+            <option value="2" selected>2 — corner room</option>
+            <option value="3">3 walls</option>
+            <option value="4">4 — detached</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2">Primary Orientation</label>
@@ -155,13 +162,20 @@ const roomTypes = [
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="insulation">Insulation Level</label>
-        <select id="insulation" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="excellent">Excellent (new construction / deep retrofit)</option>
-          <option value="good">Good (above average)</option>
-          <option value="average" selected>Average (standard code)</option>
-          <option value="poor">Poor (pre-1990 unimproved)</option>
-          <option value="bad">Bad (no wall insulation)</option>
-        </select>
+        <div class="relative">
+          <select id="insulation"
+            class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="excellent">Excellent (new construction / deep retrofit)</option>
+            <option value="good">Good (above average)</option>
+            <option value="average" selected>Average (standard code)</option>
+            <option value="poor">Poor (pre-1990 unimproved)</option>
+            <option value="bad">Bad (no wall insulation)</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </div>
       <div>
         <label class="block text-sm font-medium text-text-secondary mb-2" for="windowArea">Window Area (sq ft)</label>

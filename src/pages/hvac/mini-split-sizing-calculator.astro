@@ -263,7 +263,7 @@ const roomTypes = [
         <div class="flex gap-2" id="orientation-pills">
           <button type="button" data-orient="N" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">N</button>
           <button type="button" data-orient="E" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">E</button>
-          <button type="button" data-orient="S" class="orient-pill flex-1 bg-bg-dark border-accent rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">S</button>
+          <button type="button" data-orient="S" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">S</button>
           <button type="button" data-orient="W" class="orient-pill flex-1 bg-bg-dark border border-border rounded-lg px-3 py-2.5 text-sm hover:border-accent transition-colors">W</button>
         </div>
         <div id="orientation-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
@@ -638,7 +638,10 @@ const roomTypes = [
 
   let climate: ReturnType<typeof lookupZip> = null;
   let roomType: RoomType = 'bedroom';
-  let orientation: Orientation = 'S';
+  // Orientation is required for any room with exterior walls. No default
+  // — the pro picks consciously. For a fully interior room (exposedWalls
+  // === 0) calcRoom forces the factor to 1.0 so the picker is skipped.
+  let orientation: Orientation | null = null;
 
   const zipInput = document.getElementById('zip') as HTMLInputElement;
   const zipDisplay = document.getElementById('zip-display')!;
@@ -943,15 +946,26 @@ const roomTypes = [
       calcHint.classList.remove('hidden');
       return null;
     }
+    const exposedWalls = parseInt((document.getElementById('exposed') as HTMLSelectElement).value) as ExposedWalls;
+    // Orientation is required unless the room has no exterior walls
+    // (exposedWalls === 0), in which case calcRoom() ignores it.
+    if (exposedWalls !== 0 && orientation === null) {
+      calcHint.textContent = 'Please pick the primary orientation of the room.';
+      calcHint.classList.remove('hidden');
+      return null;
+    }
     calcHint.classList.add('hidden');
     return {
       climate,
       roomType,
-      orientation,
+      // When exposedWalls === 0, orientation is a no-op in the calc.
+      // 'S' here is a placeholder to satisfy the RoomInputs type — the
+      // factor gets overridden to 1.0 inside calcRoom regardless.
+      orientation: orientation ?? 'S',
       length: parseFloat((document.getElementById('length') as HTMLSelectElement).value) || 12,
       width: parseFloat((document.getElementById('width') as HTMLSelectElement).value) || 12,
       ceilingHeight: parseFloat((document.getElementById('ceiling') as HTMLSelectElement).value) || 8,
-      exposedWalls: parseInt((document.getElementById('exposed') as HTMLSelectElement).value) as ExposedWalls,
+      exposedWalls,
       windowAreaSqFt: parseFloat((document.getElementById('windowArea') as HTMLSelectElement).value) || 0,
       doorAreaSqFt: parseFloat((document.getElementById('doorArea') as HTMLSelectElement).value) || 0,
       insulation: (document.getElementById('insulation') as HTMLSelectElement).value as RoomInsulation,

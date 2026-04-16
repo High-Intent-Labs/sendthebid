@@ -111,13 +111,19 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="insulation" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="excellent">Excellent</option>
-          <option value="better">Better than average</option>
-          <option value="average" selected>Average</option>
-          <option value="worse">Worse than average</option>
-          <option value="bad">Bad</option>
-        </select>
+        <div class="relative">
+          <select id="insulation" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="excellent">Excellent</option>
+            <option value="better">Better than average</option>
+            <option value="average" selected>Average</option>
+            <option value="worse">Worse than average</option>
+            <option value="bad">Bad</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="insulation-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="insulation-help" aria-expanded="false" aria-controls="insulation-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
@@ -149,11 +155,17 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="sun" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="lots">A large amount</option>
-          <option value="medium" selected>A medium amount</option>
-          <option value="little">Little or none</option>
-        </select>
+        <div class="relative">
+          <select id="sun" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="lots">A large amount</option>
+            <option value="medium" selected>A medium amount</option>
+            <option value="little">Little or none</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="sun-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="sun-help" aria-expanded="false" aria-controls="sun-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
@@ -183,10 +195,16 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="windows" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="standard" selected>Standard amount</option>
-          <option value="many">Many (more than standard)</option>
-        </select>
+        <div class="relative">
+          <select id="windows" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="standard" selected>Standard amount</option>
+            <option value="many">Many (more than standard)</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="windows-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="windows-help" aria-expanded="false" aria-controls="windows-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
@@ -215,11 +233,17 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="tightness" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="sealed">Sealed tight &amp; double-paned</option>
-          <option value="typical" selected>Typical fit and seal</option>
-          <option value="leaky">Not well-sealed &amp; single-paned</option>
-        </select>
+        <div class="relative">
+          <select id="tightness" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="sealed">Sealed tight &amp; double-paned</option>
+            <option value="typical" selected>Typical fit and seal</option>
+            <option value="leaky">Not well-sealed &amp; single-paned</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="tightness-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="tightness-help" aria-expanded="false" aria-controls="tightness-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
@@ -236,13 +260,19 @@ const faqSchema = {
       </div>
       <div>
         <label class="block text-sm font-medium text-text-primary mb-2" for="occupants">Occupants</label>
-        <select id="occupants" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="2" selected>2 or less</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
+        <div class="relative">
+          <select id="occupants" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="2" selected>2 or less</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
       </div>
       <div>
         <div class="flex items-center gap-1.5 mb-2">
@@ -259,15 +289,21 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="devices" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="0" selected>0</option>
-          <option value="600">1</option>
-          <option value="1200">2</option>
-          <option value="1800">3</option>
-          <option value="2400">4</option>
-          <option value="3000">5</option>
-          <option value="3600">6</option>
-        </select>
+        <div class="relative">
+          <select id="devices" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="0" selected>0</option>
+            <option value="600">1</option>
+            <option value="1200">2</option>
+            <option value="1800">3</option>
+            <option value="2400">4</option>
+            <option value="3000">5</option>
+            <option value="3600">6</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="devices-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="devices-help" aria-expanded="false" aria-controls="devices-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">
@@ -294,10 +330,16 @@ const faqSchema = {
             </svg>
           </button>
         </div>
-        <select id="kitchen" class="w-full bg-bg-dark border border-border rounded-lg px-4 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
-          <option value="yes" selected>Yes</option>
-          <option value="no">No</option>
-        </select>
+        <div class="relative">
+          <select id="kitchen" class="appearance-none w-full bg-bg-dark border border-border rounded-lg px-4 pr-10 py-3 text-text-primary text-lg focus:border-accent focus:outline-none transition-colors">
+            <option value="yes" selected>Yes</option>
+            <option value="no">No</option>
+          </select>
+          <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-primary"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
         <div id="kitchen-help" class="hidden relative mt-2 rounded-lg border border-border bg-bg-dark/60 p-3 pr-8 text-xs text-text-primary leading-relaxed">
           <button type="button" data-help-toggle="kitchen-help" aria-expanded="false" aria-controls="kitchen-help" aria-label="Close help"
             class="absolute top-2 right-2 text-text-primary hover:text-accent transition-colors">

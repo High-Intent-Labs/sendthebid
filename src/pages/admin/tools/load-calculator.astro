@@ -141,6 +141,29 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         </table>
       </div>
 
+      <!-- Persona CTA click-through — post-email Angi CTA performance by persona.
+           Shipped 2026-04-23 (commit 9260b83f). Baseline was 0% because no CTA
+           existed before then. Unique users per bucket (a single user
+           double-clicking the CTA doesn't inflate). -->
+      <div class="bg-bg-card border border-border rounded-xl p-5 mb-8">
+        <h2 class="font-heading font-semibold text-lg mb-3">Persona CTA click-through</h2>
+        <p class="text-text-primary text-xs mb-4">Unique users who saw each persona's post-email CTA and clicked through to Angi. CTR = clicks / emails. <code class="text-xs">home_hiring_not_yet</code> is the target bucket — that's the one to watch. Data starts 2026-04-23 (commit 9260b83f) — before that, no CTA existed on the page.</p>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border text-left">
+              <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Persona</th>
+              <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider">Angi destination</th>
+              <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Emails</th>
+              <th class="pb-2 pr-3 font-medium text-text-primary text-xs uppercase tracking-wider text-right">Clicks</th>
+              <th class="pb-2 font-medium text-text-primary text-xs uppercase tracking-wider text-right">CTR %</th>
+            </tr>
+          </thead>
+          <tbody id="persona-cta-body" class="text-text-primary">
+            <tr><td colspan="5" class="py-4 text-center text-text-primary">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <!-- Email captures table -->
       <div class="bg-bg-card border border-border rounded-xl p-5 mb-12">
         <div class="flex items-center justify-between mb-4 gap-3">
@@ -432,6 +455,53 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     }
   }
 
+  // Persona keys come back from PostHog in the form produced by the frontend
+  // CTA wiring (see load-calculator.astro showPersonaCta). Map each to a
+  // human-readable label + the Angi destination the CTA points at.
+  const PERSONA_META: Record<string, { label: string; dest: string; order: number }> = {
+    home_hiring_not_yet:       { label: '🟢🟢🟢 Home · Hiring · Not yet',       dest: 'Angi HVAC (10211)',    order: 1 },
+    home_hiring_has_estimates: { label: '🟢🟢 Home · Hiring · Has estimates',    dest: 'Angi HVAC (10211)',    order: 2 },
+    home_hiring_researching:   { label: '🟠 Home · Hiring · Researching',        dest: 'Angi HVAC (10211)',    order: 3 },
+    home_diy:                  { label: '🔴 Home · DIY',                         dest: 'Angi Electrical (12026)', order: 4 },
+    pro:                       { label: '⚫ Pro (customer job)',                  dest: 'signup.angi.com/pro',  order: 5 },
+    unknown:                   { label: 'Pre-v1 / unknown',                      dest: '—',                    order: 6 },
+  };
+
+  function renderPersonaCta(resp: any) {
+    const tbody = document.getElementById('persona-cta-body')!;
+    tbody.innerHTML = '';
+    if (resp?.error) {
+      tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-text-primary">${escape(resp.error)}</td></tr>`;
+      return;
+    }
+    const rows = resp?.results || [];
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-text-primary">No persona CTA activity in range</td></tr>`;
+      return;
+    }
+    // Sort by the meta display order (puts 🟢🟢🟢 first, unknown last); any
+    // unmapped persona keys drop to the bottom alphabetically.
+    const sorted = rows.slice().sort((a: any, b: any) => {
+      const ao = PERSONA_META[a[0]]?.order ?? 99;
+      const bo = PERSONA_META[b[0]]?.order ?? 99;
+      if (ao !== bo) return ao - bo;
+      return String(a[0]).localeCompare(String(b[0]));
+    });
+    for (const r of sorted) {
+      const [persona, emails, clicks, ctrPct] = r;
+      const meta = PERSONA_META[persona] || { label: String(persona), dest: '—' };
+      const ctr = (emails || 0) > 0 ? (Number(ctrPct || 0).toFixed(2) + '%') : '—';
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr class="border-b border-border/50">
+          <td class="py-2 pr-3">${escape(meta.label)}</td>
+          <td class="py-2 pr-3 text-text-primary text-xs">${escape(meta.dest)}</td>
+          <td class="py-2 pr-3 text-right font-mono">${Number(emails || 0).toLocaleString()}</td>
+          <td class="py-2 pr-3 text-right font-mono">${Number(clicks || 0).toLocaleString()}</td>
+          <td class="py-2 text-right font-mono">${ctr}</td>
+        </tr>`);
+    }
+  }
+
   function renderCaptures(rows: any[]) {
     const tbody = document.getElementById('captures-body')!;
     const count = document.getElementById('captures-count')!;
@@ -512,11 +582,12 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
       }
 
       if (analyticsP.status === 'fulfilled') {
-        const { funnel, help, ab, buckets } = analyticsP.value;
+        const { funnel, help, ab, buckets, personaCta } = analyticsP.value;
         renderFunnel(funnel);
         renderAB(ab);
         renderHelp(help);
         renderBuckets(buckets);
+        renderPersonaCta(personaCta);
       } else {
         const msg = String(analyticsP.reason);
         const prefix = errorEl.textContent ? errorEl.textContent + ' · ' : '';
@@ -526,6 +597,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         renderAB({ error: msg });
         renderHelp({ error: msg });
         renderBuckets({ error: msg });
+        renderPersonaCta({ error: msg });
       }
 
       showContent();

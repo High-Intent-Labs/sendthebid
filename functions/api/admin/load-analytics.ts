@@ -157,18 +157,60 @@ export const onRequestPost: PagesFunction<AnalyticsEnv> = async (context) => {
       ORDER BY emails DESC
     `.trim();
 
-    const [funnelR, helpR, abR, bucketsR] = await Promise.allSettled([
+    // Persona CTA CTR — post-email Angi CTA shipped 2026-04-23 (commit 9260b83f).
+    // For each persona bucket, how many unique users submitted an email AND how
+    // many of those clicked through to Angi (installer_match_clicked). Uses
+    // DISTINCT person_id so one user double-clicking the CTA doesn't inflate
+    // the CTR. The persona is derived the same way across both events so the
+    // buckets line up: installer_match_clicked stores it pre-bucketed in
+    // properties.persona; email_captured stores the raw segment/is_diy/
+    // contractor_stage and we bucket it here.
+    const personaCtaQuery = `
+      WITH persona_derived AS (
+        SELECT
+          event, person_id,
+          CASE
+            WHEN event = 'installer_match_clicked' THEN toString(properties.persona)
+            WHEN properties.segment = 'customer' THEN 'pro'
+            WHEN properties.is_diy = true THEN 'home_diy'
+            WHEN properties.contractor_stage = 'not_yet' THEN 'home_hiring_not_yet'
+            WHEN properties.contractor_stage = 'has_estimates' THEN 'home_hiring_has_estimates'
+            WHEN properties.contractor_stage = 'researching' THEN 'home_hiring_researching'
+            ELSE 'unknown'
+          END AS persona
+        FROM events
+        WHERE event IN ('email_captured', 'installer_match_clicked')
+          AND properties.tool_slug = '${TOOL_SLUG}'
+          ${dc}
+      )
+      SELECT
+        persona,
+        count(DISTINCT if(event = 'email_captured',          person_id, NULL)) AS emails,
+        count(DISTINCT if(event = 'installer_match_clicked', person_id, NULL)) AS clicks,
+        round(
+          100.0 * count(DISTINCT if(event = 'installer_match_clicked', person_id, NULL))
+          / nullIf(count(DISTINCT if(event = 'email_captured', person_id, NULL)), 0),
+          2
+        ) AS ctr_pct
+      FROM persona_derived
+      GROUP BY persona
+      ORDER BY emails DESC
+    `.trim();
+
+    const [funnelR, helpR, abR, bucketsR, personaCtaR] = await Promise.allSettled([
       runHogQL(apiKey, funnelQuery),
       runHogQL(apiKey, helpQuery),
       runHogQL(apiKey, abQuery),
       runHogQL(apiKey, bucketQuery),
+      runHogQL(apiKey, personaCtaQuery),
     ]);
 
     return json({
-      funnel:  funnelR.status  === 'fulfilled' ? funnelR.value  : { error: String(funnelR.reason) },
-      help:    helpR.status    === 'fulfilled' ? helpR.value    : { error: String(helpR.reason) },
-      ab:      abR.status      === 'fulfilled' ? abR.value      : { error: String(abR.reason) },
-      buckets: bucketsR.status === 'fulfilled' ? bucketsR.value : { error: String(bucketsR.reason) },
+      funnel:     funnelR.status     === 'fulfilled' ? funnelR.value     : { error: String(funnelR.reason) },
+      help:       helpR.status       === 'fulfilled' ? helpR.value       : { error: String(helpR.reason) },
+      ab:         abR.status         === 'fulfilled' ? abR.value         : { error: String(abR.reason) },
+      buckets:    bucketsR.status    === 'fulfilled' ? bucketsR.value    : { error: String(bucketsR.reason) },
+      personaCta: personaCtaR.status === 'fulfilled' ? personaCtaR.value : { error: String(personaCtaR.reason) },
     });
   } catch (err) {
     console.error('load-analytics error:', err);

@@ -111,6 +111,7 @@ const { toolName, toolSlug, tradeSlug, tradeName } = Astro.props;
     submit.textContent = 'Sending...';
 
     try {
+      const attrib = (window as any).__ntqAttribution || {};
       const res = await fetch('/api/email-capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -122,6 +123,16 @@ const { toolName, toolSlug, tradeSlug, tradeName } = Astro.props;
           tradeName: card.dataset.tradeName,
           marketingConsent: consent.checked,
           sourceUrl: window.location.pathname,
+          attribution: {
+            gclid: attrib.gclid,
+            utm_source: attrib.utm_source,
+            utm_medium: attrib.utm_medium,
+            utm_campaign: attrib.utm_campaign,
+            utm_term: attrib.utm_term,
+            utm_content: attrib.utm_content,
+            landing_url: attrib.landing_url,
+            referrer: attrib.referrer,
+          },
         }),
       });
 

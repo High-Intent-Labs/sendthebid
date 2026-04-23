@@ -1093,6 +1093,7 @@ const roomTypes = [
     gateSubmit.textContent = 'Sending...';
 
     try {
+      const attrib = (window as any).__ntqAttribution || {};
       const res = await fetch('/api/email-capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1106,6 +1107,16 @@ const roomTypes = [
           sourceUrl: window.location.pathname,
           segment,        // 'home' | 'customer' — captured on the segment gate
           abVariant,      // 'A' | 'B' | 'C'    — email-gate copy experiment arm
+          attribution: {
+            gclid: attrib.gclid,
+            utm_source: attrib.utm_source,
+            utm_medium: attrib.utm_medium,
+            utm_campaign: attrib.utm_campaign,
+            utm_term: attrib.utm_term,
+            utm_content: attrib.utm_content,
+            landing_url: attrib.landing_url,
+            referrer: attrib.referrer,
+          },
           calculationResults: {
             mode: 'mini-split',
             // Results

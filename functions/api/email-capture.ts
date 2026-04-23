@@ -46,7 +46,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       isDiy,            // true | false | null — Q2, home path only (null for pro)
       contractorStage,  // 'not_yet' | 'has_estimates' | 'researching' | null — Q3, is_diy=false only
       abVariant,        // 'A' | 'B' | 'C' — email-gate copy experiment arm
+      attribution,      // { gclid, utm_source, utm_medium, utm_campaign, utm_term, utm_content, landing_url, referrer }
     } = body;
+    const attrib = attribution || {};
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(JSON.stringify({ error: 'Invalid email' }), { status: 400 });
@@ -127,6 +129,20 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ab_variant: abVariant ?? null,
       is_diy: typeof isDiy === 'boolean' ? isDiy : null,
       contractor_stage: contractorStage ?? null,
+      // Migration 008: ad attribution snapshot. Frontend captures URL params on
+      // first pageview of a session (see BaseLayout.astro) and stamps them here
+      // so every email has an acquisition trail independent of GAds attribution.
+      // Pair with ad_clicks table (populated by google_ads_mcp/fetch_ad_clicks.py)
+      // to resolve gclid -> keyword/ad group server-side. See email_captures_attributed
+      // view for the joined read path.
+      gclid: attrib.gclid || null,
+      utm_source: attrib.utm_source || null,
+      utm_medium: attrib.utm_medium || null,
+      utm_campaign: attrib.utm_campaign || null,
+      utm_term: attrib.utm_term || null,
+      utm_content: attrib.utm_content || null,
+      landing_url: attrib.landing_url || null,
+      referrer: attrib.referrer || null,
     });
     if (insertError) {
       // Log-only, do NOT throw: by this point Resend has already sent

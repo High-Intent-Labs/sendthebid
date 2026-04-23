@@ -67,6 +67,39 @@ const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
     <script type="application/ld+json" set:html={JSON.stringify(s)} />
   ))}
 
+  <!-- Ad attribution capture — reads gclid/UTM params from URL on first page of a session
+       and persists to sessionStorage (first-touch). Every subsequent email capture POST
+       reads window.__ntqAttribution to stamp the Supabase row with where the user came
+       from. Must be `is:inline` so it runs before PostHog init below (so we can also
+       set it as person properties). See migration 008 for the matching Supabase cols. -->
+  <script is:inline>
+    (function(){
+      var STORE = 'ntq_attrib';
+      var keys = ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+      var params;
+      try { params = new URLSearchParams(window.location.search); } catch (e) { params = null; }
+
+      var urlHas = params ? keys.some(function(k){ return params.get(k); }) : false;
+      var stored = null;
+      try { stored = JSON.parse(sessionStorage.getItem(STORE) || 'null'); } catch (e) { stored = null; }
+
+      // Refresh attribution if this page load carries any ad params, OR if nothing is
+      // stored yet. Otherwise keep the session's first-touch attribution as-is.
+      var attrib;
+      if (urlHas || !stored) {
+        attrib = {};
+        if (params) keys.forEach(function(k){ var v = params.get(k); if (v) attrib[k] = v; });
+        attrib.landing_url = window.location.href;
+        attrib.referrer = document.referrer || null;
+        attrib.first_seen = new Date().toISOString();
+        try { sessionStorage.setItem(STORE, JSON.stringify(attrib)); } catch (e) {}
+      } else {
+        attrib = stored;
+      }
+      window.__ntqAttribution = attrib;
+    })();
+  </script>
+
   <!-- Google tag (gtag.js) - Google Ads: AW-17899660858 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17899660858"></script>
   <script is:inline>
@@ -90,6 +123,19 @@ const canonical = canonicalUrl || `${siteUrl}${currentPath}`;
   <script is:inline>
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once unregister opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group resetGroups setPersonProperties setPersonPropertiesForFlags setGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
     posthog.init('phc_CZ6VYQBtN5eNJNTH4PriDMUXyuRtprsVWB7ZrXetnkcP',{api_host:'/ingest',ui_host:'https://eu.posthog.com',person_profiles:'identified_only'});
+
+    // Register ad attribution as event properties on every event, and as person
+    // properties (first-touch) so we can segment people by acquisition source in
+    // PostHog. Uses window.posthog directly (not a cached ref) per the Apr 11 lesson.
+    (function(){
+      var a = window.__ntqAttribution;
+      if (!a || !window.posthog) return;
+      var props = {};
+      ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content','landing_url','referrer'].forEach(function(k){
+        if (a[k]) props['$initial_' + k] = a[k];
+      });
+      try { window.posthog.register(props); } catch (e) {}
+    })();
   </script>
 </body>
 </html>

@@ -7,9 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/embed-email-templates.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "embed-email-templates": "node scripts/embed-email-templates.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.2",
@@ -20,6 +22,7 @@
     "chart.js": "^4.5.1",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.0",
+    "liquidjs": "^10.20.1",
     "resend": "^6.9.4",
     "tailwindcss": "^4.2.1"
   }

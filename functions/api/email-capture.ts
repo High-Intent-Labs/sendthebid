@@ -1,6 +1,7 @@
 import type { Env } from '../_lib/env';
 import { getSupabaseAdmin } from '../_lib/supabase';
 import { getResend, getAudienceId } from '../_lib/resend';
+import { enrollPersona1 } from '../_lib/persona1-enroll';
 
 // ---------------------------------------------------------------------------
 // Basic in-memory duplicate-submission guard
@@ -162,6 +163,31 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         tool_slug: toolSlug,
         email,
       });
+    }
+
+    // 4. Enroll in the persona-1 nurture sequence if this capture qualifies.
+    //    Same non-fatal pattern as the email_captures insert above: the user-
+    //    facing flow has already succeeded (transactional email sent + contact
+    //    added). A failed enrollment is logged and does not 500 the response.
+    //    The qualifier is captured by the wizard (segment + is_diy +
+    //    contractor_stage) — see functions/_lib/persona1-enroll.ts for the
+    //    decision logic.
+    try {
+      const enrollResult = await enrollPersona1(supabase, {
+        email,
+        segment: segment ?? null,
+        isDiy: typeof isDiy === 'boolean' ? isDiy : null,
+        contractorStage: contractorStage ?? null,
+        toolSlug: toolSlug ?? null,
+      });
+      if (!enrollResult.enrolled && enrollResult.reason && enrollResult.reason !== 'not-qualified') {
+        console.error('persona1 enrollment skipped (NON-FATAL):', {
+          email,
+          reason: enrollResult.reason,
+        });
+      }
+    } catch (enrollErr) {
+      console.error('persona1 enrollment threw (NON-FATAL):', enrollErr);
     }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });

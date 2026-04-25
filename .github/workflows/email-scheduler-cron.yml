@@ -1,0 +1,51 @@
+name: Email scheduler tick
+
+# Hits /api/email-scheduler every 15 minutes to process due rows in the
+# email_sequence_queue (persona-1 nurture sequence). Auth is a bearer
+# token shared with the Cloudflare Pages env (EMAIL_SCHEDULER_SECRET).
+#
+# Why GitHub Actions and not a Cloudflare Cron Trigger? The site runs on
+# Cloudflare Pages Functions; native cron triggers there require either
+# a separate Worker or a wrangler.toml setup we don't currently use. GH
+# Actions cron is observable in the repo UI, easy to disable, and adds
+# zero new infra. Latency is ~1-2 min jitter from the schedule, which
+# is fine at our 15-min cadence.
+
+on:
+  schedule:
+    # Every 15 minutes (UTC). GitHub may delay during peak load — that's OK.
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}  # allow manual fires from the Actions tab
+
+concurrency:
+  group: email-scheduler-tick
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: POST /api/email-scheduler
+        env:
+          ENDPOINT: https://nailthequote.com/api/email-scheduler
+          SECRET: ${{ secrets.EMAIL_SCHEDULER_SECRET }}
+        run: |
+          if [ -z "$SECRET" ]; then
+            echo "EMAIL_SCHEDULER_SECRET not configured in repo secrets — skipping"
+            exit 0
+          fi
+          response=$(curl -sS --max-time 90 -w '\n%{http_code}' \
+            -X POST \
+            -H "Authorization: Bearer $SECRET" \
+            -H "Content-Type: application/json" \
+            -H "User-Agent: nailthequote-email-scheduler-cron" \
+            "$ENDPOINT")
+          status_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+          echo "HTTP $status_code"
+          echo "$body"
+          if [ "$status_code" != "200" ]; then
+            echo "::error::Scheduler returned non-200"
+            exit 1
+          fi

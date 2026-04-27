@@ -6,78 +6,69 @@
 // output. Not linked from anywhere on the site; noindex.
 import '../../styles/global.css';
 
-interface PersonaVariant {
-  id: 'not_yet' | 'has_estimates' | 'researching' | 'diy' | 'pro';
-  label: string;
-  cta: {
-    headline: string;
-    body: string;
-    button: string;
-    href: string;
-  };
-}
-
-const variants: PersonaVariant[] = [
-  {
-    id: 'not_yet',
-    label: 'Home + Hiring + Not Yet',
-    cta: {
-      headline: 'Ready to hire? Get quotes from Angi-vetted HVAC pros.',
-      body: 'Share your zip, system size, and project scope, and Angi will connect you with background-checked pros near you who can quote the job.',
-      button: 'Get My Free Quotes',
-      href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_not_yet',
-    },
-  },
-  {
-    id: 'has_estimates',
-    label: 'Home + Hiring + Has Estimates',
-    cta: {
-      headline: "Before you pick a quote, make sure it's fair.",
-      body: 'Quotes for the same HVAC job can vary a lot between contractors. The most reliable way to know yours is reasonable is to compare it with more quotes for the same job.',
-      button: 'Get More Quotes',
-      href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_has_estimates',
-    },
-  },
-  {
-    id: 'researching',
-    label: 'Home + Hiring + Researching',
-    cta: {
-      headline: 'Browse Angi-vetted HVAC pros in your area.',
-      body: "See profiles, reviews, and typical project photos from local contractors. Request a quote only when you're ready.",
-      button: 'Browse HVAC Pros',
-      href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_researching',
-    },
-  },
-  {
-    id: 'diy',
-    label: 'Home + DIY',
-    cta: {
-      headline: 'Doing it yourself? The 240V hookup still needs a licensed electrician.',
-      body: 'A new HVAC system requires a dedicated 240V circuit. Most states require a licensed electrician for the wiring, and most manufacturers require it for warranty validity.',
-      button: 'Get a Free Electrician Quote',
-      href: 'https://request.angi.com/service-request/category/12026?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_diy_electrical',
-    },
-  },
-  {
-    id: 'pro',
-    label: 'Pro / Contractor',
-    cta: {
-      headline: 'Need more customers? Join Angi as a pro.',
-      body: 'Angi is one of the largest networks connecting homeowners with local contractors. Join to receive homeowner leads in the trades and areas you serve.',
-      button: 'Become an Angi Pro',
-      href: 'https://signup.angi.com/pro?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=pro_signup',
-    },
-  },
-];
-
+// NB: getStaticPaths runs in an isolated scope at build time — frontmatter
+// top-level vars are NOT visible inside it. Define the variants array inside
+// the function and ship the per-persona data via `props` (consumed below).
 export function getStaticPaths() {
+  const variants = [
+    {
+      id: 'not_yet',
+      label: 'Home + Hiring + Not Yet',
+      cta: {
+        headline: 'Ready to hire? Get quotes from Angi-vetted HVAC pros.',
+        body: 'Share your zip, system size, and project scope, and Angi will connect you with background-checked pros near you who can quote the job.',
+        button: 'Get My Free Quotes',
+        href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_not_yet',
+      },
+    },
+    {
+      id: 'has_estimates',
+      label: 'Home + Hiring + Has Estimates',
+      cta: {
+        headline: "Before you pick a quote, make sure it's fair.",
+        body: 'Quotes for the same HVAC job can vary a lot between contractors. The most reliable way to know yours is reasonable is to compare it with more quotes for the same job.',
+        button: 'Get More Quotes',
+        href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_has_estimates',
+      },
+    },
+    {
+      id: 'researching',
+      label: 'Home + Hiring + Researching',
+      cta: {
+        headline: 'Browse Angi-vetted HVAC pros in your area.',
+        body: "See profiles, reviews, and typical project photos from local contractors. Request a quote only when you're ready.",
+        button: 'Browse HVAC Pros',
+        href: 'https://request.angi.com/service-request/category/10211?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_hiring_researching',
+      },
+    },
+    {
+      id: 'diy',
+      label: 'Home + DIY',
+      cta: {
+        headline: 'Doing it yourself? The 240V hookup still needs a licensed electrician.',
+        body: 'A new HVAC system requires a dedicated 240V circuit. Most states require a licensed electrician for the wiring, and most manufacturers require it for warranty validity.',
+        button: 'Get a Free Electrician Quote',
+        href: 'https://request.angi.com/service-request/category/12026?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=home_diy_electrical',
+      },
+    },
+    {
+      id: 'pro',
+      label: 'Pro / Contractor',
+      cta: {
+        headline: 'Need more customers? Join Angi as a pro.',
+        body: 'Angi is one of the largest networks connecting homeowners with local contractors. Join to receive homeowner leads in the trades and areas you serve.',
+        button: 'Become an Angi Pro',
+        href: 'https://signup.angi.com/pro?utm_source=nailthequote&utm_medium=calculator&utm_campaign=load_calc&utm_content=pro_signup',
+      },
+    },
+  ];
   return variants.map((v) => ({
     params: { persona: v.id },
     props: { variant: v },
   }));
 }
 
-const { variant } = Astro.props as { variant: PersonaVariant };
+const { variant } = Astro.props;
 ---
 
 <!DOCTYPE html>
